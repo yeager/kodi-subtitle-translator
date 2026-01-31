@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings version="2">
+    <!-- Allmänna inställningar -->
+    <section id="general">
+        <category id="general" label="30100">
+            <group id="1" label="30101">
+                <setting id="enabled" type="boolean" label="30102" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="auto_translate" type="boolean" label="30103" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="show_notification" type="boolean" label="30104" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="ask_before_translate" type="boolean" label="30105" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+    </section>
+
+    <!-- Språkinställningar -->
+    <section id="languages">
+        <category id="languages" label="30200">
+            <group id="1" label="30201">
+                <setting id="target_language" type="string" label="30202" default="sv">
+                    <level>0</level>
+                    <default>sv</default>
+                    <constraints>
+                        <options>
+                            <option label="Svenska">sv</option>
+                            <option label="Norska">no</option>
+                            <option label="Danska">da</option>
+                            <option label="Finska">fi</option>
+                            <option label="Tyska">de</option>
+                            <option label="Franska">fr</option>
+                            <option label="Spanska">es</option>
+                            <option label="Italienska">it</option>
+                            <option label="Portugisiska">pt</option>
+                            <option label="Polska">pl</option>
+                            <option label="Nederländska">nl</option>
+                            <option label="Ryska">ru</option>
+                            <option label="Japanska">ja</option>
+                            <option label="Kinesiska (förenklad)">zh</option>
+                            <option label="Koreanska">ko</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                </setting>
+                <setting id="source_language" type="string" label="30203" default="en">
+                    <level>0</level>
+                    <default>en</default>
+                    <constraints>
+                        <options>
+                            <option label="Engelska">en</option>
+                            <option label="Automatisk">auto</option>
+                            <option label="Svenska">sv</option>
+                            <option label="Tyska">de</option>
+                            <option label="Franska">fr</option>
+                            <option label="Spanska">es</option>
+                            <option label="Italienska">it</option>
+                            <option label="Japanska">ja</option>
+                            <option label="Kinesiska">zh</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                </setting>
+                <setting id="fallback_languages" type="string" label="30204" default="en,sv">
+                    <level>1</level>
+                    <default>en,sv</default>
+                    <control type="edit" format="string"/>
+                </setting>
+            </group>
+        </category>
+    </section>
+
+    <!-- Översättningstjänster -->
+    <section id="services">
+        <category id="services" label="30300">
+            <group id="1" label="30301">
+                <setting id="translation_service" type="string" label="30302" default="libretranslate">
+                    <level>0</level>
+                    <default>libretranslate</default>
+                    <constraints>
+                        <options>
+                            <option label="LibreTranslate (gratis)">libretranslate</option>
+                            <option label="MyMemory (gratis)">mymemory</option>
+                            <option label="DeepL (API-nyckel krävs)">deepl</option>
+                            <option label="DeepL Free (API-nyckel krävs)">deepl_free</option>
+                            <option label="Google Translate (API-nyckel krävs)">google</option>
+                            <option label="Microsoft Translator (API-nyckel krävs)">microsoft</option>
+                            <option label="Lingva (gratis)">lingva</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                </setting>
+            </group>
+
+            <!-- DeepL -->
+            <group id="2" label="30310">
+                <setting id="deepl_api_key" type="string" label="30311" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">deepl</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="deepl_free_api_key" type="string" label="30312" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">deepl_free</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="deepl_formality" type="string" label="30313" default="default">
+                    <level>1</level>
+                    <default>default</default>
+                    <constraints>
+                        <options>
+                            <option label="Standard">default</option>
+                            <option label="Formellt">more</option>
+                            <option label="Informellt">less</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- LibreTranslate -->
+            <group id="3" label="30320">
+                <setting id="libretranslate_url" type="string" label="30321" default="https://libretranslate.com">
+                    <level>1</level>
+                    <default>https://libretranslate.com</default>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="libretranslate_api_key" type="string" label="30322" default="">
+                    <level>1</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Google -->
+            <group id="4" label="30330">
+                <setting id="google_api_key" type="string" label="30331" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">google</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Microsoft -->
+            <group id="5" label="30340">
+                <setting id="microsoft_api_key" type="string" label="30341" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="microsoft_region" type="string" label="30342" default="westeurope">
+                    <level>1</level>
+                    <default>westeurope</default>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Lingva -->
+            <group id="6" label="30350">
+                <setting id="lingva_url" type="string" label="30351" default="https://lingva.ml">
+                    <level>1</level>
+                    <default>https://lingva.ml</default>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">lingva</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+        </category>
+    </section>
+
+    <!-- Undertextinställningar -->
+    <section id="subtitles">
+        <category id="subtitles" label="30400">
+            <group id="1" label="30401">
+                <setting id="subtitle_format" type="string" label="30402" default="srt">
+                    <level>0</level>
+                    <default>srt</default>
+                    <constraints>
+                        <options>
+                            <option label="SRT">srt</option>
+                            <option label="ASS/SSA">ass</option>
+                            <option label="WebVTT">vtt</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                </setting>
+                <setting id="preserve_timing" type="boolean" label="30403" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="preserve_formatting" type="boolean" label="30404" default="true">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+            <group id="2" label="30410">
+                <setting id="cache_translations" type="boolean" label="30411" default="true">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="cache_days" type="integer" label="30412" default="30">
+                    <level>1</level>
+                    <default>30</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <maximum>365</maximum>
+                        <step>1</step>
+                    </constraints>
+                    <control type="slider" format="integer"/>
+                    <dependencies>
+                        <dependency type="enable" setting="cache_translations" operator="is">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="save_alongside_video" type="boolean" label="30413" default="false">
+                    <level>1</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+    </section>
+
+    <!-- Avancerade inställningar -->
+    <section id="advanced">
+        <category id="advanced" label="30500">
+            <group id="1" label="30501">
+                <setting id="ffmpeg_path" type="string" label="30502" default="">
+                    <level>2</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                </setting>
+                <setting id="batch_size" type="integer" label="30503" default="50">
+                    <level>2</level>
+                    <default>50</default>
+                    <constraints>
+                        <minimum>10</minimum>
+                        <maximum>200</maximum>
+                        <step>10</step>
+                    </constraints>
+                    <control type="slider" format="integer"/>
+                </setting>
+                <setting id="request_timeout" type="integer" label="30504" default="30">
+                    <level>2</level>
+                    <default>30</default>
+                    <constraints>
+                        <minimum>10</minimum>
+                        <maximum>120</maximum>
+                        <step>5</step>
+                    </constraints>
+                    <control type="slider" format="integer"/>
+                </setting>
+                <setting id="debug_logging" type="boolean" label="30505" default="false">
+                    <level>2</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>
