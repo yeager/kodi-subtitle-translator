@@ -365,6 +365,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             config['region'] = get_setting('microsoft_region')
         elif self.translation_service == 'lingva':
             config['url'] = get_setting('lingva_url')
+        elif self.translation_service == 'openai':
+            config['api_key'] = get_setting('openai_api_key')
+            config['model'] = get_setting('openai_model')
+            base_url = get_setting('openai_base_url')
+            if base_url:
+                config['base_url'] = base_url
+        elif self.translation_service == 'anthropic':
+            config['api_key'] = get_setting('anthropic_api_key')
+            config['model'] = get_setting('anthropic_model')
+        elif self.translation_service == 'argos':
+            config['package_path'] = get_setting('argos_package_path')
         
         return config
     

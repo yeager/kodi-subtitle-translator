@@ -1,17 +1,27 @@
-# Kodi Subtitle Translator language file
+# Kodi Media Center language file
+# Addon Name: Subtitle Translator
+# Addon id: service.subtitletranslator
+# Addon Provider: Daniel Nylander
 msgid ""
 msgstr ""
+"Project-Id-Version: service.subtitletranslator\n"
+"Report-Msgid-Bugs-To: https://github.com/yeager\n"
+"POT-Creation-Date: 2026-01-31\n"
+"PO-Revision-Date: 2026-01-31\n"
+"Last-Translator: Daniel Nylander\n"
+"Language-Team: English\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en_GB\n"
 
-# General settings
+# Section labels
 msgctxt "#30100"
 msgid "General"
 msgstr ""
 
 msgctxt "#30101"
-msgid "Basic Settings"
+msgid "Basic settings"
 msgstr ""
 
 msgctxt "#30102"
@@ -23,7 +33,7 @@ msgid "Auto-translate when subtitle is missing"
 msgstr ""
 
 msgctxt "#30104"
-msgid "Show notification when translating"
+msgid "Show notifications"
 msgstr ""
 
 msgctxt "#30105"
@@ -36,7 +46,7 @@ msgid "Languages"
 msgstr ""
 
 msgctxt "#30201"
-msgid "Language Settings"
+msgid "Language preferences"
 msgstr ""
 
 msgctxt "#30202"
@@ -48,76 +58,81 @@ msgid "Source language"
 msgstr ""
 
 msgctxt "#30204"
-msgid "Fallback languages (comma-separated)"
+msgid "Fallback languages"
 msgstr ""
 
-# Translation services
+# Service settings
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr ""
 
 msgctxt "#30301"
-msgid "Service Selection"
+msgid "Service selection"
 msgstr ""
 
 msgctxt "#30302"
 msgid "Translation service"
 msgstr ""
 
+# DeepL
 msgctxt "#30310"
 msgid "DeepL Settings"
 msgstr ""
 
 msgctxt "#30311"
-msgid "DeepL API Key (Pro)"
+msgid "DeepL API key"
 msgstr ""
 
 msgctxt "#30312"
-msgid "DeepL API Key (Free)"
+msgid "DeepL Free API key"
 msgstr ""
 
 msgctxt "#30313"
 msgid "Formality"
 msgstr ""
 
+# LibreTranslate
 msgctxt "#30320"
 msgid "LibreTranslate Settings"
 msgstr ""
 
 msgctxt "#30321"
-msgid "LibreTranslate URL"
+msgid "Server URL"
 msgstr ""
 
 msgctxt "#30322"
-msgid "LibreTranslate API Key (optional)"
+msgid "API key (optional)"
 msgstr ""
 
+# Google
 msgctxt "#30330"
 msgid "Google Translate Settings"
 msgstr ""
 
 msgctxt "#30331"
-msgid "Google Cloud API Key"
+msgid "Google Cloud API key"
 msgstr ""
 
+# Microsoft
 msgctxt "#30340"
 msgid "Microsoft Translator Settings"
 msgstr ""
 
 msgctxt "#30341"
-msgid "Azure API Key"
+msgid "Azure API key"
 msgstr ""
 
 msgctxt "#30342"
-msgid "Azure Region"
+msgid "Azure region"
 msgstr ""
 
+# Lingva
 msgctxt "#30350"
 msgid "Lingva Settings"
 msgstr ""
 
 msgctxt "#30351"
-msgid "Lingva Instance URL"
+msgid "Lingva server URL"
 msgstr ""
 
 # Subtitle settings
@@ -126,7 +141,7 @@ msgid "Subtitles"
 msgstr ""
 
 msgctxt "#30401"
-msgid "Subtitle Format"
+msgid "Subtitle output"
 msgstr ""
 
 msgctxt "#30402"
@@ -134,11 +149,11 @@ msgid "Output format"
 msgstr ""
 
 msgctxt "#30403"
-msgid "Preserve timing"
+msgid "Preserve original timing"
 msgstr ""
 
 msgctxt "#30404"
-msgid "Preserve formatting (colors, styles)"
+msgid "Preserve formatting (ASS/SSA)"
 msgstr ""
 
 msgctxt "#30410"
@@ -150,11 +165,11 @@ msgid "Cache translated subtitles"
 msgstr ""
 
 msgctxt "#30412"
-msgid "Cache expiry (days)"
+msgid "Cache duration (days)"
 msgstr ""
 
 msgctxt "#30413"
-msgid "Save subtitle alongside video file"
+msgid "Save subtitle alongside video"
 msgstr ""
 
 # Advanced settings
@@ -163,7 +178,7 @@ msgid "Advanced"
 msgstr ""
 
 msgctxt "#30501"
-msgid "Advanced Settings"
+msgid "Advanced settings"
 msgstr ""
 
 msgctxt "#30502"
@@ -171,7 +186,7 @@ msgid "FFmpeg path (leave empty for auto-detect)"
 msgstr ""
 
 msgctxt "#30503"
-msgid "Batch size (lines per request)"
+msgid "Batch size"
 msgstr ""
 
 msgctxt "#30504"
@@ -188,7 +203,7 @@ msgid "Translating subtitles..."
 msgstr ""
 
 msgctxt "#30601"
-msgid "Translation complete"
+msgid "Translation complete!"
 msgstr ""
 
 msgctxt "#30602"
@@ -200,13 +215,13 @@ msgid "No embedded subtitles found"
 msgstr ""
 
 msgctxt "#30604"
-msgid "Subtitle already available in target language"
+msgid "Subtitle already available in your language"
 msgstr ""
 
 msgctxt "#30605"
-msgid "Translate subtitle?"
+msgid "Using cached translation"
 msgstr ""
 
 msgctxt "#30606"
-msgid "No subtitle available in {0}. Translate from {1}?"
+msgid "Translate subtitles to {0} from {1}?"
 msgstr ""

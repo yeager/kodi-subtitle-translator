@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="200" cy="200" r="300" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.1"/>
+  <circle cx="1720" cy="880" r="400" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.1"/>
+  <circle cx="960" cy="540" r="500" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.05"/>
+  
+  <!-- Subtitle representation -->
+  <g transform="translate(460, 400)">
+    <!-- Source subtitles -->
+    <rect x="0" y="0" width="400" height="40" rx="8" fill="#334155" opacity="0.8"/>
+    <rect x="0" y="60" width="320" height="40" rx="8" fill="#334155" opacity="0.8"/>
+    <rect x="0" y="120" width="360" height="40" rx="8" fill="#334155" opacity="0.8"/>
+    
+    <!-- Arrow -->
+    <g fill="url(#accentGrad)">
+      <path d="M440 80 L540 80 L540 50 L600 100 L540 150 L540 120 L440 120 Z"/>
+    </g>
+    
+    <!-- Translated subtitles -->
+    <rect x="640" y="0" width="400" height="40" rx="8" fill="url(#accentGrad)"/>
+    <rect x="640" y="60" width="320" height="40" rx="8" fill="url(#accentGrad)"/>
+    <rect x="640" y="120" width="360" height="40" rx="8" fill="url(#accentGrad)"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="960" y="750" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#ffffff" text-anchor="middle">Subtitle Translator</text>
+  <text x="960" y="810" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle">Automatic subtitle translation for Kodi</text>
+</svg>

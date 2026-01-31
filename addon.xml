@@ -2,7 +2,7 @@
 <addon id="service.subtitletranslator"
        name="Subtitle Translator"
        version="1.0.0"
-       provider-name="OpenClaw">
+       provider-name="Daniel Nylander">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.22.0"/>

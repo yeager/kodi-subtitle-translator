@@ -92,13 +92,16 @@
                     <default>libretranslate</default>
                     <constraints>
                         <options>
-                            <option label="LibreTranslate (gratis)">libretranslate</option>
-                            <option label="MyMemory (gratis)">mymemory</option>
-                            <option label="DeepL (API-nyckel krävs)">deepl</option>
-                            <option label="DeepL Free (API-nyckel krävs)">deepl_free</option>
-                            <option label="Google Translate (API-nyckel krävs)">google</option>
-                            <option label="Microsoft Translator (API-nyckel krävs)">microsoft</option>
-                            <option label="Lingva (gratis)">lingva</option>
+                            <option label="LibreTranslate (free, self-hostable)">libretranslate</option>
+                            <option label="MyMemory (free, 1000 words/day)">mymemory</option>
+                            <option label="Lingva Translate (free)">lingva</option>
+                            <option label="Argos Translate (offline, local)">argos</option>
+                            <option label="DeepL Pro (API key required)">deepl</option>
+                            <option label="DeepL Free (API key required)">deepl_free</option>
+                            <option label="Google Cloud Translation (API key required)">google</option>
+                            <option label="Microsoft Translator (API key required)">microsoft</option>
+                            <option label="OpenAI GPT (API key required)">openai</option>
+                            <option label="Anthropic Claude (API key required)">anthropic</option>
                         </options>
                     </constraints>
                     <control type="list" format="string"/>
@@ -200,6 +203,81 @@
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">lingva</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Argos Translate (offline) -->
+            <group id="7" label="30360">
+                <setting id="argos_package_path" type="string" label="30361" default="">
+                    <level>1</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">argos</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- OpenAI -->
+            <group id="8" label="30370">
+                <setting id="openai_api_key" type="string" label="30371" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="openai_model" type="string" label="30372" default="gpt-4o-mini">
+                    <level>1</level>
+                    <default>gpt-4o-mini</default>
+                    <constraints>
+                        <options>
+                            <option label="GPT-4o Mini (fast, cheap)">gpt-4o-mini</option>
+                            <option label="GPT-4o (high quality)">gpt-4o</option>
+                            <option label="GPT-4 Turbo">gpt-4-turbo</option>
+                            <option label="GPT-3.5 Turbo (legacy)">gpt-3.5-turbo</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="openai_base_url" type="string" label="30373" default="">
+                    <level>2</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Anthropic Claude -->
+            <group id="9" label="30380">
+                <setting id="anthropic_api_key" type="string" label="30381" default="">
+                    <level>0</level>
+                    <default/>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="anthropic_model" type="string" label="30382" default="claude-3-haiku-20240307">
+                    <level>1</level>
+                    <default>claude-3-haiku-20240307</default>
+                    <constraints>
+                        <options>
+                            <option label="Claude 3 Haiku (fast, cheap)">claude-3-haiku-20240307</option>
+                            <option label="Claude 3.5 Sonnet (balanced)">claude-3-5-sonnet-20241022</option>
+                            <option label="Claude 3 Opus (high quality)">claude-3-opus-20240229</option>
+                        </options>
+                    </constraints>
+                    <control type="list" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
                     </dependencies>
                 </setting>
             </group>

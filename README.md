@@ -1,128 +1,206 @@
 # Subtitle Translator for Kodi
 
-Automatisk översättning av inbäddade undertexter när ingen undertext finns tillgänglig på ditt språk.
+[![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
 
-## Funktioner
+Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
-- 🎬 **Automatisk detektering** - Upptäcker när undertext saknas på ditt föredragna språk
-- 📥 **Extrahera inbäddade undertexter** - Använder FFmpeg för att extrahera SRT, ASS, SSA
-- 🌐 **Flera översättningstjänster**:
-  - DeepL (Pro och Free) - Bäst kvalitet
-  - LibreTranslate - Gratis och öppen källkod
-  - MyMemory - Gratis med begränsningar
-  - Google Cloud Translation - Kräver API-nyckel
-  - Microsoft Azure Translator - Kräver API-nyckel
-  - Lingva - Gratis Google Translate-frontend
-- 💾 **Caching** - Sparar översatta undertexter för snabb återanvändning
-- ⚙️ **Konfigurerbart** - Välj språk, tjänster, format och mycket mer
+## ✨ Features
 
-## Installation
+- **Automatic Detection** – Detects when no subtitle is available in your preferred language
+- **Embedded Subtitle Extraction** – Extracts subtitles from MKV, MP4, and other containers using FFmpeg
+- **Multiple Translation Services** – Choose from free and paid services:
+  - 🆓 **LibreTranslate** – Free, open-source, self-hostable
+  - 🆓 **MyMemory** – Free tier available (1000 words/day)
+  - 🆓 **Lingva Translate** – Free Google Translate frontend
+  - 💳 **DeepL** – High-quality translations (API key required)
+  - 💳 **DeepL Free** – Free tier with API key
+  - 💳 **Google Cloud Translation** – API key required
+  - 💳 **Microsoft Translator** – API key required
+- **Smart Caching** – Translated subtitles are cached to avoid re-translating
+- **Multiple Output Formats** – SRT, ASS/SSA, WebVTT
+- **Preserve Styling** – Keeps original timing and formatting (ASS/SSA)
+- **20+ Languages Supported** – Swedish, Norwegian, Danish, Finnish, German, French, Spanish, Italian, Portuguese, Polish, Dutch, Russian, Japanese, Chinese, Korean, and more
 
-### Manuell installation
+## 📦 Installation
 
-1. Ladda ner eller klona detta repository
-2. Skapa en ZIP-fil av mappen `service.subtitletranslator`
-3. I Kodi: Inställningar → Add-ons → Installera från ZIP-fil
-4. Välj ZIP-filen
+### From ZIP file
+1. Download the latest release ZIP
+2. In Kodi: **Settings → Add-ons → Install from zip file**
+3. Select the downloaded ZIP file
+4. The addon will be installed and started automatically
 
-### Krav
+### Manual Installation
+1. Clone or download this repository
+2. Copy the `service.subtitletranslator` folder to your Kodi addons directory:
+   - **Linux:** `~/.kodi/addons/`
+   - **Windows:** `%APPDATA%\Kodi\addons\`
+   - **macOS:** `~/Library/Application Support/Kodi/addons/`
+3. Restart Kodi
 
-- Kodi 19 (Matrix) eller senare
-- FFmpeg installerat på systemet (för extraktion av inbäddade undertexter)
-- Internetanslutning för översättning
+## ⚙️ Configuration
 
-## Konfiguration
+Access settings via **Settings → Add-ons → My add-ons → Services → Subtitle Translator → Configure**
 
-Gå till Inställningar → Add-ons → Subtitle Translator → Konfigurera
+### General Settings
 
-### Allmänt
-- **Aktivera tillägg** - Slå på/av tillägget
-- **Automatisk översättning** - Översätt automatiskt när undertext saknas
-- **Visa notifikation** - Visa meddelande under översättning
-- **Fråga innan översättning** - Bekräfta innan översättning startar
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Enable addon | Turn the service on/off | On |
+| Auto-translate | Automatically translate when subtitle is missing | On |
+| Show notifications | Display progress notifications | On |
+| Ask before translating | Prompt before starting translation | On |
 
-### Språk
-- **Målspråk** - Språket du vill ha undertexterna på (standard: Svenska)
-- **Källspråk** - Språket att översätta från (standard: Engelska)
+### Language Settings
 
-### Översättningstjänster
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Target language | Language to translate subtitles to | Swedish |
+| Source language | Preferred source language (or Auto) | English |
+| Fallback languages | Comma-separated list of fallback languages | en,sv |
 
-#### LibreTranslate (Gratis)
-Standard och rekommenderat för de flesta. Använder publika instanser.
+### Translation Service Configuration
 
-#### DeepL (Bäst kvalitet)
-1. Skapa konto på [deepl.com](https://www.deepl.com/)
-2. Kopiera din API-nyckel
-3. Klistra in i inställningarna
+#### Free Services (No API Key Required)
 
-#### MyMemory (Gratis)
-Fungerar utan konfiguration men har dagliga begränsningar.
+**LibreTranslate**
+```
+Service: LibreTranslate
+URL: https://libretranslate.com (or self-hosted instance)
+API Key: (optional, for private instances)
+```
 
-#### Google Cloud Translation
-1. Skapa projekt i [Google Cloud Console](https://console.cloud.google.com/)
-2. Aktivera Translation API
-3. Skapa API-nyckel
+**MyMemory**
+```
+Service: MyMemory
+No configuration required (1000 words/day free)
+```
 
-#### Microsoft Translator
-1. Skapa resurs i [Azure Portal](https://portal.azure.com/)
-2. Kopiera API-nyckel och region
+**Lingva Translate**
+```
+Service: Lingva
+URL: https://lingva.ml (or alternative instance)
+```
 
-### Undertexter
-- **Utdataformat** - SRT, ASS eller WebVTT
-- **Cachelagra översättningar** - Spara för återanvändning
-- **Spara bredvid video** - Lägg undertexten i samma mapp som videon
+#### Paid Services (API Key Required)
 
-### Avancerat
-- **FFmpeg-sökväg** - Ange om auto-detect inte hittar FFmpeg
-- **Batch-storlek** - Antal rader per översättningsbegäran
-- **Timeout** - Sekunder innan begäran avbryts
+**DeepL**
+```
+Service: DeepL / DeepL Free
+API Key: Your DeepL API key
+Formality: Default / Formal / Informal
+```
+Get your API key at: https://www.deepl.com/pro-api
 
-## Språkkoder
+**Google Cloud Translation**
+```
+Service: Google Translate
+API Key: Your Google Cloud API key
+```
+Get your API key at: https://cloud.google.com/translate
 
-| Kod | Språk |
-|-----|-------|
-| sv | Svenska |
-| en | Engelska |
-| no | Norska |
-| da | Danska |
-| fi | Finska |
-| de | Tyska |
-| fr | Franska |
-| es | Spanska |
-| it | Italienska |
-| nl | Nederländska |
-| pl | Polska |
-| pt | Portugisiska |
-| ru | Ryska |
-| ja | Japanska |
-| zh | Kinesiska |
-| ko | Koreanska |
+**Microsoft Translator**
+```
+Service: Microsoft Translator
+API Key: Your Azure subscription key
+Region: westeurope (or your region)
+```
+Get your API key at: https://azure.microsoft.com/services/cognitive-services/translator/
 
-## Felsökning
+### Subtitle Settings
 
-### "No embedded subtitles found"
-- Videon innehåller inga inbäddade undertexter
-- Testa att ladda ner extern undertext istället
+| Setting | Description | Default |
+|---------|-------------|---------|
+| Output format | SRT, ASS/SSA, or WebVTT | SRT |
+| Preserve timing | Keep original subtitle timing | On |
+| Preserve formatting | Keep styling (ASS/SSA only) | On |
+| Cache translations | Save translated subtitles for reuse | On |
+| Cache duration | Days to keep cached translations | 30 |
+| Save alongside video | Save subtitle file next to video | Off |
 
-### "Translation failed"
-- Kontrollera internetanslutningen
-- Verifiera API-nyckel om du använder betaltjänst
-- Prova en annan översättningstjänst
+### Advanced Settings
 
-### FFmpeg hittades inte
-- Installera FFmpeg: `brew install ffmpeg` (macOS) eller `apt install ffmpeg` (Linux)
-- Eller ange sökvägen manuellt i Avancerade inställningar
+| Setting | Description | Default |
+|---------|-------------|---------|
+| FFmpeg path | Custom FFmpeg binary path | (auto-detect) |
+| Batch size | Subtitles per translation request | 50 |
+| Request timeout | API timeout in seconds | 30 |
+| Debug logging | Enable verbose logging | Off |
 
-## Licens
+## 🔧 Requirements
 
-MIT License
+- **Kodi 19 (Matrix)** or later
+- **FFmpeg** – For extracting embedded subtitles
+  - Usually pre-installed on Linux
+  - Windows: [Download FFmpeg](https://ffmpeg.org/download.html)
+  - macOS: `brew install ffmpeg`
+- **Internet connection** – For translation API access
 
-## Bidra
+## 🌐 Supported Languages
 
-Pull requests välkomnas! Se [CONTRIBUTING.md](CONTRIBUTING.md) för riktlinjer.
+| Code | Language | Code | Language |
+|------|----------|------|----------|
+| sv | Swedish | pl | Polish |
+| no | Norwegian | nl | Dutch |
+| da | Danish | ru | Russian |
+| fi | Finnish | ja | Japanese |
+| de | German | zh | Chinese |
+| fr | French | ko | Korean |
+| es | Spanish | ar | Arabic |
+| it | Italian | tr | Turkish |
+| pt | Portuguese | hi | Hindi |
+| en | English | uk | Ukrainian |
 
-## Tack till
+## 📁 File Structure
 
-- [FFmpeg](https://ffmpeg.org/) för undertextextraktion
-- [DeepL](https://www.deepl.com/) för fantastisk översättningskvalitet
-- [LibreTranslate](https://libretranslate.com/) för gratis och öppen översättning
+```
+service.subtitletranslator/
+├── addon.xml              # Addon metadata
+├── service.py             # Main service script
+├── LICENSE                # MIT License
+├── README.md              # This file
+├── lib/
+│   ├── __init__.py
+│   ├── subtitle_extractor.py  # FFmpeg integration
+│   ├── subtitle_parser.py     # SRT/ASS/VTT parsing
+│   └── translators.py         # Translation service adapters
+└── resources/
+    ├── icon.png           # Addon icon (512x512)
+    ├── fanart.jpg         # Background image (1920x1080)
+    ├── settings.xml       # Settings definition
+    └── language/
+        ├── resource.language.en_gb/
+        │   └── strings.po
+        └── resource.language.sv_se/
+            └── strings.po
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Add support for more translation services
+- Improve translations
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Daniel Nylander**
+- Website: [danielnylander.se](https://danielnylander.se)
+- GitHub: [@yeager](https://github.com/yeager)
+
+## 🙏 Credits
+
+- [Kodi](https://kodi.tv/) – The ultimate entertainment center
+- [FFmpeg](https://ffmpeg.org/) – Multimedia framework
+- [LibreTranslate](https://libretranslate.com/) – Open-source translation API
+- [DeepL](https://www.deepl.com/) – High-quality neural machine translation
+
+---
+
+**Enjoy your translated subtitles! 🎬**

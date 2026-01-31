@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="url(#bgGrad)"/>
+  
+  <!-- Subtitle lines (source) -->
+  <g opacity="0.5">
+    <rect x="60" y="120" width="200" height="24" rx="6" fill="#64748b"/>
+    <rect x="60" y="160" width="160" height="24" rx="6" fill="#64748b"/>
+    <rect x="60" y="200" width="180" height="24" rx="6" fill="#64748b"/>
+  </g>
+  
+  <!-- Arrow -->
+  <g fill="url(#accentGrad)">
+    <path d="M240 260 L300 260 L300 240 L340 270 L300 300 L300 280 L240 280 Z"/>
+  </g>
+  
+  <!-- Subtitle lines (translated) -->
+  <g>
+    <rect x="252" y="320" width="200" height="24" rx="6" fill="url(#textGrad)"/>
+    <rect x="252" y="360" width="160" height="24" rx="6" fill="url(#textGrad)"/>
+    <rect x="252" y="400" width="180" height="24" rx="6" fill="url(#textGrad)"/>
+  </g>
+  
+  <!-- Globe/translate symbol -->
+  <circle cx="400" cy="112" r="50" fill="none" stroke="url(#accentGrad)" stroke-width="6"/>
+  <ellipse cx="400" cy="112" rx="25" ry="50" fill="none" stroke="url(#accentGrad)" stroke-width="4"/>
+  <line x1="350" y1="112" x2="450" y2="112" stroke="url(#accentGrad)" stroke-width="4"/>
+  <line x1="400" y1="62" x2="400" y2="162" stroke="url(#accentGrad)" stroke-width="4"/>
+  
+  <!-- Language letters -->
+  <text x="80" y="95" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#64748b">EN</text>
+  <text x="360" y="450" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="url(#accentGrad)">SV</text>
+</svg>

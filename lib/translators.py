@@ -28,6 +28,9 @@ def get_translator(service_name, config):
         'google': GoogleTranslator,
         'microsoft': MicrosoftTranslator,
         'lingva': LingvaTranslator,
+        'openai': OpenAITranslator,
+        'anthropic': AnthropicTranslator,
+        'argos': ArgosTranslator,
     }
     
     translator_class = translators.get(service_name, LibreTranslateTranslator)
@@ -307,3 +310,200 @@ class LingvaTranslator(BaseTranslator):
         except Exception as e:
             self._log(f"Lingva error: {e}", xbmc.LOGERROR)
             return text
+
+
+class OpenAITranslator(BaseTranslator):
+    """OpenAI GPT Translation (high-quality, context-aware)."""
+    
+    def __init__(self, config):
+        super().__init__(config)
+        self.api_key = config.get('api_key', '')
+        self.model = config.get('model', 'gpt-4o-mini')
+        self.base_url = config.get('base_url', 'https://api.openai.com/v1').rstrip('/')
+    
+    def translate(self, text, source_lang, target_lang):
+        """Translate text using OpenAI GPT."""
+        if not self.api_key:
+            raise ValueError("OpenAI API key required")
+        
+        result = self.translate_batch([text], source_lang, target_lang)
+        return result[0] if result else text
+    
+    def translate_batch(self, texts, source_lang, target_lang):
+        """Translate multiple texts using OpenAI."""
+        if not self.api_key:
+            raise ValueError("OpenAI API key required")
+        
+        target_name = self._get_language_name(target_lang)
+        source_name = self._get_language_name(source_lang) if source_lang != 'auto' else 'the source language'
+        
+        # Combine texts for efficient translation
+        combined = '\n---SUBTITLE_BREAK---\n'.join(texts)
+        
+        system_prompt = f"""You are a professional subtitle translator. Translate the following subtitles from {source_name} to {target_name}.
+
+Rules:
+- Preserve the exact number of subtitle entries (separated by ---SUBTITLE_BREAK---)
+- Keep translations natural and colloquial, suitable for subtitles
+- Maintain the same tone and style as the original
+- Keep translations concise (subtitles have limited space)
+- Do not add explanations or notes
+- Only output the translations, nothing else"""
+        
+        data = {
+            'model': self.model,
+            'messages': [
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': combined}
+            ],
+            'temperature': 0.3
+        }
+        
+        headers = {
+            'Authorization': f'Bearer {self.api_key}'
+        }
+        
+        try:
+            response = self._request(f'{self.base_url}/chat/completions', data, headers)
+            translated = response['choices'][0]['message']['content']
+            return translated.split('\n---SUBTITLE_BREAK---\n')
+        except Exception as e:
+            self._log(f"OpenAI error: {e}", xbmc.LOGERROR)
+            return texts
+    
+    def _get_language_name(self, code):
+        """Get full language name from code."""
+        names = {
+            'sv': 'Swedish', 'en': 'English', 'de': 'German', 'fr': 'French',
+            'es': 'Spanish', 'it': 'Italian', 'no': 'Norwegian', 'da': 'Danish',
+            'fi': 'Finnish', 'nl': 'Dutch', 'pl': 'Polish', 'pt': 'Portuguese',
+            'ru': 'Russian', 'ja': 'Japanese', 'zh': 'Chinese', 'ko': 'Korean',
+            'ar': 'Arabic', 'tr': 'Turkish', 'hi': 'Hindi', 'uk': 'Ukrainian'
+        }
+        return names.get(code, code)
+
+
+class AnthropicTranslator(BaseTranslator):
+    """Anthropic Claude Translation (high-quality, context-aware)."""
+    
+    def __init__(self, config):
+        super().__init__(config)
+        self.api_key = config.get('api_key', '')
+        self.model = config.get('model', 'claude-3-haiku-20240307')
+        self.base_url = 'https://api.anthropic.com/v1'
+    
+    def translate(self, text, source_lang, target_lang):
+        """Translate text using Claude."""
+        if not self.api_key:
+            raise ValueError("Anthropic API key required")
+        
+        result = self.translate_batch([text], source_lang, target_lang)
+        return result[0] if result else text
+    
+    def translate_batch(self, texts, source_lang, target_lang):
+        """Translate multiple texts using Claude."""
+        if not self.api_key:
+            raise ValueError("Anthropic API key required")
+        
+        target_name = self._get_language_name(target_lang)
+        source_name = self._get_language_name(source_lang) if source_lang != 'auto' else 'the source language'
+        
+        combined = '\n---SUBTITLE_BREAK---\n'.join(texts)
+        
+        system_prompt = f"""You are a professional subtitle translator. Translate subtitles from {source_name} to {target_name}.
+
+Rules:
+- Preserve the exact number of subtitle entries (separated by ---SUBTITLE_BREAK---)
+- Keep translations natural and colloquial
+- Maintain tone and style
+- Keep translations concise for subtitle format
+- Output only translations, no explanations"""
+        
+        data = {
+            'model': self.model,
+            'max_tokens': 4096,
+            'system': system_prompt,
+            'messages': [
+                {'role': 'user', 'content': combined}
+            ]
+        }
+        
+        headers = {
+            'x-api-key': self.api_key,
+            'anthropic-version': '2023-06-01'
+        }
+        
+        try:
+            response = self._request(f'{self.base_url}/messages', data, headers)
+            translated = response['content'][0]['text']
+            return translated.split('\n---SUBTITLE_BREAK---\n')
+        except Exception as e:
+            self._log(f"Anthropic error: {e}", xbmc.LOGERROR)
+            return texts
+    
+    def _get_language_name(self, code):
+        """Get full language name from code."""
+        names = {
+            'sv': 'Swedish', 'en': 'English', 'de': 'German', 'fr': 'French',
+            'es': 'Spanish', 'it': 'Italian', 'no': 'Norwegian', 'da': 'Danish',
+            'fi': 'Finnish', 'nl': 'Dutch', 'pl': 'Polish', 'pt': 'Portuguese',
+            'ru': 'Russian', 'ja': 'Japanese', 'zh': 'Chinese', 'ko': 'Korean',
+            'ar': 'Arabic', 'tr': 'Turkish', 'hi': 'Hindi', 'uk': 'Ukrainian'
+        }
+        return names.get(code, code)
+
+
+class ArgosTranslator(BaseTranslator):
+    """Argos Translate (offline, local translation using neural models)."""
+    
+    def __init__(self, config):
+        super().__init__(config)
+        self.package_path = config.get('package_path', '')
+        self._argos_available = None
+    
+    def _check_argos(self):
+        """Check if Argos Translate is available."""
+        if self._argos_available is not None:
+            return self._argos_available
+        
+        try:
+            import argostranslate.package
+            import argostranslate.translate
+            self._argos_available = True
+        except ImportError:
+            self._argos_available = False
+            self._log("Argos Translate not installed. Install with: pip install argostranslate", xbmc.LOGERROR)
+        
+        return self._argos_available
+    
+    def translate(self, text, source_lang, target_lang):
+        """Translate text using Argos Translate (offline)."""
+        if not self._check_argos():
+            return text
+        
+        try:
+            import argostranslate.translate
+            
+            # Get installed languages
+            installed_languages = argostranslate.translate.get_installed_languages()
+            source_l = next((l for l in installed_languages if l.code == source_lang), None)
+            target_l = next((l for l in installed_languages if l.code == target_lang), None)
+            
+            if not source_l or not target_l:
+                self._log(f"Language pair {source_lang}->{target_lang} not installed", xbmc.LOGERROR)
+                return text
+            
+            translation = source_l.get_translation(target_l)
+            if translation:
+                return translation.translate(text)
+            else:
+                self._log(f"No translation available for {source_lang}->{target_lang}", xbmc.LOGERROR)
+                return text
+                
+        except Exception as e:
+            self._log(f"Argos error: {e}", xbmc.LOGERROR)
+            return text
+    
+    def translate_batch(self, texts, source_lang, target_lang):
+        """Translate multiple texts using Argos."""
+        return [self.translate(text, source_lang, target_lang) for text in texts]

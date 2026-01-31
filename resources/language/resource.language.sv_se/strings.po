@@ -1,16 +1,27 @@
-# Kodi Subtitle Translator - Svenska
+# Kodi Media Center language file
+# Addon Name: Subtitle Translator
+# Addon id: service.subtitletranslator
+# Addon Provider: Daniel Nylander
 msgid ""
 msgstr ""
+"Project-Id-Version: service.subtitletranslator\n"
+"Report-Msgid-Bugs-To: https://github.com/yeager\n"
+"POT-Creation-Date: 2026-01-31\n"
+"PO-Revision-Date: 2026-01-31\n"
+"Last-Translator: Daniel Nylander\n"
+"Language-Team: Swedish\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv_SE\n"
 
+# Section labels
 msgctxt "#30100"
 msgid "General"
 msgstr "Allmänt"
 
 msgctxt "#30101"
-msgid "Basic Settings"
+msgid "Basic settings"
 msgstr "Grundinställningar"
 
 msgctxt "#30102"
@@ -22,19 +33,20 @@ msgid "Auto-translate when subtitle is missing"
 msgstr "Översätt automatiskt när undertext saknas"
 
 msgctxt "#30104"
-msgid "Show notification when translating"
-msgstr "Visa meddelande vid översättning"
+msgid "Show notifications"
+msgstr "Visa meddelanden"
 
 msgctxt "#30105"
 msgid "Ask before translating"
 msgstr "Fråga innan översättning"
 
+# Language settings
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Språk"
 
 msgctxt "#30201"
-msgid "Language Settings"
+msgid "Language preferences"
 msgstr "Språkinställningar"
 
 msgctxt "#30202"
@@ -46,96 +58,103 @@ msgid "Source language"
 msgstr "Källspråk"
 
 msgctxt "#30204"
-msgid "Fallback languages (comma-separated)"
-msgstr "Reservspråk (kommaseparerade)"
+msgid "Fallback languages"
+msgstr "Reservspråk"
 
+# Service settings
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Översättningstjänster"
 
 msgctxt "#30301"
-msgid "Service Selection"
+msgid "Service selection"
 msgstr "Val av tjänst"
 
 msgctxt "#30302"
 msgid "Translation service"
 msgstr "Översättningstjänst"
 
+# DeepL
 msgctxt "#30310"
 msgid "DeepL Settings"
 msgstr "DeepL-inställningar"
 
 msgctxt "#30311"
-msgid "DeepL API Key (Pro)"
-msgstr "DeepL API-nyckel (Pro)"
+msgid "DeepL API key"
+msgstr "DeepL API-nyckel"
 
 msgctxt "#30312"
-msgid "DeepL API Key (Free)"
-msgstr "DeepL API-nyckel (Free)"
+msgid "DeepL Free API key"
+msgstr "DeepL Free API-nyckel"
 
 msgctxt "#30313"
 msgid "Formality"
 msgstr "Formalitet"
 
+# LibreTranslate
 msgctxt "#30320"
 msgid "LibreTranslate Settings"
 msgstr "LibreTranslate-inställningar"
 
 msgctxt "#30321"
-msgid "LibreTranslate URL"
-msgstr "LibreTranslate-URL"
+msgid "Server URL"
+msgstr "Server-URL"
 
 msgctxt "#30322"
-msgid "LibreTranslate API Key (optional)"
-msgstr "LibreTranslate API-nyckel (valfri)"
+msgid "API key (optional)"
+msgstr "API-nyckel (valfritt)"
 
+# Google
 msgctxt "#30330"
 msgid "Google Translate Settings"
 msgstr "Google Translate-inställningar"
 
 msgctxt "#30331"
-msgid "Google Cloud API Key"
+msgid "Google Cloud API key"
 msgstr "Google Cloud API-nyckel"
 
+# Microsoft
 msgctxt "#30340"
 msgid "Microsoft Translator Settings"
 msgstr "Microsoft Translator-inställningar"
 
 msgctxt "#30341"
-msgid "Azure API Key"
+msgid "Azure API key"
 msgstr "Azure API-nyckel"
 
 msgctxt "#30342"
-msgid "Azure Region"
+msgid "Azure region"
 msgstr "Azure-region"
 
+# Lingva
 msgctxt "#30350"
 msgid "Lingva Settings"
 msgstr "Lingva-inställningar"
 
 msgctxt "#30351"
-msgid "Lingva Instance URL"
-msgstr "Lingva-instans-URL"
+msgid "Lingva server URL"
+msgstr "Lingva server-URL"
 
+# Subtitle settings
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Undertexter"
 
 msgctxt "#30401"
-msgid "Subtitle Format"
-msgstr "Undertextformat"
+msgid "Subtitle output"
+msgstr "Undertextutmatning"
 
 msgctxt "#30402"
 msgid "Output format"
 msgstr "Utdataformat"
 
 msgctxt "#30403"
-msgid "Preserve timing"
-msgstr "Bevara timing"
+msgid "Preserve original timing"
+msgstr "Behåll ursprunglig timing"
 
 msgctxt "#30404"
-msgid "Preserve formatting (colors, styles)"
-msgstr "Bevara formatering (färger, stilar)"
+msgid "Preserve formatting (ASS/SSA)"
+msgstr "Behåll formatering (ASS/SSA)"
 
 msgctxt "#30410"
 msgid "Caching"
@@ -146,44 +165,46 @@ msgid "Cache translated subtitles"
 msgstr "Cachelagra översatta undertexter"
 
 msgctxt "#30412"
-msgid "Cache expiry (days)"
-msgstr "Cache-utgång (dagar)"
+msgid "Cache duration (days)"
+msgstr "Cachetid (dagar)"
 
 msgctxt "#30413"
-msgid "Save subtitle alongside video file"
-msgstr "Spara undertext bredvid videofil"
+msgid "Save subtitle alongside video"
+msgstr "Spara undertext bredvid video"
 
+# Advanced settings
 msgctxt "#30500"
 msgid "Advanced"
 msgstr "Avancerat"
 
 msgctxt "#30501"
-msgid "Advanced Settings"
+msgid "Advanced settings"
 msgstr "Avancerade inställningar"
 
 msgctxt "#30502"
 msgid "FFmpeg path (leave empty for auto-detect)"
-msgstr "FFmpeg-sökväg (lämna tomt för auto-detect)"
+msgstr "FFmpeg-sökväg (lämna tom för automatisk)"
 
 msgctxt "#30503"
-msgid "Batch size (lines per request)"
-msgstr "Batch-storlek (rader per begäran)"
+msgid "Batch size"
+msgstr "Batchstorlek"
 
 msgctxt "#30504"
 msgid "Request timeout (seconds)"
-msgstr "Timeout för begäran (sekunder)"
+msgstr "Timeout för förfrågningar (sekunder)"
 
 msgctxt "#30505"
 msgid "Enable debug logging"
 msgstr "Aktivera felsökningsloggning"
 
+# Notifications
 msgctxt "#30600"
 msgid "Translating subtitles..."
 msgstr "Översätter undertexter..."
 
 msgctxt "#30601"
-msgid "Translation complete"
-msgstr "Översättning klar"
+msgid "Translation complete!"
+msgstr "Översättning klar!"
 
 msgctxt "#30602"
 msgid "Translation failed"
@@ -194,13 +215,13 @@ msgid "No embedded subtitles found"
 msgstr "Inga inbäddade undertexter hittades"
 
 msgctxt "#30604"
-msgid "Subtitle already available in target language"
-msgstr "Undertext redan tillgänglig på målspråket"
+msgid "Subtitle already available in your language"
+msgstr "Undertext finns redan på ditt språk"
 
 msgctxt "#30605"
-msgid "Translate subtitle?"
-msgstr "Översätta undertext?"
+msgid "Using cached translation"
+msgstr "Använder cachelagrad översättning"
 
 msgctxt "#30606"
-msgid "No subtitle available in {0}. Translate from {1}?"
-msgstr "Ingen undertext på {0}. Översätta från {1}?"
+msgid "Translate subtitles to {0} from {1}?"
+msgstr "Översätta undertexter till {0} från {1}?"
