@@ -1,0 +1,53 @@
+# Kodi - Subtitle Translator - Indonesian
+msgid ""
+msgstr ""
+"Language: id_ID\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Umum"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Aktifkan addon"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Terjemahkan otomatis saat subtitle tidak ada"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Bahasa"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Bahasa tujuan"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Layanan Penerjemahan"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Subtitle"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Jaringan"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Lanjutan"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Menerjemahkan subtitle..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Terjemahan selesai!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Terjemahan gagal"

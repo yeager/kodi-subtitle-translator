@@ -1,0 +1,53 @@
+# Kodi - Subtitle Translator - Greek
+msgid ""
+msgstr ""
+"Language: el_GR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Γενικά"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Ενεργοποίηση πρόσθετου"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Αυτόματη μετάφραση όταν λείπουν υπότιτλοι"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Γλώσσες"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Γλώσσα προορισμού"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Υπηρεσίες Μετάφρασης"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Υπότιτλοι"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Δίκτυο"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Για προχωρημένους"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Μετάφραση υπότιτλων..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Η μετάφραση ολοκληρώθηκε!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Η μετάφραση απέτυχε"

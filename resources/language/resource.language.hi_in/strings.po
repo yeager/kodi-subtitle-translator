@@ -1,0 +1,61 @@
+# Kodi - Subtitle Translator - Hindi
+msgid ""
+msgstr ""
+"Language: hi_IN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "सामान्य"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "एडऑन सक्षम करें"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "उपशीर्षक गायब होने पर स्वतः अनुवाद"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "सूचनाएं दिखाएं"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "भाषाएं"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "लक्ष्य भाषा"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "स्रोत भाषा"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "अनुवाद सेवाएं"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "उपशीर्षक"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "नेटवर्क"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "उन्नत"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "उपशीर्षक अनुवाद हो रहा है..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "अनुवाद पूर्ण!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "अनुवाद विफल"

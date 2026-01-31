@@ -1,0 +1,61 @@
+# Kodi - Subtitle Translator - Turkish
+msgid ""
+msgstr ""
+"Language: tr_TR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Genel"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Eklentiyi etkinleştir"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Altyazı olmadığında otomatik çevir"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "Bildirimleri göster"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Diller"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Hedef dil"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "Kaynak dil"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Çeviri Hizmetleri"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Altyazılar"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Ağ"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Altyazılar çevriliyor..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Çeviri tamamlandı!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Çeviri başarısız"

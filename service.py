@@ -16,6 +16,7 @@ import time
 from lib.subtitle_extractor import SubtitleExtractor
 from lib.translators import get_translator
 from lib.subtitle_parser import SubtitleParser
+from lib.progress_dialog import TranslationProgress, ErrorReporter, DebugLogger
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
@@ -30,6 +31,10 @@ if not xbmcvfs.exists(ADDON_DATA):
 CACHE_PATH = os.path.join(ADDON_DATA, 'cache')
 if not xbmcvfs.exists(CACHE_PATH):
     xbmcvfs.mkdirs(CACHE_PATH)
+
+# Initialize error reporter and debug logger
+ERROR_REPORTER = ErrorReporter(ADDON_DATA)
+DEBUG_LOGGER = DebugLogger(ADDON_DATA)
 
 
 class SubtitleTranslatorMonitor(xbmc.Monitor):
@@ -176,25 +181,35 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         return None
     
     def translate_subtitle(self, source_sub):
-        """Translate the subtitle."""
+        """Translate the subtitle with progress tracking."""
         self.translation_in_progress = True
+        progress = None
         
         try:
-            if self.show_notification:
-                notify(get_string(30600))  # Translating subtitles...
+            DEBUG_LOGGER.info(f"Starting translation for: {self.current_file}", 'translation')
+            DEBUG_LOGGER.debug(f"Source subtitle: {source_sub}", 'translation')
             
             # Check cache first
             cache_key = self.get_cache_key(source_sub)
             cached_path = self.get_cached_subtitle(cache_key)
             
             if cached_path and xbmcvfs.exists(cached_path):
-                log(f"Using cached translation: {cached_path}")
+                DEBUG_LOGGER.info(f"Cache hit: {cached_path}", 'cache')
                 self.load_subtitle(cached_path)
                 if self.show_notification:
-                    notify(get_string(30601))  # Translation complete
+                    notify(get_string(30605))  # Using cached translation
                 return
             
+            DEBUG_LOGGER.debug("Cache miss, starting translation", 'cache')
+            
+            # Initialize progress dialog
+            progress = TranslationProgress(show_dialog=self.show_notification)
+            progress.start(f"Translating to {self.get_language_name(self.target_language)}")
+            
             # Extract subtitle from video
+            progress.set_stage('extract', f"Extracting subtitles from video...")
+            DEBUG_LOGGER.debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
+            
             extractor = SubtitleExtractor(get_setting('ffmpeg_path'))
             subtitle_content = extractor.extract(
                 self.current_file,
@@ -202,66 +217,137 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             )
             
             if not subtitle_content:
-                raise Exception("Failed to extract subtitle")
+                error_msg = "Failed to extract subtitle - FFmpeg returned empty content"
+                ERROR_REPORTER.report_error('ffmpeg', error_msg, context={
+                    'file': self.current_file,
+                    'subtitle_index': source_sub.get('index', 0)
+                })
+                raise Exception(error_msg)
+            
+            DEBUG_LOGGER.debug(f"Extracted {len(subtitle_content)} bytes", 'ffmpeg')
             
             # Parse subtitle
+            progress.set_stage('parse', "Parsing subtitle file...")
             parser = SubtitleParser()
             entries = parser.parse(subtitle_content)
             
             if not entries:
-                raise Exception("No subtitle entries found")
+                error_msg = "No subtitle entries found in extracted content"
+                ERROR_REPORTER.report_error('parse', error_msg, context={
+                    'content_length': len(subtitle_content),
+                    'content_preview': subtitle_content[:500]
+                })
+                raise Exception(error_msg)
             
-            log(f"Extracted {len(entries)} subtitle entries")
+            DEBUG_LOGGER.info(f"Parsed {len(entries)} subtitle entries", 'parse')
+            progress.total = len(entries)
+            
+            # Check for cancellation
+            if progress.is_cancelled():
+                DEBUG_LOGGER.info("Translation cancelled by user", 'translation')
+                return
             
             # Get translator
+            progress.set_stage('translate', f"Connecting to {self.translation_service}...")
+            DEBUG_LOGGER.debug(f"Using translation service: {self.translation_service}", 'api')
+            
             translator = get_translator(
                 self.translation_service,
                 self.get_service_config()
             )
             
-            # Translate in batches
+            # Translate in batches with progress
             translated_entries = []
             batch_size = self.batch_size
+            total_batches = (len(entries) + batch_size - 1) // batch_size
             
-            for i in range(0, len(entries), batch_size):
+            DEBUG_LOGGER.debug(f"Translating in {total_batches} batches of {batch_size}", 'translation')
+            
+            for batch_num, i in enumerate(range(0, len(entries), batch_size)):
+                if progress.is_cancelled():
+                    DEBUG_LOGGER.info("Translation cancelled by user", 'translation')
+                    return
+                
                 batch = entries[i:i + batch_size]
                 texts = [e['text'] for e in batch]
                 
-                translated_texts = translator.translate_batch(
-                    texts,
-                    self.source_language,
-                    self.target_language
+                # Update progress
+                progress.update(
+                    i + len(batch),
+                    f"Translating batch {batch_num + 1}/{total_batches}..."
                 )
+                
+                try:
+                    DEBUG_LOGGER.debug(f"Translating batch {batch_num + 1}: {len(texts)} entries", 'api')
+                    import time as _time
+                    start_time = _time.time()
+                    
+                    translated_texts = translator.translate_batch(
+                        texts,
+                        self.source_language,
+                        self.target_language
+                    )
+                    
+                    elapsed = (_time.time() - start_time) * 1000
+                    DEBUG_LOGGER.timing(f"Batch {batch_num + 1} translation", elapsed)
+                    
+                except Exception as api_error:
+                    ERROR_REPORTER.report_error('api', f"Translation API error in batch {batch_num + 1}", api_error, {
+                        'service': self.translation_service,
+                        'batch_size': len(texts),
+                        'source_lang': self.source_language,
+                        'target_lang': self.target_language
+                    })
+                    progress.add_error(f"API error in batch {batch_num + 1}", str(api_error))
+                    # Use original text as fallback
+                    translated_texts = texts
+                    progress.add_warning(f"Using original text for batch {batch_num + 1}")
                 
                 for j, entry in enumerate(batch):
                     translated_entry = entry.copy()
-                    translated_entry['text'] = translated_texts[j]
+                    if j < len(translated_texts):
+                        translated_entry['text'] = translated_texts[j]
                     translated_entries.append(translated_entry)
                 
-                # Small delay between batches
+                # Small delay between batches to avoid rate limiting
                 if i + batch_size < len(entries):
                     xbmc.sleep(500)
             
-            # Generate output subtitle
+            # Format output
+            progress.set_stage('format', "Formatting subtitle file...")
+            DEBUG_LOGGER.debug(f"Generating {self.subtitle_format} output", 'format')
+            
             output_content = parser.generate(
                 translated_entries,
                 self.subtitle_format
             )
             
             # Save subtitle
+            progress.set_stage('save', "Saving translated subtitles...")
             output_path = self.save_subtitle(output_content, cache_key)
+            DEBUG_LOGGER.info(f"Saved subtitle to: {output_path}", 'save')
             
             # Load the translated subtitle
             self.load_subtitle(output_path)
             
-            if self.show_notification:
-                notify(get_string(30601))  # Translation complete
-            
-            log(f"Translation complete: {output_path}")
+            # Complete
+            summary = progress.get_summary()
+            DEBUG_LOGGER.info(f"Translation complete: {summary}", 'translation')
+            progress.complete(True, f"Translated {len(translated_entries)} subtitles in {summary['elapsed_time']}")
             
         except Exception as e:
-            log(f"Translation failed: {e}", level=xbmc.LOGERROR)
-            if self.show_notification:
+            DEBUG_LOGGER.error(f"Translation failed: {e}", 'translation')
+            ERROR_REPORTER.report_error('translation', f"Translation failed: {str(e)}", e, {
+                'file': self.current_file,
+                'service': self.translation_service,
+                'source_lang': self.source_language,
+                'target_lang': self.target_language
+            })
+            
+            if progress:
+                progress.add_error(str(e))
+                progress.complete(False)
+            else:
                 notify(get_string(30602), icon=xbmcgui.NOTIFICATION_ERROR)
         
         finally:

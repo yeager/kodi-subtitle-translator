@@ -1,0 +1,61 @@
+# Kodi - Subtitle Translator - Danish
+msgid ""
+msgstr ""
+"Language: da_DK\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Generelt"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Aktivér tilføjelse"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Oversæt automatisk når undertekst mangler"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "Vis notifikationer"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Sprog"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Målsprog"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "Kildesprog"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Oversættelsestjenester"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Undertekster"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Netværk"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Avanceret"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Oversætter undertekster..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Oversættelse fuldført!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Oversættelse mislykkedes"

@@ -1,0 +1,61 @@
+# Kodi - Subtitle Translator - Japanese
+msgid ""
+msgstr ""
+"Language: ja_JP\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "一般"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "アドオンを有効にする"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "字幕がない場合に自動翻訳"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "通知を表示"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "言語"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "翻訳先言語"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "翻訳元言語"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "翻訳サービス"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "ネットワーク"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "詳細設定"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "字幕を翻訳中..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "翻訳完了！"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "翻訳に失敗しました"

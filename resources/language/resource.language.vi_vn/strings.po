@@ -1,0 +1,53 @@
+# Kodi - Subtitle Translator - Vietnamese
+msgid ""
+msgstr ""
+"Language: vi_VN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Chung"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Bật tiện ích"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Tự động dịch khi thiếu phụ đề"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Ngôn ngữ"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Ngôn ngữ đích"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Dịch vụ dịch thuật"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Phụ đề"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Mạng"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Nâng cao"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Đang dịch phụ đề..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Dịch hoàn tất!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Dịch thất bại"

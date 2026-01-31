@@ -1,0 +1,101 @@
+# Kodi - Subtitle Translator - German
+msgid ""
+msgstr ""
+"Language: de_DE\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Allgemein"
+
+msgctxt "#30101"
+msgid "Basic Settings"
+msgstr "Grundeinstellungen"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Addon aktivieren"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Automatisch übersetzen wenn Untertitel fehlt"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "Benachrichtigungen anzeigen"
+
+msgctxt "#30105"
+msgid "Ask before translating"
+msgstr "Vor dem Übersetzen fragen"
+
+msgctxt "#30106"
+msgid "Show progress dialog"
+msgstr "Fortschrittsdialog anzeigen"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Sprachen"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Zielsprache"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "Quellsprache"
+
+msgctxt "#30250"
+msgid "Profiles"
+msgstr "Profile"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Übersetzungsdienste"
+
+msgctxt "#30302"
+msgid "Translation service"
+msgstr "Übersetzungsdienst"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Untertitel"
+
+msgctxt "#30402"
+msgid "Subtitle format"
+msgstr "Untertitelformat"
+
+msgctxt "#30440"
+msgid "Caching"
+msgstr "Zwischenspeicherung"
+
+msgctxt "#30441"
+msgid "Cache translated subtitles"
+msgstr "Übersetzte Untertitel zwischenspeichern"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Netzwerk"
+
+msgctxt "#30510"
+msgid "Proxy Settings"
+msgstr "Proxy-Einstellungen"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgctxt "#30620"
+msgid "Debugging"
+msgstr "Fehlerbehebung"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Übersetze Untertitel..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Übersetzung abgeschlossen!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Übersetzung fehlgeschlagen"

@@ -1,0 +1,61 @@
+# Kodi - Subtitle Translator - Korean
+msgid ""
+msgstr ""
+"Language: ko_KR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "일반"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "애드온 활성화"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "자막이 없을 때 자동 번역"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "알림 표시"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "언어"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "대상 언어"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "원본 언어"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "번역 서비스"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "자막"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "네트워크"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "고급"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "자막 번역 중..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "번역 완료!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "번역 실패"
