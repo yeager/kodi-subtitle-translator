@@ -543,12 +543,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             self.translation_in_progress = False
             
             # Resume playback if we paused it
-            if was_playing and not self.isPlaying():
+            if was_playing:
                 try:
-                    self.pause()  # Toggle pause to resume
-                    log("Resumed playback after translation")
-                except:
-                    pass
+                    # Check if player is paused using condition visibility
+                    is_paused = xbmc.getCondVisibility('Player.Paused')
+                    if is_paused:
+                        self.pause()  # Toggle pause to resume
+                        log("Resumed playback after translation")
+                        if self.show_notification:
+                            notify(get_string(30718))  # "Resuming playback"
+                except Exception as e:
+                    log(f"Could not resume playback: {e}", level=xbmc.LOGWARNING)
     
     def get_cache_key(self, source_sub):
         """Generate a unique cache key for the subtitle."""
@@ -785,8 +790,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
 
 # Helper functions
 def get_setting(key):
-    """Get addon setting."""
-    return get_addon().getSetting(key)
+    """Get addon setting. Treats '-' as empty string (Kodi workaround)."""
+    value = get_addon().getSetting(key)
+    # Treat '-' as empty (workaround for Kodi settings v2 empty string issues)
+    if value == '-':
+        return ''
+    return value
 
 def get_setting_bool(key):
     """Get boolean addon setting."""

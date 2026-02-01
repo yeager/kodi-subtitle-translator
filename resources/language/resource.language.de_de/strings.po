@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "Allgemein"
@@ -60,8 +59,6 @@ msgctxt "#30113"
 msgid "Show translation statistics"
 msgstr "Übersetzungsstatistik anzeigen"
 
-
-# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Sprachen"
@@ -82,20 +79,6 @@ msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
 msgstr "Ersatzsprachen (kommagetrennt)"
 
-msgctxt "#30210"
-msgid "Multi-Language Output"
-msgstr "Mehrsprachige Ausgabe"
-
-msgctxt "#30211"
-msgid "Enable multi-language output"
-msgstr "Mehrsprachige Ausgabe aktivieren"
-
-msgctxt "#30212"
-msgid "Additional languages (comma-separated)"
-msgstr "Zusätzliche Sprachen (kommagetrennt)"
-
-
-# ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
 msgid "Profiles"
 msgstr "Profile"
@@ -148,8 +131,6 @@ msgctxt "#30282"
 msgid "Tone"
 msgstr "Tonfall"
 
-
-# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Übersetzungsdienste"
@@ -187,8 +168,8 @@ msgid "DeepL Settings"
 msgstr "DeepL-Einstellungen"
 
 msgctxt "#30311"
-msgid "DeepL Pro API key"
-msgstr "DeepL Pro API-Schlüssel"
+msgid "DeepL API key"
+msgstr "DeepL API-Schlüssel"
 
 msgctxt "#30312"
 msgid "DeepL Free API key"
@@ -330,8 +311,6 @@ msgctxt "#30390"
 msgid "Advanced Service Settings"
 msgstr "Erweiterte Diensteinstellungen"
 
-
-# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Untertitel"
@@ -448,8 +427,6 @@ msgctxt "#30454"
 msgid "Preserve positions"
 msgstr "Positionen bewahren"
 
-
-# ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
 msgstr "Glossar"
@@ -482,8 +459,6 @@ msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
 msgstr "Zu bewahrende Namen (kommagetrennt)"
 
-
-# ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
 msgstr "Inhaltsfilterung"
@@ -504,8 +479,6 @@ msgctxt "#30484"
 msgid "Additional words to filter"
 msgstr "Zusätzliche Wörter zum Filtern"
 
-
-# ===== BATCH PROCESSING =====
 msgctxt "#30490"
 msgid "Batch Processing"
 msgstr "Stapelverarbeitung"
@@ -534,8 +507,6 @@ msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
 msgstr "Geplante Zeit (HH:MM)"
 
-
-# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
 msgstr "Netzwerk"
@@ -558,7 +529,7 @@ msgstr "Wiederholungsverzögerung (Sekunden)"
 
 msgctxt "#30505"
 msgid "Rate limit (requests per minute)"
-msgstr "Ratenlimit (Anfragen pro Minute)"
+msgstr "Ratenlimit (Anfragen/Minute)"
 
 msgctxt "#30510"
 msgid "Proxy Settings"
@@ -600,8 +571,6 @@ msgctxt "#30522"
 msgid "Requests per minute"
 msgstr "Anfragen pro Minute"
 
-
-# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Erweitert"
@@ -698,8 +667,6 @@ msgctxt "#30644"
 msgid "Flag untranslated text"
 msgstr "Unübersetzten Text markieren"
 
-
-# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Übersetze Untertitel..."
@@ -776,8 +743,6 @@ msgctxt "#30718"
 msgid "Resuming playback"
 msgstr "Setze Wiedergabe fort"
 
-
-# ===== LANGUAGE NAMES =====
 msgctxt "#30800"
 msgid "Swedish"
 msgstr "Schwedisch"

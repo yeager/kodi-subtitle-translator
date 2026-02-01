@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "Genel"
@@ -42,33 +41,31 @@ msgstr "Çevirmeden önce sor"
 
 msgctxt "#30106"
 msgid "Show progress dialog"
-msgstr ""
+msgstr "İlerleme iletişim kutusunu göster"
 
 msgctxt "#30110"
 msgid "Notifications"
-msgstr ""
+msgstr "Bildirimler"
 
 msgctxt "#30111"
 msgid "Play notification sound"
-msgstr ""
+msgstr "Bildirim sesi çal"
 
 msgctxt "#30112"
 msgid "Notification duration (seconds)"
-msgstr ""
+msgstr "Bildirim süresi (saniye)"
 
 msgctxt "#30113"
 msgid "Show translation statistics"
-msgstr ""
+msgstr "Çeviri istatistiklerini göster"
 
-
-# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Diller"
 
 msgctxt "#30201"
 msgid "Language Preferences"
-msgstr ""
+msgstr "Dil Tercihleri"
 
 msgctxt "#30202"
 msgid "Target language"
@@ -80,33 +77,19 @@ msgstr "Kaynak dil"
 
 msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
-msgstr ""
+msgstr "Yedek diller (virgülle ayrılmış)"
 
-msgctxt "#30210"
-msgid "Multi-Language Output"
-msgstr ""
-
-msgctxt "#30211"
-msgid "Enable multi-language output"
-msgstr ""
-
-msgctxt "#30212"
-msgid "Additional languages (comma-separated)"
-msgstr ""
-
-
-# ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
 msgid "Profiles"
-msgstr ""
+msgstr "Profiller"
 
 msgctxt "#30251"
 msgid "Translation Profile"
-msgstr ""
+msgstr "Çeviri Profili"
 
 msgctxt "#30252"
 msgid "Active profile"
-msgstr ""
+msgstr "Aktif profil"
 
 msgctxt "#30260"
 msgid "Anime Settings"
@@ -148,8 +131,6 @@ msgctxt "#30282"
 msgid "Tone"
 msgstr ""
 
-
-# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Çeviri Servisleri"
@@ -164,7 +145,7 @@ msgstr "Çeviri servisi"
 
 msgctxt "#30303"
 msgid "API Keys"
-msgstr ""
+msgstr "API Anahtarları"
 
 msgctxt "#30305"
 msgid "Fallback Services"
@@ -172,7 +153,7 @@ msgstr ""
 
 msgctxt "#30306"
 msgid "Enable fallback to other services"
-msgstr ""
+msgstr "Yedek servisleri etkinleştir"
 
 msgctxt "#30307"
 msgid "Fallback services (comma-separated)"
@@ -187,7 +168,7 @@ msgid "DeepL Settings"
 msgstr ""
 
 msgctxt "#30311"
-msgid "DeepL Pro API key"
+msgid "DeepL API key"
 msgstr ""
 
 msgctxt "#30312"
@@ -330,8 +311,6 @@ msgctxt "#30390"
 msgid "Advanced Service Settings"
 msgstr ""
 
-
-# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Altyazılar"
@@ -414,7 +393,7 @@ msgstr ""
 
 msgctxt "#30441"
 msgid "Cache translated subtitles"
-msgstr ""
+msgstr "Çevrilen altyazıları önbelleğe al"
 
 msgctxt "#30442"
 msgid "Cache duration (days)"
@@ -448,8 +427,6 @@ msgctxt "#30454"
 msgid "Preserve positions"
 msgstr ""
 
-
-# ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
 msgstr ""
@@ -482,8 +459,6 @@ msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
 msgstr ""
 
-
-# ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
 msgstr ""
@@ -504,8 +479,6 @@ msgctxt "#30484"
 msgid "Additional words to filter"
 msgstr ""
 
-
-# ===== BATCH PROCESSING =====
 msgctxt "#30490"
 msgid "Batch Processing"
 msgstr ""
@@ -534,8 +507,6 @@ msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
 msgstr ""
 
-
-# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
 msgstr ""
@@ -600,8 +571,6 @@ msgctxt "#30522"
 msgid "Requests per minute"
 msgstr ""
 
-
-# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Gelişmiş"
@@ -644,7 +613,7 @@ msgstr ""
 
 msgctxt "#30621"
 msgid "Enable debug logging"
-msgstr ""
+msgstr "Hata ayıklama günlüğünü etkinleştir"
 
 msgctxt "#30622"
 msgid "Debug categories (all or comma-separated)"
@@ -698,8 +667,6 @@ msgctxt "#30644"
 msgid "Flag untranslated text"
 msgstr ""
 
-
-# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Altyazılar çevriliyor..."
@@ -714,43 +681,43 @@ msgstr "Çeviri başarısız"
 
 msgctxt "#30703"
 msgid "No embedded subtitles found"
-msgstr ""
+msgstr "Gömülü altyazı bulunamadı"
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"
-msgstr ""
+msgstr "Altyazı zaten dilinizde mevcut"
 
 msgctxt "#30705"
 msgid "Using cached translation"
-msgstr ""
+msgstr "Önbelleğe alınmış çeviri kullanılıyor"
 
 msgctxt "#30706"
 msgid "Translate subtitles to {0} from {1}?"
-msgstr ""
+msgstr "Altyazıları {1} dilinden {0} diline çevirilsin mi?"
 
 msgctxt "#30707"
 msgid "Extracting subtitles..."
-msgstr ""
+msgstr "Altyazılar çıkarılıyor..."
 
 msgctxt "#30708"
 msgid "Parsing subtitle file..."
-msgstr ""
+msgstr "Altyazı dosyası ayrıştırılıyor..."
 
 msgctxt "#30709"
 msgid "Connecting to translation service..."
-msgstr ""
+msgstr "Çeviri servisine bağlanılıyor..."
 
 msgctxt "#30710"
 msgid "Translating batch {0}/{1}..."
-msgstr ""
+msgstr "Grup {0}/{1} çevriliyor..."
 
 msgctxt "#30711"
 msgid "Saving translated subtitles..."
-msgstr ""
+msgstr "Çevrilen altyazılar kaydediliyor..."
 
 msgctxt "#30712"
 msgid "Translation cancelled"
-msgstr ""
+msgstr "Çeviri iptal edildi"
 
 msgctxt "#30713"
 msgid "Fallback to {0}"
@@ -770,14 +737,12 @@ msgstr ""
 
 msgctxt "#30717"
 msgid "Pausing playback during translation..."
-msgstr ""
+msgstr "Çeviri sırasında oynatma duraklatılıyor..."
 
 msgctxt "#30718"
 msgid "Resuming playback"
-msgstr ""
+msgstr "Oynatma devam ediyor"
 
-
-# ===== LANGUAGE NAMES =====
 msgctxt "#30800"
 msgid "Swedish"
 msgstr ""

@@ -15,14 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "General"
 
 msgctxt "#30101"
 msgid "Basic Settings"
-msgstr ""
+msgstr "Setări de bază"
 
 msgctxt "#30102"
 msgid "Enable addon"
@@ -30,45 +29,43 @@ msgstr "Activare addon"
 
 msgctxt "#30103"
 msgid "Auto-translate when subtitle is missing"
-msgstr ""
+msgstr "Traducere automată când lipsesc subtitrările"
 
 msgctxt "#30104"
 msgid "Show notifications"
-msgstr ""
+msgstr "Afișare notificări"
 
 msgctxt "#30105"
 msgid "Ask before translating"
-msgstr ""
+msgstr "Întreabă înainte de traducere"
 
 msgctxt "#30106"
 msgid "Show progress dialog"
-msgstr ""
+msgstr "Afișare dialog progres"
 
 msgctxt "#30110"
 msgid "Notifications"
-msgstr ""
+msgstr "Notificări"
 
 msgctxt "#30111"
 msgid "Play notification sound"
-msgstr ""
+msgstr "Redare sunet notificare"
 
 msgctxt "#30112"
 msgid "Notification duration (seconds)"
-msgstr ""
+msgstr "Durata notificării (secunde)"
 
 msgctxt "#30113"
 msgid "Show translation statistics"
-msgstr ""
+msgstr "Afișare statistici traducere"
 
-
-# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Limbi"
 
 msgctxt "#30201"
 msgid "Language Preferences"
-msgstr ""
+msgstr "Preferințe limbă"
 
 msgctxt "#30202"
 msgid "Target language"
@@ -80,33 +77,19 @@ msgstr "Limba sursă"
 
 msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
-msgstr ""
+msgstr "Limbi de rezervă (separate prin virgulă)"
 
-msgctxt "#30210"
-msgid "Multi-Language Output"
-msgstr ""
-
-msgctxt "#30211"
-msgid "Enable multi-language output"
-msgstr ""
-
-msgctxt "#30212"
-msgid "Additional languages (comma-separated)"
-msgstr ""
-
-
-# ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
 msgid "Profiles"
-msgstr ""
+msgstr "Profiluri"
 
 msgctxt "#30251"
 msgid "Translation Profile"
-msgstr ""
+msgstr "Profil de traducere"
 
 msgctxt "#30252"
 msgid "Active profile"
-msgstr ""
+msgstr "Profil activ"
 
 msgctxt "#30260"
 msgid "Anime Settings"
@@ -148,8 +131,6 @@ msgctxt "#30282"
 msgid "Tone"
 msgstr ""
 
-
-# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Servicii de traducere"
@@ -160,11 +141,11 @@ msgstr ""
 
 msgctxt "#30302"
 msgid "Translation service"
-msgstr ""
+msgstr "Serviciu de traducere"
 
 msgctxt "#30303"
 msgid "API Keys"
-msgstr ""
+msgstr "Chei API"
 
 msgctxt "#30305"
 msgid "Fallback Services"
@@ -172,7 +153,7 @@ msgstr ""
 
 msgctxt "#30306"
 msgid "Enable fallback to other services"
-msgstr ""
+msgstr "Activare servicii de rezervă"
 
 msgctxt "#30307"
 msgid "Fallback services (comma-separated)"
@@ -187,7 +168,7 @@ msgid "DeepL Settings"
 msgstr ""
 
 msgctxt "#30311"
-msgid "DeepL Pro API key"
+msgid "DeepL API key"
 msgstr ""
 
 msgctxt "#30312"
@@ -330,8 +311,6 @@ msgctxt "#30390"
 msgid "Advanced Service Settings"
 msgstr ""
 
-
-# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Subtitrări"
@@ -342,7 +321,7 @@ msgstr ""
 
 msgctxt "#30402"
 msgid "Subtitle format"
-msgstr ""
+msgstr "Format subtitrare"
 
 msgctxt "#30403"
 msgid "Character encoding"
@@ -414,7 +393,7 @@ msgstr ""
 
 msgctxt "#30441"
 msgid "Cache translated subtitles"
-msgstr ""
+msgstr "Cache subtitrări traduse"
 
 msgctxt "#30442"
 msgid "Cache duration (days)"
@@ -426,7 +405,7 @@ msgstr ""
 
 msgctxt "#30444"
 msgid "Save subtitle alongside video"
-msgstr ""
+msgstr "Salvează subtitrarea lângă video"
 
 msgctxt "#30450"
 msgid "Formatting Preservation"
@@ -448,8 +427,6 @@ msgctxt "#30454"
 msgid "Preserve positions"
 msgstr ""
 
-
-# ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
 msgstr ""
@@ -482,8 +459,6 @@ msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
 msgstr ""
 
-
-# ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
 msgstr ""
@@ -504,8 +479,6 @@ msgctxt "#30484"
 msgid "Additional words to filter"
 msgstr ""
 
-
-# ===== BATCH PROCESSING =====
 msgctxt "#30490"
 msgid "Batch Processing"
 msgstr ""
@@ -534,8 +507,6 @@ msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
 msgstr ""
 
-
-# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
 msgstr ""
@@ -600,8 +571,6 @@ msgctxt "#30522"
 msgid "Requests per minute"
 msgstr ""
 
-
-# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Avansat"
@@ -644,7 +613,7 @@ msgstr ""
 
 msgctxt "#30621"
 msgid "Enable debug logging"
-msgstr ""
+msgstr "Activare jurnal depanare"
 
 msgctxt "#30622"
 msgid "Debug categories (all or comma-separated)"
@@ -698,8 +667,6 @@ msgctxt "#30644"
 msgid "Flag untranslated text"
 msgstr ""
 
-
-# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Se traduc subtitrările..."
@@ -714,43 +681,43 @@ msgstr "Traducere eșuată"
 
 msgctxt "#30703"
 msgid "No embedded subtitles found"
-msgstr ""
+msgstr "Nu s-au găsit subtitrări încorporate"
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"
-msgstr ""
+msgstr "Subtitrarea este deja disponibilă în limba dvs."
 
 msgctxt "#30705"
 msgid "Using cached translation"
-msgstr ""
+msgstr "Se utilizează traducerea din cache"
 
 msgctxt "#30706"
 msgid "Translate subtitles to {0} from {1}?"
-msgstr ""
+msgstr "Traduceți subtitrările în {0} din {1}?"
 
 msgctxt "#30707"
 msgid "Extracting subtitles..."
-msgstr ""
+msgstr "Se extrag subtitrările..."
 
 msgctxt "#30708"
 msgid "Parsing subtitle file..."
-msgstr ""
+msgstr "Se analizează fișierul de subtitrare..."
 
 msgctxt "#30709"
 msgid "Connecting to translation service..."
-msgstr ""
+msgstr "Se conectează la serviciul de traducere..."
 
 msgctxt "#30710"
 msgid "Translating batch {0}/{1}..."
-msgstr ""
+msgstr "Se traduce lotul {0}/{1}..."
 
 msgctxt "#30711"
 msgid "Saving translated subtitles..."
-msgstr ""
+msgstr "Se salvează subtitrările traduse..."
 
 msgctxt "#30712"
 msgid "Translation cancelled"
-msgstr ""
+msgstr "Traducere anulată"
 
 msgctxt "#30713"
 msgid "Fallback to {0}"
@@ -770,14 +737,12 @@ msgstr ""
 
 msgctxt "#30717"
 msgid "Pausing playback during translation..."
-msgstr ""
+msgstr "Pauză redare în timpul traducerii..."
 
 msgctxt "#30718"
 msgid "Resuming playback"
-msgstr ""
+msgstr "Reluare redare"
 
-
-# ===== LANGUAGE NAMES =====
 msgctxt "#30800"
 msgid "Swedish"
 msgstr ""

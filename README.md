@@ -1,8 +1,9 @@
 # Subtitle Translator for Kodi
 
 [![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
+[![Version](https://img.shields.io/badge/Version-0.7.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
 
 Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
@@ -10,18 +11,23 @@ Automatically translate embedded subtitles in your media files to your preferred
 
 - **Automatic Detection** – Detects when no subtitle is available in your preferred language
 - **Embedded Subtitle Extraction** – Extracts subtitles from MKV, MP4, and other containers using FFmpeg
-- **Multiple Translation Services** – Choose from free and paid services:
-  - 🆓 **LibreTranslate** – Free, open-source, self-hostable
-  - 🆓 **MyMemory** – Free tier available (1000 words/day)
-  - 🆓 **Lingva Translate** – Free Google Translate frontend
-  - 💳 **DeepL** – High-quality translations (API key required)
-  - 💳 **DeepL Free** – Free tier with API key
-  - 💳 **Google Cloud Translation** – API key required
-  - 💳 **Microsoft Translator** – API key required
-- **Smart Caching** – Translated subtitles are cached to avoid re-translating
+- **10 Translation Services** – Free and paid options:
+  - 🆓 **Lingva Translate** – Free, no API key required (default)
+  - 🆓 **MyMemory** – Free, 1000 words/day
+  - 🆓 **LibreTranslate** – Free, self-hostable
+  - 🆓 **Argos Translate** – Offline translation
+  - 💳 **DeepL Pro/Free** – High-quality translations
+  - 💳 **Google Cloud Translation**
+  - 💳 **Microsoft Azure Translator**
+  - 🤖 **OpenAI GPT** – AI-powered context-aware translation
+  - 🤖 **Anthropic Claude** – AI-powered translation
+- **Automatic Fallback** – Falls back to alternative services on failure
+- **Smart Caching** – Cached translations to avoid re-translating
+- **Save Alongside Video** – Saves `movie.sv.srt` next to your video file
+- **Auto-Resume Playback** – Pauses during translation, resumes when done
 - **Multiple Output Formats** – SRT, ASS/SSA, WebVTT
-- **Preserve Styling** – Keeps original timing and formatting (ASS/SSA)
-- **20+ Languages Supported** – Swedish, Norwegian, Danish, Finnish, German, French, Spanish, Italian, Portuguese, Polish, Dutch, Russian, Japanese, Chinese, Korean, and more
+- **Translation Profiles** – Standard, Anime, Kids, Formal, Casual
+- **25 Languages** – Full UI translation support
 
 ## 📦 Installation
 
@@ -33,174 +39,277 @@ Automatically translate embedded subtitles in your media files to your preferred
 
 ### Manual Installation
 1. Clone or download this repository
-2. Copy the `service.subtitletranslator` folder to your Kodi addons directory:
+2. Copy the folder to your Kodi addons directory:
    - **Linux:** `~/.kodi/addons/`
    - **Windows:** `%APPDATA%\Kodi\addons\`
    - **macOS:** `~/Library/Application Support/Kodi/addons/`
 3. Restart Kodi
 
-## ⚙️ Configuration
+## ⚙️ Settings
 
-Access settings via **Settings → Add-ons → My add-ons → Services → Subtitle Translator → Configure**
+Access via: **Settings → Add-ons → My add-ons → Services → Subtitle Translator → Configure**
 
-### General Settings
+Settings are organized by level. Change level via the gear icon in settings.
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Enable addon | Turn the service on/off | On |
-| Auto-translate | Automatically translate when subtitle is missing | On |
-| Show notifications | Display progress notifications | On |
-| Ask before translating | Prompt before starting translation | On |
+---
 
-### Language Settings
+### 🟢 Basic (Level 0)
+
+Essential settings for getting started.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| Target language | Language to translate subtitles to | Swedish |
-| Source language | Preferred source language (or Auto) | English |
-| Fallback languages | Comma-separated list of fallback languages | en,sv |
+| **Enable addon** | Turn the service on/off | ✅ On |
+| **Target language** | Language to translate to | Swedish |
+| **Translation service** | Which service to use | Lingva |
 
-### Translation Service Configuration
+#### API Keys (shown when required)
 
-#### Free Services (No API Key Required)
+| Service | Setting | Where to get |
+|---------|---------|--------------|
+| DeepL | DeepL API key | [deepl.com/pro-api](https://www.deepl.com/pro-api) |
+| Google | Google Cloud API key | [cloud.google.com](https://cloud.google.com/translate) |
+| Microsoft | Azure API key | [azure.microsoft.com](https://azure.microsoft.com/services/cognitive-services/translator/) |
+| OpenAI | OpenAI API key | [platform.openai.com](https://platform.openai.com/api-keys) |
+| Anthropic | Anthropic API key | [console.anthropic.com](https://console.anthropic.com/) |
 
-**LibreTranslate**
-```
-Service: LibreTranslate
-URL: https://libretranslate.com (or self-hosted instance)
-API Key: (optional, for private instances)
-```
+---
 
-**MyMemory**
-```
-Service: MyMemory
-No configuration required (1000 words/day free)
-```
+### 🔵 Standard (Level 1)
 
-**Lingva Translate**
-```
-Service: Lingva
-URL: https://lingva.ml (or alternative instance)
-```
-
-#### Paid Services (API Key Required)
-
-**DeepL**
-```
-Service: DeepL / DeepL Free
-API Key: Your DeepL API key
-Formality: Default / Formal / Informal
-```
-Get your API key at: https://www.deepl.com/pro-api
-
-**Google Cloud Translation**
-```
-Service: Google Translate
-API Key: Your Google Cloud API key
-```
-Get your API key at: https://cloud.google.com/translate
-
-**Microsoft Translator**
-```
-Service: Microsoft Translator
-API Key: Your Azure subscription key
-Region: westeurope (or your region)
-```
-Get your API key at: https://azure.microsoft.com/services/cognitive-services/translator/
-
-### Subtitle Settings
+Common settings most users will want to adjust.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| Output format | SRT, ASS/SSA, or WebVTT | SRT |
-| Preserve timing | Keep original subtitle timing | On |
-| Preserve formatting | Keep styling (ASS/SSA only) | On |
-| Cache translations | Save translated subtitles for reuse | On |
-| Cache duration | Days to keep cached translations | 30 |
-| Save alongside video | Save subtitle file next to video | Off |
+| **Ask before translating** | Prompt before starting | ✅ On |
+| **Save subtitle alongside video** | Save as `video.sv.srt` | ✅ On |
+| **Show notifications** | Display progress | ✅ On |
+| **Show progress dialog** | Visual progress bar | ✅ On |
+| **Subtitle format** | Output format | SRT |
+| **Translation profile** | Preset for content type | Standard |
 
-### Advanced Settings
+#### Subtitle Formats
+
+| Format | Description |
+|--------|-------------|
+| SRT | Simple, widely compatible |
+| ASS/SSA | Supports styling, positioning |
+| WebVTT | Web-friendly format |
+
+#### Translation Profiles
+
+| Profile | Description |
+|---------|-------------|
+| Standard | General-purpose translation |
+| Anime | Preserves honorifics (-san, -kun, etc.) |
+| Kids | Simplified language, censored profanity |
+| Formal | Business/documentary style |
+| Casual | Informal, conversational |
+
+#### Service-Specific Options (shown when applicable)
+
+| Service | Setting | Options |
+|---------|---------|---------|
+| OpenAI | Model | GPT-4o Mini, GPT-4o, GPT-4 Turbo |
+| Anthropic | Model | Claude 3 Haiku, Sonnet, Opus |
+| DeepL | Formality | Default, Formal, Informal |
+| Microsoft | Region | West Europe, North Europe, East US, etc. |
+
+---
+
+### 🟡 Advanced (Level 2)
+
+More options for experienced users.
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| FFmpeg path | Custom FFmpeg binary path | (auto-detect) |
-| Batch size | Subtitles per translation request | 50 |
-| Request timeout | API timeout in seconds | 30 |
-| Debug logging | Enable verbose logging | Off |
+| **Source language** | Language to translate from | Auto-detect |
+| **Auto-translate** | Start without user prompt | ✅ On |
+| **Cache translations** | Save for reuse | ✅ On |
+| **Cache duration** | Days to keep cache | 30 |
+| **Enable fallback** | Try other services on failure | ✅ On |
+| **Fallback services** | Comma-separated list | mymemory,libretranslate |
+| **Batch size** | Subtitles per API request | 20 |
+| **Request timeout** | Seconds before timeout | 30 |
+
+#### Service URLs (for self-hosted instances)
+
+| Setting | Default |
+|---------|---------|
+| Lingva URL | https://lingva.ml |
+| LibreTranslate URL | https://translate.argosopentech.com |
+| LibreTranslate API key | (optional) |
+
+---
+
+### 🔴 Expert (Level 3)
+
+Technical settings for power users.
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| **Debug logging** | Verbose logging | ❌ Off |
+| **Debug categories** | Which to log | all |
+| **FFmpeg path** | Custom binary path | (auto) |
+| **FFmpeg threads** | 0 = auto | 0 |
+| **Max retries** | API retry attempts | 3 |
+| **Retry delay** | Seconds between retries | 5 |
+| **Rate limit** | Requests per minute | 10 |
+| **Subtitle encoding** | Character encoding | UTF-8 |
+| **OpenAI temperature** | Creativity (0-2) | 0.3 |
+| **OpenAI base URL** | Custom API endpoint | (default) |
+
+---
+
+## 🌐 Translation Services
+
+### Free Services (No API Key)
+
+| Service | Pros | Cons |
+|---------|------|------|
+| **Lingva** | Fast, no limits | Google Translate frontend |
+| **MyMemory** | Good quality | 1000 words/day limit |
+| **LibreTranslate** | Open source, self-hostable | Varies by instance |
+| **Argos** | Works offline | Requires language packs |
+
+### Paid Services (API Key Required)
+
+| Service | Pros | Cons | Pricing |
+|---------|------|------|---------|
+| **DeepL** | Excellent quality | Limited languages | €5.49/month + usage |
+| **Google** | Many languages | Per-character cost | $20/million chars |
+| **Microsoft** | Good quality | Per-character cost | $10/million chars |
+
+### AI Services (API Key Required)
+
+| Service | Pros | Cons | Pricing |
+|---------|------|------|---------|
+| **OpenAI** | Context-aware, natural | Slower, more expensive | ~$0.15/million tokens |
+| **Anthropic** | High quality | Slower | ~$0.25/million tokens |
+
+---
+
+## 🌍 Supported Languages
+
+### Target Languages
+
+| Code | Language | Code | Language | Code | Language |
+|------|----------|------|----------|------|----------|
+| sv | Swedish | pl | Polish | ja | Japanese |
+| en | English | nl | Dutch | zh | Chinese (Simplified) |
+| no | Norwegian | ru | Russian | zh-TW | Chinese (Traditional) |
+| da | Danish | uk | Ukrainian | ko | Korean |
+| fi | Finnish | cs | Czech | ar | Arabic |
+| de | German | el | Greek | tr | Turkish |
+| fr | French | hu | Hungarian | hi | Hindi |
+| es | Spanish | ro | Romanian | th | Thai |
+| it | Italian | he | Hebrew | vi | Vietnamese |
+| pt | Portuguese | id | Indonesian | | |
+
+### UI Languages (25)
+
+Full interface translation: Swedish, English, German, French, Spanish, Italian, Dutch, Danish, Polish, Russian, Portuguese, Japanese, Chinese, Korean, Turkish, Arabic, Hindi, Thai, Vietnamese, Indonesian, Czech, Greek, Hungarian, Romanian, Ukrainian.
+
+---
 
 ## 🔧 Requirements
 
 - **Kodi 19 (Matrix)** or later
 - **FFmpeg** – For extracting embedded subtitles
-  - Usually pre-installed on Linux
+  - Linux: Usually pre-installed (`apt install ffmpeg`)
   - Windows: [Download FFmpeg](https://ffmpeg.org/download.html)
   - macOS: `brew install ffmpeg`
-- **Internet connection** – For translation API access
+- **Internet connection** – For translation API access (except Argos)
 
-## 🌐 Supported Languages
+---
 
-| Code | Language | Code | Language |
-|------|----------|------|----------|
-| sv | Swedish | pl | Polish |
-| no | Norwegian | nl | Dutch |
-| da | Danish | ru | Russian |
-| fi | Finnish | ja | Japanese |
-| de | German | zh | Chinese |
-| fr | French | ko | Korean |
-| es | Spanish | ar | Arabic |
-| it | Italian | tr | Turkish |
-| pt | Portuguese | hi | Hindi |
-| en | English | uk | Ukrainian |
-
-## 📁 File Structure
+## 📁 Project Structure
 
 ```
 service.subtitletranslator/
-├── addon.xml              # Addon metadata
-├── service.py             # Main service script
-├── LICENSE                # MIT License
-├── README.md              # This file
+├── addon.xml                 # Addon metadata (v0.7.0)
+├── service.py                # Main service script
+├── LICENSE                   # GPL-3.0-or-later
+├── README.md                 # This file
 ├── lib/
 │   ├── __init__.py
-│   ├── subtitle_extractor.py  # FFmpeg integration
-│   ├── subtitle_parser.py     # SRT/ASS/VTT parsing
-│   └── translators.py         # Translation service adapters
+│   ├── dialogs.py            # UI dialogs
+│   ├── progress_dialog.py    # Progress tracking
+│   ├── subtitle_extractor.py # FFmpeg integration
+│   ├── subtitle_parser.py    # SRT/ASS/VTT parsing
+│   ├── translators.py        # Translation service adapters
+│   └── advanced_features.py  # Profiles, caching, stats
 └── resources/
-    ├── icon.png           # Addon icon (512x512)
-    ├── fanart.jpg         # Background image (1920x1080)
-    ├── settings.xml       # Settings definition
-    └── language/
+    ├── icon.png              # Addon icon (512x512)
+    ├── fanart.jpg            # Background (1920x1080)
+    ├── settings.xml          # Settings definition (v2)
+    └── language/             # 25 languages
         ├── resource.language.en_gb/
-        │   └── strings.po
-        └── resource.language.sv_se/
-            └── strings.po
+        ├── resource.language.sv_se/
+        ├── resource.language.de_de/
+        └── ...
 ```
+
+---
+
+## 🛠️ Troubleshooting
+
+### Translation fails with 403 error
+- LibreTranslate.com now requires API key
+- Switch to **Lingva** or **MyMemory** (free, no key)
+- Or use a different LibreTranslate instance
+
+### Subtitles not extracted
+- Ensure FFmpeg is installed and in PATH
+- Check Expert settings for custom FFmpeg path
+- Enable debug logging to see FFmpeg output
+
+### Translation is slow
+- Reduce batch size in Advanced settings
+- Use a faster service (Lingva > AI services)
+- Check your internet connection
+
+### Playback doesn't resume
+- Update to version 0.7.0+
+- Check Kodi log for errors
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest new features
-- Add support for more translation services
-- Improve translations
+Contributions welcome!
+
+- 🐛 Report bugs via GitHub Issues
+- 💡 Suggest features
+- 🌍 Improve translations
+- 🔌 Add new translation services
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+**GPL-3.0-or-later** – See [LICENSE](LICENSE) file.
+
+---
 
 ## 👤 Author
 
 **Daniel Nylander**
-- Website: [danielnylander.se](https://danielnylander.se)
-- GitHub: [@yeager](https://github.com/yeager)
+- 🌐 [danielnylander.se](https://danielnylander.se)
+- 💻 [@yeager](https://github.com/yeager)
+
+---
 
 ## 🙏 Credits
 
 - [Kodi](https://kodi.tv/) – The ultimate entertainment center
 - [FFmpeg](https://ffmpeg.org/) – Multimedia framework
-- [LibreTranslate](https://libretranslate.com/) – Open-source translation API
-- [DeepL](https://www.deepl.com/) – High-quality neural machine translation
+- [Lingva](https://lingva.ml/) – Free translation frontend
+- [LibreTranslate](https://libretranslate.com/) – Open-source translation
+- [DeepL](https://www.deepl.com/) – Neural machine translation
+- [OpenAI](https://openai.com/) – GPT language models
+- [Anthropic](https://anthropic.com/) – Claude AI
 
 ---
 
-**Enjoy your translated subtitles! 🎬**
+**Enjoy your translated subtitles! 🎬🍿**

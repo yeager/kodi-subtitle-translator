@@ -15,14 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "Chung"
 
 msgctxt "#30101"
 msgid "Basic Settings"
-msgstr ""
+msgstr "Cài đặt cơ bản"
 
 msgctxt "#30102"
 msgid "Enable addon"
@@ -30,45 +29,43 @@ msgstr "Bật addon"
 
 msgctxt "#30103"
 msgid "Auto-translate when subtitle is missing"
-msgstr ""
+msgstr "Tự động dịch khi thiếu phụ đề"
 
 msgctxt "#30104"
 msgid "Show notifications"
-msgstr ""
+msgstr "Hiển thị thông báo"
 
 msgctxt "#30105"
 msgid "Ask before translating"
-msgstr ""
+msgstr "Hỏi trước khi dịch"
 
 msgctxt "#30106"
 msgid "Show progress dialog"
-msgstr ""
+msgstr "Hiển thị hộp thoại tiến trình"
 
 msgctxt "#30110"
 msgid "Notifications"
-msgstr ""
+msgstr "Thông báo"
 
 msgctxt "#30111"
 msgid "Play notification sound"
-msgstr ""
+msgstr "Phát âm thanh thông báo"
 
 msgctxt "#30112"
 msgid "Notification duration (seconds)"
-msgstr ""
+msgstr "Thời gian thông báo (giây)"
 
 msgctxt "#30113"
 msgid "Show translation statistics"
-msgstr ""
+msgstr "Hiển thị thống kê dịch"
 
-
-# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Ngôn ngữ"
 
 msgctxt "#30201"
 msgid "Language Preferences"
-msgstr ""
+msgstr "Tùy chọn ngôn ngữ"
 
 msgctxt "#30202"
 msgid "Target language"
@@ -80,33 +77,19 @@ msgstr "Ngôn ngữ nguồn"
 
 msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
-msgstr ""
+msgstr "Ngôn ngữ dự phòng (phân cách bằng dấu phẩy)"
 
-msgctxt "#30210"
-msgid "Multi-Language Output"
-msgstr ""
-
-msgctxt "#30211"
-msgid "Enable multi-language output"
-msgstr ""
-
-msgctxt "#30212"
-msgid "Additional languages (comma-separated)"
-msgstr ""
-
-
-# ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
 msgid "Profiles"
-msgstr ""
+msgstr "Hồ sơ"
 
 msgctxt "#30251"
 msgid "Translation Profile"
-msgstr ""
+msgstr "Hồ sơ dịch"
 
 msgctxt "#30252"
 msgid "Active profile"
-msgstr ""
+msgstr "Hồ sơ đang hoạt động"
 
 msgctxt "#30260"
 msgid "Anime Settings"
@@ -148,8 +131,6 @@ msgctxt "#30282"
 msgid "Tone"
 msgstr ""
 
-
-# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Dịch vụ dịch"
@@ -160,11 +141,11 @@ msgstr ""
 
 msgctxt "#30302"
 msgid "Translation service"
-msgstr ""
+msgstr "Dịch vụ dịch"
 
 msgctxt "#30303"
 msgid "API Keys"
-msgstr ""
+msgstr "Khóa API"
 
 msgctxt "#30305"
 msgid "Fallback Services"
@@ -172,7 +153,7 @@ msgstr ""
 
 msgctxt "#30306"
 msgid "Enable fallback to other services"
-msgstr ""
+msgstr "Bật dịch vụ dự phòng"
 
 msgctxt "#30307"
 msgid "Fallback services (comma-separated)"
@@ -187,7 +168,7 @@ msgid "DeepL Settings"
 msgstr ""
 
 msgctxt "#30311"
-msgid "DeepL Pro API key"
+msgid "DeepL API key"
 msgstr ""
 
 msgctxt "#30312"
@@ -330,8 +311,6 @@ msgctxt "#30390"
 msgid "Advanced Service Settings"
 msgstr ""
 
-
-# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Phụ đề"
@@ -342,7 +321,7 @@ msgstr ""
 
 msgctxt "#30402"
 msgid "Subtitle format"
-msgstr ""
+msgstr "Định dạng phụ đề"
 
 msgctxt "#30403"
 msgid "Character encoding"
@@ -414,7 +393,7 @@ msgstr ""
 
 msgctxt "#30441"
 msgid "Cache translated subtitles"
-msgstr ""
+msgstr "Lưu cache phụ đề đã dịch"
 
 msgctxt "#30442"
 msgid "Cache duration (days)"
@@ -426,7 +405,7 @@ msgstr ""
 
 msgctxt "#30444"
 msgid "Save subtitle alongside video"
-msgstr ""
+msgstr "Lưu phụ đề cạnh video"
 
 msgctxt "#30450"
 msgid "Formatting Preservation"
@@ -448,8 +427,6 @@ msgctxt "#30454"
 msgid "Preserve positions"
 msgstr ""
 
-
-# ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
 msgstr ""
@@ -482,8 +459,6 @@ msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
 msgstr ""
 
-
-# ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
 msgstr ""
@@ -504,8 +479,6 @@ msgctxt "#30484"
 msgid "Additional words to filter"
 msgstr ""
 
-
-# ===== BATCH PROCESSING =====
 msgctxt "#30490"
 msgid "Batch Processing"
 msgstr ""
@@ -534,8 +507,6 @@ msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
 msgstr ""
 
-
-# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
 msgstr ""
@@ -600,8 +571,6 @@ msgctxt "#30522"
 msgid "Requests per minute"
 msgstr ""
 
-
-# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Nâng cao"
@@ -644,7 +613,7 @@ msgstr ""
 
 msgctxt "#30621"
 msgid "Enable debug logging"
-msgstr ""
+msgstr "Bật ghi nhật ký gỡ lỗi"
 
 msgctxt "#30622"
 msgid "Debug categories (all or comma-separated)"
@@ -698,8 +667,6 @@ msgctxt "#30644"
 msgid "Flag untranslated text"
 msgstr ""
 
-
-# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Đang dịch phụ đề..."
@@ -714,43 +681,43 @@ msgstr "Dịch thất bại"
 
 msgctxt "#30703"
 msgid "No embedded subtitles found"
-msgstr ""
+msgstr "Không tìm thấy phụ đề nhúng"
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"
-msgstr ""
+msgstr "Phụ đề đã có sẵn trong ngôn ngữ của bạn"
 
 msgctxt "#30705"
 msgid "Using cached translation"
-msgstr ""
+msgstr "Sử dụng bản dịch đã lưu cache"
 
 msgctxt "#30706"
 msgid "Translate subtitles to {0} from {1}?"
-msgstr ""
+msgstr "Dịch phụ đề sang {0} từ {1}?"
 
 msgctxt "#30707"
 msgid "Extracting subtitles..."
-msgstr ""
+msgstr "Đang trích xuất phụ đề..."
 
 msgctxt "#30708"
 msgid "Parsing subtitle file..."
-msgstr ""
+msgstr "Đang phân tích tệp phụ đề..."
 
 msgctxt "#30709"
 msgid "Connecting to translation service..."
-msgstr ""
+msgstr "Đang kết nối với dịch vụ dịch..."
 
 msgctxt "#30710"
 msgid "Translating batch {0}/{1}..."
-msgstr ""
+msgstr "Đang dịch lô {0}/{1}..."
 
 msgctxt "#30711"
 msgid "Saving translated subtitles..."
-msgstr ""
+msgstr "Đang lưu phụ đề đã dịch..."
 
 msgctxt "#30712"
 msgid "Translation cancelled"
-msgstr ""
+msgstr "Dịch đã bị hủy"
 
 msgctxt "#30713"
 msgid "Fallback to {0}"
@@ -770,14 +737,12 @@ msgstr ""
 
 msgctxt "#30717"
 msgid "Pausing playback during translation..."
-msgstr ""
+msgstr "Tạm dừng phát trong khi dịch..."
 
 msgctxt "#30718"
 msgid "Resuming playback"
-msgstr ""
+msgstr "Tiếp tục phát"
 
-
-# ===== LANGUAGE NAMES =====
 msgctxt "#30800"
 msgid "Swedish"
 msgstr ""

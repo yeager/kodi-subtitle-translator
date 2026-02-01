@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "Generale"
@@ -42,33 +41,31 @@ msgstr "Chiedi prima di tradurre"
 
 msgctxt "#30106"
 msgid "Show progress dialog"
-msgstr ""
+msgstr "Mostra finestra di avanzamento"
 
 msgctxt "#30110"
 msgid "Notifications"
-msgstr ""
+msgstr "Notifiche"
 
 msgctxt "#30111"
 msgid "Play notification sound"
-msgstr ""
+msgstr "Riproduci suono di notifica"
 
 msgctxt "#30112"
 msgid "Notification duration (seconds)"
-msgstr ""
+msgstr "Durata notifica (secondi)"
 
 msgctxt "#30113"
 msgid "Show translation statistics"
-msgstr ""
+msgstr "Mostra statistiche di traduzione"
 
-
-# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Lingue"
 
 msgctxt "#30201"
 msgid "Language Preferences"
-msgstr ""
+msgstr "Preferenze lingua"
 
 msgctxt "#30202"
 msgid "Target language"
@@ -80,83 +77,67 @@ msgstr "Lingua di origine"
 
 msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
-msgstr ""
+msgstr "Lingue di riserva (separate da virgola)"
 
-msgctxt "#30210"
-msgid "Multi-Language Output"
-msgstr ""
-
-msgctxt "#30211"
-msgid "Enable multi-language output"
-msgstr ""
-
-msgctxt "#30212"
-msgid "Additional languages (comma-separated)"
-msgstr ""
-
-
-# ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
 msgid "Profiles"
-msgstr ""
+msgstr "Profili"
 
 msgctxt "#30251"
 msgid "Translation Profile"
-msgstr ""
+msgstr "Profilo di traduzione"
 
 msgctxt "#30252"
 msgid "Active profile"
-msgstr ""
+msgstr "Profilo attivo"
 
 msgctxt "#30260"
 msgid "Anime Settings"
-msgstr ""
+msgstr "Impostazioni Anime"
 
 msgctxt "#30261"
 msgid "Preserve honorifics (-san, -kun, etc.)"
-msgstr ""
+msgstr "Preserva onorifici (-san, -kun, ecc.)"
 
 msgctxt "#30262"
 msgid "Japanese terms to preserve"
-msgstr ""
+msgstr "Termini giapponesi da preservare"
 
 msgctxt "#30270"
 msgid "Kids Content Settings"
-msgstr ""
+msgstr "Impostazioni contenuti per bambini"
 
 msgctxt "#30271"
 msgid "Simplify language"
-msgstr ""
+msgstr "Semplifica linguaggio"
 
 msgctxt "#30272"
 msgid "Censor profanity"
-msgstr ""
+msgstr "Censura parolacce"
 
 msgctxt "#30273"
 msgid "Maximum reading speed (chars/sec)"
-msgstr ""
+msgstr "Velocità di lettura massima (car/sec)"
 
 msgctxt "#30280"
 msgid "Custom Profile Settings"
-msgstr ""
+msgstr "Impostazioni profilo personalizzato"
 
 msgctxt "#30281"
 msgid "Formality level"
-msgstr ""
+msgstr "Livello di formalità"
 
 msgctxt "#30282"
 msgid "Tone"
-msgstr ""
+msgstr "Tono"
 
-
-# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Servizi di traduzione"
 
 msgctxt "#30301"
 msgid "Service Selection"
-msgstr ""
+msgstr "Selezione servizio"
 
 msgctxt "#30302"
 msgid "Translation service"
@@ -164,181 +145,179 @@ msgstr "Servizio di traduzione"
 
 msgctxt "#30303"
 msgid "API Keys"
-msgstr ""
+msgstr "Chiavi API"
 
 msgctxt "#30305"
 msgid "Fallback Services"
-msgstr ""
+msgstr "Servizi di riserva"
 
 msgctxt "#30306"
 msgid "Enable fallback to other services"
-msgstr ""
+msgstr "Abilita servizi di riserva"
 
 msgctxt "#30307"
 msgid "Fallback services (comma-separated)"
-msgstr ""
+msgstr "Servizi di riserva (separati da virgola)"
 
 msgctxt "#30308"
 msgid "Cooldown before retry (seconds)"
-msgstr ""
+msgstr "Attesa prima di riprovare (secondi)"
 
 msgctxt "#30310"
 msgid "DeepL Settings"
-msgstr ""
+msgstr "Impostazioni DeepL"
 
 msgctxt "#30311"
-msgid "DeepL Pro API key"
-msgstr ""
+msgid "DeepL API key"
+msgstr "Chiave API DeepL"
 
 msgctxt "#30312"
 msgid "DeepL Free API key"
-msgstr ""
+msgstr "Chiave API DeepL Free"
 
 msgctxt "#30313"
 msgid "Formality"
-msgstr ""
+msgstr "Formalità"
 
 msgctxt "#30314"
 msgid "Split sentences"
-msgstr ""
+msgstr "Dividi frasi"
 
 msgctxt "#30315"
 msgid "Preserve formatting"
-msgstr ""
+msgstr "Preserva formattazione"
 
 msgctxt "#30320"
 msgid "LibreTranslate Settings"
-msgstr ""
+msgstr "Impostazioni LibreTranslate"
 
 msgctxt "#30321"
 msgid "Server URL"
-msgstr ""
+msgstr "URL del server"
 
 msgctxt "#30322"
 msgid "API key (optional)"
-msgstr ""
+msgstr "Chiave API (opzionale)"
 
 msgctxt "#30323"
 msgid "Custom mirror URLs"
-msgstr ""
+msgstr "URL mirror personalizzati"
 
 msgctxt "#30330"
 msgid "Google Translate Settings"
-msgstr ""
+msgstr "Impostazioni Google Translate"
 
 msgctxt "#30331"
 msgid "Google Cloud API key"
-msgstr ""
+msgstr "Chiave API Google Cloud"
 
 msgctxt "#30332"
 msgid "Translation model"
-msgstr ""
+msgstr "Modello di traduzione"
 
 msgctxt "#30340"
 msgid "Microsoft Translator Settings"
-msgstr ""
+msgstr "Impostazioni Microsoft Translator"
 
 msgctxt "#30341"
 msgid "Azure API key"
-msgstr ""
+msgstr "Chiave API Azure"
 
 msgctxt "#30342"
 msgid "Azure region"
-msgstr ""
+msgstr "Regione Azure"
 
 msgctxt "#30343"
 msgid "Profanity handling"
-msgstr ""
+msgstr "Gestione parolacce"
 
 msgctxt "#30350"
 msgid "Lingva Settings"
-msgstr ""
+msgstr "Impostazioni Lingva"
 
 msgctxt "#30351"
 msgid "Lingva server URL"
-msgstr ""
+msgstr "URL server Lingva"
 
 msgctxt "#30352"
 msgid "Alternative server URLs"
-msgstr ""
+msgstr "URL server alternativi"
 
 msgctxt "#30360"
 msgid "Argos Translate Settings"
-msgstr ""
+msgstr "Impostazioni Argos Translate"
 
 msgctxt "#30361"
 msgid "Language package path"
-msgstr ""
+msgstr "Percorso pacchetti lingua"
 
 msgctxt "#30362"
 msgid "Auto-download language packages"
-msgstr ""
+msgstr "Scarica automaticamente pacchetti lingua"
 
 msgctxt "#30370"
 msgid "OpenAI Settings"
-msgstr ""
+msgstr "Impostazioni OpenAI"
 
 msgctxt "#30371"
 msgid "OpenAI API key"
-msgstr ""
+msgstr "Chiave API OpenAI"
 
 msgctxt "#30372"
 msgid "Model"
-msgstr ""
+msgstr "Modello"
 
 msgctxt "#30373"
 msgid "Custom model name"
-msgstr ""
+msgstr "Nome modello personalizzato"
 
 msgctxt "#30374"
 msgid "Custom API base URL"
-msgstr ""
+msgstr "URL base API personalizzato"
 
 msgctxt "#30375"
 msgid "Temperature"
-msgstr ""
+msgstr "Temperatura"
 
 msgctxt "#30376"
 msgid "Max tokens"
-msgstr ""
+msgstr "Token massimi"
 
 msgctxt "#30377"
 msgid "Context window (subtitles)"
-msgstr ""
+msgstr "Finestra di contesto (sottotitoli)"
 
 msgctxt "#30380"
 msgid "Anthropic Claude Settings"
-msgstr ""
+msgstr "Impostazioni Anthropic Claude"
 
 msgctxt "#30381"
 msgid "Anthropic API key"
-msgstr ""
+msgstr "Chiave API Anthropic"
 
 msgctxt "#30382"
 msgid "Claude model"
-msgstr ""
+msgstr "Modello Claude"
 
 msgctxt "#30383"
 msgid "Max tokens"
-msgstr ""
+msgstr "Token massimi"
 
 msgctxt "#30384"
 msgid "Context window (subtitles)"
-msgstr ""
+msgstr "Finestra di contesto (sottotitoli)"
 
 msgctxt "#30390"
 msgid "Advanced Service Settings"
-msgstr ""
+msgstr "Impostazioni avanzate servizi"
 
-
-# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Sottotitoli"
 
 msgctxt "#30401"
 msgid "Output Format"
-msgstr ""
+msgstr "Formato di output"
 
 msgctxt "#30402"
 msgid "Subtitle format"
@@ -346,83 +325,83 @@ msgstr "Formato sottotitoli"
 
 msgctxt "#30403"
 msgid "Character encoding"
-msgstr ""
+msgstr "Codifica caratteri"
 
 msgctxt "#30410"
 msgid "Timing Adjustments"
-msgstr ""
+msgstr "Regolazioni temporali"
 
 msgctxt "#30411"
 msgid "Adjust timing for readability"
-msgstr ""
+msgstr "Regola tempi per leggibilità"
 
 msgctxt "#30412"
 msgid "Reading speed (chars/sec)"
-msgstr ""
+msgstr "Velocità di lettura (car/sec)"
 
 msgctxt "#30413"
 msgid "Minimum display time (ms)"
-msgstr ""
+msgstr "Tempo minimo di visualizzazione (ms)"
 
 msgctxt "#30414"
 msgid "Maximum display time (ms)"
-msgstr ""
+msgstr "Tempo massimo di visualizzazione (ms)"
 
 msgctxt "#30415"
 msgid "Gap between subtitles (ms)"
-msgstr ""
+msgstr "Intervallo tra sottotitoli (ms)"
 
 msgctxt "#30420"
 msgid "Line Breaking"
-msgstr ""
+msgstr "Interruzione di riga"
 
 msgctxt "#30421"
 msgid "Auto line break"
-msgstr ""
+msgstr "Interruzione di riga automatica"
 
 msgctxt "#30422"
 msgid "Maximum line length (chars)"
-msgstr ""
+msgstr "Lunghezza massima riga (car)"
 
 msgctxt "#30423"
 msgid "Maximum lines per subtitle"
-msgstr ""
+msgstr "Righe massime per sottotitolo"
 
 msgctxt "#30430"
 msgid "SDH / Accessibility"
-msgstr ""
+msgstr "SDH / Accessibilità"
 
 msgctxt "#30431"
 msgid "Enable SDH processing"
-msgstr ""
+msgstr "Abilita elaborazione SDH"
 
 msgctxt "#30432"
 msgid "Preserve speaker labels"
-msgstr ""
+msgstr "Preserva etichette parlante"
 
 msgctxt "#30433"
 msgid "Translate sound descriptions"
-msgstr ""
+msgstr "Traduci descrizioni sonore"
 
 msgctxt "#30434"
 msgid "Preserve music notation"
-msgstr ""
+msgstr "Preserva notazione musicale"
 
 msgctxt "#30440"
 msgid "Caching"
-msgstr ""
+msgstr "Cache"
 
 msgctxt "#30441"
 msgid "Cache translated subtitles"
-msgstr ""
+msgstr "Memorizza sottotitoli tradotti in cache"
 
 msgctxt "#30442"
 msgid "Cache duration (days)"
-msgstr ""
+msgstr "Durata cache (giorni)"
 
 msgctxt "#30443"
 msgid "Cache size limit (MB)"
-msgstr ""
+msgstr "Limite dimensione cache (MB)"
 
 msgctxt "#30444"
 msgid "Save subtitle alongside video"
@@ -430,276 +409,264 @@ msgstr "Salva sottotitolo accanto al video"
 
 msgctxt "#30450"
 msgid "Formatting Preservation"
-msgstr ""
+msgstr "Preservazione formattazione"
 
 msgctxt "#30451"
 msgid "Preserve original timing"
-msgstr ""
+msgstr "Preserva tempi originali"
 
 msgctxt "#30452"
 msgid "Preserve text formatting"
-msgstr ""
+msgstr "Preserva formattazione testo"
 
 msgctxt "#30453"
 msgid "Preserve colors"
-msgstr ""
+msgstr "Preserva colori"
 
 msgctxt "#30454"
 msgid "Preserve positions"
-msgstr ""
+msgstr "Preserva posizioni"
 
-
-# ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
-msgstr ""
+msgstr "Glossario"
 
 msgctxt "#30461"
 msgid "Custom Terminology"
-msgstr ""
+msgstr "Terminologia personalizzata"
 
 msgctxt "#30462"
 msgid "Enable glossary"
-msgstr ""
+msgstr "Abilita glossario"
 
 msgctxt "#30463"
 msgid "Case-sensitive matching"
-msgstr ""
+msgstr "Corrispondenza sensibile alle maiuscole"
 
 msgctxt "#30464"
 msgid "Glossary file path"
-msgstr ""
+msgstr "Percorso file glossario"
 
 msgctxt "#30470"
 msgid "Name Preservation"
-msgstr ""
+msgstr "Preservazione nomi"
 
 msgctxt "#30471"
 msgid "Preserve character names"
-msgstr ""
+msgstr "Preserva nomi personaggi"
 
 msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
-msgstr ""
+msgstr "Nomi da preservare (separati da virgola)"
 
-
-# ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
-msgstr ""
+msgstr "Filtraggio contenuti"
 
 msgctxt "#30481"
 msgid "Profanity Filter"
-msgstr ""
+msgstr "Filtro parolacce"
 
 msgctxt "#30482"
 msgid "Enable profanity filter"
-msgstr ""
+msgstr "Abilita filtro parolacce"
 
 msgctxt "#30483"
 msgid "Replacement text"
-msgstr ""
+msgstr "Testo sostitutivo"
 
 msgctxt "#30484"
 msgid "Additional words to filter"
-msgstr ""
+msgstr "Parole aggiuntive da filtrare"
 
-
-# ===== BATCH PROCESSING =====
 msgctxt "#30490"
 msgid "Batch Processing"
-msgstr ""
+msgstr "Elaborazione batch"
 
 msgctxt "#30491"
 msgid "Batch Translation"
-msgstr ""
+msgstr "Traduzione batch"
 
 msgctxt "#30492"
 msgid "Enable batch processing"
-msgstr ""
+msgstr "Abilita elaborazione batch"
 
 msgctxt "#30493"
 msgid "Maximum concurrent translations"
-msgstr ""
+msgstr "Traduzioni simultanee massime"
 
 msgctxt "#30494"
 msgid "Folders to process"
-msgstr ""
+msgstr "Cartelle da elaborare"
 
 msgctxt "#30495"
 msgid "Enable scheduled processing"
-msgstr ""
+msgstr "Abilita elaborazione programmata"
 
 msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
-msgstr ""
+msgstr "Orario programmato (HH:MM)"
 
-
-# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
-msgstr ""
+msgstr "Rete"
 
 msgctxt "#30501"
 msgid "Connection Settings"
-msgstr ""
+msgstr "Impostazioni connessione"
 
 msgctxt "#30502"
 msgid "Request timeout (seconds)"
-msgstr ""
+msgstr "Timeout richiesta (secondi)"
 
 msgctxt "#30503"
 msgid "Maximum retries"
-msgstr ""
+msgstr "Tentativi massimi"
 
 msgctxt "#30504"
 msgid "Retry delay (seconds)"
-msgstr ""
+msgstr "Ritardo tra tentativi (secondi)"
 
 msgctxt "#30505"
 msgid "Rate limit (requests per minute)"
-msgstr ""
+msgstr "Limite richieste (richieste/minuto)"
 
 msgctxt "#30510"
 msgid "Proxy Settings"
-msgstr ""
+msgstr "Impostazioni proxy"
 
 msgctxt "#30511"
 msgid "Enable proxy"
-msgstr ""
+msgstr "Abilita proxy"
 
 msgctxt "#30512"
 msgid "Proxy type"
-msgstr ""
+msgstr "Tipo proxy"
 
 msgctxt "#30513"
 msgid "Proxy host"
-msgstr ""
+msgstr "Host proxy"
 
 msgctxt "#30514"
 msgid "Proxy port"
-msgstr ""
+msgstr "Porta proxy"
 
 msgctxt "#30515"
 msgid "Proxy username"
-msgstr ""
+msgstr "Nome utente proxy"
 
 msgctxt "#30516"
 msgid "Proxy password"
-msgstr ""
+msgstr "Password proxy"
 
 msgctxt "#30520"
 msgid "Rate Limiting"
-msgstr ""
+msgstr "Limitazione richieste"
 
 msgctxt "#30521"
 msgid "Enable rate limiting"
-msgstr ""
+msgstr "Abilita limitazione richieste"
 
 msgctxt "#30522"
 msgid "Requests per minute"
-msgstr ""
+msgstr "Richieste al minuto"
 
-
-# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Avanzate"
 
 msgctxt "#30601"
 msgid "FFmpeg Settings"
-msgstr ""
+msgstr "Impostazioni FFmpeg"
 
 msgctxt "#30602"
 msgid "FFmpeg path (leave empty for auto)"
-msgstr ""
+msgstr "Percorso FFmpeg (vuoto per auto)"
 
 msgctxt "#30603"
 msgid "FFmpeg threads (0 = auto)"
-msgstr ""
+msgstr "Thread FFmpeg (0 = auto)"
 
 msgctxt "#30604"
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Abilita accelerazione hardware"
 
 msgctxt "#30610"
 msgid "Processing"
-msgstr ""
+msgstr "Elaborazione"
 
 msgctxt "#30611"
 msgid "Batch size (subtitles per request)"
-msgstr ""
+msgstr "Dimensione batch (sottotitoli per richiesta)"
 
 msgctxt "#30612"
 msgid "Parallel API requests"
-msgstr ""
+msgstr "Richieste API parallele"
 
 msgctxt "#30613"
 msgid "Memory limit (MB)"
-msgstr ""
+msgstr "Limite memoria (MB)"
 
 msgctxt "#30620"
 msgid "Debugging"
-msgstr ""
+msgstr "Debug"
 
 msgctxt "#30621"
 msgid "Enable debug logging"
-msgstr ""
+msgstr "Abilita log di debug"
 
 msgctxt "#30622"
 msgid "Debug categories (all or comma-separated)"
-msgstr ""
+msgstr "Categorie debug (tutte o separate)"
 
 msgctxt "#30623"
 msgid "Log API requests"
-msgstr ""
+msgstr "Registra richieste API"
 
 msgctxt "#30624"
 msgid "Log timing information"
-msgstr ""
+msgstr "Registra informazioni temporali"
 
 msgctxt "#30625"
 msgid "Save debug log to file"
-msgstr ""
+msgstr "Salva log di debug su file"
 
 msgctxt "#30630"
 msgid "Maintenance"
-msgstr ""
+msgstr "Manutenzione"
 
 msgctxt "#30631"
 msgid "Auto cleanup old cache"
-msgstr ""
+msgstr "Pulisci automaticamente vecchia cache"
 
 msgctxt "#30632"
 msgid "Cleanup on startup"
-msgstr ""
+msgstr "Pulisci all'avvio"
 
 msgctxt "#30633"
 msgid "Export statistics"
-msgstr ""
+msgstr "Esporta statistiche"
 
 msgctxt "#30640"
 msgid "Quality Control"
-msgstr ""
+msgstr "Controllo qualità"
 
 msgctxt "#30641"
 msgid "Enable quality checks"
-msgstr ""
+msgstr "Abilita controlli qualità"
 
 msgctxt "#30642"
 msgid "Minimum translation ratio"
-msgstr ""
+msgstr "Rapporto minimo di traduzione"
 
 msgctxt "#30643"
 msgid "Maximum translation ratio"
-msgstr ""
+msgstr "Rapporto massimo di traduzione"
 
 msgctxt "#30644"
 msgid "Flag untranslated text"
-msgstr ""
+msgstr "Segnala testo non tradotto"
 
-
-# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Traduzione sottotitoli..."
@@ -714,185 +681,183 @@ msgstr "Traduzione fallita"
 
 msgctxt "#30703"
 msgid "No embedded subtitles found"
-msgstr ""
+msgstr "Nessun sottotitolo incorporato trovato"
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"
-msgstr ""
+msgstr "Sottotitolo già disponibile nella tua lingua"
 
 msgctxt "#30705"
 msgid "Using cached translation"
-msgstr ""
+msgstr "Utilizzo traduzione dalla cache"
 
 msgctxt "#30706"
 msgid "Translate subtitles to {0} from {1}?"
-msgstr ""
+msgstr "Tradurre sottotitoli in {0} da {1}?"
 
 msgctxt "#30707"
 msgid "Extracting subtitles..."
-msgstr ""
+msgstr "Estrazione sottotitoli..."
 
 msgctxt "#30708"
 msgid "Parsing subtitle file..."
-msgstr ""
+msgstr "Analisi file sottotitoli..."
 
 msgctxt "#30709"
 msgid "Connecting to translation service..."
-msgstr ""
+msgstr "Connessione al servizio di traduzione..."
 
 msgctxt "#30710"
 msgid "Translating batch {0}/{1}..."
-msgstr ""
+msgstr "Traduzione batch {0}/{1}..."
 
 msgctxt "#30711"
 msgid "Saving translated subtitles..."
-msgstr ""
+msgstr "Salvataggio sottotitoli tradotti..."
 
 msgctxt "#30712"
 msgid "Translation cancelled"
-msgstr ""
+msgstr "Traduzione annullata"
 
 msgctxt "#30713"
 msgid "Fallback to {0}"
-msgstr ""
+msgstr "Servizio di riserva {0}"
 
 msgctxt "#30714"
 msgid "API error: {0}"
-msgstr ""
+msgstr "Errore API: {0}"
 
 msgctxt "#30715"
 msgid "Rate limit reached, waiting..."
-msgstr ""
+msgstr "Limite richieste raggiunto, attesa..."
 
 msgctxt "#30716"
 msgid "Batch processing complete: {0} videos"
-msgstr ""
+msgstr "Elaborazione batch completata: {0} video"
 
 msgctxt "#30717"
 msgid "Pausing playback during translation..."
-msgstr ""
+msgstr "Pausa riproduzione durante traduzione..."
 
 msgctxt "#30718"
 msgid "Resuming playback"
-msgstr ""
+msgstr "Ripresa riproduzione"
 
-
-# ===== LANGUAGE NAMES =====
 msgctxt "#30800"
 msgid "Swedish"
-msgstr ""
+msgstr "Svedese"
 
 msgctxt "#30801"
 msgid "English"
-msgstr ""
+msgstr "Inglese"
 
 msgctxt "#30802"
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegese"
 
 msgctxt "#30803"
 msgid "Danish"
-msgstr ""
+msgstr "Danese"
 
 msgctxt "#30804"
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandese"
 
 msgctxt "#30805"
 msgid "German"
-msgstr ""
+msgstr "Tedesco"
 
 msgctxt "#30806"
 msgid "French"
-msgstr ""
+msgstr "Francese"
 
 msgctxt "#30807"
 msgid "Spanish"
-msgstr ""
+msgstr "Spagnolo"
 
 msgctxt "#30808"
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 msgctxt "#30809"
 msgid "Portuguese"
-msgstr ""
+msgstr "Portoghese"
 
 msgctxt "#30810"
 msgid "Polish"
-msgstr ""
+msgstr "Polacco"
 
 msgctxt "#30811"
 msgid "Dutch"
-msgstr ""
+msgstr "Olandese"
 
 msgctxt "#30812"
 msgid "Russian"
-msgstr ""
+msgstr "Russo"
 
 msgctxt "#30813"
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraino"
 
 msgctxt "#30814"
 msgid "Japanese"
-msgstr ""
+msgstr "Giapponese"
 
 msgctxt "#30815"
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Cinese (semplificato)"
 
 msgctxt "#30816"
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Cinese (tradizionale)"
 
 msgctxt "#30817"
 msgid "Korean"
-msgstr ""
+msgstr "Coreano"
 
 msgctxt "#30818"
 msgid "Arabic"
-msgstr ""
+msgstr "Arabo"
 
 msgctxt "#30819"
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 msgctxt "#30820"
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 msgctxt "#30821"
 msgid "Thai"
-msgstr ""
+msgstr "Tailandese"
 
 msgctxt "#30822"
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 msgctxt "#30823"
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesiano"
 
 msgctxt "#30824"
 msgid "Greek"
-msgstr ""
+msgstr "Greco"
 
 msgctxt "#30825"
 msgid "Czech"
-msgstr ""
+msgstr "Ceco"
 
 msgctxt "#30826"
 msgid "Romanian"
-msgstr ""
+msgstr "Rumeno"
 
 msgctxt "#30827"
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungherese"
 
 msgctxt "#30828"
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebraico"
 
 msgctxt "#30829"
 msgid "Auto-detect"
@@ -900,16 +865,16 @@ msgstr "Rileva automaticamente"
 
 msgctxt "#30830"
 msgid "Malay"
-msgstr ""
+msgstr "Malese"
 
 msgctxt "#30831"
 msgid "Filipino"
-msgstr ""
+msgstr "Filipino"
 
 msgctxt "#30832"
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 msgctxt "#30833"
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
