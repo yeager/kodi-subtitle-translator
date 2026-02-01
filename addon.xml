@@ -11,39 +11,373 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>MIT</license>
-        <summary lang="en">Automatically translate embedded subtitles</summary>
-        <summary lang="sv">Översätt inbäddade undertexter automatiskt</summary>
-        <description lang="en">
+        
+        <!-- Summary (short description) - 25 languages -->
+        <summary lang="en_GB">Automatically translate embedded subtitles</summary>
+        <summary lang="sv_SE">Översätt inbäddade undertexter automatiskt</summary>
+        <summary lang="de_DE">Eingebettete Untertitel automatisch übersetzen</summary>
+        <summary lang="fr_FR">Traduire automatiquement les sous-titres intégrés</summary>
+        <summary lang="es_ES">Traducir automáticamente subtítulos incrustados</summary>
+        <summary lang="it_IT">Traduci automaticamente i sottotitoli incorporati</summary>
+        <summary lang="nl_NL">Automatisch ingebedde ondertitels vertalen</summary>
+        <summary lang="pl_PL">Automatycznie tłumacz osadzone napisy</summary>
+        <summary lang="pt_PT">Traduzir automaticamente legendas incorporadas</summary>
+        <summary lang="ru_RU">Автоматический перевод встроенных субтитров</summary>
+        <summary lang="uk_UA">Автоматичний переклад вбудованих субтитрів</summary>
+        <summary lang="da_DK">Oversæt automatisk indlejrede undertekster</summary>
+        <summary lang="no_NO">Oversett automatisk innebygde undertekster</summary>
+        <summary lang="fi_FI">Käännä upotetut tekstitykset automaattisesti</summary>
+        <summary lang="el_GR">Αυτόματη μετάφραση ενσωματωμένων υποτίτλων</summary>
+        <summary lang="cs_CZ">Automaticky překládat vložené titulky</summary>
+        <summary lang="hu_HU">Beágyazott feliratok automatikus fordítása</summary>
+        <summary lang="ro_RO">Traduceți automat subtitrările încorporate</summary>
+        <summary lang="tr_TR">Gömülü altyazıları otomatik olarak çevir</summary>
+        <summary lang="ar_SA">ترجمة الترجمات المضمنة تلقائيًا</summary>
+        <summary lang="he_IL">תרגום אוטומטי של כתוביות מוטמעות</summary>
+        <summary lang="ja_JP">埋め込み字幕を自動翻訳</summary>
+        <summary lang="ko_KR">내장 자막 자동 번역</summary>
+        <summary lang="zh_CN">自动翻译内嵌字幕</summary>
+        <summary lang="zh_TW">自動翻譯內嵌字幕</summary>
+        
+        <!-- Description (full) - 25 languages -->
+        <description lang="en_GB">
 When no subtitle is available in your preferred language, this addon extracts embedded subtitles from the media file and translates them using DeepL, LibreTranslate, Google Translate, or other translation services.
 
 Features:
 - Automatic detection of missing subtitles
 - Extract embedded subtitles (SRT, ASS, SSA)
-- Multiple translation services (DeepL, LibreTranslate, MyMemory, Google)
+- Multiple translation services (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
 - Configurable source and target languages
 - API key support for premium services
 - Caching of translated subtitles
+- Translation profiles (Anime, Kids, Documentary, etc.)
+- Offline translation with Argos Translate
         </description>
-        <description lang="sv">
-När ingen undertext finns på ditt föredragna språk extraherar detta tillägg inbäddade undertexter från mediafilen och översätter dem med DeepL, LibreTranslate, Google Translate eller andra översättningstjänster.
+        <description lang="sv_SE">
+När ingen undertext finns tillgänglig på ditt föredragna språk extraherar detta tillägg inbäddade undertexter från mediafilen och översätter dem med DeepL, LibreTranslate, Google Translate eller andra översättningstjänster.
 
 Funktioner:
 - Automatisk detektering av saknade undertexter
 - Extrahera inbäddade undertexter (SRT, ASS, SSA)
-- Flera översättningstjänster (DeepL, LibreTranslate, MyMemory, Google)
+- Flera översättningstjänster (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
 - Konfigurerbart käll- och målspråk
 - API-nyckelstöd för premiumtjänster
 - Caching av översatta undertexter
+- Översättningsprofiler (Anime, Barn, Dokumentär, etc.)
+- Offline-översättning med Argos Translate
         </description>
+        <description lang="de_DE">
+Wenn keine Untertitel in Ihrer bevorzugten Sprache verfügbar sind, extrahiert dieses Addon eingebettete Untertitel aus der Mediendatei und übersetzt sie mit DeepL, LibreTranslate, Google Translate oder anderen Übersetzungsdiensten.
+
+Funktionen:
+- Automatische Erkennung fehlender Untertitel
+- Extraktion eingebetteter Untertitel (SRT, ASS, SSA)
+- Mehrere Übersetzungsdienste (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurierbare Quell- und Zielsprachen
+- API-Schlüssel-Unterstützung für Premium-Dienste
+- Zwischenspeicherung übersetzter Untertitel
+- Übersetzungsprofile (Anime, Kinder, Dokumentation, etc.)
+- Offline-Übersetzung mit Argos Translate
+        </description>
+        <description lang="fr_FR">
+Lorsqu'aucun sous-titre n'est disponible dans votre langue préférée, cette extension extrait les sous-titres intégrés du fichier multimédia et les traduit à l'aide de DeepL, LibreTranslate, Google Translate ou d'autres services de traduction.
+
+Fonctionnalités:
+- Détection automatique des sous-titres manquants
+- Extraction des sous-titres intégrés (SRT, ASS, SSA)
+- Plusieurs services de traduction (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Langues source et cible configurables
+- Prise en charge des clés API pour les services premium
+- Mise en cache des sous-titres traduits
+- Profils de traduction (Anime, Enfants, Documentaire, etc.)
+- Traduction hors ligne avec Argos Translate
+        </description>
+        <description lang="es_ES">
+Cuando no hay subtítulos disponibles en tu idioma preferido, este complemento extrae los subtítulos incrustados del archivo multimedia y los traduce usando DeepL, LibreTranslate, Google Translate u otros servicios de traducción.
+
+Características:
+- Detección automática de subtítulos faltantes
+- Extracción de subtítulos incrustados (SRT, ASS, SSA)
+- Múltiples servicios de traducción (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Idiomas de origen y destino configurables
+- Soporte de clave API para servicios premium
+- Caché de subtítulos traducidos
+- Perfiles de traducción (Anime, Niños, Documental, etc.)
+- Traducción sin conexión con Argos Translate
+        </description>
+        <description lang="it_IT">
+Quando non sono disponibili sottotitoli nella lingua preferita, questo addon estrae i sottotitoli incorporati dal file multimediale e li traduce utilizzando DeepL, LibreTranslate, Google Translate o altri servizi di traduzione.
+
+Caratteristiche:
+- Rilevamento automatico dei sottotitoli mancanti
+- Estrazione sottotitoli incorporati (SRT, ASS, SSA)
+- Molteplici servizi di traduzione (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Lingue di origine e destinazione configurabili
+- Supporto chiave API per servizi premium
+- Cache dei sottotitoli tradotti
+- Profili di traduzione (Anime, Bambini, Documentario, ecc.)
+- Traduzione offline con Argos Translate
+        </description>
+        <description lang="nl_NL">
+Wanneer er geen ondertiteling beschikbaar is in uw voorkeurstaal, haalt deze addon ingebedde ondertitels uit het mediabestand en vertaalt deze met DeepL, LibreTranslate, Google Translate of andere vertaaldiensten.
+
+Functies:
+- Automatische detectie van ontbrekende ondertitels
+- Extractie van ingebedde ondertitels (SRT, ASS, SSA)
+- Meerdere vertaaldiensten (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Configureerbare bron- en doeltalen
+- API-sleutelondersteuning voor premium diensten
+- Caching van vertaalde ondertitels
+- Vertaalprofielen (Anime, Kinderen, Documentaire, etc.)
+- Offline vertaling met Argos Translate
+        </description>
+        <description lang="pl_PL">
+Gdy napisy w preferowanym języku nie są dostępne, ten dodatek wyodrębnia osadzone napisy z pliku multimedialnego i tłumaczy je za pomocą DeepL, LibreTranslate, Google Translate lub innych usług tłumaczeniowych.
+
+Funkcje:
+- Automatyczne wykrywanie brakujących napisów
+- Ekstrakcja osadzonych napisów (SRT, ASS, SSA)
+- Wiele usług tłumaczeniowych (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurowalne języki źródłowe i docelowe
+- Obsługa kluczy API dla usług premium
+- Buforowanie przetłumaczonych napisów
+- Profile tłumaczeń (Anime, Dzieci, Dokument, itp.)
+- Tłumaczenie offline z Argos Translate
+        </description>
+        <description lang="pt_PT">
+Quando não há legendas disponíveis no seu idioma preferido, este addon extrai legendas incorporadas do arquivo de mídia e as traduz usando DeepL, LibreTranslate, Google Translate ou outros serviços de tradução.
+
+Recursos:
+- Detecção automática de legendas ausentes
+- Extração de legendas incorporadas (SRT, ASS, SSA)
+- Vários serviços de tradução (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Idiomas de origem e destino configuráveis
+- Suporte a chave de API para serviços premium
+- Cache de legendas traduzidas
+- Perfis de tradução (Anime, Crianças, Documentário, etc.)
+- Tradução offline com Argos Translate
+        </description>
+        <description lang="ru_RU">
+Когда субтитры на предпочитаемом языке недоступны, это дополнение извлекает встроенные субтитры из медиафайла и переводит их с помощью DeepL, LibreTranslate, Google Translate или других сервисов перевода.
+
+Возможности:
+- Автоматическое обнаружение отсутствующих субтитров
+- Извлечение встроенных субтитров (SRT, ASS, SSA)
+- Несколько сервисов перевода (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Настраиваемые исходный и целевой языки
+- Поддержка API-ключей для премиум-сервисов
+- Кэширование переведённых субтитров
+- Профили перевода (Аниме, Детские, Документальные и т.д.)
+- Офлайн-перевод с Argos Translate
+        </description>
+        <description lang="uk_UA">
+Коли субтитри бажаною мовою недоступні, цей додаток витягує вбудовані субтитри з медіафайлу та перекладає їх за допомогою DeepL, LibreTranslate, Google Translate або інших сервісів перекладу.
+
+Можливості:
+- Автоматичне виявлення відсутніх субтитрів
+- Вилучення вбудованих субтитрів (SRT, ASS, SSA)
+- Кілька сервісів перекладу (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Налаштовувані мови джерела та призначення
+- Підтримка API-ключів для преміум-сервісів
+- Кешування перекладених субтитрів
+- Профілі перекладу (Аніме, Дитячі, Документальні тощо)
+- Офлайн-переклад з Argos Translate
+        </description>
+        <description lang="da_DK">
+Når der ikke er undertekster tilgængelige på dit foretrukne sprog, udtrækker denne addon indlejrede undertekster fra mediefilen og oversætter dem ved hjælp af DeepL, LibreTranslate, Google Translate eller andre oversættelsestjenester.
+
+Funktioner:
+- Automatisk registrering af manglende undertekster
+- Udtræk indlejrede undertekster (SRT, ASS, SSA)
+- Flere oversættelsestjenester (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurerbare kilde- og målsprog
+- API-nøgle support til premium-tjenester
+- Caching af oversatte undertekster
+- Oversættelsesprofiler (Anime, Børn, Dokumentar, osv.)
+- Offline oversættelse med Argos Translate
+        </description>
+        <description lang="no_NO">
+Når det ikke er undertekster tilgjengelig på ditt foretrukne språk, trekker denne addon ut innebygde undertekster fra mediefilen og oversetter dem ved hjelp av DeepL, LibreTranslate, Google Translate eller andre oversettelsestjenester.
+
+Funksjoner:
+- Automatisk oppdaging av manglende undertekster
+- Uttrekking av innebygde undertekster (SRT, ASS, SSA)
+- Flere oversettelsestjenester (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurerbare kilde- og målspråk
+- API-nøkkelstøtte for premium-tjenester
+- Hurtigbuffer for oversatte undertekster
+- Oversettelsesprofiler (Anime, Barn, Dokumentar, osv.)
+- Offline oversettelse med Argos Translate
+        </description>
+        <description lang="fi_FI">
+Kun tekstityksiä ei ole saatavilla haluamallasi kielellä, tämä lisäosa poimii upotetut tekstitykset mediatiedostosta ja kääntää ne DeepL:n, LibreTranslaten, Google Translaten tai muiden käännöspalveluiden avulla.
+
+Ominaisuudet:
+- Puuttuvien tekstitysten automaattinen tunnistus
+- Upotettujen tekstitysten poiminta (SRT, ASS, SSA)
+- Useita käännöspalveluja (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Määritettävät lähde- ja kohdekielet
+- API-avaintuki premium-palveluille
+- Käännettyjen tekstitysten välimuisti
+- Käännösprofiilit (Anime, Lapset, Dokumentti, jne.)
+- Offline-käännös Argos Translatella
+        </description>
+        <description lang="el_GR">
+Όταν δεν υπάρχουν διαθέσιμοι υπότιτλοι στην προτιμώμενη γλώσσα σας, αυτό το πρόσθετο εξάγει τους ενσωματωμένους υπότιτλους από το αρχείο πολυμέσων και τους μεταφράζει χρησιμοποιώντας DeepL, LibreTranslate, Google Translate ή άλλες υπηρεσίες μετάφρασης.
+
+Χαρακτηριστικά:
+- Αυτόματη ανίχνευση ελλειπόντων υπότιτλων
+- Εξαγωγή ενσωματωμένων υπότιτλων (SRT, ASS, SSA)
+- Πολλαπλές υπηρεσίες μετάφρασης (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Ρυθμιζόμενες γλώσσες πηγής και προορισμού
+- Υποστήριξη κλειδιού API για premium υπηρεσίες
+- Προσωρινή αποθήκευση μεταφρασμένων υπότιτλων
+- Προφίλ μετάφρασης (Anime, Παιδικά, Ντοκιμαντέρ, κλπ.)
+- Μετάφραση εκτός σύνδεσης με Argos Translate
+        </description>
+        <description lang="cs_CZ">
+Pokud nejsou k dispozici titulky ve vašem preferovaném jazyce, tento doplněk extrahuje vložené titulky z mediálního souboru a přeloží je pomocí DeepL, LibreTranslate, Google Translate nebo jiných překladových služeb.
+
+Funkce:
+- Automatická detekce chybějících titulků
+- Extrakce vložených titulků (SRT, ASS, SSA)
+- Více překladových služeb (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurovatelné zdrojové a cílové jazyky
+- Podpora API klíčů pro prémiové služby
+- Ukládání přeložených titulků do mezipaměti
+- Překladové profily (Anime, Děti, Dokumenty atd.)
+- Offline překlad s Argos Translate
+        </description>
+        <description lang="hu_HU">
+Ha a kívánt nyelven nem áll rendelkezésre felirat, ez a kiegészítő kivonja a beágyazott feliratokat a médiafájlból, és lefordítja őket a DeepL, LibreTranslate, Google Translate vagy más fordítási szolgáltatások segítségével.
+
+Funkciók:
+- Hiányzó feliratok automatikus észlelése
+- Beágyazott feliratok kinyerése (SRT, ASS, SSA)
+- Több fordítási szolgáltatás (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Konfigurálható forrás és cél nyelvek
+- API kulcs támogatás prémium szolgáltatásokhoz
+- Lefordított feliratok gyorsítótárazása
+- Fordítási profilok (Anime, Gyerek, Dokumentum stb.)
+- Offline fordítás Argos Translate-tel
+        </description>
+        <description lang="ro_RO">
+Când nu sunt disponibile subtitrări în limba preferată, acest addon extrage subtitrările încorporate din fișierul media și le traduce folosind DeepL, LibreTranslate, Google Translate sau alte servicii de traducere.
+
+Caracteristici:
+- Detectarea automată a subtitrărilor lipsă
+- Extragerea subtitrărilor încorporate (SRT, ASS, SSA)
+- Mai multe servicii de traducere (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Limbi sursă și țintă configurabile
+- Suport pentru chei API pentru servicii premium
+- Cache pentru subtitrări traduse
+- Profiluri de traducere (Anime, Copii, Documentar, etc.)
+- Traducere offline cu Argos Translate
+        </description>
+        <description lang="tr_TR">
+Tercih ettiğiniz dilde altyazı mevcut olmadığında, bu eklenti medya dosyasından gömülü altyazıları çıkarır ve DeepL, LibreTranslate, Google Translate veya diğer çeviri hizmetlerini kullanarak çevirir.
+
+Özellikler:
+- Eksik altyazıların otomatik algılanması
+- Gömülü altyazıların çıkarılması (SRT, ASS, SSA)
+- Birden fazla çeviri hizmeti (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- Yapılandırılabilir kaynak ve hedef diller
+- Premium hizmetler için API anahtarı desteği
+- Çevrilmiş altyazıların önbelleğe alınması
+- Çeviri profilleri (Anime, Çocuk, Belgesel, vb.)
+- Argos Translate ile çevrimdışı çeviri
+        </description>
+        <description lang="ar_SA">
+عندما لا تتوفر ترجمات بلغتك المفضلة، يقوم هذا الإضافة باستخراج الترجمات المضمنة من ملف الوسائط وترجمتها باستخدام DeepL أو LibreTranslate أو Google Translate أو خدمات الترجمة الأخرى.
+
+الميزات:
+- الكشف التلقائي عن الترجمات المفقودة
+- استخراج الترجمات المضمنة (SRT، ASS، SSA)
+- خدمات ترجمة متعددة (DeepL، LibreTranslate، MyMemory، Google، OpenAI، Anthropic)
+- لغات المصدر والهدف قابلة للتكوين
+- دعم مفتاح API للخدمات المميزة
+- التخزين المؤقت للترجمات المترجمة
+- ملفات تعريف الترجمة (أنيمي، أطفال، وثائقي، إلخ)
+- ترجمة بدون اتصال مع Argos Translate
+        </description>
+        <description lang="he_IL">
+כאשר אין כתוביות זמינות בשפה המועדפת עליך, תוסף זה מחלץ כתוביות מוטמעות מקובץ המדיה ומתרגם אותן באמצעות DeepL, LibreTranslate, Google Translate או שירותי תרגום אחרים.
+
+תכונות:
+- זיהוי אוטומטי של כתוביות חסרות
+- חילוץ כתוביות מוטמעות (SRT, ASS, SSA)
+- שירותי תרגום מרובים (DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- שפות מקור ויעד הניתנות להגדרה
+- תמיכה במפתח API לשירותי פרימיום
+- שמירה במטמון של כתוביות מתורגמות
+- פרופילי תרגום (אנימה, ילדים, תיעודי וכו')
+- תרגום לא מקוון עם Argos Translate
+        </description>
+        <description lang="ja_JP">
+お好みの言語で字幕が利用できない場合、このアドオンはメディアファイルから埋め込み字幕を抽出し、DeepL、LibreTranslate、Google Translate、またはその他の翻訳サービスを使用して翻訳します。
+
+機能:
+- 不足している字幕の自動検出
+- 埋め込み字幕の抽出（SRT、ASS、SSA）
+- 複数の翻訳サービス（DeepL、LibreTranslate、MyMemory、Google、OpenAI、Anthropic）
+- 設定可能なソース言語とターゲット言語
+- プレミアムサービス用のAPIキーサポート
+- 翻訳済み字幕のキャッシュ
+- 翻訳プロファイル（アニメ、子供向け、ドキュメンタリーなど）
+- Argos Translateによるオフライン翻訳
+        </description>
+        <description lang="ko_KR">
+선호하는 언어로 자막을 사용할 수 없는 경우, 이 애드온은 미디어 파일에서 내장 자막을 추출하고 DeepL, LibreTranslate, Google Translate 또는 기타 번역 서비스를 사용하여 번역합니다.
+
+기능:
+- 누락된 자막 자동 감지
+- 내장 자막 추출(SRT, ASS, SSA)
+- 여러 번역 서비스(DeepL, LibreTranslate, MyMemory, Google, OpenAI, Anthropic)
+- 구성 가능한 소스 및 대상 언어
+- 프리미엄 서비스용 API 키 지원
+- 번역된 자막 캐싱
+- 번역 프로필(애니메이션, 어린이, 다큐멘터리 등)
+- Argos Translate를 통한 오프라인 번역
+        </description>
+        <description lang="zh_CN">
+当您首选的语言没有字幕时，此插件会从媒体文件中提取嵌入字幕，并使用DeepL、LibreTranslate、Google Translate或其他翻译服务进行翻译。
+
+功能：
+- 自动检测缺失字幕
+- 提取嵌入字幕（SRT、ASS、SSA）
+- 多种翻译服务（DeepL、LibreTranslate、MyMemory、Google、OpenAI、Anthropic）
+- 可配置的源语言和目标语言
+- 高级服务的API密钥支持
+- 翻译字幕缓存
+- 翻译配置文件（动漫、儿童、纪录片等）
+- 使用Argos Translate进行离线翻译
+        </description>
+        <description lang="zh_TW">
+當您偏好的語言沒有字幕時，此插件會從媒體檔案中提取嵌入字幕，並使用DeepL、LibreTranslate、Google Translate或其他翻譯服務進行翻譯。
+
+功能：
+- 自動檢測缺失字幕
+- 提取嵌入字幕（SRT、ASS、SSA）
+- 多種翻譯服務（DeepL、LibreTranslate、MyMemory、Google、OpenAI、Anthropic）
+- 可配置的來源語言和目標語言
+- 進階服務的API金鑰支援
+- 翻譯字幕快取
+- 翻譯設定檔（動畫、兒童、紀錄片等）
+- 使用Argos Translate進行離線翻譯
+        </description>
+        
         <assets>
             <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
+            <fanart>resources/fanart.png</fanart>
         </assets>
         <news>
 v1.0.0 - Initial release
-- Support for DeepL, LibreTranslate, MyMemory, Google Translate
+- Support for DeepL, LibreTranslate, MyMemory, Google Translate, OpenAI, Anthropic
 - Automatic subtitle extraction with FFmpeg
 - Configurable language preferences
+- Translation profiles (Anime, Kids, Documentary, etc.)
+- Offline translation with Argos Translate
+- Basic, Advanced, and Expert settings levels
         </news>
     </extension>
 </addon>

@@ -121,12 +121,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             if not source_sub:
                 log("No suitable source subtitle found")
                 if self.show_notification:
-                    notify(get_string(30603))  # No embedded subtitles found
+                    notify(get_string(30703))  # No embedded subtitles found
                 return
             
             # Ask user if configured
             if self.ask_before_translate:
-                msg = get_string(30606).format(
+                msg = get_string(30706).format(
                     self.get_language_name(self.target_language),
                     self.get_language_name(source_sub.get('language', 'en'))
                 )
@@ -197,7 +197,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 DEBUG_LOGGER.info(f"Cache hit: {cached_path}", 'cache')
                 self.load_subtitle(cached_path)
                 if self.show_notification:
-                    notify(get_string(30605))  # Using cached translation
+                    notify(get_string(30705))  # Using cached translation
                 return
             
             DEBUG_LOGGER.debug("Cache miss, starting translation", 'cache')
@@ -348,7 +348,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 progress.add_error(str(e))
                 progress.complete(False)
             else:
-                notify(get_string(30602), icon=xbmcgui.NOTIFICATION_ERROR)
+                notify(get_string(30702), icon=xbmcgui.NOTIFICATION_ERROR)
         
         finally:
             self.translation_in_progress = False
