@@ -2,15 +2,16 @@
 <addon id="service.subtitletranslator"
        name="Subtitle Translator"
        version="1.0.0"
-       provider-name="Daniel Nylander">
+       provider-name="yeager">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.22.0"/>
+        <import addon="tools.ffmpeg" version="6.0.0"/>
     </requires>
     <extension point="xbmc.service" library="service.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <license>MIT</license>
+        <license>GPL-3.0-or-later</license>
         
         <!-- Summary (short description) - 25 languages -->
         <summary lang="en_GB">Automatically translate embedded subtitles</summary>

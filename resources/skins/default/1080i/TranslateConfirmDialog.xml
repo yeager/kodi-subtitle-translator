@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">202</defaultcontrol>
+    <coordinates>
+        <system>1</system>
+        <posx>0</posx>
+        <posy>0</posy>
+    </coordinates>
+    <controls>
+        <!-- Dimmed background overlay -->
+        <control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1920</width>
+            <height>1080</height>
+            <texture colordiffuse="CC000000">-</texture>
+        </control>
+
+        <!-- Main dialog panel -->
+        <control type="group">
+            <posx>460</posx>
+            <posy>290</posy>
+
+            <!-- Dialog background -->
+            <control type="image" id="100">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1000</width>
+                <height>500</height>
+                <texture colordiffuse="EE1A1A2E" border="10">DialogBack.png</texture>
+            </control>
+
+            <!-- Border/glow -->
+            <control type="image">
+                <posx>-2</posx>
+                <posy>-2</posy>
+                <width>1004</width>
+                <height>504</height>
+                <texture colordiffuse="FF00D9FF" border="2">-</texture>
+            </control>
+
+            <!-- Inner content group -->
+            <control type="group">
+                <posx>40</posx>
+                <posy>40</posy>
+
+                <!-- Thumbnail image -->
+                <control type="image" id="101">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>280</width>
+                    <height>420</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture fallback="DefaultVideoPoster.png">$INFO[Window.Property(Thumbnail)]</texture>
+                </control>
+
+                <!-- Text content group -->
+                <control type="group">
+                    <posx>320</posx>
+                    <posy>0</posy>
+
+                    <!-- Addon icon -->
+                    <control type="image">
+                        <posx>0</posx>
+                        <posy>0</posy>
+                        <width>50</width>
+                        <height>50</height>
+                        <texture>$ADDON[service.subtitletranslator icon]</texture>
+                    </control>
+
+                    <!-- Dialog title / Media title -->
+                    <control type="label" id="102">
+                        <posx>60</posx>
+                        <posy>5</posy>
+                        <width>540</width>
+                        <height>40</height>
+                        <font>font_MainMenu</font>
+                        <textcolor>FF00D9FF</textcolor>
+                        <label>Subtitle Translator</label>
+                    </control>
+
+                    <!-- Separator line -->
+                    <control type="image">
+                        <posx>0</posx>
+                        <posy>60</posy>
+                        <width>600</width>
+                        <height>2</height>
+                        <texture colordiffuse="FF00D9FF">-</texture>
+                    </control>
+
+                    <!-- Message -->
+                    <control type="textbox" id="103">
+                        <posx>0</posx>
+                        <posy>80</posy>
+                        <width>600</width>
+                        <height>200</height>
+                        <font>font37</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>Translate subtitles?</label>
+                    </control>
+
+                    <!-- Buttons -->
+                    <control type="group">
+                        <posx>0</posx>
+                        <posy>320</posy>
+
+                        <!-- Yes button -->
+                        <control type="button" id="201">
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>280</width>
+                            <height>60</height>
+                            <font>font_MainMenu</font>
+                            <textcolor>FFFFFFFF</textcolor>
+                            <focusedcolor>FF000000</focusedcolor>
+                            <texturefocus colordiffuse="FF00FF88">-</texturefocus>
+                            <texturenofocus colordiffuse="FF333344">-</texturenofocus>
+                            <label>$LOCALIZE[107]</label>
+                            <onright>202</onright>
+                            <onleft>202</onleft>
+                        </control>
+
+                        <!-- No button -->
+                        <control type="button" id="202">
+                            <posx>300</posx>
+                            <posy>0</posy>
+                            <width>280</width>
+                            <height>60</height>
+                            <font>font_MainMenu</font>
+                            <textcolor>FFFFFFFF</textcolor>
+                            <focusedcolor>FF000000</focusedcolor>
+                            <texturefocus colordiffuse="FFFF6B6B">-</texturefocus>
+                            <texturenofocus colordiffuse="FF333344">-</texturenofocus>
+                            <label>$LOCALIZE[106]</label>
+                            <onright>201</onright>
+                            <onleft>201</onleft>
+                        </control>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

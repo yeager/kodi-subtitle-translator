@@ -17,6 +17,7 @@ from lib.subtitle_extractor import SubtitleExtractor
 from lib.translators import get_translator
 from lib.subtitle_parser import SubtitleParser
 from lib.progress_dialog import TranslationProgress, ErrorReporter, DebugLogger
+from lib.dialogs import show_translate_confirm, get_current_thumbnail, get_current_media_title
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
@@ -130,7 +131,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     self.get_language_name(self.target_language),
                     self.get_language_name(source_sub.get('language', 'en'))
                 )
-                if not xbmcgui.Dialog().yesno(ADDON_NAME, msg):
+                # Show confirmation dialog with thumbnail
+                thumbnail = get_current_thumbnail()
+                media_title = get_current_media_title()
+                
+                if not show_translate_confirm(
+                    title=ADDON_NAME,
+                    message=msg,
+                    thumbnail=thumbnail,
+                    media_title=media_title
+                ):
+                    log("User declined translation")
                     return
             
             # Perform translation
