@@ -301,6 +301,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             if cached_path and xbmcvfs.exists(cached_path):
                 get_debug_logger().info(f"Cache hit: {cached_path}", 'cache')
+                
+                # Also save alongside video if enabled
+                if self.save_alongside:
+                    self._copy_to_alongside(cached_path)
+                
                 self.load_subtitle(cached_path)
                 if self.show_notification:
                     notify(get_string(30705))  # Using cached translation
@@ -491,6 +496,35 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             return cache_file
         except:
+            return None
+    
+    def _copy_to_alongside(self, source_path):
+        """Copy subtitle file to alongside the video."""
+        try:
+            video_dir = os.path.dirname(self.current_file)
+            video_name = os.path.splitext(os.path.basename(self.current_file))[0]
+            ext = os.path.splitext(source_path)[1]  # Get extension from source
+            alongside_path = os.path.join(
+                video_dir,
+                f"{video_name}.{self.target_language}{ext}"
+            )
+            
+            # Check if file already exists
+            if xbmcvfs.exists(alongside_path):
+                log(f"Subtitle already exists alongside video: {alongside_path}")
+                return alongside_path
+            
+            # Read source and write to destination
+            with xbmcvfs.File(source_path, 'r') as src:
+                content = src.read()
+            
+            with xbmcvfs.File(alongside_path, 'w') as dst:
+                dst.write(content)
+            
+            log(f"Copied subtitle alongside video: {alongside_path}")
+            return alongside_path
+        except Exception as e:
+            log(f"Could not copy subtitle alongside video: {e}", level=xbmc.LOGWARNING)
             return None
     
     def save_subtitle(self, content, cache_key):
