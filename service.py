@@ -13,29 +13,124 @@ import json
 import os
 import hashlib
 import time
-from lib.subtitle_extractor import SubtitleExtractor
-from lib.translators import get_translator
-from lib.subtitle_parser import SubtitleParser
-from lib.progress_dialog import TranslationProgress, ErrorReporter, DebugLogger
-from lib.dialogs import show_translate_confirm, get_current_thumbnail, get_current_media_title
 
-ADDON = xbmcaddon.Addon()
-ADDON_ID = ADDON.getAddonInfo('id')
-ADDON_NAME = ADDON.getAddonInfo('name')
-ADDON_PATH = xbmcvfs.translatePath(ADDON.getAddonInfo('path'))
-ADDON_DATA = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
+# Lazy imports to avoid crashes at startup
+SubtitleExtractor = None
+get_translator = None
+SubtitleParser = None
+TranslationProgress = None
+ErrorReporter = None
+DebugLogger = None
+show_translate_confirm = None
+get_current_thumbnail = None
+get_current_media_title = None
 
-# Ensure addon data folder exists
-if not xbmcvfs.exists(ADDON_DATA):
-    xbmcvfs.mkdirs(ADDON_DATA)
+# Lazy-loaded globals
+_addon = None
+_addon_path = None
+_addon_data = None
+_cache_path = None
+_error_reporter = None
+_debug_logger = None
 
-CACHE_PATH = os.path.join(ADDON_DATA, 'cache')
-if not xbmcvfs.exists(CACHE_PATH):
-    xbmcvfs.mkdirs(CACHE_PATH)
 
-# Initialize error reporter and debug logger
-ERROR_REPORTER = ErrorReporter(ADDON_DATA)
-DEBUG_LOGGER = DebugLogger(ADDON_DATA)
+def get_addon():
+    """Get addon instance (lazy loaded)."""
+    global _addon
+    if _addon is None:
+        _addon = xbmcaddon.Addon()
+    return _addon
+
+
+def get_addon_id():
+    """Get addon ID."""
+    try:
+        return get_addon().getAddonInfo('id')
+    except:
+        return 'service.subtitletranslator'
+
+
+def get_addon_name():
+    """Get addon name."""
+    try:
+        return get_addon().getAddonInfo('name')
+    except:
+        return 'Subtitle Translator'
+
+
+def get_addon_path():
+    """Get addon path (lazy loaded)."""
+    global _addon_path
+    if _addon_path is None:
+        _addon_path = xbmcvfs.translatePath(get_addon().getAddonInfo('path'))
+    return _addon_path
+
+
+def get_addon_data():
+    """Get addon data path (lazy loaded)."""
+    global _addon_data
+    if _addon_data is None:
+        _addon_data = xbmcvfs.translatePath(get_addon().getAddonInfo('profile'))
+        if not xbmcvfs.exists(_addon_data):
+            xbmcvfs.mkdirs(_addon_data)
+    return _addon_data
+
+
+def get_cache_path():
+    """Get cache path (lazy loaded)."""
+    global _cache_path
+    if _cache_path is None:
+        _cache_path = os.path.join(get_addon_data(), 'cache')
+        if not xbmcvfs.exists(_cache_path):
+            xbmcvfs.mkdirs(_cache_path)
+    return _cache_path
+
+
+def init_libraries():
+    """Initialize library imports (called from main)."""
+    global SubtitleExtractor, get_translator, SubtitleParser
+    global TranslationProgress, ErrorReporter, DebugLogger
+    global show_translate_confirm, get_current_thumbnail, get_current_media_title
+    global _error_reporter, _debug_logger
+    
+    from lib.subtitle_extractor import SubtitleExtractor as SE
+    from lib.translators import get_translator as gt
+    from lib.subtitle_parser import SubtitleParser as SP
+    from lib.progress_dialog import TranslationProgress as TP, ErrorReporter as ER, DebugLogger as DL
+    from lib.dialogs import show_translate_confirm as stc, get_current_thumbnail as gct, get_current_media_title as gcmt
+    
+    SubtitleExtractor = SE
+    get_translator = gt
+    SubtitleParser = SP
+    TranslationProgress = TP
+    ErrorReporter = ER
+    DebugLogger = DL
+    show_translate_confirm = stc
+    get_current_thumbnail = gct
+    get_current_media_title = gcmt
+    
+    # Initialize reporter and logger
+    _error_reporter = ER(get_addon_data())
+    _debug_logger = DL(get_addon_data())
+
+
+def get_error_reporter():
+    """Get error reporter instance."""
+    global _error_reporter
+    if _error_reporter is None:
+        init_libraries()
+    return _error_reporter
+
+
+def get_debug_logger():
+    """Get debug logger instance."""
+    global _debug_logger
+    if _debug_logger is None:
+        init_libraries()
+    return _debug_logger
+
+
+# Use get_debug_logger() and get_error_reporter() functions
 
 
 class SubtitleTranslatorMonitor(xbmc.Monitor):
@@ -136,7 +231,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 media_title = get_current_media_title()
                 
                 if not show_translate_confirm(
-                    title=ADDON_NAME,
+                    title=get_addon_name(),
                     message=msg,
                     thumbnail=thumbnail,
                     media_title=media_title
@@ -197,21 +292,21 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         progress = None
         
         try:
-            DEBUG_LOGGER.info(f"Starting translation for: {self.current_file}", 'translation')
-            DEBUG_LOGGER.debug(f"Source subtitle: {source_sub}", 'translation')
+            get_debug_logger().info(f"Starting translation for: {self.current_file}", 'translation')
+            get_debug_logger().debug(f"Source subtitle: {source_sub}", 'translation')
             
             # Check cache first
             cache_key = self.get_cache_key(source_sub)
             cached_path = self.get_cached_subtitle(cache_key)
             
             if cached_path and xbmcvfs.exists(cached_path):
-                DEBUG_LOGGER.info(f"Cache hit: {cached_path}", 'cache')
+                get_debug_logger().info(f"Cache hit: {cached_path}", 'cache')
                 self.load_subtitle(cached_path)
                 if self.show_notification:
                     notify(get_string(30705))  # Using cached translation
                 return
             
-            DEBUG_LOGGER.debug("Cache miss, starting translation", 'cache')
+            get_debug_logger().debug("Cache miss, starting translation", 'cache')
             
             # Initialize progress dialog
             progress = TranslationProgress(show_dialog=self.show_notification)
@@ -219,7 +314,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             # Extract subtitle from video
             progress.set_stage('extract', f"Extracting subtitles from video...")
-            DEBUG_LOGGER.debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
+            get_debug_logger().debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
             
             extractor = SubtitleExtractor(get_setting('ffmpeg_path'))
             subtitle_content = extractor.extract(
@@ -229,13 +324,13 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             if not subtitle_content:
                 error_msg = "Failed to extract subtitle - FFmpeg returned empty content"
-                ERROR_REPORTER.report_error('ffmpeg', error_msg, context={
+                get_error_reporter().report_error('ffmpeg', error_msg, context={
                     'file': self.current_file,
                     'subtitle_index': source_sub.get('index', 0)
                 })
                 raise Exception(error_msg)
             
-            DEBUG_LOGGER.debug(f"Extracted {len(subtitle_content)} bytes", 'ffmpeg')
+            get_debug_logger().debug(f"Extracted {len(subtitle_content)} bytes", 'ffmpeg')
             
             # Parse subtitle
             progress.set_stage('parse', "Parsing subtitle file...")
@@ -244,23 +339,23 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             if not entries:
                 error_msg = "No subtitle entries found in extracted content"
-                ERROR_REPORTER.report_error('parse', error_msg, context={
+                get_error_reporter().report_error('parse', error_msg, context={
                     'content_length': len(subtitle_content),
                     'content_preview': subtitle_content[:500]
                 })
                 raise Exception(error_msg)
             
-            DEBUG_LOGGER.info(f"Parsed {len(entries)} subtitle entries", 'parse')
+            get_debug_logger().info(f"Parsed {len(entries)} subtitle entries", 'parse')
             progress.total = len(entries)
             
             # Check for cancellation
             if progress.is_cancelled():
-                DEBUG_LOGGER.info("Translation cancelled by user", 'translation')
+                get_debug_logger().info("Translation cancelled by user", 'translation')
                 return
             
             # Get translator
             progress.set_stage('translate', f"Connecting to {self.translation_service}...")
-            DEBUG_LOGGER.debug(f"Using translation service: {self.translation_service}", 'api')
+            get_debug_logger().debug(f"Using translation service: {self.translation_service}", 'api')
             
             translator = get_translator(
                 self.translation_service,
@@ -272,11 +367,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             batch_size = self.batch_size
             total_batches = (len(entries) + batch_size - 1) // batch_size
             
-            DEBUG_LOGGER.debug(f"Translating in {total_batches} batches of {batch_size}", 'translation')
+            get_debug_logger().debug(f"Translating in {total_batches} batches of {batch_size}", 'translation')
             
             for batch_num, i in enumerate(range(0, len(entries), batch_size)):
                 if progress.is_cancelled():
-                    DEBUG_LOGGER.info("Translation cancelled by user", 'translation')
+                    get_debug_logger().info("Translation cancelled by user", 'translation')
                     return
                 
                 batch = entries[i:i + batch_size]
@@ -289,7 +384,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 )
                 
                 try:
-                    DEBUG_LOGGER.debug(f"Translating batch {batch_num + 1}: {len(texts)} entries", 'api')
+                    get_debug_logger().debug(f"Translating batch {batch_num + 1}: {len(texts)} entries", 'api')
                     import time as _time
                     start_time = _time.time()
                     
@@ -300,10 +395,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     )
                     
                     elapsed = (_time.time() - start_time) * 1000
-                    DEBUG_LOGGER.timing(f"Batch {batch_num + 1} translation", elapsed)
+                    get_debug_logger().timing(f"Batch {batch_num + 1} translation", elapsed)
                     
                 except Exception as api_error:
-                    ERROR_REPORTER.report_error('api', f"Translation API error in batch {batch_num + 1}", api_error, {
+                    get_error_reporter().report_error('api', f"Translation API error in batch {batch_num + 1}", api_error, {
                         'service': self.translation_service,
                         'batch_size': len(texts),
                         'source_lang': self.source_language,
@@ -326,7 +421,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             # Format output
             progress.set_stage('format', "Formatting subtitle file...")
-            DEBUG_LOGGER.debug(f"Generating {self.subtitle_format} output", 'format')
+            get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
             output_content = parser.generate(
                 translated_entries,
@@ -336,19 +431,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Save subtitle
             progress.set_stage('save', "Saving translated subtitles...")
             output_path = self.save_subtitle(output_content, cache_key)
-            DEBUG_LOGGER.info(f"Saved subtitle to: {output_path}", 'save')
+            get_debug_logger().info(f"Saved subtitle to: {output_path}", 'save')
             
             # Load the translated subtitle
             self.load_subtitle(output_path)
             
             # Complete
             summary = progress.get_summary()
-            DEBUG_LOGGER.info(f"Translation complete: {summary}", 'translation')
+            get_debug_logger().info(f"Translation complete: {summary}", 'translation')
             progress.complete(True, f"Translated {len(translated_entries)} subtitles in {summary['elapsed_time']}")
             
         except Exception as e:
-            DEBUG_LOGGER.error(f"Translation failed: {e}", 'translation')
-            ERROR_REPORTER.report_error('translation', f"Translation failed: {str(e)}", e, {
+            get_debug_logger().error(f"Translation failed: {e}", 'translation')
+            get_error_reporter().report_error('translation', f"Translation failed: {str(e)}", e, {
                 'file': self.current_file,
                 'service': self.translation_service,
                 'source_lang': self.source_language,
@@ -374,8 +469,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         if not self.cache_translations:
             return None
         
-        cache_file = os.path.join(CACHE_PATH, f"{cache_key}.{self.subtitle_format}")
-        meta_file = os.path.join(CACHE_PATH, f"{cache_key}.json")
+        cache_file = os.path.join(get_cache_path(), f"{cache_key}.{self.subtitle_format}")
+        meta_file = os.path.join(get_cache_path(), f"{cache_key}.json")
         
         if not xbmcvfs.exists(cache_file) or not xbmcvfs.exists(meta_file):
             return None
@@ -399,8 +494,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
     def save_subtitle(self, content, cache_key):
         """Save translated subtitle to cache and optionally alongside video."""
         # Save to cache
-        cache_file = os.path.join(CACHE_PATH, f"{cache_key}.{self.subtitle_format}")
-        meta_file = os.path.join(CACHE_PATH, f"{cache_key}.json")
+        cache_file = os.path.join(get_cache_path(), f"{cache_key}.{self.subtitle_format}")
+        meta_file = os.path.join(get_cache_path(), f"{cache_key}.json")
         
         with xbmcvfs.File(cache_file, 'w') as f:
             f.write(content)
@@ -491,27 +586,27 @@ class SubtitleTranslatorPlayer(xbmc.Player):
 # Helper functions
 def get_setting(key):
     """Get addon setting."""
-    return ADDON.getSetting(key)
+    return get_addon().getSetting(key)
 
 def get_setting_bool(key):
     """Get boolean addon setting."""
-    return ADDON.getSettingBool(key)
+    return get_addon().getSettingBool(key)
 
 def get_setting_int(key):
     """Get integer addon setting."""
-    return ADDON.getSettingInt(key)
+    return get_addon().getSettingInt(key)
 
 def get_string(string_id):
     """Get localized string."""
-    return ADDON.getLocalizedString(string_id)
+    return get_addon().getLocalizedString(string_id)
 
 def log(message, level=xbmc.LOGINFO):
     """Log message to Kodi log."""
-    xbmc.log(f"[{ADDON_ID}] {message}", level)
+    xbmc.log(f"[{get_addon_id()}] {message}", level)
 
 def notify(message, icon=xbmcgui.NOTIFICATION_INFO, time=5000):
     """Show notification."""
-    xbmcgui.Dialog().notification(ADDON_NAME, message, icon, time)
+    xbmcgui.Dialog().notification(get_addon_name(), message, icon, time)
 
 def execute_jsonrpc(method, params=None):
     """Execute JSON-RPC command."""
@@ -527,15 +622,22 @@ def execute_jsonrpc(method, params=None):
 
 def main():
     """Main entry point."""
-    log("Subtitle Translator service started")
-    
-    monitor = SubtitleTranslatorMonitor()
-    
-    while not monitor.abortRequested():
-        if monitor.waitForAbort(1):
-            break
-    
-    log("Subtitle Translator service stopped")
+    try:
+        # Initialize libraries first
+        init_libraries()
+        log("Subtitle Translator service started")
+        
+        monitor = SubtitleTranslatorMonitor()
+        
+        while not monitor.abortRequested():
+            if monitor.waitForAbort(1):
+                break
+        
+        log("Subtitle Translator service stopped")
+    except Exception as e:
+        xbmc.log(f"[SubtitleTranslator] Fatal error: {e}", xbmc.LOGERROR)
+        import traceback
+        xbmc.log(f"[SubtitleTranslator] {traceback.format_exc()}", xbmc.LOGERROR)
 
 
 if __name__ == '__main__':
