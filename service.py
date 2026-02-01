@@ -587,16 +587,22 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         except:
             return None
     
+    def _normalize_path(self, path):
+        """Normalize path separators for network paths (SMB uses forward slashes)."""
+        if path and (path.startswith('smb://') or path.startswith('nfs://')):
+            return path.replace('\\', '/')
+        return path
+    
     def _copy_to_alongside(self, source_path):
         """Copy subtitle file to alongside the video."""
         try:
             video_dir = os.path.dirname(self.current_file)
             video_name = os.path.splitext(os.path.basename(self.current_file))[0]
             ext = os.path.splitext(source_path)[1]  # Get extension from source
-            alongside_path = os.path.join(
+            alongside_path = self._normalize_path(os.path.join(
                 video_dir,
                 f"{video_name}.{self.target_language}{ext}"
-            )
+            ))
             
             # Check if file already exists
             if xbmcvfs.exists(alongside_path):
@@ -638,10 +644,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         if self.save_alongside:
             video_dir = os.path.dirname(self.current_file)
             video_name = os.path.splitext(os.path.basename(self.current_file))[0]
-            alongside_path = os.path.join(
+            alongside_path = self._normalize_path(os.path.join(
                 video_dir,
                 f"{video_name}.{self.target_language}.{self.subtitle_format}"
-            )
+            ))
             
             try:
                 with xbmcvfs.File(alongside_path, 'w') as f:

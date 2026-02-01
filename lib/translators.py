@@ -182,7 +182,9 @@ class MyMemoryTranslator(BaseTranslator):
     
     def translate(self, text, source_lang, target_lang):
         """Translate text using MyMemory."""
-        lang_pair = f'{source_lang}|{target_lang}'
+        # MyMemory doesn't support 'auto' - default to English
+        source = source_lang if source_lang and source_lang != 'auto' else 'en'
+        lang_pair = f'{source}|{target_lang}'
         
         params = {
             'q': text,
@@ -298,7 +300,8 @@ class LingvaTranslator(BaseTranslator):
     
     def translate(self, text, source_lang, target_lang):
         """Translate text using Lingva."""
-        source = source_lang if source_lang != 'auto' else 'auto'
+        # Lingva doesn't support 'auto' - default to English
+        source = source_lang if source_lang and source_lang != 'auto' else 'en'
         
         # URL encode the text
         encoded_text = urllib.parse.quote(text)

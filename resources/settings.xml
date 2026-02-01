@@ -59,8 +59,8 @@
                             <option label="MyMemory (free)">mymemory</option>
                             <option label="LibreTranslate (free)">libretranslate</option>
                             <option label="Argos Translate (offline)">argos</option>
-                            <option label="DeepL Pro">deepl</option>
-                            <option label="DeepL Free">deepl_free</option>
+                            <option label="DeepL Pro (API key)">deepl</option>
+                            <option label="DeepL Free (API key)">deepl_free</option>
                             <option label="Google Cloud">google</option>
                             <option label="Microsoft Azure">microsoft</option>
                             <option label="OpenAI GPT">openai</option>
