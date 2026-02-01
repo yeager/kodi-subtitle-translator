@@ -381,6 +381,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             batch_size = self.batch_size
             total_batches = (len(entries) + batch_size - 1) // batch_size
             
+            # Track success/failure
+            successful_batches = 0
+            failed_batches = 0
+            max_consecutive_failures = 3  # Abort after 3 consecutive failures
+            consecutive_failures = 0
+            
+            # Get fallback services
+            fallback_services = []
+            if get_setting_bool('enable_fallback'):
+                fallback_str = get_setting('fallback_services')
+                if fallback_str:
+                    fallback_services = [s.strip() for s in fallback_str.split(',') if s.strip()]
+            
             get_debug_logger().debug(f"Translating in {total_batches} batches of {batch_size}", 'translation')
             
             for batch_num, i in enumerate(range(0, len(entries), batch_size)):
@@ -399,6 +412,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     f"{get_string(30710).format(batch_num + 1, total_batches)} ({percent}%)"
                 )
                 
+                translated_texts = None
+                last_error = None
+                
+                # Try primary translator
                 try:
                     get_debug_logger().debug(f"Translating batch {batch_num + 1}: {len(texts)} entries", 'api')
                     import time as _time
@@ -412,18 +429,63 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     
                     elapsed = (_time.time() - start_time) * 1000
                     get_debug_logger().timing(f"Batch {batch_num + 1} translation", elapsed)
+                    successful_batches += 1
+                    consecutive_failures = 0
                     
                 except Exception as api_error:
-                    get_error_reporter().report_error('api', f"Translation API error in batch {batch_num + 1}", api_error, {
+                    last_error = api_error
+                    get_debug_logger().error(f"Primary translator failed: {api_error}", 'api')
+                    
+                    # Try fallback services
+                    for fallback_service in fallback_services:
+                        if fallback_service == self.translation_service:
+                            continue
+                        try:
+                            get_debug_logger().info(f"Trying fallback: {fallback_service}", 'api')
+                            progress.update(current_count, f"Fallback: {fallback_service}...")
+                            
+                            fallback_config = {'timeout': get_setting_int('request_timeout')}
+                            if fallback_service == 'lingva':
+                                fallback_config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
+                            elif fallback_service == 'libretranslate':
+                                fallback_config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
+                            
+                            fallback_translator = get_translator(fallback_service, fallback_config)
+                            translated_texts = fallback_translator.translate_batch(
+                                texts,
+                                self.source_language,
+                                self.target_language
+                            )
+                            successful_batches += 1
+                            consecutive_failures = 0
+                            get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
+                            break
+                        except Exception as fallback_error:
+                            get_debug_logger().error(f"Fallback {fallback_service} failed: {fallback_error}", 'api')
+                            continue
+                
+                # If all translators failed for this batch
+                if translated_texts is None:
+                    failed_batches += 1
+                    consecutive_failures += 1
+                    
+                    get_error_reporter().report_error('api', f"All translators failed for batch {batch_num + 1}", last_error, {
                         'service': self.translation_service,
-                        'batch_size': len(texts),
-                        'source_lang': self.source_language,
-                        'target_lang': self.target_language
+                        'fallbacks_tried': fallback_services,
+                        'batch_size': len(texts)
                     })
-                    progress.add_error(f"API error in batch {batch_num + 1}", str(api_error))
-                    # Use original text as fallback
-                    translated_texts = texts
-                    progress.add_warning(f"Using original text for batch {batch_num + 1}")
+                    
+                    # Check if we should abort
+                    if consecutive_failures >= max_consecutive_failures:
+                        raise Exception(f"Translation aborted: {consecutive_failures} consecutive failures. Check your translation service settings.")
+                    
+                    # Use original text only if we've had some successes (partial translation)
+                    if successful_batches > 0:
+                        progress.add_warning(f"Batch {batch_num + 1} failed, using original text")
+                        translated_texts = texts
+                    else:
+                        # No successful batches yet - abort early
+                        raise Exception(f"Translation service unavailable: {last_error}")
                 
                 for j, entry in enumerate(batch):
                     translated_entry = entry.copy()
@@ -434,6 +496,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 # Small delay between batches to avoid rate limiting
                 if i + batch_size < len(entries):
                     xbmc.sleep(500)
+            
+            # Check if translation was mostly successful
+            success_rate = successful_batches / total_batches if total_batches > 0 else 0
+            if success_rate < 0.5:
+                raise Exception(f"Translation failed: only {successful_batches}/{total_batches} batches translated successfully")
             
             # Format output (90%)
             progress.set_stage('format', f"{get_string(30708)} (90%)")  # Parsing/formatting

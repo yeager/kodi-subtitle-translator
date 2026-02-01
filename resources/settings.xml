@@ -57,14 +57,14 @@
                     </constraints>
                     <control type="list" format="string"/>
                 </setting>
-                <setting id="translation_service" type="string" label="30302" default="libretranslate">
+                <setting id="translation_service" type="string" label="30302" default="lingva">
                     <level>0</level>
-                    <default>libretranslate</default>
+                    <default>lingva</default>
                     <constraints>
                         <options>
-                            <option label="LibreTranslate (free)">libretranslate</option>
-                            <option label="MyMemory (free, 1000/day)">mymemory</option>
                             <option label="Lingva Translate (free)">lingva</option>
+                            <option label="MyMemory (free, 1000/day)">mymemory</option>
+                            <option label="LibreTranslate (free)">libretranslate</option>
                             <option label="Argos Translate (offline)">argos</option>
                             <option label="DeepL Pro">deepl</option>
                             <option label="DeepL Free">deepl_free</option>
@@ -80,41 +80,41 @@
 
             <!-- API Keys - shown based on service selection (Basic level, conditional) -->
             <group id="apikeys" label="30303">
-                <setting id="deepl_api_key" type="string" label="30311">
+                <setting id="deepl_api_key" type="string" label="30311" default="">
                     <level>0</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
                     </dependencies>
                 </setting>
-                <setting id="google_api_key" type="string" label="30331">
+                <setting id="google_api_key" type="string" label="30331" default="">
                     <level>0</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">google</dependency>
                     </dependencies>
                 </setting>
-                <setting id="microsoft_api_key" type="string" label="30341">
+                <setting id="microsoft_api_key" type="string" label="30341" default="">
                     <level>0</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
                     </dependencies>
                 </setting>
-                <setting id="openai_api_key" type="string" label="30371">
+                <setting id="openai_api_key" type="string" label="30371" default="">
                     <level>0</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="anthropic_api_key" type="string" label="30381">
+                <setting id="anthropic_api_key" type="string" label="30381" default="">
                     <level>0</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
@@ -317,9 +317,9 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="fallback_services" type="string" label="30307" default="mymemory,lingva">
+                <setting id="fallback_services" type="string" label="30307" default="mymemory,libretranslate">
                     <level>2</level>
-                    <default>mymemory,lingva</default>
+                    <default>mymemory,libretranslate</default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="enable" setting="enable_fallback" operator="is">true</dependency>
@@ -328,20 +328,31 @@
             </group>
 
             <group id="libretranslate_options" label="30320">
-                <setting id="libretranslate_url" type="string" label="30321" default="https://libretranslate.com">
+                <setting id="libretranslate_url" type="string" label="30321" default="https://translate.argosopentech.com">
                     <level>2</level>
-                    <default>https://libretranslate.com</default>
+                    <default>https://translate.argosopentech.com</default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
                     </dependencies>
                 </setting>
-                <setting id="libretranslate_api_key" type="string" label="30322">
+                <setting id="libretranslate_api_key" type="string" label="30322" default="">
                     <level>2</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <group id="lingva_options" label="30350">
+                <setting id="lingva_url" type="string" label="30351" default="https://lingva.ml">
+                    <level>2</level>
+                    <default>https://lingva.ml</default>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="is">lingva</dependency>
                     </dependencies>
                 </setting>
             </group>
@@ -389,17 +400,17 @@
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="openai_base_url" type="string" label="30374">
+                <setting id="openai_base_url" type="string" label="30374" default="">
                     <level>3</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="libretranslate_custom_mirrors" type="string" label="30323">
+                <setting id="libretranslate_mirrors" type="string" label="30323" default="https://translate.terraprint.co,https://trans.zillyhuhn.com">
                     <level>3</level>
-                    <default></default>
+                    <default>https://translate.terraprint.co,https://trans.zillyhuhn.com</default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
@@ -652,9 +663,9 @@
 
             <!-- === EXPERT (Level 3): FFmpeg === -->
             <group id="ffmpeg" label="30601">
-                <setting id="ffmpeg_path" type="string" label="30602">
+                <setting id="ffmpeg_path" type="string" label="30602" default="">
                     <level>3</level>
-                    <default></default>
+                    <default/>
                     <control type="edit" format="string"/>
                 </setting>
                 <setting id="ffmpeg_threads" type="integer" label="30603" default="0">
