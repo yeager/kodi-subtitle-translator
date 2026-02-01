@@ -1,12 +1,28 @@
-# Kodi - Subtitle Translator - Hungarian
+# Kodi Media Center language file
+# Addon Name: Subtitle Translator
+# Addon id: service.subtitletranslator
+# Addon Provider: yeager
 msgid ""
 msgstr ""
+"Project-Id-Version: service.subtitletranslator\n"
+"Report-Msgid-Bugs-To: https://github.com/yeager\n"
+"POT-Creation-Date: 2026-02-01\n"
+"PO-Revision-Date: 2026-02-01\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: Hungarian\n"
 "Language: hu_HU\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
+# ===== GENERAL SETTINGS =====
 msgctxt "#30100"
 msgid "General"
 msgstr "Általános"
+
+msgctxt "#30101"
+msgid "Basic Settings"
+msgstr ""
 
 msgctxt "#30102"
 msgid "Enable addon"
@@ -14,32 +30,676 @@ msgstr "Bővítmény engedélyezése"
 
 msgctxt "#30103"
 msgid "Auto-translate when subtitle is missing"
-msgstr "Automatikus fordítás hiányzó felirat esetén"
+msgstr ""
 
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr ""
+
+msgctxt "#30105"
+msgid "Ask before translating"
+msgstr ""
+
+msgctxt "#30106"
+msgid "Show progress dialog"
+msgstr ""
+
+msgctxt "#30110"
+msgid "Notifications"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Play notification sound"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Notification duration (seconds)"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Show translation statistics"
+msgstr ""
+
+
+# ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
 msgstr "Nyelvek"
 
+msgctxt "#30201"
+msgid "Language Preferences"
+msgstr ""
+
 msgctxt "#30202"
 msgid "Target language"
-msgstr "Cél nyelv"
+msgstr "Célnyelv"
 
+msgctxt "#30203"
+msgid "Source language"
+msgstr "Forrásnyelv"
+
+msgctxt "#30204"
+msgid "Fallback languages (comma-separated)"
+msgstr ""
+
+msgctxt "#30210"
+msgid "Multi-Language Output"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Enable multi-language output"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Additional languages (comma-separated)"
+msgstr ""
+
+
+# ===== TRANSLATION PROFILES =====
+msgctxt "#30250"
+msgid "Profiles"
+msgstr ""
+
+msgctxt "#30251"
+msgid "Translation Profile"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Active profile"
+msgstr ""
+
+msgctxt "#30260"
+msgid "Anime Settings"
+msgstr ""
+
+msgctxt "#30261"
+msgid "Preserve honorifics (-san, -kun, etc.)"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Japanese terms to preserve"
+msgstr ""
+
+msgctxt "#30270"
+msgid "Kids Content Settings"
+msgstr ""
+
+msgctxt "#30271"
+msgid "Simplify language"
+msgstr ""
+
+msgctxt "#30272"
+msgid "Censor profanity"
+msgstr ""
+
+msgctxt "#30273"
+msgid "Maximum reading speed (chars/sec)"
+msgstr ""
+
+msgctxt "#30280"
+msgid "Custom Profile Settings"
+msgstr ""
+
+msgctxt "#30281"
+msgid "Formality level"
+msgstr ""
+
+msgctxt "#30282"
+msgid "Tone"
+msgstr ""
+
+
+# ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
 msgid "Translation Services"
 msgstr "Fordítási szolgáltatások"
 
+msgctxt "#30301"
+msgid "Service Selection"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Translation service"
+msgstr ""
+
+msgctxt "#30303"
+msgid "API Keys"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Fallback Services"
+msgstr ""
+
+msgctxt "#30306"
+msgid "Enable fallback to other services"
+msgstr ""
+
+msgctxt "#30307"
+msgid "Fallback services (comma-separated)"
+msgstr ""
+
+msgctxt "#30308"
+msgid "Cooldown before retry (seconds)"
+msgstr ""
+
+msgctxt "#30310"
+msgid "DeepL Settings"
+msgstr ""
+
+msgctxt "#30311"
+msgid "DeepL Pro API key"
+msgstr ""
+
+msgctxt "#30312"
+msgid "DeepL Free API key"
+msgstr ""
+
+msgctxt "#30313"
+msgid "Formality"
+msgstr ""
+
+msgctxt "#30314"
+msgid "Split sentences"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Preserve formatting"
+msgstr ""
+
+msgctxt "#30320"
+msgid "LibreTranslate Settings"
+msgstr ""
+
+msgctxt "#30321"
+msgid "Server URL"
+msgstr ""
+
+msgctxt "#30322"
+msgid "API key (optional)"
+msgstr ""
+
+msgctxt "#30323"
+msgid "Custom mirror URLs"
+msgstr ""
+
+msgctxt "#30330"
+msgid "Google Translate Settings"
+msgstr ""
+
+msgctxt "#30331"
+msgid "Google Cloud API key"
+msgstr ""
+
+msgctxt "#30332"
+msgid "Translation model"
+msgstr ""
+
+msgctxt "#30340"
+msgid "Microsoft Translator Settings"
+msgstr ""
+
+msgctxt "#30341"
+msgid "Azure API key"
+msgstr ""
+
+msgctxt "#30342"
+msgid "Azure region"
+msgstr ""
+
+msgctxt "#30343"
+msgid "Profanity handling"
+msgstr ""
+
+msgctxt "#30350"
+msgid "Lingva Settings"
+msgstr ""
+
+msgctxt "#30351"
+msgid "Lingva server URL"
+msgstr ""
+
+msgctxt "#30352"
+msgid "Alternative server URLs"
+msgstr ""
+
+msgctxt "#30360"
+msgid "Argos Translate Settings"
+msgstr ""
+
+msgctxt "#30361"
+msgid "Language package path"
+msgstr ""
+
+msgctxt "#30362"
+msgid "Auto-download language packages"
+msgstr ""
+
+msgctxt "#30370"
+msgid "OpenAI Settings"
+msgstr ""
+
+msgctxt "#30371"
+msgid "OpenAI API key"
+msgstr ""
+
+msgctxt "#30372"
+msgid "Model"
+msgstr ""
+
+msgctxt "#30373"
+msgid "Custom model name"
+msgstr ""
+
+msgctxt "#30374"
+msgid "Custom API base URL"
+msgstr ""
+
+msgctxt "#30375"
+msgid "Temperature"
+msgstr ""
+
+msgctxt "#30376"
+msgid "Max tokens"
+msgstr ""
+
+msgctxt "#30377"
+msgid "Context window (subtitles)"
+msgstr ""
+
+msgctxt "#30380"
+msgid "Anthropic Claude Settings"
+msgstr ""
+
+msgctxt "#30381"
+msgid "Anthropic API key"
+msgstr ""
+
+msgctxt "#30382"
+msgid "Claude model"
+msgstr ""
+
+msgctxt "#30383"
+msgid "Max tokens"
+msgstr ""
+
+msgctxt "#30384"
+msgid "Context window (subtitles)"
+msgstr ""
+
+msgctxt "#30390"
+msgid "Advanced Service Settings"
+msgstr ""
+
+
+# ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
 msgstr "Feliratok"
 
+msgctxt "#30401"
+msgid "Output Format"
+msgstr ""
+
+msgctxt "#30402"
+msgid "Subtitle format"
+msgstr ""
+
+msgctxt "#30403"
+msgid "Character encoding"
+msgstr ""
+
+msgctxt "#30410"
+msgid "Timing Adjustments"
+msgstr ""
+
+msgctxt "#30411"
+msgid "Adjust timing for readability"
+msgstr ""
+
+msgctxt "#30412"
+msgid "Reading speed (chars/sec)"
+msgstr ""
+
+msgctxt "#30413"
+msgid "Minimum display time (ms)"
+msgstr ""
+
+msgctxt "#30414"
+msgid "Maximum display time (ms)"
+msgstr ""
+
+msgctxt "#30415"
+msgid "Gap between subtitles (ms)"
+msgstr ""
+
+msgctxt "#30420"
+msgid "Line Breaking"
+msgstr ""
+
+msgctxt "#30421"
+msgid "Auto line break"
+msgstr ""
+
+msgctxt "#30422"
+msgid "Maximum line length (chars)"
+msgstr ""
+
+msgctxt "#30423"
+msgid "Maximum lines per subtitle"
+msgstr ""
+
+msgctxt "#30430"
+msgid "SDH / Accessibility"
+msgstr ""
+
+msgctxt "#30431"
+msgid "Enable SDH processing"
+msgstr ""
+
+msgctxt "#30432"
+msgid "Preserve speaker labels"
+msgstr ""
+
+msgctxt "#30433"
+msgid "Translate sound descriptions"
+msgstr ""
+
+msgctxt "#30434"
+msgid "Preserve music notation"
+msgstr ""
+
+msgctxt "#30440"
+msgid "Caching"
+msgstr ""
+
+msgctxt "#30441"
+msgid "Cache translated subtitles"
+msgstr ""
+
+msgctxt "#30442"
+msgid "Cache duration (days)"
+msgstr ""
+
+msgctxt "#30443"
+msgid "Cache size limit (MB)"
+msgstr ""
+
+msgctxt "#30444"
+msgid "Save subtitle alongside video"
+msgstr ""
+
+msgctxt "#30450"
+msgid "Formatting Preservation"
+msgstr ""
+
+msgctxt "#30451"
+msgid "Preserve original timing"
+msgstr ""
+
+msgctxt "#30452"
+msgid "Preserve text formatting"
+msgstr ""
+
+msgctxt "#30453"
+msgid "Preserve colors"
+msgstr ""
+
+msgctxt "#30454"
+msgid "Preserve positions"
+msgstr ""
+
+
+# ===== GLOSSARY =====
+msgctxt "#30460"
+msgid "Glossary"
+msgstr ""
+
+msgctxt "#30461"
+msgid "Custom Terminology"
+msgstr ""
+
+msgctxt "#30462"
+msgid "Enable glossary"
+msgstr ""
+
+msgctxt "#30463"
+msgid "Case-sensitive matching"
+msgstr ""
+
+msgctxt "#30464"
+msgid "Glossary file path"
+msgstr ""
+
+msgctxt "#30470"
+msgid "Name Preservation"
+msgstr ""
+
+msgctxt "#30471"
+msgid "Preserve character names"
+msgstr ""
+
+msgctxt "#30472"
+msgid "Names to preserve (comma-separated)"
+msgstr ""
+
+
+# ===== CONTENT FILTERING =====
+msgctxt "#30480"
+msgid "Content Filtering"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Profanity Filter"
+msgstr ""
+
+msgctxt "#30482"
+msgid "Enable profanity filter"
+msgstr ""
+
+msgctxt "#30483"
+msgid "Replacement text"
+msgstr ""
+
+msgctxt "#30484"
+msgid "Additional words to filter"
+msgstr ""
+
+
+# ===== BATCH PROCESSING =====
+msgctxt "#30490"
+msgid "Batch Processing"
+msgstr ""
+
+msgctxt "#30491"
+msgid "Batch Translation"
+msgstr ""
+
+msgctxt "#30492"
+msgid "Enable batch processing"
+msgstr ""
+
+msgctxt "#30493"
+msgid "Maximum concurrent translations"
+msgstr ""
+
+msgctxt "#30494"
+msgid "Folders to process"
+msgstr ""
+
+msgctxt "#30495"
+msgid "Enable scheduled processing"
+msgstr ""
+
+msgctxt "#30496"
+msgid "Schedule time (HH:MM)"
+msgstr ""
+
+
+# ===== NETWORK SETTINGS =====
 msgctxt "#30500"
 msgid "Network"
-msgstr "Hálózat"
+msgstr ""
 
+msgctxt "#30501"
+msgid "Connection Settings"
+msgstr ""
+
+msgctxt "#30502"
+msgid "Request timeout (seconds)"
+msgstr ""
+
+msgctxt "#30503"
+msgid "Maximum retries"
+msgstr ""
+
+msgctxt "#30504"
+msgid "Retry delay (seconds)"
+msgstr ""
+
+msgctxt "#30505"
+msgid "Rate limit (requests per minute)"
+msgstr ""
+
+msgctxt "#30510"
+msgid "Proxy Settings"
+msgstr ""
+
+msgctxt "#30511"
+msgid "Enable proxy"
+msgstr ""
+
+msgctxt "#30512"
+msgid "Proxy type"
+msgstr ""
+
+msgctxt "#30513"
+msgid "Proxy host"
+msgstr ""
+
+msgctxt "#30514"
+msgid "Proxy port"
+msgstr ""
+
+msgctxt "#30515"
+msgid "Proxy username"
+msgstr ""
+
+msgctxt "#30516"
+msgid "Proxy password"
+msgstr ""
+
+msgctxt "#30520"
+msgid "Rate Limiting"
+msgstr ""
+
+msgctxt "#30521"
+msgid "Enable rate limiting"
+msgstr ""
+
+msgctxt "#30522"
+msgid "Requests per minute"
+msgstr ""
+
+
+# ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
 msgid "Advanced"
 msgstr "Haladó"
 
+msgctxt "#30601"
+msgid "FFmpeg Settings"
+msgstr ""
+
+msgctxt "#30602"
+msgid "FFmpeg path (leave empty for auto)"
+msgstr ""
+
+msgctxt "#30603"
+msgid "FFmpeg threads (0 = auto)"
+msgstr ""
+
+msgctxt "#30604"
+msgid "Enable hardware acceleration"
+msgstr ""
+
+msgctxt "#30610"
+msgid "Processing"
+msgstr ""
+
+msgctxt "#30611"
+msgid "Batch size (subtitles per request)"
+msgstr ""
+
+msgctxt "#30612"
+msgid "Parallel API requests"
+msgstr ""
+
+msgctxt "#30613"
+msgid "Memory limit (MB)"
+msgstr ""
+
+msgctxt "#30620"
+msgid "Debugging"
+msgstr ""
+
+msgctxt "#30621"
+msgid "Enable debug logging"
+msgstr ""
+
+msgctxt "#30622"
+msgid "Debug categories (all or comma-separated)"
+msgstr ""
+
+msgctxt "#30623"
+msgid "Log API requests"
+msgstr ""
+
+msgctxt "#30624"
+msgid "Log timing information"
+msgstr ""
+
+msgctxt "#30625"
+msgid "Save debug log to file"
+msgstr ""
+
+msgctxt "#30630"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "#30631"
+msgid "Auto cleanup old cache"
+msgstr ""
+
+msgctxt "#30632"
+msgid "Cleanup on startup"
+msgstr ""
+
+msgctxt "#30633"
+msgid "Export statistics"
+msgstr ""
+
+msgctxt "#30640"
+msgid "Quality Control"
+msgstr ""
+
+msgctxt "#30641"
+msgid "Enable quality checks"
+msgstr ""
+
+msgctxt "#30642"
+msgid "Minimum translation ratio"
+msgstr ""
+
+msgctxt "#30643"
+msgid "Maximum translation ratio"
+msgstr ""
+
+msgctxt "#30644"
+msgid "Flag untranslated text"
+msgstr ""
+
+
+# ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
 msgstr "Feliratok fordítása..."
@@ -51,3 +711,205 @@ msgstr "Fordítás kész!"
 msgctxt "#30702"
 msgid "Translation failed"
 msgstr "Fordítás sikertelen"
+
+msgctxt "#30703"
+msgid "No embedded subtitles found"
+msgstr ""
+
+msgctxt "#30704"
+msgid "Subtitle already available in your language"
+msgstr ""
+
+msgctxt "#30705"
+msgid "Using cached translation"
+msgstr ""
+
+msgctxt "#30706"
+msgid "Translate subtitles to {0} from {1}?"
+msgstr ""
+
+msgctxt "#30707"
+msgid "Extracting subtitles..."
+msgstr ""
+
+msgctxt "#30708"
+msgid "Parsing subtitle file..."
+msgstr ""
+
+msgctxt "#30709"
+msgid "Connecting to translation service..."
+msgstr ""
+
+msgctxt "#30710"
+msgid "Translating batch {0}/{1}..."
+msgstr ""
+
+msgctxt "#30711"
+msgid "Saving translated subtitles..."
+msgstr ""
+
+msgctxt "#30712"
+msgid "Translation cancelled"
+msgstr ""
+
+msgctxt "#30713"
+msgid "Fallback to {0}"
+msgstr ""
+
+msgctxt "#30714"
+msgid "API error: {0}"
+msgstr ""
+
+msgctxt "#30715"
+msgid "Rate limit reached, waiting..."
+msgstr ""
+
+msgctxt "#30716"
+msgid "Batch processing complete: {0} videos"
+msgstr ""
+
+msgctxt "#30717"
+msgid "Pausing playback during translation..."
+msgstr ""
+
+msgctxt "#30718"
+msgid "Resuming playback"
+msgstr ""
+
+
+# ===== LANGUAGE NAMES =====
+msgctxt "#30800"
+msgid "Swedish"
+msgstr ""
+
+msgctxt "#30801"
+msgid "English"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Norwegian"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Danish"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Finnish"
+msgstr ""
+
+msgctxt "#30805"
+msgid "German"
+msgstr ""
+
+msgctxt "#30806"
+msgid "French"
+msgstr ""
+
+msgctxt "#30807"
+msgid "Spanish"
+msgstr ""
+
+msgctxt "#30808"
+msgid "Italian"
+msgstr ""
+
+msgctxt "#30809"
+msgid "Portuguese"
+msgstr ""
+
+msgctxt "#30810"
+msgid "Polish"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Dutch"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Russian"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Ukrainian"
+msgstr ""
+
+msgctxt "#30814"
+msgid "Japanese"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Chinese (Simplified)"
+msgstr ""
+
+msgctxt "#30816"
+msgid "Chinese (Traditional)"
+msgstr ""
+
+msgctxt "#30817"
+msgid "Korean"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Arabic"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Turkish"
+msgstr ""
+
+msgctxt "#30820"
+msgid "Hindi"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Thai"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Vietnamese"
+msgstr ""
+
+msgctxt "#30823"
+msgid "Indonesian"
+msgstr ""
+
+msgctxt "#30824"
+msgid "Greek"
+msgstr ""
+
+msgctxt "#30825"
+msgid "Czech"
+msgstr ""
+
+msgctxt "#30826"
+msgid "Romanian"
+msgstr ""
+
+msgctxt "#30827"
+msgid "Hungarian"
+msgstr ""
+
+msgctxt "#30828"
+msgid "Hebrew"
+msgstr ""
+
+msgctxt "#30829"
+msgid "Auto-detect"
+msgstr "Automatikus felismerés"
+
+msgctxt "#30830"
+msgid "Malay"
+msgstr ""
+
+msgctxt "#30831"
+msgid "Filipino"
+msgstr ""
+
+msgctxt "#30832"
+msgid "Tamil"
+msgstr ""
+
+msgctxt "#30833"
+msgid "Telugu"
+msgstr ""

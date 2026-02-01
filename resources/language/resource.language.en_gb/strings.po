@@ -1,14 +1,14 @@
 # Kodi Media Center language file
 # Addon Name: Subtitle Translator
 # Addon id: service.subtitletranslator
-# Addon Provider: Daniel Nylander
+# Addon Provider: yeager
 msgid ""
 msgstr ""
 "Project-Id-Version: service.subtitletranslator\n"
 "Report-Msgid-Bugs-To: https://github.com/yeager\n"
-"POT-Creation-Date: 2026-01-31\n"
-"PO-Revision-Date: 2026-01-31\n"
-"Last-Translator: Daniel Nylander\n"
+"POT-Creation-Date: 2026-02-01\n"
+"PO-Revision-Date: 2026-02-01\n"
+"Last-Translator: Automatically generated\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,7 @@ msgctxt "#30113"
 msgid "Show translation statistics"
 msgstr ""
 
+
 # ===== LANGUAGE SETTINGS =====
 msgctxt "#30200"
 msgid "Languages"
@@ -92,6 +93,7 @@ msgstr ""
 msgctxt "#30212"
 msgid "Additional languages (comma-separated)"
 msgstr ""
+
 
 # ===== TRANSLATION PROFILES =====
 msgctxt "#30250"
@@ -145,6 +147,7 @@ msgstr ""
 msgctxt "#30282"
 msgid "Tone"
 msgstr ""
+
 
 # ===== TRANSLATION SERVICES =====
 msgctxt "#30300"
@@ -327,6 +330,7 @@ msgctxt "#30390"
 msgid "Advanced Service Settings"
 msgstr ""
 
+
 # ===== SUBTITLE SETTINGS =====
 msgctxt "#30400"
 msgid "Subtitles"
@@ -444,6 +448,7 @@ msgctxt "#30454"
 msgid "Preserve positions"
 msgstr ""
 
+
 # ===== GLOSSARY =====
 msgctxt "#30460"
 msgid "Glossary"
@@ -477,6 +482,7 @@ msgctxt "#30472"
 msgid "Names to preserve (comma-separated)"
 msgstr ""
 
+
 # ===== CONTENT FILTERING =====
 msgctxt "#30480"
 msgid "Content Filtering"
@@ -497,6 +503,7 @@ msgstr ""
 msgctxt "#30484"
 msgid "Additional words to filter"
 msgstr ""
+
 
 # ===== BATCH PROCESSING =====
 msgctxt "#30490"
@@ -526,6 +533,7 @@ msgstr ""
 msgctxt "#30496"
 msgid "Schedule time (HH:MM)"
 msgstr ""
+
 
 # ===== NETWORK SETTINGS =====
 msgctxt "#30500"
@@ -591,6 +599,7 @@ msgstr ""
 msgctxt "#30522"
 msgid "Requests per minute"
 msgstr ""
+
 
 # ===== ADVANCED SETTINGS =====
 msgctxt "#30600"
@@ -689,6 +698,7 @@ msgctxt "#30644"
 msgid "Flag untranslated text"
 msgstr ""
 
+
 # ===== NOTIFICATIONS =====
 msgctxt "#30700"
 msgid "Translating subtitles..."
@@ -756,4 +766,150 @@ msgstr ""
 
 msgctxt "#30716"
 msgid "Batch processing complete: {0} videos"
+msgstr ""
+
+msgctxt "#30717"
+msgid "Pausing playback during translation..."
+msgstr ""
+
+msgctxt "#30718"
+msgid "Resuming playback"
+msgstr ""
+
+
+# ===== LANGUAGE NAMES =====
+msgctxt "#30800"
+msgid "Swedish"
+msgstr ""
+
+msgctxt "#30801"
+msgid "English"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Norwegian"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Danish"
+msgstr ""
+
+msgctxt "#30804"
+msgid "Finnish"
+msgstr ""
+
+msgctxt "#30805"
+msgid "German"
+msgstr ""
+
+msgctxt "#30806"
+msgid "French"
+msgstr ""
+
+msgctxt "#30807"
+msgid "Spanish"
+msgstr ""
+
+msgctxt "#30808"
+msgid "Italian"
+msgstr ""
+
+msgctxt "#30809"
+msgid "Portuguese"
+msgstr ""
+
+msgctxt "#30810"
+msgid "Polish"
+msgstr ""
+
+msgctxt "#30811"
+msgid "Dutch"
+msgstr ""
+
+msgctxt "#30812"
+msgid "Russian"
+msgstr ""
+
+msgctxt "#30813"
+msgid "Ukrainian"
+msgstr ""
+
+msgctxt "#30814"
+msgid "Japanese"
+msgstr ""
+
+msgctxt "#30815"
+msgid "Chinese (Simplified)"
+msgstr ""
+
+msgctxt "#30816"
+msgid "Chinese (Traditional)"
+msgstr ""
+
+msgctxt "#30817"
+msgid "Korean"
+msgstr ""
+
+msgctxt "#30818"
+msgid "Arabic"
+msgstr ""
+
+msgctxt "#30819"
+msgid "Turkish"
+msgstr ""
+
+msgctxt "#30820"
+msgid "Hindi"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Thai"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Vietnamese"
+msgstr ""
+
+msgctxt "#30823"
+msgid "Indonesian"
+msgstr ""
+
+msgctxt "#30824"
+msgid "Greek"
+msgstr ""
+
+msgctxt "#30825"
+msgid "Czech"
+msgstr ""
+
+msgctxt "#30826"
+msgid "Romanian"
+msgstr ""
+
+msgctxt "#30827"
+msgid "Hungarian"
+msgstr ""
+
+msgctxt "#30828"
+msgid "Hebrew"
+msgstr ""
+
+msgctxt "#30829"
+msgid "Auto-detect"
+msgstr ""
+
+msgctxt "#30830"
+msgid "Malay"
+msgstr ""
+
+msgctxt "#30831"
+msgid "Filipino"
+msgstr ""
+
+msgctxt "#30832"
+msgid "Tamil"
+msgstr ""
+
+msgctxt "#30833"
+msgid "Telugu"
 msgstr ""

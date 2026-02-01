@@ -290,6 +290,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         """Translate the subtitle with progress tracking."""
         self.translation_in_progress = True
         progress = None
+        was_playing = False
         
         try:
             get_debug_logger().info(f"Starting translation for: {self.current_file}", 'translation')
@@ -312,6 +313,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 return
             
             get_debug_logger().debug("Cache miss, starting translation", 'cache')
+            
+            # Pause playback during translation
+            if self.isPlaying():
+                was_playing = True
+                self.pause()
+                log("Paused playback during translation")
+                if self.show_notification:
+                    notify(get_string(30717))  # "Pausing playback during translation..."
             
             # Initialize progress dialog
             progress = TranslationProgress(show_dialog=self.show_notification)
@@ -465,6 +474,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         finally:
             self.translation_in_progress = False
+            
+            # Resume playback if we paused it
+            if was_playing and not self.isPlaying():
+                try:
+                    self.pause()  # Toggle pause to resume
+                    log("Resumed playback after translation")
+                except:
+                    pass
     
     def get_cache_key(self, source_sub):
         """Generate a unique cache key for the subtitle."""
@@ -565,9 +582,50 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         return output_path
     
     def load_subtitle(self, path):
-        """Load a subtitle file into the player."""
+        """Load a subtitle file into the player and enable it."""
         self.setSubtitles(path)
-        log(f"Loaded subtitle: {path}")
+        
+        # Enable subtitle visibility and select the new subtitle
+        xbmc.sleep(500)  # Give Kodi time to load the subtitle
+        
+        try:
+            # Get available subtitles to find the index of the one we just added
+            result = execute_jsonrpc('Player.GetProperties', {
+                'playerid': 1,
+                'properties': ['subtitles', 'currentsubtitle', 'subtitleenabled']
+            })
+            
+            if result and 'result' in result:
+                subtitles = result['result'].get('subtitles', [])
+                
+                # Find our subtitle (usually the last one added, or match by name)
+                new_sub_index = len(subtitles) - 1 if subtitles else 0
+                
+                # Look for exact path match
+                for i, sub in enumerate(subtitles):
+                    if sub.get('name', '').endswith(os.path.basename(path)):
+                        new_sub_index = i
+                        break
+                
+                # Enable subtitles and select the new one
+                execute_jsonrpc('Player.SetSubtitle', {
+                    'playerid': 1,
+                    'subtitle': new_sub_index,
+                    'enable': True
+                })
+                log(f"Selected subtitle index {new_sub_index} and enabled display")
+            else:
+                # Fallback: just enable subtitles via built-in
+                xbmc.executebuiltin('ActivateWindow(SubtitleSearch)')
+                xbmc.sleep(100)
+                xbmc.executebuiltin('Action(Close)')
+                
+        except Exception as e:
+            log(f"Could not auto-select subtitle: {e}", level=xbmc.LOGWARNING)
+        
+        # Ensure subtitle visibility is on
+        self.showSubtitles(True)
+        log(f"Loaded and activated subtitle: {path}")
     
     def get_service_config(self):
         """Get configuration for the selected translation service."""
@@ -608,15 +666,54 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         return config
     
     def get_language_name(self, code):
-        """Get human-readable language name from code."""
-        names = {
-            'sv': 'Svenska', 'en': 'English', 'de': 'Deutsch',
-            'fr': 'Français', 'es': 'Español', 'it': 'Italiano',
-            'no': 'Norsk', 'da': 'Dansk', 'fi': 'Suomi',
-            'nl': 'Nederlands', 'pl': 'Polski', 'pt': 'Português',
-            'ru': 'Русский', 'ja': '日本語', 'zh': '中文', 'ko': '한국어'
+        """Get localized language name from code."""
+        # Map language codes to string IDs (30800+)
+        code_to_string_id = {
+            'sv': 30800, 'swe': 30800,
+            'en': 30801, 'eng': 30801,
+            'no': 30802, 'nor': 30802, 'nob': 30802,
+            'da': 30803, 'dan': 30803,
+            'fi': 30804, 'fin': 30804,
+            'de': 30805, 'ger': 30805, 'deu': 30805,
+            'fr': 30806, 'fre': 30806, 'fra': 30806,
+            'es': 30807, 'spa': 30807,
+            'it': 30808, 'ita': 30808,
+            'pt': 30809, 'por': 30809,
+            'pl': 30810, 'pol': 30810,
+            'nl': 30811, 'dut': 30811, 'nld': 30811,
+            'ru': 30812, 'rus': 30812,
+            'uk': 30813, 'ukr': 30813,
+            'ja': 30814, 'jpn': 30814,
+            'zh': 30815, 'chi': 30815, 'zho': 30815,
+            'zh-TW': 30816,
+            'ko': 30817, 'kor': 30817,
+            'ar': 30818, 'ara': 30818,
+            'tr': 30819, 'tur': 30819,
+            'hi': 30820, 'hin': 30820,
+            'th': 30821, 'tha': 30821,
+            'vi': 30822, 'vie': 30822,
+            'id': 30823, 'ind': 30823,
+            'el': 30824, 'gre': 30824, 'ell': 30824,
+            'cs': 30825, 'cze': 30825, 'ces': 30825,
+            'ro': 30826, 'rum': 30826, 'ron': 30826,
+            'hu': 30827, 'hun': 30827,
+            'he': 30828, 'heb': 30828,
+            'auto': 30829,
+            'ms': 30830, 'may': 30830, 'msa': 30830,
+            'fil': 30831, 'tl': 30831,
+            'ta': 30832, 'tam': 30832,
+            'te': 30833, 'tel': 30833,
         }
-        return names.get(code, code)
+        
+        # Normalize code to lowercase
+        code_lower = code.lower() if code else ''
+        
+        string_id = code_to_string_id.get(code_lower)
+        if string_id:
+            return get_string(string_id)
+        
+        # Fallback to code itself
+        return code
 
 
 # Helper functions
