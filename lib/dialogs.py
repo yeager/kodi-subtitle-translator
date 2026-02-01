@@ -1,90 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Custom dialogs for Subtitle Translator addon.
+Dialogs for Subtitle Translator addon.
 """
 
 import xbmc
 import xbmcgui
 
-# Window IDs
-ACTION_PREVIOUS_MENU = 10
-ACTION_BACK = 92
-ACTION_NAV_BACK = 9
-ACTION_SELECT_ITEM = 7
-
-# Control IDs for custom dialog
-CTRL_BACKGROUND = 100
-CTRL_THUMBNAIL = 101
-CTRL_TITLE = 102
-CTRL_MESSAGE = 103
-CTRL_YES_BUTTON = 201
-CTRL_NO_BUTTON = 202
-
-
-class TranslateConfirmDialog(xbmcgui.WindowXMLDialog):
-    """
-    Custom dialog with thumbnail for translation confirmation.
-    Falls back to standard yesno dialog if XML not available.
-    """
-    
-    def __init__(self, xml_file, script_path, default_skin='default', default_res='1080i'):
-        self.title = 'Subtitle Translator'
-        self.message = ''
-        self.thumbnail = ''
-        self.media_title = ''
-        self.result = False
-        super().__init__(xml_file, script_path, default_skin, default_res)
-    
-    def set_info(self, title, message, thumbnail='', media_title=''):
-        """Set dialog information before showing."""
-        self.title = title
-        self.message = message
-        self.thumbnail = thumbnail
-        self.media_title = media_title
-    
-    def onInit(self):
-        """Initialize dialog controls."""
-        try:
-            # Set thumbnail
-            if self.thumbnail:
-                self.getControl(CTRL_THUMBNAIL).setImage(self.thumbnail)
-            
-            # Set title
-            self.getControl(CTRL_TITLE).setLabel(self.media_title or self.title)
-            
-            # Set message
-            self.getControl(CTRL_MESSAGE).setLabel(self.message)
-            
-            # Focus on No button (safer default)
-            self.setFocusId(CTRL_NO_BUTTON)
-        except Exception as e:
-            xbmc.log(f"[SubtitleTranslator] Dialog init error: {e}", xbmc.LOGWARNING)
-    
-    def onClick(self, controlId):
-        """Handle button clicks."""
-        if controlId == CTRL_YES_BUTTON:
-            self.result = True
-            self.close()
-        elif controlId == CTRL_NO_BUTTON:
-            self.result = False
-            self.close()
-    
-    def onAction(self, action):
-        """Handle actions."""
-        action_id = action.getId()
-        if action_id in (ACTION_PREVIOUS_MENU, ACTION_BACK, ACTION_NAV_BACK):
-            self.result = False
-            self.close()
-
 
 def show_translate_confirm(title, message, thumbnail=None, media_title=None):
     """
-    Show translation confirmation dialog with thumbnail.
+    Show translation confirmation dialog.
     
     Args:
         title: Dialog title
         message: Confirmation message
-        thumbnail: Path to thumbnail image
+        thumbnail: Path to thumbnail image (used in notification)
         media_title: Title of the media being translated
     
     Returns:
@@ -97,44 +27,20 @@ def show_translate_confirm(title, message, thumbnail=None, media_title=None):
     if not media_title:
         media_title = get_current_media_title()
     
-    # Try custom dialog with thumbnail first
-    try:
-        # Check if our custom dialog XML exists
-        import xbmcaddon
-        import xbmcvfs
-        import os
-        
-        addon = xbmcaddon.Addon()
-        addon_path = xbmcvfs.translatePath(addon.getAddonInfo('path'))
-        dialog_xml = os.path.join(addon_path, 'resources', 'skins', 'default', '1080i', 'TranslateConfirmDialog.xml')
-        
-        if xbmcvfs.exists(dialog_xml):
-            dialog = TranslateConfirmDialog(
-                'TranslateConfirmDialog.xml',
-                addon_path,
-                'default',
-                '1080i'
-            )
-            dialog.set_info(title, message, thumbnail, media_title)
-            dialog.doModal()
-            result = dialog.result
-            del dialog
-            return result
-    except Exception as e:
-        xbmc.log(f"[SubtitleTranslator] Custom dialog failed: {e}", xbmc.LOGWARNING)
-    
-    # Fallback: Use built-in dialog with thumbnail notification
+    # Show a brief notification with thumbnail first (if available)
     if thumbnail and media_title:
-        # Show a brief notification with thumbnail first
-        xbmcgui.Dialog().notification(
-            title,
-            media_title,
-            thumbnail,
-            3000,
-            sound=False
-        )
+        try:
+            xbmcgui.Dialog().notification(
+                title,
+                media_title,
+                thumbnail,
+                3000,
+                sound=False
+            )
+        except:
+            pass
     
-    # Then show standard yesno dialog
+    # Use standard yesno dialog (safe, works with all skins)
     return xbmcgui.Dialog().yesno(
         title,
         message,
