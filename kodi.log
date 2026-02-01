@@ -1,0 +1,1119 @@
+﻿2026-02-01 10:19:16.761 T:50892    info <general>: -----------------------------------------------------------------------
+2026-02-01 10:19:16.761 T:50892    info <general>: Starting Kodi (22.0-ALPHA2 (21.90.702) Git:20260119-7e72aba3f4). Platform: Windows NT x86 64-bit
+2026-02-01 10:19:16.761 T:50892    info <general>: Using Release Kodi x64
+2026-02-01 10:19:16.761 T:50892    info <general>: Kodi compiled 2026-01-19 by MSVC 194234436 for Windows NT x86 64-bit version 10.0 (0x0A00000C)
+2026-02-01 10:19:16.761 T:50892    info <general>: Running on Windows 11 25H2, kernel: Windows NT x86 64-bit version 10.0.26200.7628
+2026-02-01 10:19:16.761 T:50892    info <general>: FFmpeg version/source: 8.0.1-Kodi
+2026-02-01 10:19:16.761 T:50892    info <general>: Host CPU: Intel(R) Core(TM) i9-14900K, 32 cores available
+2026-02-01 10:19:16.762 T:50892    info <general>: System has 64.0 GB of RAM installed
+2026-02-01 10:19:16.762 T:50892    info <general>: Desktop Resolution: 5120x1440 32Bit at 240Hz
+2026-02-01 10:19:16.762 T:50892    info <general>: Running with restricted rights
+2026-02-01 10:19:16.762 T:50892    info <general>: Aero is enabled
+2026-02-01 10:19:16.762 T:50892    info <general>: Display HDR capable is detected and Windows HDR switch is ON
+2026-02-01 10:19:16.762 T:50892    info <general>: special://xbmc/ is mapped to: C:\Program Files\Kodi
+2026-02-01 10:19:16.762 T:50892    info <general>: special://xbmcbin/ is mapped to: C:\Program Files\Kodi
+2026-02-01 10:19:16.762 T:50892    info <general>: special://xbmcbinaddons/ is mapped to: C:\Program Files\Kodi/addons
+2026-02-01 10:19:16.762 T:50892    info <general>: special://masterprofile/ is mapped to: C:\Users\windo\AppData\Roaming\Kodi\userdata
+2026-02-01 10:19:16.762 T:50892    info <general>: special://home/ is mapped to: C:\Users\windo\AppData\Roaming\Kodi\
+2026-02-01 10:19:16.762 T:50892    info <general>: special://temp/ is mapped to: C:\Users\windo\AppData\Roaming\Kodi\cache
+2026-02-01 10:19:16.762 T:50892    info <general>: special://logpath/ is mapped to: C:\Users\windo\AppData\Roaming\Kodi\
+2026-02-01 10:19:16.762 T:50892    info <general>: Webserver extra whitelist paths: 
+2026-02-01 10:19:16.762 T:50892    info <general>: The executable running is: C:\Program Files\Kodi\kodi.exe
+2026-02-01 10:19:16.763 T:50892    info <general>: Local hostname: DANNESBURK
+2026-02-01 10:19:16.763 T:50892    info <general>: Log File is located: C:\Users\windo\AppData\Roaming\Kodi\kodi.log
+2026-02-01 10:19:16.763 T:50892    info <general>: -----------------------------------------------------------------------
+2026-02-01 10:19:16.763 T:50892    info <general>: loading settings
+2026-02-01 10:19:16.764 T:50892    info <general>: special://profile/ is mapped to: special://masterprofile/
+2026-02-01 10:19:16.767 T:50892    info <general>: No settings file to load (special://xbmc/system/advancedsettings.xml)
+2026-02-01 10:19:16.767 T:50892    info <general>: No settings file to load (special://masterprofile/advancedsettings.xml)
+2026-02-01 10:19:16.767 T:50892    info <general>: Default Video Player: VideoPlayer
+2026-02-01 10:19:16.767 T:50892    info <general>: Default Audio Player: paplayer
+2026-02-01 10:19:16.767 T:50892    info <general>: Disabled debug logging due to GUI setting. Level 0.
+2026-02-01 10:19:16.767 T:50892    info <general>: Log level changed to "info"
+2026-02-01 10:19:16.767 T:50892    info <general>: CMediaSourceSettings: loading media sources from special://masterprofile/sources.xml
+2026-02-01 10:19:16.770 T:50892    info <general>: New Cache GUI Settings (replacement of cache in advancedsettings.xml) are:
+                                                     Buffer Mode: 4
+                                                     Memory Size: 64 MB
+                                                     Read Factor: 0.00 x (adaptive)
+                                                     Chunk Size : 131072 bytes
+2026-02-01 10:19:16.770 T:50892    info <general>: creating subdirectories
+2026-02-01 10:19:16.770 T:50892    info <general>: userdata folder: special://masterprofile/
+2026-02-01 10:19:16.770 T:50892    info <general>: recording folder: 
+2026-02-01 10:19:16.770 T:50892    info <general>: screenshots folder: 
+2026-02-01 10:19:16.773 T:50892    info <general>: Running database version Addons33
+2026-02-01 10:19:16.798 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'game.controller.default' already present with higher version 1.0.46 at 'C:\Program Files\Kodi\addons\game.controller.default\' - other version 1.0.43 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\game.controller.default\' will be ignored
+2026-02-01 10:19:16.798 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'game.controller.keyboard' already present with higher version 1.1.47 at 'C:\Program Files\Kodi\addons\game.controller.keyboard\' - other version 1.1.45 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\game.controller.keyboard\' will be ignored
+2026-02-01 10:19:16.799 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'game.controller.mouse' already present with higher version 1.0.30 at 'C:\Program Files\Kodi\addons\game.controller.mouse\' - other version 1.0.28 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\game.controller.mouse\' will be ignored
+2026-02-01 10:19:16.800 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'game.controller.snes' already present with higher version 1.0.46 at 'C:\Program Files\Kodi\addons\game.controller.snes\' - other version 1.0.43 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\game.controller.snes\' will be ignored
+2026-02-01 10:19:16.808 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'kodi.binary.global.filesystem' already present with higher version 1.1.10 at 'C:\Program Files\Kodi\addons\kodi.binary.global.filesystem\' - other version 1.1.9 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\kodi.binary.global.filesystem\' will be ignored
+2026-02-01 10:19:16.809 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'kodi.binary.instance.game' already present with higher version 4.1.0 at 'C:\Program Files\Kodi\addons\kodi.binary.instance.game\' - other version 4.0.0 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\kodi.binary.instance.game\' will be ignored
+2026-02-01 10:19:16.809 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'kodi.binary.instance.inputstream' already present with higher version 3.4.0 at 'C:\Program Files\Kodi\addons\kodi.binary.instance.inputstream\' - other version 3.3.0 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\kodi.binary.instance.inputstream\' will be ignored
+2026-02-01 10:19:16.813 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'metadata.generic.artists' already present with higher version 1.0.18 at 'C:\Program Files\Kodi\addons\metadata.generic.artists\' - other version 1.0.12 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\metadata.generic.artists\' will be ignored
+2026-02-01 10:19:16.864 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'xbmc.addon' already present with higher version 21.90.702 at 'C:\Program Files\Kodi\addons\xbmc.addon\' - other version 21.90.700 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\xbmc.addon\' will be ignored
+2026-02-01 10:19:16.864 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'xbmc.json' already present with higher version 13.9.0 at 'C:\Program Files\Kodi\addons\xbmc.json\' - other version 13.7.1 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\xbmc.json\' will be ignored
+2026-02-01 10:19:16.864 T:50892 warning <general>: ADDON::CAddonMgr::FindAddons: Addon 'xbmc.python' already present with higher version 3.0.2 at 'C:\Program Files\Kodi\addons\xbmc.python\' - other version 3.0.1 at 'C:\Users\windo\AppData\Roaming\Kodi\addons\xbmc.python\' will be ignored
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audiodecoder.hvl v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audiodecoder.qsf v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audiodecoder.sacd v22.0.2'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audiodecoder.wsr v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.flac v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.kodi.builtin.aac v1.0.2'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.kodi.builtin.wma v1.0.2'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.lame v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.vorbis v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'audioencoder.wav v22.0.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.embuary.info v2.0.0'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.item.extras v1.4.2'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.trakt.addtowatchlist v1.1.0+matrix.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.trakt.contextmenu v1.1.0+matrix.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.trakt.rate v1.1.0+matrix.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'context.trakt.watched v1.1.0+matrix.1'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.amstrad.joystick v1.0.34'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.amstrad.keyboard v1.0.45'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.atari.lynx v1.0.34'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.default v1.0.46'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.keyboard v1.1.47'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.mouse v1.0.30'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.controller.snes v1.0.46'
+2026-02-01 10:19:16.866 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro v22.2.3'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.crocods v0.0.1.31'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.ecwolf v0.01.0.36'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.fbalpha2012-cps1 v0.2.97.26'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.mame2003 v0.78.0.64'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.neocd v20.22.0.25'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.oberon v0.0.1.23'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.scummvm v2.10.0.50'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.smsplus-gx v1.8.0.36'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.uzem v2.0.0.33'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'game.libretro.xrick v0.21212.0.45'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'imagedecoder.heif v22.0.1'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'imagedecoder.mpo v22.0.2'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'imagedecoder.raw v22.0.3'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'inputstream.adaptive v22.3.7'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'inputstream.ffmpegdirect v22.2.0'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'inputstream.rtmp v22.1.1'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.audioengine v1.1.1'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.filesystem v1.1.10'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.general v1.0.5'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.gui v5.15.1'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.main v2.0.2'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.network v1.0.4'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.global.tools v1.0.4'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.audiodecoder v4.0.0'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.audioencoder v3.0.0'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.game v4.1.0'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.imagedecoder v3.0.1'
+2026-02-01 10:19:16.867 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.inputstream v3.4.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.peripheral v3.0.2'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.pvr v9.2.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.screensaver v2.2.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.shaderpreset v1.1.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.vfs v3.0.1'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.videocodec v2.1.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.binary.instance.visualization v4.0.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'kodi.resource v1.0.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.album.universal v3.1.18'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.albums.theaudiodb.com v1.2.3'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.albums.xiami.com v1.0.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.artists.theaudiodb.com v1.1.2'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.artists.universal v4.3.21'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.artists.xiami.com v1.0.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.atmovies.com.tw v1.6.7'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.allmusic.com v3.2.2'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.fanart.tv v3.6.5'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.imdb.com v3.3.0'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.musicbrainz.org v2.2.4'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.omdbapi.com v1.2.2'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.theaudiodb.com v2.0.3'
+2026-02-01 10:19:16.868 T:50892    info <general>: Addon Manager: Found addon: 'metadata.common.themoviedb.org v3.2.19'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.douban.com v1.1.7'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.generic.albums v1.0.18'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.generic.artists v1.0.18'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.local v1.0.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.movies.thetvdb.com.v4.python v1.0.11'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.mtime.com v1.1.9'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.musicvideos.theaudiodb.com v1.3.5'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.themoviedb.org.python v3.1.3'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.tvmaze v1.4.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.tvshows.themoviedb.org.python v1.8.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.tvshows.thesportsdb.python v1.1.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.tvshows.thetvdb.com.v4.python v1.1.6'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'metadata.universal v5.6.3'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'peripheral.joystick v22.0.5'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.audio.ampache v3.2.0+matrix.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.audio.kxmxpxtx.bandcamp v0.5.2+matrix.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.googledrive v1.5.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.image.bancasapo v3.0.2+matrix.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.image.dumpert v1.0.4+matrix.1'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.library.node.editor v2.0.5'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.onedrive v2.3.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.picture.googlephotos v2.0.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.program.AML v1.0.2'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.program.autocompletion v2.1.2'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.program.mceremote v3.0.0'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.program.smartplaylist.generator v0.1.8'
+2026-02-01 10:19:16.869 T:50892    info <general>: Addon Manager: Found addon: 'plugin.switchback v2.0.0'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.composite_for_plex v2.0.2'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.pcloud-video-streaming v1.5.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.piped v1.0.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.svtplay v5.1.21+matrix.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.teliaplay-se v1.2.7+matrix.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.themoviedb.helper v5.4.16'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.twitch v3.0.2'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.video.youtube v7.3.0.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'plugin.whereareyou v0.6.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'pvr.iptvsimple v22.6.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'repository.xbmc.org v3.5.0'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.fonts.copacetic v1.0.5'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.busyspinners.basic v1.0.0'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.languageflags.colour v0.0.4'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.languageflags.completepack v1.0.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.moviecountryicons.flags v0.0.1'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.moviegenreicons.coloured v0.0.8'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.musicgenreicons.grey v0.0.6'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.musicgenreicons.poster v0.0.7'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.recordlabels.white v0.0.7'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.studios.white v0.0.30'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weatherfanart.multi v0.0.6'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weatherfanart.prairie v0.0.5'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weatherfanart.single v0.0.6'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.3d-coloured v0.0.6'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.animated v0.0.6'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.default v1.1.9'
+2026-02-01 10:19:16.870 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.hd.animated v1.0.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.outline v0.0.6'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.images.weathericons.white v0.0.6'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.language.en_gb v2.0.2'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.language.sv_se v11.0.94'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.uisounds.amber v1.0.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.uisounds.ftv v1.0.1'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'resource.uisounds.kodi v1.0.1'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.bing v1.0.6'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.digitalclock v6.0.5'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.matrixtrails v22.0.1'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.rsxs.colorfire v22.0.4'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.rsxs.lattice v22.0.4'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.rsxs.sundancer2 v22.0.4'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.shadertoy v22.0.1'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.videosaver v1.1.6'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.weather v1.0.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.xbmc.builtin.black v1.0.34'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'screensaver.xbmc.builtin.dim v1.0.66'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.adzapper v1.0.2'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.artistslideshow v3.3.8'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.audio.profiles v2.2.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.audiooffsetmanager v1.5.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.black.bars.never v1.0.11'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.bluetooth.delay v1.2.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.cabertoss v1.0.2'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.commands v1.1.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.common.plugin.cache v3.0.0'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.copacetic.helper v1.1.6'
+2026-02-01 10:19:16.871 T:50892    info <general>: Addon Manager: Found addon: 'script.cu.lrclyrics v6.6.9'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.domoticz.scenes v0.0.22'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.embuary.helper v2.0.8'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.embuary.info v2.0.8'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.extendedinfo v6.0.9'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.favourites v8.1.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.globalsearch v9.0.7'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.harmony.control v0.2.4'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.image.resource.select v3.0.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.keymap v1.3.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.kodi.loguploader v1.0.5'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.kodi.windows.update v1.3.5'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.lazytv v3.0.1'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.litebox v1.0.0'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.lockandenergycontrol v1.1.0'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.logviewer v2.1.7+matrix.1'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.metadata.editor v3.0.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.addon.signals v0.0.6+matrix.1'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.arrow v1.2.3'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.autocompletion v2.1.1'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.beautifulsoup4 v4.12.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.bossanova808 v1.0.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.bottle v0.13.2'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.buggalo v1.2.0'
+2026-02-01 10:19:16.872 T:50892    info <general>: Addon Manager: Found addon: 'script.module.certifi v2023.5.7'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.chardet v5.1.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.clouddrive.common v1.4.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.dateutil v2.8.2'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.defusedxml v0.6.0+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.dropbox v10.3.1+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.future v1.0.0+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.html5lib v1.1.0+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.idna v3.10.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.infotagger v0.0.8'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.inputstreamhelper v0.8.5'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.iso8601 v2.0.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.jurialmunkey v0.2.28'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.kodi-six v0.1.3.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.mutagen v1.47.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.myconnpy v8.0.33'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pathtools v0.1.2+matrix.2'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pil v5.1.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.protobuf v4.23.2'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pycryptodome v3.4.3'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pyqrcode v1.2.1+matrix.4'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pyrollbar v0.15.2'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pysubs2 v1.5.0+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.python.twitch v3.0.2'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pytz v2023.3.0+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.pyxbmct v1.3.2+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.requests v2.31.0'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.routing v0.2.3+matrix.1'
+2026-02-01 10:19:16.873 T:50892    info <general>: Addon Manager: Found addon: 'script.module.simple-requests v2.0.0'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.simplecache v2.0.2'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.simpleeval v0.9.13'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.simplejson v3.19.1+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.simpleplugin3 v3.0.6+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.six v1.16.0+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.soupsieve v2.4.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.trakt v4.4.0+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.typing_extensions v4.7.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.unidecode v1.3.6'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.urllib3 v2.2.3'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.watchdog v0.10.2+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.web-pdb v1.6.3'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.webencodings v0.5.1+matrix.2'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.websocket v1.6.4'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.yaml v6.0.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.module.youtube.dl v25.11.30+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.myepisodes v3.2.0'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.nhlscores v2024.12.11+matrix.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.playrandomvideos v2.1.1'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.plex v0.3.5'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.program.homeassistant v1.2.0'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.pystone.benchmark v1.1.8'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.reset_watchedstate v0.0.3'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.rss.editor v4.0.2'
+2026-02-01 10:19:16.874 T:50892    info <general>: Addon Manager: Found addon: 'script.service.checkpreviousepisode v0.4.9'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.hue v2.1.0'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.hyperion v20.0.2'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.hyperion-control v20.0.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.janitor v5.0.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.latestrating v1.0.2'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.service.playbackresumer v2.0.8'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.skin.helper.colorpicker v2.0.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.skinshortcuts v2.0.3'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.skinvariables v2.1.33'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.skipit v1.0.3'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.speedfaninfo v1.2.1+matrix.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.speedtester v1.1.3+matrix.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.sublissimo v2.0.6'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.timers v4.1.2'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.toolbox v2.0.0'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.trakt v3.6.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.transmission v1.0.2'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.tubecast v1.5.0+matrix.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.tvmaze.integration v0.8.0'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.tvmaze.scrobbler v1.2.1+matrix.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.wadeysay v0.0.11'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.wellbeing v1.3.2'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.wikipedia v0.0.7'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.xbmc.lcdproc v4.1.1'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.xbmc.unpausejumpback v3.0.6'
+2026-02-01 10:19:16.875 T:50892    info <general>: Addon Manager: Found addon: 'script.xbmcbackup v1.7.2'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.autostop v1.0.6'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.autosubs v1.1.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.cronxbmc v0.1.7'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.iptv.manager v0.2.5+matrix.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.languagepreferencemanager v1.0.7'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.library.data.provider v0.4.2'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.libraryautoupdate v1.2.5'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.librarywatchdog v1.1.2'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.listenbrainz v0.3.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.master.lock v1.0.1+matrix.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.scrobbler.lastfm v4.0.3'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.scrobbler.librefm v4.0.4'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.stinger.notification v2.0.0'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.subsmangler v2.2.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.subtitletranslator v1.0.0'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.upnext v1.1.9+matrix.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.watchedlist v1.3.7'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'service.xbmc.versioncheck v0.5.30+matrix.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.aeon.nox.silvo v10.0.3'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.amber v3.99.02'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.arctic.zephyr.mod v3.0.3'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.bello.10 v10.0.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.confluence v5.1.2'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.copacetic v2.6.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.estuary v4.1.0'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.ftv v8.3.1'
+2026-02-01 10:19:16.876 T:50892    info <general>: Addon Manager: Found addon: 'skin.madnox v21.0.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'skin.mimic.lr v8.2.2'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'skin.quartz v5.21.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'skin.tempevo.limasky v1.0.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'skin.transparency v13.0.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'skin.xperience1080 v10.0.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'vfs.libarchive v22.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'vfs.rar v22.0.2'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'vfs.sftp v22.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'visualization.fishbmc v22.0.2'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'visualization.milkdrop v22.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'visualization.milkdrop2 v22.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'visualization.projectm v21.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'visualization.shadertoy v22.0.2'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'weather.gismeteo v0.6.4+matrix.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.arch v2.0.5'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.awxi v0.7.6'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.chorus v0.3.10'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.default v21.x-1.0.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.hax v0.1.1'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'webinterface.tex v1.3.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.addon v21.90.702'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.core v0.1.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.gui v5.18.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.json v13.9.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.metadata v2.1.0'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.python v3.0.2'
+2026-02-01 10:19:16.877 T:50892    info <general>: Addon Manager: Found addon: 'xbmc.webinterface v1.0.0'
+2026-02-01 10:19:16.880 T:50892    info <general>: CKeyboardLayoutManager: loading keyboard layouts from special://xbmc/system/keyboardlayouts...
+2026-02-01 10:19:16.884 T:59420    info <general>: Loading special://xbmc/system/IRSSmap.xml
+2026-02-01 10:19:16.884 T:59420    info <general>: * Adding remote mapping for device 'Microsoft MCE'
+2026-02-01 10:19:16.884 T:59420    info <general>: * Adding remote mapping for device 'Abstract'
+2026-02-01 10:19:16.884 T:50892    info <general>: Primary mode: Odyssey G95SC #1: 5120x1440 @ 240.00Hz
+2026-02-01 10:19:17.561 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 640x480 @ 120.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 640x480 @ 60.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 640x480 @ 119.88Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 640x480 @ 240.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x480 @ 120.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x480 @ 240.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x480 @ 119.88Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x480 @ 60.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x480 @ 59.94Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 800x600 @ 120.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 800x600 @ 60.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 800x600 @ 119.88Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 800x600 @ 240.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1024x768 @ 120.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1024x768 @ 60.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1024x768 @ 119.88Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1024x768 @ 240.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1152x864 @ 120.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1152x864 @ 60.00Hz
+2026-02-01 10:19:17.562 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1152x864 @ 119.88Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1152x864 @ 240.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1176x664 @ 120.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1176x664 @ 59.94Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1176x664 @ 119.88Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1176x664 @ 60.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1176x664 @ 240.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x720 @ 120.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x720 @ 59.94Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x720 @ 119.88Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x720 @ 60.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x720 @ 240.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x768 @ 120.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x768 @ 60.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x768 @ 119.88Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x768 @ 240.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x800 @ 120.00Hz
+2026-02-01 10:19:17.563 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x800 @ 60.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x800 @ 119.88Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x800 @ 240.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x960 @ 120.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x960 @ 60.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x960 @ 119.88Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x960 @ 240.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x1024 @ 120.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x1024 @ 60.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x1024 @ 119.88Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1280x1024 @ 240.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1360x768 @ 120.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1360x768 @ 60.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1360x768 @ 119.88Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1360x768 @ 240.00Hz
+2026-02-01 10:19:17.564 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1366x768 @ 120.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1366x768 @ 60.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1366x768 @ 119.88Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1366x768 @ 240.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x1080 @ 120.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x1080 @ 60.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x1080 @ 59.94Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x1080 @ 240.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x1080 @ 119.88Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x900 @ 120.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x900 @ 60.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x900 @ 119.88Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x900 @ 240.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1024 @ 120.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1024 @ 59.94Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1024 @ 60.00Hz
+2026-02-01 10:19:17.565 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1024 @ 119.88Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1024 @ 240.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1200 @ 59.94Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1200 @ 60.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1200 @ 120.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1600x1200 @ 240.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1680x1050 @ 120.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1680x1050 @ 59.94Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1680x1050 @ 60.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1680x1050 @ 119.88Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1680x1050 @ 240.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1080 @ 120.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1080 @ 60.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1080 @ 59.94Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1080 @ 240.00Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1080 @ 119.88Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1200 @ 59.94Hz
+2026-02-01 10:19:17.566 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1200 @ 60.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1200 @ 120.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1200 @ 240.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1440 @ 59.94Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1440 @ 60.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1440 @ 120.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1920x1440 @ 240.00Hz
+2026-02-01 10:19:17.567 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 2560x1440 @ 59.94Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 2560x1440 @ 60.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 2560x1440 @ 120.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 2560x1440 @ 240.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x576 @ 120.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x576 @ 60.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x576 @ 119.88Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 720x576 @ 240.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 5120x1440 @ 120.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 5120x1440 @ 60.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 5120x1440 @ 240.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 3840x1080 @ 120.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 3840x1080 @ 60.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 3840x1080 @ 240.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 3840x1080 @ 100.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 3840x1080 @ 75.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x900 @ 120.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x900 @ 60.00Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x900 @ 119.88Hz
+2026-02-01 10:19:17.568 T:50892    info <general>: Additional mode: Odyssey G95SC #1: 1440x900 @ 240.00Hz
+2026-02-01 10:19:17.569 T:50892    info <general>: CApplication::CApplication::CreateGUI - using the default windowing system
+2026-02-01 10:19:17.569 T:50892    info <general>: Checking resolution 15
+2026-02-01 10:19:17.760 T:50892    info <general>: DX::DeviceResources::CheckNV12SharedTexturesSupport: extended NV12 shared textures is supported
+2026-02-01 10:19:17.760 T:50892    info <general>: DX::DeviceResources::CreateDeviceResources: device is created on adapter 'NVIDIA GeForce RTX 4080' with D3D_FEATURE_LEVEL_12_1
+2026-02-01 10:19:17.760 T:50892    info <general>: VideoDriverInfo::Log: video driver version is NVIDIA 591.86 (32.0.15.9186)
+2026-02-01 10:19:17.760 T:50892    info <general>: DX::DeviceResources::CheckDXVA2SharedDecoderSurfaces: DXVA2 shared decoder surfaces is supported
+2026-02-01 10:19:17.760 T:50892    info <general>: DX::DeviceResources::CheckDXVA2SharedDecoderSurfaces: DXVA2 shared decoder surfaces WITH fence synchronization.
+2026-02-01 10:19:17.760 T:50892    info <general>: DX::DeviceResources::CheckDXVA2SharedDecoderSurfaces: DXVA Video Super Resolution is potentially supported
+2026-02-01 10:19:17.787 T:50892    info <general>: DX::DeviceResources::ResizeBuffers: 10 bit swapchain is used with 6 flip discard buffers and HDR output (format R10G10B10A2_UNORM)
+2026-02-01 10:19:17.789 T:50892    info <general>: RetroPlayer[RENDER]: Registering renderer factory for DirectX
+2026-02-01 10:19:17.807 T:50892    info <general>: load keymapping
+2026-02-01 10:19:17.808 T:50892    info <general>: Loading special://xbmc/system/keymaps/appcommand.xml
+2026-02-01 10:19:17.808 T:50892    info <general>: Loading special://xbmc/system/keymaps/customcontroller.Harmony.xml
+2026-02-01 10:19:17.808 T:50892    info <general>: Loading special://xbmc/system/keymaps/customcontroller.SiriRemote.xml
+2026-02-01 10:19:17.808 T:50892    info <general>: Loading special://xbmc/system/keymaps/gamepad.xml
+2026-02-01 10:19:17.809 T:50892    info <general>: Loading special://xbmc/system/keymaps/joystick.xml
+2026-02-01 10:19:17.809 T:50892    info <general>: Loading special://xbmc/system/keymaps/keyboard.xml
+2026-02-01 10:19:17.810 T:50892    info <general>: Loading special://xbmc/system/keymaps/mouse.xml
+2026-02-01 10:19:17.810 T:50892    info <general>: Loading special://xbmc/system/keymaps/remote.xml
+2026-02-01 10:19:17.810 T:50892    info <general>: Loading special://xbmc/system/keymaps/touchscreen.xml
+2026-02-01 10:19:17.811 T:50892    info <general>: GUI format 1912x905, Display Windowed
+2026-02-01 10:19:18.276 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.277 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD_MA" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.277 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_TRUEHD" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.277 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_EAC3" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.277 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTS" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.277 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_AC3" on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:18.278 T:19840    info <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "Odyssey G95SC (NVIDIA High Definition Audio)" seems to be not supported.
+2026-02-01 10:19:20.996 T:59420    info <general>: CIRServerSuite::Process: failed to connect to irss, will keep retrying every 5 seconds
+2026-02-01 10:19:25.108 T:19840    info <general>: Found 3 Lists of Devices
+2026-02-01 10:19:25.108 T:19840    info <general>: Enumerated DIRECTSOUND devices:
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 1
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {0F26C992-11A4-49A9-84FC-3250950BEF19}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : HDMI - Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_RAW
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 2
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {11964A35-75BA-4DA1-9CE4-B5999F8AC856}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : Headset - Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 3
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {3F4E0220-B78C-46C8-BD85-E7ED8F0A1730}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : Headphones - SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR, FC, BL, BR, SL, SR, LFE
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 96000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 4
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : default
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : default
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: 
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR, FC, BL, BR, SL, SR, LFE
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 96000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 5
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {6EEA83B7-0E0D-4966-A057-247A4FEC0FC9}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : SPDIF - Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_IEC958
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR, FC, BL, BR, SL, SR, LFE
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_RAW
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 6
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {8925E700-9248-4092-AC2C-E11EB433E40B}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : LineLevel - SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 7
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {90610D49-B126-4091-A121-2E0B43ACE577}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : LineLevel - AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 8
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {9D41B753-89F5-463F-B23D-47C8453C4475}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : Headset - SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 9
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {DC58D0E7-EB56-4902-8474-4A73209FDAD9}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : Speakers - Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_channels        : FL, FR, FC, BL, BR, SL, SR, LFE
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.108 T:19840    info <general>:     Device 10
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceName      : {F94A0123-C9FE-4074-8B8E-B73E4C96DD62}
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayName     : Headphones - Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_displayNameExtra: DIRECTSOUND: Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.108 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>: Enumerated WASAPI devices:
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 1
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {0F26C992-11A4-49A9-84FC-3250950BEF19}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : HDMI - Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,48000
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S24NE4MSB,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 2
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {11964A35-75BA-4DA1-9CE4-B5999F8AC856}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headset - Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 3
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {3F4E0220-B78C-46C8-BD85-E7ED8F0A1730}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headphones - SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 4
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : default
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : default
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 5
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {6EEA83B7-0E0D-4966-A057-247A4FEC0FC9}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : SPDIF - Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_IEC958
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,96000,88200,48000,44100
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 6
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {8925E700-9248-4092-AC2C-E11EB433E40B}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : LineLevel - SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 7
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {90610D49-B126-4091-A121-2E0B43ACE577}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : LineLevel - AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {9D41B753-89F5-463F-B23D-47C8453C4475}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headset - SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 48000
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 9
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {DC58D0E7-EB56-4902-8474-4A73209FDAD9}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Speakers - Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 10
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : {F94A0123-C9FE-4074-8B8E-B73E4C96DD62}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headphones - Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: WASAPI: Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>: Enumerated XAUDIO devices:
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 1
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{11964a35-75ba-4da1-9ce4-b5999f8ac856}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headset - Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: Hörlurar på headset (Arctis Pro Wireless Chat)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : LFE, SL
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 2
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{f94a0123-c9fe-4074-8b8e-b73e4c96dd62}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headphones - Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: Hörlurar (Arctis Pro Wireless Game)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 3
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{3f4e0220-b78c-46c8-bd85-e7ed8f0a1730}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headphones - SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: SteelSeries Sonar - Gaming (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR, FC, LFE, BL, BR, SL, SR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 4
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : default
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : default
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: 
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR, FC, LFE, BL, BR, SL, SR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 5
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{dc58d0e7-eb56-4902-8474-4a73209fdad9}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Speakers - Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: Högtalare (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 6
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{9d41b753-89f5-463f-b23d-47c8453c4475}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : Headset - SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: SteelSeries Sonar - Chat (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 7
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{8925e700-9248-4092-ac2c-e11eb433e40b}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : LineLevel - SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: SteelSeries Sonar - Microphone (SteelSeries Sonar Virtual Audio Device)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{6eea83b7-0e0d-4966-a057-247a4fec0fc9}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : SPDIF - Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: Realtek Digital Output (Realtek USB Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_IEC958
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 9
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{90610d49-b126-4091-a121-2e0b43ace577}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : LineLevel - AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: AI Noise-Canceling Speaker (ASUS Utility)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:19840    info <general>:     Device 10
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceName      : \\?\SWD#MMDEVAPI#{0.0.0.00000000}.{0f26c992-11a4-49a9-84fc-3250950bef19}#{e6327cad-dcec-4949-ae8a-991e976a79d2}
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayName     : HDMI - Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_displayNameExtra: XAudio: Odyssey G95SC (NVIDIA High Definition Audio)
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_channels        : FL, FR
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S24NE4MSB,AE_FMT_S32NE,AE_FMT_S32LE,AE_FMT_S32BE,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2026-02-01 10:19:25.109 T:19840    info <general>:         m_streamTypes     : No passthrough capabilities
+2026-02-01 10:19:25.109 T:22016    info <general>: CActiveAESink::OpenSink - initialize sink
+2026-02-01 10:19:25.136 T:22016    info <general>: CAESinkXAudio::InitializeInternal: Format is Supported - will attempt to Initialize
+2026-02-01 10:19:25.136 T:22016    info <general>: CAESinkXAudio::InitializeInternal: XAudio Sink Initialized using: AE_FMT_FLOAT, 48000, 2
+2026-02-01 10:19:25.136 T:19840 warning <general>: CActiveAE::ActiveAE::CActiveAE::StateMachine - signal: 0 from port: OutputControlPort not handled for state: 7
+2026-02-01 10:19:25.136 T:50892 warning <general>: Skipped 2 duplicate messages..
+2026-02-01 10:19:25.136 T:50892    info <general>: CLangInfo: loading resource.language.sv_se language information...
+2026-02-01 10:19:25.137 T:50892    info <general>: global locale set to sv-sv
+2026-02-01 10:19:25.137 T:50892    info <general>: CLangInfo: loading resource.language.sv_se language strings...
+2026-02-01 10:19:25.202 T:56264    info <general>: Running database version Addons33
+2026-02-01 10:19:25.203 T:56264    info <general>: Running database version ViewModes6
+2026-02-01 10:19:25.203 T:56264    info <general>: Running database version Textures14
+2026-02-01 10:19:25.203 T:56264    info <general>: Running database version MyMusic83
+2026-02-01 10:19:25.204 T:56264    info <general>: Running database version MyVideos141
+2026-02-01 10:19:25.204 T:56264    info <general>: Running database version TV47
+2026-02-01 10:19:25.205 T:56264    info <general>: Running database version Epg20
+2026-02-01 10:19:25.217 T:50892    info <general>: Unloaded skin
+2026-02-01 10:19:25.218 T:50892    info <general>:   load skin from: C:\Users\windo\AppData\Roaming\Kodi\addons\skin.estuary\ (version: 4.1.0)
+2026-02-01 10:19:25.218 T:50892    info <general>:   load fonts for skin...
+2026-02-01 10:19:25.218 T:50892    info <general>: Loading skin includes from C:\Users\windo\AppData\Roaming\Kodi\addons\skin.estuary\xml\Includes.xml
+2026-02-01 10:19:25.230 T:50892    info <general>: GUIFontManager::LoadFontsFromFile: Loading <fontset> with name 'Default' from 'C:\Users\windo\AppData\Roaming\Kodi\addons\skin.estuary\xml\Font.xml'
+2026-02-01 10:19:25.235 T:50892    info <general>: ADDON::CSkinInfo::LoadTimers: Trying to load skin timers from C:\Users\windo\AppData\Roaming\Kodi\addons\skin.estuary\xml\Timers.xml
+2026-02-01 10:19:25.235 T:50892    info <general>:   load new skin...
+2026-02-01 10:19:25.235 T:50892    info <general>: Loading custom window XMLs from skin path C:\Users\windo\AppData\Roaming\Kodi\addons\skin.estuary\xml
+2026-02-01 10:19:25.236 T:50892    info <general>:   initialize new skin...
+2026-02-01 10:19:25.236 T:50892    info <general>: Loading skin file: DialogBusy.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.237 T:50892    info <general>: Loading skin file: Pointer.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.237 T:50892    info <general>: Loading skin file: DialogVolumeBar.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.238 T:50892    info <general>: Loading skin file: DialogExtendedProgressBar.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.238 T:50892    info <general>: Loading skin file: DialogSeekBar.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.242 T:50892    info <general>: Loading skin file: DialogNotification.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.242 T:50892    info <general>: Loading skin file: DialogBusy.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.243 T:50892    info <general>: Loading skin file: Custom_1109_TopBarOverlay.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:25.244 T:50892    info <general>: Loading resource://resource.uisounds.kodi/sounds.xml
+2026-02-01 10:19:25.250 T:50892    info <general>:   skin loaded...
+2026-02-01 10:19:25.250 T:50892    info <general>: Loading skin file: Startup.xml, load type: LOAD_EVERY_TIME
+2026-02-01 10:19:25.250 T:50892    info <general>: Loading skin file: Home.xml, load type: KEEP_IN_MEMORY
+2026-02-01 10:19:25.279 T:50892 warning <general>: JSONRPC: Could not parse type "Setting.Details.SettingList"
+2026-02-01 10:19:25.279 T:50892    info <general>: JSONRPC: Adding type "Setting.Details.SettingList" to list of incomplete definitions (waiting for "Setting.Details.Setting")
+2026-02-01 10:19:25.280 T:50892    info <general>: JSONRPC: Resolving incomplete types/methods referencing Setting.Details.Setting
+2026-02-01 10:19:25.283 T:50892    info <general>: JSONRPC v13.9.0: Successfully initialized
+2026-02-01 10:19:25.285 T:50892    info <peripheral.joystick>: Enabling joystick interface "xinput"
+2026-02-01 10:19:25.286 T:50892    info <peripheral.joystick>: Enabling joystick interface "directinput"
+2026-02-01 10:19:25.286 T:50892    info <general>: Loading controller layout: C:\Program Files\Kodi\addons\game.controller.keyboard\resources\layout.xml
+2026-02-01 10:19:25.287 T:50892    info <general>: PERIPHERALS::CPeripheralBus::Register - new keyboard device registered on application->keyboard: Tangentbord (0000:0000)
+2026-02-01 10:19:25.287 T:50892    info <general>: Loading controller layout: C:\Program Files\Kodi\addons\game.controller.mouse\resources\layout.xml
+2026-02-01 10:19:25.287 T:50892    info <general>: PERIPHERALS::CPeripheralBus::Register - new mouse device registered on application->mouse: Mus (0000:0000)
+2026-02-01 10:19:25.288 T:50892    info <general>: Loading player core factory settings from special://xbmc/system/playercorefactory.xml.
+2026-02-01 10:19:25.288 T:50892    info <general>: Loaded playercorefactory configuration
+2026-02-01 10:19:25.288 T:50892    info <general>: Loading player core factory settings from special://masterprofile/playercorefactory.xml.
+2026-02-01 10:19:25.288 T:50892    info <general>: special://masterprofile/playercorefactory.xml does not exist. Skipping.
+2026-02-01 10:19:25.288 T:50892    info <general>: removing tempfiles
+2026-02-01 10:19:25.288 T:50892    info <general>: CApplication::UpdateLibraries: Starting video library startup scan
+2026-02-01 10:19:25.290 T:58576    info <general>: Creating PVR client: addonId=pvr.iptvsimple, instanceId=1, clientId=2
+2026-02-01 10:19:25.291 T:58576    info <pvr.iptvsimple>: pvr.iptvsimple - Create starting IPTV Simple PVR client...
+2026-02-01 10:19:25.300 T:50892    info <general>: initialize done
+2026-02-01 10:19:25.300 T:50892    info <general>: Running the application...
+2026-02-01 10:19:25.301 T:59056    info <general>: ES: Starting UDP Event server on port 9777
+2026-02-01 10:19:25.301 T:50892    info <general>: JSONRPC Server: Unable to bind to bluetooth socket
+2026-02-01 10:19:25.302 T:59056    info <general>: UDP: Listening on port 9777 (ipv6 : true)
+2026-02-01 10:19:25.302 T:50892    info <general>: JSONRPC Server: Successfully initialized
+2026-02-01 10:19:25.307 T:50892    info <CWebserver[8080]>: Started
+2026-02-01 10:19:25.311 T:50892    info <general>: [WS-Discovery]: Daemon started successfully.
+2026-02-01 10:19:25.311 T:58576    info <general>: PVR Manager: Starting
+2026-02-01 10:19:25.406 T:56092    info <general>: VideoInfoScanner: Starting scan ..
+2026-02-01 10:19:25.410 T:56264    info <general>: WEATHER: Downloading weather
+2026-02-01 10:19:25.480 T:8812     info <peripheral.joystick>: Initialized joystick 0: "TWCS Throttle", axes: 8, hats: 1, buttons: 14
+2026-02-01 10:19:25.481 T:8812     info <peripheral.joystick>: Initialized joystick 1: "T.16000M", axes: 4, hats: 1, buttons: 16
+2026-02-01 10:19:25.481 T:8812     info <general>: Loading controller layout: C:\Program Files\Kodi\addons\game.controller.default\resources\layout.xml
+2026-02-01 10:19:25.517 T:8812     info <general>: PERIPHERALS::CPeripheralAddon::Register - new joystick device registered on addon->peripheral.joystick/0: TWCS Throttle
+2026-02-01 10:19:25.534 T:8812     info <general>: PERIPHERALS::CPeripheralAddon::Register - new joystick device registered on addon->peripheral.joystick/1: T.16000M
+2026-02-01 10:19:25.984 T:54800    info <general>: Autostop addon service started.
+2026-02-01 10:19:26.677 T:59396    info <general>: [Audio Profiles Service] background monitor version 2.2.0 started
+2026-02-01 10:19:26.677 T:59396    info <general>: [Audio Profiles Service] debug logging set to False
+2026-02-01 10:19:27.136 T:34940   error <general>: EXCEPTION Thrown (PythonToCppException) : -->Python callback/script returned the following error<--
+                                                    - NOTE: IGNORING THIS CAN LEAD TO MEMORY LEAKS!
+                                                   Error Type: <class 'AttributeError'>
+                                                   Error Contents: module 'xbmc' has no attribute 'translatePath'
+                                                   Traceback (most recent call last):
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\service.autosubs\default.py", line 3, in <module>
+                                                       from resources.lib.autosubs import *
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\service.autosubs\resources\lib\autosubs.py", line 14, in <module>
+                                                       __cwd__ = xbmc.translatePath(__addon__.getAddonInfo('path'))
+                                                                 ^^^^^^^^^^^^^^^^^^
+                                                   AttributeError: module 'xbmc' has no attribute 'translatePath'
+                                                   -->End of Python script error report<--
+                                                   
+2026-02-01 10:19:27.177 T:59624    info <general>: [service.upnext] UpNextMonitor -> Service started
+2026-02-01 10:19:27.287 T:55376   error <general>: CAddon[plugin.audio.ampache]: failed to load addon settings from special://profile/addon_data/plugin.audio.ampache/settings.xml
+2026-02-01 10:19:27.517 T:59308   error <general>: EXCEPTION Thrown (PythonToCppException) : -->Python callback/script returned the following error<--
+                                                    - NOTE: IGNORING THIS CAN LEAD TO MEMORY LEAKS!
+                                                   Error Type: <class 'AttributeError'>
+                                                   Error Contents: module 'xbmc' has no attribute 'translatePath'
+                                                   Traceback (most recent call last):
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\script.lazytv\service.py", line 1, in <module>
+                                                       from resources import main_service
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\script.lazytv\resources\main_service.py", line 55, in <module>
+                                                       __profile__ = xbmc.translatePath(__addon__.getAddonInfo("profile"))
+                                                                     ^^^^^^^^^^^^^^^^^^
+                                                   AttributeError: module 'xbmc' has no attribute 'translatePath'
+                                                   -->End of Python script error report<--
+                                                   
+2026-02-01 10:19:27.773 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Start Unpause Jumpback
+2026-02-01 10:19:27.773 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Kodi 22.0-ALPHA2 (21.90.702) Git:20260119-7e72aba3f4 (Major version 22)
+2026-02-01 10:19:27.773 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Python 3.14.2 (main, Dec  7 2025, 07:54:40) [MSC v.1944 64 bit (AMD64)]
+2026-02-01 10:19:27.773 T:55796    info <general>: ### Unpause Jumpback 3.0.6: No arguments supplied to addon
+2026-02-01 10:19:27.774 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Settings loaded, jump back set to: On Resume with a jump back of 4 seconds
+2026-02-01 10:19:27.977 T:55208    info <general>: ### Playback Resumer 2.0.8: Start Kodi Playback Resumer
+2026-02-01 10:19:27.977 T:55208    info <general>: ### Playback Resumer 2.0.8: Kodi 22.0-ALPHA2 (21.90.702) Git:20260119-7e72aba3f4 (Major version 22)
+2026-02-01 10:19:27.977 T:55208    info <general>: ### Playback Resumer 2.0.8: Python 3.14.2 (main, Dec  7 2025, 07:54:40) [MSC v.1944 64 bit (AMD64)]
+2026-02-01 10:19:27.977 T:55208    info <general>: ### Playback Resumer 2.0.8: No arguments supplied to addon
+2026-02-01 10:19:27.977 T:55208    info <general>: ### Playback Resumer 2.0.8: Loading configuration
+2026-02-01 10:19:27.978 T:55208    info <general>: ### Playback Resumer 2.0.8: Will save a resume point every 20 seconds
+2026-02-01 10:19:27.978 T:55208    info <general>: ### Playback Resumer 2.0.8: Resume on startup: False
+2026-02-01 10:19:27.978 T:55208    info <general>: ### Playback Resumer 2.0.8: Autoplay random video: False
+2026-02-01 10:19:27.979 T:55208    info <general>: ### Playback Resumer 2.0.8: Could not find/parse advancedsettings.xml, will use defaults
+2026-02-01 10:19:27.979 T:55208    info <general>: ### Playback Resumer 2.0.8: Using ignoresecondsatstart: 180, ignorepercentatend: 8
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Start Switchback
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: (Service)
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Kodi 22.0-ALPHA2 (21.90.702) Git:20260119-7e72aba3f4 (Major version 22)
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Python 3.14.2 (main, Dec  7 2025, 07:54:40) [MSC v.1944 64 bit (AMD64)]
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: No arguments supplied to addon
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Loading configuration
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Maximum Switchback list length is: 5
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Save across sessions is: True
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Enable context menu is: True
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Remove watched playbacks is: True
+2026-02-01 10:19:28.200 T:57824    info <general>: ### Switchback 2.0.0: Episode force browse is: False
+2026-02-01 10:19:28.201 T:57824    info <general>: ### Switchback 2.0.0: Flatten TV Shows is: 1
+2026-02-01 10:19:28.201 T:57824    info <general>: ### Switchback 2.0.0: Try to load PlaybackList from file:
+2026-02-01 10:19:28.201 T:57824    info <general>: ### Switchback 2.0.0: C:\Users\windo\AppData\Roaming\Kodi\userdata\addon_data\plugin.switchback\switchback.json
+2026-02-01 10:19:28.208 T:57824    info <general>: ### Switchback 2.0.0: Playcount retrieved: 0
+2026-02-01 10:19:28.225 T:57824    info <general>: Skipped 4 duplicate messages..
+2026-02-01 10:19:28.225 T:57824    info <general>: ### Switchback 2.0.0: Resume point retrieved: 0.0
+2026-02-01 10:19:28.241 T:57824    info <general>: Skipped 3 duplicate messages..
+2026-02-01 10:19:28.241 T:57824    info <general>: ### Switchback 2.0.0: Resume point retrieved: 2052.0
+2026-02-01 10:19:28.396 T:9964     info <general>: ### Check Previous Episode 0.4.9: Start Kodi Check Previous Episode
+2026-02-01 10:19:28.396 T:9964     info <general>: ### Check Previous Episode 0.4.9: Kodi 22.0-ALPHA2 (21.90.702) Git:20260119-7e72aba3f4 (Major version 22)
+2026-02-01 10:19:28.396 T:9964     info <general>: ### Check Previous Episode 0.4.9: Python 3.14.2 (main, Dec  7 2025, 07:54:40) [MSC v.1944 64 bit (AMD64)]
+2026-02-01 10:19:28.396 T:9964     info <general>: ### Check Previous Episode 0.4.9: No arguments supplied to addon
+2026-02-01 10:19:28.397 T:9964     info <general>: ### Check Previous Episode 0.4.9: Loading configuration
+2026-02-01 10:19:28.397 T:9964     info <general>: ### Check Previous Episode 0.4.9: Ignored Shows, loaded from yaml file, is: {}
+2026-02-01 10:19:28.398 T:9964     info <general>: ### Check Previous Episode 0.4.9: Force Kodi to browse to show dir: False
+2026-02-01 10:19:28.398 T:9964     info <general>: ### Check Previous Episode 0.4.9: Force Kodi to browse to all seasons view: False
+2026-02-01 10:19:28.398 T:9964     info <general>: ### Check Previous Episode 0.4.9: Ignore if episode absent from library: False
+2026-02-01 10:19:28.398 T:9964     info <general>: ### Check Previous Episode 0.4.9: Listening to onAVStarted for episode playback.
+2026-02-01 10:19:28.478 T:704      info <general>: script.copacetic.helper --> Monitor started
+2026-02-01 10:19:28.639 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Bamse och Den stora kapplopningen 360p' from year 'None'
+2026-02-01 10:19:29.032 T:56092    info <general>: Skipped 1 duplicate messages..
+2026-02-01 10:19:29.032 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Bamse och Den stora kapplopningen\Bamse och Den stora kapplopningen 360p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:29.039 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Bamse och skattsökarfärden' from year 'None'
+2026-02-01 10:19:29.096 T:57304    info <general>: [ script.embuary.helper ] Service: Started
+2026-02-01 10:19:29.096 T:57304    info <general>: [ script.embuary.helper ] Service: Player monitor started
+2026-02-01 10:19:29.110 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Bamse och skattsökarfärden' from year 'None'
+2026-02-01 10:19:29.179 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Bamse och skattsökarfärden\Bamse och skattsökarfärden 576p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:29.185 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Bamse och vulkanutbrottet' from year 'None'
+2026-02-01 10:19:29.194 T:704      info <general>: script.copacetic.helper --> Monitor idle
+2026-02-01 10:19:29.210 T:55572    info <general>: SubsMangler: started. Version: 2.2.1. Kodi version: 22.0
+2026-02-01 10:19:29.224 T:55572    info <general>: SubsMangler: External log enabled: C:\Users\windo\AppData\Roaming\Kodi\userdata\addon_data\service.subsmangler\smangler.log
+2026-02-01 10:19:29.263 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Bamse och vulkanutbrottet' from year 'None'
+2026-02-01 10:19:29.328 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Bamse och vulkanutbrottet\Bamse och vulkanutbrottet 576p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:29.335 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Best of WRC Moments' from year '2016'
+2026-02-01 10:19:29.823 T:28908    info <general>: Skipped 1 duplicate messages..
+2026-02-01 10:19:29.823 T:28908    info <general>: [script.module.clouddrive.common][service-source-28908]: Service 'source' started in port 8585
+2026-02-01 10:19:29.846 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Best of WRC Moments (2016)\Best of WRC Moments (2016) 720p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:29.854 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Biet Maya Nattens blomning' from year 'None'
+2026-02-01 10:19:29.885 T:59592    info <general>: [service.subtitletranslator] Subtitle Translator service started
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "deepl_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "deepl_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "google_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "google_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "microsoft_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "microsoft_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "openai_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "openai_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "anthropic_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "anthropic_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "libretranslate_api_key"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "libretranslate_api_key"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "openai_base_url"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "openai_base_url"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "libretranslate_custom_mirrors"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "libretranslate_custom_mirrors"
+2026-02-01 10:19:29.893 T:59592   error <CSettingString>: error reading the default value of "ffmpeg_path"
+2026-02-01 10:19:29.893 T:59592 warning <CSettingGroup>: unable to read setting "ffmpeg_path"
+2026-02-01 10:19:29.893 T:59592    info <general>: [service.subtitletranslator] Settings loaded: target=sv, source=auto, service=libretranslate
+2026-02-01 10:19:29.924 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Biet Maya Nattens blomning' from year 'None'
+2026-02-01 10:19:29.984 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Biet Maya Nattens blomning\Biet Maya Nattens blomning 576p AAC.mkv', it won't be added to the library.
+2026-02-01 10:19:29.995 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Brandman Sam 2 Barn Fire Fireman Sam 360p' from year 'None'
+2026-02-01 10:19:30.123 T:56092    info <general>: Skipped 1 duplicate messages..
+2026-02-01 10:19:30.123 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Brandman Sam 2 Barn Fire Fireman Sam\Brandman Sam 2 Barn Fire Fireman Sam 360p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:30.130 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Brandman Sam 16 Snow Business Fireman Sam 360p' from year 'None'
+2026-02-01 10:19:30.171 T:60064    info <general>: [plugin.googledrive][service-export-60064]: Service 'export' started.
+2026-02-01 10:19:30.172 T:50828    info <general>: [plugin.googledrive][service-player-50828]: Service 'player' started.
+2026-02-01 10:19:30.172 T:33884    info <general>: [plugin.googledrive][service-source-33884]: Service 'source' started in port 8587
+2026-02-01 10:19:30.182 T:58316    info <general>: [plugin.googledrive][service-download-58316]: Service 'download' started in port 56376
+2026-02-01 10:19:30.195 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Brandman Sam 16 Snow Business Fireman Sam 360p' from year 'None'
+2026-02-01 10:19:30.236 T:60144    info <general>: [plugin.onedrive][service-export-60144]: Service 'export' started.
+2026-02-01 10:19:30.237 T:58772    info <general>: [plugin.onedrive][service-player-58772]: Service 'player' started.
+2026-02-01 10:19:30.245 T:50380    info <general>: [plugin.onedrive][service-source-50380]: Service 'source' started in port 8586
+2026-02-01 10:19:30.248 T:31784    info <general>: [plugin.onedrive][service-download-31784]: Service 'download' started in port 56378
+2026-02-01 10:19:30.265 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Brandman Sam 16 Snow Business Fireman Sam\Brandman Sam 16 Snow Business Fireman Sam 360p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:30.311 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Monster High The Great Scarrier Reef' from year '2016'
+2026-02-01 10:19:30.326 T:50892    info <general>: VideoPlayer::OpenFile: videodb://movies/titles/1620?xsp=%7b%22limit%22%3a15%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22dateadded%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22dateadded%22%2c%22operator%22%3a%22after%22%2c%22value%22%3a%5b%222012-01-01%22%5d%7d%2c%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22lessthan%22%2c%22value%22%3a%5b%221%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d
+2026-02-01 10:19:30.327 T:53908    info <general>: Creating InputStream
+2026-02-01 10:19:30.343 T:53908    info <general>: Creating Demuxer
+2026-02-01 10:19:30.350 T:53908    info <general>: Opening stream: 0 source: 256
+2026-02-01 10:19:30.350 T:53908    info <general>: Creating video codec with codec id: 173
+2026-02-01 10:19:30.350 T:53908    info <general>: CDVDVideoCodecFFmpeg::Open() Using codec: HEVC (High Efficiency Video Coding)
+2026-02-01 10:19:30.351 T:53908    info <general>: Creating video thread
+2026-02-01 10:19:30.351 T:59988    info <general>: running thread: video_thread
+2026-02-01 10:19:30.355 T:53908    info <general>: Opening stream: 1 source: 256
+2026-02-01 10:19:30.355 T:53908    info <general>: Finding audio codec for: 86056
+2026-02-01 10:19:30.355 T:53908    info <general>: CDVDAudioCodecFFmpeg::Open() Successful opened audio decoder eac3
+2026-02-01 10:19:30.355 T:53908    info <general>: CVideoPlayerAudio::OpenStream: Allowing max Out-Of-Sync Value of 50 ms
+2026-02-01 10:19:30.355 T:53908    info <general>: Creating audio thread
+2026-02-01 10:19:30.355 T:58732    info <general>: running thread: CVideoPlayerAudio::Process()
+2026-02-01 10:19:30.355 T:53908    info <general>: Opening stream: 2 source: 256
+2026-02-01 10:19:30.355 T:53908    info <general>: CDVDSubtitlesLibass: Using libass version 1703000
+2026-02-01 10:19:30.355 T:53908    info <general>: CDVDSubtitlesLibass: Creating ASS library structure
+2026-02-01 10:19:30.355 T:53908    info <general>: CDVDSubtitlesLibass: Initializing ASS Renderer
+2026-02-01 10:19:30.356 T:53908    info <general>: CDVDSubtitlesLibass: Initializing ASS library font settings
+2026-02-01 10:19:30.417 T:27828   error <general>: ### [XBMC LCDproc] - Connect(): Caught <class 'ConnectionRefusedError'> on initial connect, aborting
+2026-02-01 10:19:30.572 T:53908    info <general>: CDVDSubtitlesLibass: Creating new ASS track
+2026-02-01 10:19:30.573 T:59988    info <general>: DXVA::CContext::CreateContext: creating discrete d3d11va device for decoding.
+2026-02-01 10:19:30.575 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Monster High The Great Scarrier Reef' from year '2016'
+2026-02-01 10:19:30.582 T:58732    info <general>: Creating audio stream (codec id: 86056, channels: 6, sample rate: 48000, no pass-through)
+2026-02-01 10:19:30.591 T:59988    info <general>: DXVA::CContext::CreateContext: device for decoding created on adapter 'NVIDIA GeForce RTX 4080' with D3D_FEATURE_LEVEL_12_1
+2026-02-01 10:19:30.592 T:59988    info <general>: DXVA::CDecoder::Open: Total video memory available is 48674 MB (dedicated = 16048 MB, shared = 32626 MB)
+2026-02-01 10:19:30.592 T:59988 warning <general>: DXVA::CDecoder::Open: The number of decoder surfaces has been limited from 48 to 32.
+2026-02-01 10:19:30.616 T:22016    info <general>: CActiveAESink::OpenSink - initialize sink
+2026-02-01 10:19:30.636 T:59988    info <general>: DXVA::CVideoBufferShared::InitializeFence: fence synchronization activated.
+2026-02-01 10:19:30.639 T:50892    info <general>: CRendererDXVA::Configure: chosen conversion: P010 / YCBCR_STUDIO_G2084_TOPLEFT_P2020 to R10G10B10A2_UNORM / RGB_FULL_G2084_NONE_P2020
+2026-02-01 10:19:30.639 T:50892    info <general>: DXVA::CEnumeratorHD::ProbeProcessorCaps: supported deinterlace methods: blend:yes, bob:yes, adaptive:yes, mocomp:no.
+2026-02-01 10:19:30.639 T:50892    info <general>: DX::DeviceResources::SetHdrMetaData: RP 0.680 0.320 | GP 0.265 0.690 | BP 0.150 0.060 | WP 0.313 0.329 | Max ML 4000 | min ML 0.0050 | Max CLL 1014 | Max FALL 195
+2026-02-01 10:19:30.639 T:50892    info <general>: CRendererBase::ProcessHDR: Switching to HDR rendering
+2026-02-01 10:19:30.639 T:50892 warning <general>: CRendererHQ::CheckVideoParameters: chosen scaling method 1 is not supported by renderer
+2026-02-01 10:19:30.666 T:46540    info <general>: [Hyperion Ambilight] - Establishing connection to hyperion at localhost:19445
+2026-02-01 10:19:30.721 T:22016    info <general>: CAESinkXAudio::InitializeInternal: Format is Supported - will attempt to Initialize
+2026-02-01 10:19:30.721 T:22016    info <general>: CAESinkXAudio::InitializeInternal: XAudio Sink Initialized using: AE_FMT_FLOAT, 48000, 2
+2026-02-01 10:19:30.732 T:59988    info <general>: DXVA::CVideoBufferShared::InitializeFence: fence synchronization activated.
+2026-02-01 10:19:30.733 T:50892    info <general>: Loading skin file: VideoFullScreen.xml, load type: KEEP_IN_MEMORY
+2026-02-01 10:19:30.735 T:59988    info <general>: DXVA::CVideoBufferShared::InitializeFence: fence synchronization activated.
+2026-02-01 10:19:30.756 T:57824    info <general>: Skipped 4 duplicate messages..
+2026-02-01 10:19:30.756 T:57824    info <general>: ### Switchback 2.0.0: onAVStarted
+2026-02-01 10:19:30.757 T:57824    info <general>: ### Switchback 2.0.0: Not a Switchback playback, or error retrieving previous Playback, so creating a new Playback object to record details
+2026-02-01 10:19:30.789 T:55796    info <general>: ### Unpause Jumpback 3.0.6: onAVStarted.
+2026-02-01 10:19:30.789 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Current playback time is -0.111
+2026-02-01 10:19:30.789 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Checking exclusion for: 'smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv'.
+2026-02-01 10:19:30.789 T:55796    info <general>: ### Unpause Jumpback 3.0.6: Not excluded: 'smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv'
+2026-02-01 10:19:30.803 T:55208    info <general>: ### Playback Resumer 2.0.8: onAVStarted
+2026-02-01 10:19:30.803 T:55208    info <general>: ### Playback Resumer 2.0.8: New playback - clearing legacy now playing details
+2026-02-01 10:19:30.807 T:59592    info <general>: [service.subtitletranslator] Playback started: smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv
+2026-02-01 10:19:30.862 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Monster High The Great Scarrier Reef (2016)\Monster High The Great Scarrier Reef (2016) 720p DTS.mkv', it won't be added to the library.
+2026-02-01 10:19:30.893 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'Tripp trapp träd Sovkudde' from year 'None'
+2026-02-01 10:19:30.967 T:59988    info <general>: Skipped 1 duplicate messages..
+2026-02-01 10:19:30.967 T:59988    info <general>: CDVDVideoCodecFFmpeg::CDropControl: calculated diff time: 40000
+2026-02-01 10:19:31.022 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\Tripp trapp träd Sovkudde\Tripp trapp träd Sovkudde 720p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:31.032 T:59716    info <general>: [metadata.themoviedb.org.python]: Find movie with title 'TuTiTu MEGA Collection 2 Hours Special Including Birthday Cake Phone Ice Cream and More!' from year 'None'
+2026-02-01 10:19:31.164 T:56092    info <general>: Skipped 1 duplicate messages..
+2026-02-01 10:19:31.164 T:56092 warning <general>: No information found for item 'Z:\Barnfilmer\TuTiTu MEGA Collection 2 Hours Special Including Birthday Cake Phone Ice Cream and More!\TuTiTu MEGA Collection 2 Hours Special Including Birthday Cake Phone Ice Cream and More! 720p AAC.mp4', it won't be added to the library.
+2026-02-01 10:19:31.488 T:44628    info <general>: [Latest Rating Service] [2026-02-01 10:19:31] Get Latest Rating Service Started
+2026-02-01 10:19:31.488 T:44628    info <general>: [Latest Rating Service] [2026-02-01 10:19:31] Rating Updater Service Stopped
+2026-02-01 10:19:31.543 T:51404    info <general>: [TVMI Monitor] background monitor version 0.8.0 started
+2026-02-01 10:19:31.543 T:51404    info <general>: [TVMI Monitor] debug logging set to False
+2026-02-01 10:19:32.174 T:59428    info <general>: Twitch: Service: Start
+2026-02-01 10:19:32.310 T:55208    info <general>: ### Playback Resumer 2.0.8: Store.isExcluded(): Checking exclusion settings for [smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv]
+2026-02-01 10:19:32.311 T:55208    info <general>: ### Playback Resumer 2.0.8: Last played file set to: smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv
+2026-02-01 10:19:32.311 T:55208    info <general>: ### Playback Resumer 2.0.8: Executing JSON-RPC: {"jsonrpc": "2.0", "method": "Files.GetFileDetails", "params": {"file": "smb://192.168.2.8/Media/Videos/Ricky Gervais - Mortality (2025)/Ricky Gervais - Mortality (2025) 2160p EAC3 Atmos.mkv", "media": "video", "properties": ["playcount", "runtime"]}, "id": "fileDetailsCheck"}
+2026-02-01 10:19:32.314 T:55208    info <general>: ### Playback Resumer 2.0.8: JSON-RPC Files.GetFileDetails response: {"id": "fileDetailsCheck", "jsonrpc": "2.0", "result": {"filedetails": {"id": 1620, "label": "Ricky Gervais: Mortality", "playcount": 0, "runtime": 3561, "type": "movie"}}}
+2026-02-01 10:19:32.314 T:55208    info <general>: ### Playback Resumer 2.0.8: Kodi type: movie, library id: 1620
+2026-02-01 10:19:32.314 T:55208    info <general>: ### Playback Resumer 2.0.8: Not updating resume point as current time (1) is below Kodi's ignoresecondsatstart setting of 180
+2026-02-01 10:19:32.535 T:56092 warning <general>: No information found for item 'Z:\Barnserier\Elias och räddningsteamet\', it won't be added to the library.
+2026-02-01 10:19:32.657 T:47028 warning <general>: [plugin.video.youtube] xbmc_context_ui:206(refresh_container) - Plugin container not found for 'FileNameAndPath'
+2026-02-01 10:19:32.658 T:47028 warning <general>: [plugin.video.youtube] xbmc_context_ui:206(refresh_container) - Plugin container not found for 'IsUpdating'
+2026-02-01 10:19:32.658 T:47028 warning <general>: [plugin.video.youtube] xbmc_context_ui:206(refresh_container) - Plugin container not found for 'HasFolders'
+2026-02-01 10:19:32.658 T:47028 warning <general>: [plugin.video.youtube] xbmc_context_ui:206(refresh_container) - Plugin container not found for 'HasFiles'
+2026-02-01 10:19:32.658 T:47028 warning <general>: [plugin.video.youtube] xbmc_context_ui:206(refresh_container) - Plugin container not found for 'HasParent'
+2026-02-01 10:19:32.663 T:47028   error <general>: [plugin.video.youtube] http_server:976(get_http_server)
+                                                   Failed to start
+                                                   Address:  127.0.0.1:50152
+                                                   
+                                                   Stack (most recent call last):
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\service.py", line 16, in <module>
+                                                       service_runner.run()
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\service_runner.py", line 48, in run
+                                                       monitor = ServiceMonitor(context=context)
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\monitors\service_monitor.py", line 78, in __init__
+                                                       self.onSettingsChanged(force=True)
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\monitors\service_monitor.py", line 401, in onSettingsChanged
+                                                       self.start_httpd()
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\monitors\service_monitor.py", line 419, in start_httpd
+                                                       self.httpd = get_http_server(address=self._httpd_address,
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\network\http_server.py", line 976, in get_http_server
+                                                       logging.exception(('Failed to start',
+                                                   
+                                                   Traceback (most recent call last):
+                                                     File "C:\Users\windo\AppData\Roaming\Kodi\addons\plugin.video.youtube\resources\lib\youtube_plugin\kodion\network\http_server.py", line 973, in get_http_server
+                                                       server = HTTPServer((address, port), RequestHandler)
+                                                     File "C:\Program Files\Kodi\system\python\Lib\socketserver.py", line 457, in __init__
+                                                       self.server_bind()
+                                                       ~~~~~~~~~~~~~~~~^^
+                                                     File "C:\Program Files\Kodi\system\python\Lib\socketserver.py", line 478, in server_bind
+                                                       self.socket.bind(self.server_address)
+                                                       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+                                                   PermissionError: [WinError 10013] Ett försök gjordes att få åtkomst till en socket på ett sätt som är förbjudet av åtkomstbehörigheterna
+2026-02-01 10:19:32.664 T:47028    info <general>: [plugin.video.youtube] service_runner:54(run)
+                                                   Starting v7.3.0.1
+                                                   Kodi:    v22.0 (Kodi Piers)
+                                                   Python:  v3.14.2
+2026-02-01 10:19:32.782 T:42148    info <general>: service.watchedlist: WatchedList Database Service starting...
+2026-02-01 10:19:32.838 T:59592    info <general>: [service.subtitletranslator] Available subtitles: [{'index': 0, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'eng', 'name': ''}, {'index': 1, 'isdefault': False, 'isforced': False, 'isimpaired': True, 'language': 'eng', 'name': 'SDH'}, {'index': 2, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'ara', 'name': ''}, {'index': 3, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'cze', 'name': ''}, {'index': 4, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'dan', 'name': ''}, {'index': 5, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'ger', 'name': ''}, {'index': 6, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'gre', 'name': ''}, {'index': 7, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'spa', 'name': 'Latin American'}, {'index': 8, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'spa', 'name': ''}, {'index': 9, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'fin', 'name': ''}, {'index': 10, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'fil', 'name': ''}, {'index': 11, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'fre', 'name': ''}, {'index': 12, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'heb', 'name': ''}, {'index': 13, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'hrv', 'name': ''}, {'index': 14, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'hun', 'name': ''}, {'index': 15, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'ind', 'name': ''}, {'index': 16, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'ita', 'name': ''}, {'index': 17, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'jpn', 'name': ''}, {'index': 18, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'kor', 'name': ''}, {'index': 19, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'may', 'name': ''}, {'index': 20, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'nob', 'name': ''}, {'index': 21, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'dut', 'name': ''}, {'index': 22, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'pol', 'name': ''}, {'index': 23, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'por', 'name': 'Brazilian'}, {'index': 24, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'por', 'name': ''}, {'index': 25, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'rum', 'name': ''}, {'index': 26, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'rus', 'name': ''}, {'index': 27, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'swe', 'name': ''}, {'index': 28, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'tha', 'name': ''}, {'index': 29, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'tur', 'name': ''}, {'index': 30, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'ukr', 'name': ''}, {'index': 31, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'vie', 'name': ''}, {'index': 32, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'chi', 'name': 'Simplified'}, {'index': 33, 'isdefault': False, 'isforced': False, 'isimpaired': False, 'language': 'chi', 'name': 'Traditional'}]
+2026-02-01 10:19:32.840 T:50892    info <general>: Loading skin file: C:\Users\windo\AppData\Roaming\Kodi\addons\service.subtitletranslator\resources\skins\default\1080i\TranslateConfirmDialog.xml, load type: LOAD_ON_GUI_INIT
+2026-02-01 10:19:33.349 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer
+2026-02-01 10:19:35.935 T:22016   error <general>: CAESinkXAudio::AddPackets: voice buffer timed out
+2026-02-01 10:19:35.935 T:22016   error <general>: CActiveAESink::OutputSamples - sink returned error
+2026-02-01 10:19:35.935 T:19840 warning <general>: ActiveAE - large audio sync error: -2572.093508
+2026-02-01 10:19:35.936 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer
+2026-02-01 10:19:35.984 T:22016    info <general>: CActiveAESink::OpenSink - initialize sink
+2026-02-01 10:19:35.988 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer
+2026-02-01 10:19:36.012 T:22016    info <general>: CAESinkXAudio::InitializeInternal: Format is Supported - will attempt to Initialize
+2026-02-01 10:19:36.012 T:22016    info <general>: CAESinkXAudio::InitializeInternal: XAudio Sink Initialized using: AE_FMT_FLOAT, 48000, 2
+2026-02-01 10:19:36.012 T:19840 warning <general>: ActiveAE - large audio sync error: -2668.734208
+2026-02-01 10:19:36.041 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer
+2026-02-01 10:19:36.052 T:19840 warning <general>: ActiveAE - large audio sync error: -2688.822408
+2026-02-01 10:19:36.062 T:19840 warning <general>: ActiveAE - large audio sync error: -2595.274764
+2026-02-01 10:19:36.082 T:19840 warning <general>: ActiveAE - large audio sync error: -2596.128864
+2026-02-01 10:19:36.094 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer
+2026-02-01 10:19:36.103 T:19840 warning <general>: ActiveAE - large audio sync error: -2596.582164
+2026-02-01 10:19:36.123 T:19840 warning <general>: ActiveAE - large audio sync error: -2596.776464
+2026-02-01 10:19:36.143 T:19840 warning <general>: ActiveAE - large audio sync error: -2596.456564
+2026-02-01 10:19:36.145 T:59988 warning <general>: CVideoPlayerVideo::OutputPicture - timeout waiting for buffer

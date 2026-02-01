@@ -159,6 +159,10 @@ msgctxt "#30302"
 msgid "Translation service"
 msgstr ""
 
+msgctxt "#30303"
+msgid "API Keys"
+msgstr ""
+
 msgctxt "#30305"
 msgid "Fallback Services"
 msgstr ""
@@ -317,6 +321,10 @@ msgstr ""
 
 msgctxt "#30384"
 msgid "Context window (subtitles)"
+msgstr ""
+
+msgctxt "#30390"
+msgid "Advanced Service Settings"
 msgstr ""
 
 # ===== SUBTITLE SETTINGS =====
@@ -538,6 +546,10 @@ msgstr ""
 
 msgctxt "#30504"
 msgid "Retry delay (seconds)"
+msgstr ""
+
+msgctxt "#30505"
+msgid "Rate limit (requests per minute)"
 msgstr ""
 
 msgctxt "#30510"

@@ -84,41 +84,41 @@
 
             <!-- API Keys (Standard - shown based on service selection) -->
             <group id="2" label="30303">
-                <setting id="deepl_api_key" type="string" label="30311" default="">
+                <setting id="deepl_api_key" type="string" label="30311">
                     <level>0</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
                     </dependencies>
                 </setting>
-                <setting id="google_api_key" type="string" label="30331" default="">
+                <setting id="google_api_key" type="string" label="30331">
                     <level>0</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">google</dependency>
                     </dependencies>
                 </setting>
-                <setting id="microsoft_api_key" type="string" label="30341" default="">
+                <setting id="microsoft_api_key" type="string" label="30341">
                     <level>0</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
                     </dependencies>
                 </setting>
-                <setting id="openai_api_key" type="string" label="30371" default="">
+                <setting id="openai_api_key" type="string" label="30371">
                     <level>0</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="anthropic_api_key" type="string" label="30381" default="">
+                <setting id="anthropic_api_key" type="string" label="30381">
                     <level>0</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
@@ -365,9 +365,9 @@
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
                     </dependencies>
                 </setting>
-                <setting id="libretranslate_api_key" type="string" label="30322" default="">
+                <setting id="libretranslate_api_key" type="string" label="30322">
                     <level>1</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
@@ -477,17 +477,17 @@
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="openai_base_url" type="string" label="30374" default="">
+                <setting id="openai_base_url" type="string" label="30374">
                     <level>2</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
                 </setting>
-                <setting id="libretranslate_custom_mirrors" type="string" label="30323" default="">
+                <setting id="libretranslate_custom_mirrors" type="string" label="30323">
                     <level>2</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
@@ -651,9 +651,9 @@
 
             <!-- === EXPERT (Level 2): FFmpeg settings === -->
             <group id="2" label="30601">
-                <setting id="ffmpeg_path" type="string" label="30602" default="">
+                <setting id="ffmpeg_path" type="string" label="30602">
                     <level>2</level>
-                    <default/>
+                    <default></default>
                     <control type="edit" format="string"/>
                 </setting>
                 <setting id="ffmpeg_threads" type="integer" label="30603" default="0">
