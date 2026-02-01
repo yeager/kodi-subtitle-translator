@@ -27,13 +27,20 @@ class TranslateConfirmDialog(xbmcgui.WindowXMLDialog):
     Falls back to standard yesno dialog if XML not available.
     """
     
-    def __init__(self, *args, **kwargs):
-        self.title = kwargs.get('title', 'Subtitle Translator')
-        self.message = kwargs.get('message', '')
-        self.thumbnail = kwargs.get('thumbnail', '')
-        self.media_title = kwargs.get('media_title', '')
+    def __init__(self, xml_file, script_path, default_skin='default', default_res='1080i'):
+        self.title = 'Subtitle Translator'
+        self.message = ''
+        self.thumbnail = ''
+        self.media_title = ''
         self.result = False
-        super().__init__(*args, **kwargs)
+        super().__init__(xml_file, script_path, default_skin, default_res)
+    
+    def set_info(self, title, message, thumbnail='', media_title=''):
+        """Set dialog information before showing."""
+        self.title = title
+        self.message = message
+        self.thumbnail = thumbnail
+        self.media_title = media_title
     
     def onInit(self):
         """Initialize dialog controls."""
@@ -106,12 +113,9 @@ def show_translate_confirm(title, message, thumbnail=None, media_title=None):
                 'TranslateConfirmDialog.xml',
                 addon_path,
                 'default',
-                '1080i',
-                title=title,
-                message=message,
-                thumbnail=thumbnail,
-                media_title=media_title
+                '1080i'
             )
+            dialog.set_info(title, message, thumbnail, media_title)
             dialog.doModal()
             result = dialog.result
             del dialog

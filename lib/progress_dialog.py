@@ -13,9 +13,26 @@ import time
 from datetime import datetime
 import xbmcvfs
 
-ADDON = xbmcaddon.Addon()
-ADDON_ID = ADDON.getAddonInfo('id')
-ADDON_NAME = ADDON.getAddonInfo('name')
+
+def get_addon():
+    """Get addon instance lazily to avoid import-time errors."""
+    return xbmcaddon.Addon()
+
+
+def get_addon_id():
+    """Get addon ID."""
+    try:
+        return get_addon().getAddonInfo('id')
+    except:
+        return 'service.subtitletranslator'
+
+
+def get_addon_name():
+    """Get addon name."""
+    try:
+        return get_addon().getAddonInfo('name')
+    except:
+        return 'Subtitle Translator'
 
 
 class TranslationProgress:
@@ -141,14 +158,14 @@ class TranslationProgress:
         # Show summary notification
         if self.errors:
             xbmcgui.Dialog().notification(
-                ADDON_NAME,
+                get_addon_name(),
                 f"Completed with {len(self.errors)} error(s)",
                 xbmcgui.NOTIFICATION_WARNING,
                 5000
             )
         elif success:
             xbmcgui.Dialog().notification(
-                ADDON_NAME,
+                get_addon_name(),
                 message or f"Translated {self.current} subtitles",
                 xbmcgui.NOTIFICATION_INFO,
                 3000
@@ -179,7 +196,7 @@ class TranslationProgress:
     
     def _log(self, message, level=xbmc.LOGINFO):
         """Log message to Kodi log."""
-        xbmc.log(f"[{ADDON_ID}] {message}", level)
+        xbmc.log(f"[{get_addon_id()}] {message}", level)
 
 
 class ErrorReporter:
@@ -258,22 +275,22 @@ class ErrorReporter:
     
     def _log_error(self, error_entry):
         """Log error to Kodi log with full details."""
-        xbmc.log(f"[{ADDON_ID}] ===== ERROR REPORT =====", xbmc.LOGERROR)
-        xbmc.log(f"[{ADDON_ID}] Type: {error_entry['type']}", xbmc.LOGERROR)
-        xbmc.log(f"[{ADDON_ID}] Message: {error_entry['message']}", xbmc.LOGERROR)
+        xbmc.log(f"[{get_addon_id()}] ===== ERROR REPORT =====", xbmc.LOGERROR)
+        xbmc.log(f"[{get_addon_id()}] Type: {error_entry['type']}", xbmc.LOGERROR)
+        xbmc.log(f"[{get_addon_id()}] Message: {error_entry['message']}", xbmc.LOGERROR)
         
         if error_entry['exception']:
-            xbmc.log(f"[{ADDON_ID}] Exception: {error_entry['exception']}", xbmc.LOGERROR)
+            xbmc.log(f"[{get_addon_id()}] Exception: {error_entry['exception']}", xbmc.LOGERROR)
         
         if error_entry['traceback']:
             for line in error_entry['traceback'].split('\n'):
                 if line.strip():
-                    xbmc.log(f"[{ADDON_ID}] {line}", xbmc.LOGERROR)
+                    xbmc.log(f"[{get_addon_id()}] {line}", xbmc.LOGERROR)
         
         if error_entry['context']:
-            xbmc.log(f"[{ADDON_ID}] Context: {json.dumps(error_entry['context'])}", xbmc.LOGERROR)
+            xbmc.log(f"[{get_addon_id()}] Context: {json.dumps(error_entry['context'])}", xbmc.LOGERROR)
         
-        xbmc.log(f"[{ADDON_ID}] ===== END ERROR REPORT =====", xbmc.LOGERROR)
+        xbmc.log(f"[{get_addon_id()}] ===== END ERROR REPORT =====", xbmc.LOGERROR)
     
     def get_recent_errors(self, count=10):
         """Get recent errors."""
@@ -416,7 +433,7 @@ class DiagnosticsDialog:
         dialog = xbmcgui.Dialog()
         if dialog.yesno("Clear Errors", "Are you sure you want to clear all error logs?"):
             self.error_reporter.clear_errors()
-            dialog.notification(ADDON_NAME, "Error log cleared", xbmcgui.NOTIFICATION_INFO)
+            dialog.notification(get_addon_name(), "Error log cleared", xbmcgui.NOTIFICATION_INFO)
     
     def _show_statistics(self):
         """Show translation statistics."""
@@ -539,7 +556,7 @@ class DebugLogger:
         formatted = f"[{timestamp}] [{level.upper()}] [{category}] {message}"
         
         # Log to Kodi
-        xbmc.log(f"[{ADDON_ID}] {formatted}", log_level)
+        xbmc.log(f"[{get_addon_id()}] {formatted}", log_level)
         
         # Log to file if debug enabled
         if self.enabled:
