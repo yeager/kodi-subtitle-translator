@@ -49,11 +49,11 @@ class TranslationProgress:
         self.stage = 'init'
         self.stages = {
             'init': ('Initializing...', 0),
-            'extract': ('Extracting subtitles...', 10),
-            'parse': ('Parsing subtitle file...', 20),
+            'extract': ('Extracting...', 10),
+            'parse': ('Parsing...', 20),
             'translate': ('Translating...', 30),
-            'format': ('Formatting output...', 90),
-            'save': ('Saving subtitle file...', 95),
+            'format': ('Formatting...', 90),
+            'save': ('Saving...', 95),
             'complete': ('Complete!', 100)
         }
         self.cancelled = False
@@ -89,8 +89,10 @@ class TranslationProgress:
             # Calculate progress within translation stage (30-90%)
             stage_progress = (current / self.total) * 60  # 60% of total bar for translation
             total_progress = 30 + int(stage_progress)  # Start at 30%
+            percent = int((current / self.total) * 100)
         else:
             total_progress = 50
+            percent = 50
         
         # Calculate ETA
         elapsed = time.time() - self.start_time if self.start_time else 0
@@ -99,10 +101,11 @@ class TranslationProgress:
             remaining = (self.total - current) / rate if rate > 0 else 0
             eta_str = self._format_time(remaining)
         else:
-            eta_str = "calculating..."
+            eta_str = "..."
         
-        status_message = message or f"Translating subtitle {current}/{self.total}"
-        full_message = f"{status_message}\nETA: {eta_str}"
+        # Format message with clear percentage
+        status_message = message or f"[{percent}%] {current}/{self.total}"
+        full_message = f"{status_message}\n⏱ {eta_str}"
         
         if self.dialog and not self.cancelled:
             self.dialog.update(total_progress, full_message)
@@ -110,7 +113,7 @@ class TranslationProgress:
         
         # Log every 10% progress
         if self.total > 0 and current % max(1, self.total // 10) == 0:
-            self._log(f"Progress: {current}/{self.total} ({total_progress}%)")
+            self._log(f"Progress: {current}/{self.total} ({percent}%)")
     
     def add_error(self, error_msg, details=None):
         """Record an error."""

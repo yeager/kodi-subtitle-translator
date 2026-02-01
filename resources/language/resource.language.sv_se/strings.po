@@ -149,6 +149,10 @@ msgctxt "#30302"
 msgid "Translation service"
 msgstr "Översättningstjänst"
 
+msgctxt "#30303"
+msgid "API Keys"
+msgstr "API-nycklar"
+
 msgctxt "#30305"
 msgid "Fallback Services"
 msgstr "Reservtjänster"
@@ -308,6 +312,10 @@ msgstr "Max tokens"
 msgctxt "#30384"
 msgid "Context window (subtitles)"
 msgstr "Kontextfönster (undertexter)"
+
+msgctxt "#30390"
+msgid "Advanced Service Settings"
+msgstr "Avancerade tjänstinställningar"
 
 msgctxt "#30400"
 msgid "Subtitles"
@@ -524,6 +532,10 @@ msgstr "Maximalt antal försök"
 msgctxt "#30504"
 msgid "Retry delay (seconds)"
 msgstr "Fördröjning mellan försök (sekunder)"
+
+msgctxt "#30505"
+msgid "Rate limit (requests per minute)"
+msgstr "Hastighetsgräns (förfrågningar per minut)"
 
 msgctxt "#30510"
 msgid "Proxy Settings"

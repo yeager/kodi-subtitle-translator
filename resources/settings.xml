@@ -167,9 +167,9 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="save_alongside_video" type="boolean" label="30444" default="false">
-                    <level>1</level>
-                    <default>false</default>
+                <setting id="save_alongside_video" type="boolean" label="30444" default="true">
+                    <level>0</level>
+                    <default>true</default>
                     <control type="toggle"/>
                 </setting>
             </group>

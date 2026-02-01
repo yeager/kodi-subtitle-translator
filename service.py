@@ -310,10 +310,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             # Initialize progress dialog
             progress = TranslationProgress(show_dialog=self.show_notification)
-            progress.start(f"Translating to {self.get_language_name(self.target_language)}")
+            progress.start(get_string(30700))  # "Translating subtitles..."
             
             # Extract subtitle from video
-            progress.set_stage('extract', f"Extracting subtitles from video...")
+            progress.set_stage('extract', get_string(30707))  # "Extracting subtitles..."
             get_debug_logger().debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
             
             extractor = SubtitleExtractor(get_setting('ffmpeg_path'))
@@ -333,7 +333,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             get_debug_logger().debug(f"Extracted {len(subtitle_content)} bytes", 'ffmpeg')
             
             # Parse subtitle
-            progress.set_stage('parse', "Parsing subtitle file...")
+            progress.set_stage('parse', get_string(30708))  # "Parsing subtitle file..."
             parser = SubtitleParser()
             entries = parser.parse(subtitle_content)
             
@@ -354,7 +354,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 return
             
             # Get translator
-            progress.set_stage('translate', f"Connecting to {self.translation_service}...")
+            progress.set_stage('translate', get_string(30709))  # "Connecting to translation service..."
             get_debug_logger().debug(f"Using translation service: {self.translation_service}", 'api')
             
             translator = get_translator(
@@ -377,10 +377,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 batch = entries[i:i + batch_size]
                 texts = [e['text'] for e in batch]
                 
-                # Update progress
+                # Update progress with percentage
+                current_count = i + len(batch)
+                percent = int((current_count / len(entries)) * 100)
                 progress.update(
-                    i + len(batch),
-                    f"Translating batch {batch_num + 1}/{total_batches}..."
+                    current_count,
+                    f"{get_string(30710).format(batch_num + 1, total_batches)} ({percent}%)"
                 )
                 
                 try:
@@ -419,8 +421,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 if i + batch_size < len(entries):
                     xbmc.sleep(500)
             
-            # Format output
-            progress.set_stage('format', "Formatting subtitle file...")
+            # Format output (90%)
+            progress.set_stage('format', f"{get_string(30708)} (90%)")  # Parsing/formatting
             get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
             output_content = parser.generate(
@@ -428,8 +430,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 self.subtitle_format
             )
             
-            # Save subtitle
-            progress.set_stage('save', "Saving translated subtitles...")
+            # Save subtitle (95%)
+            progress.set_stage('save', f"{get_string(30711)} (95%)")  # "Saving translated subtitles..."
             output_path = self.save_subtitle(output_content, cache_key)
             get_debug_logger().info(f"Saved subtitle to: {output_path}", 'save')
             
