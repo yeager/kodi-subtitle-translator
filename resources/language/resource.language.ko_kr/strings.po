@@ -680,8 +680,8 @@ msgid "Translation failed"
 msgstr "번역 실패"
 
 msgctxt "#30703"
-msgid "No embedded subtitles found"
-msgstr "내장된 자막을 찾을 수 없음"
+msgid "No embedded subtitles found. Nothing to translate."
+msgstr "내장된 자막을 찾을 수 없음. 번역할 내용이 없습니다."
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"

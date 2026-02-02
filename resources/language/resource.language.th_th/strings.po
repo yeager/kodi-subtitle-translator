@@ -680,8 +680,8 @@ msgid "Translation failed"
 msgstr "การแปลล้มเหลว"
 
 msgctxt "#30703"
-msgid "No embedded subtitles found"
-msgstr "ไม่พบคำบรรยายฝังตัว"
+msgid "No embedded subtitles found. Nothing to translate."
+msgstr "ไม่พบคำบรรยายฝังตัว ไม่มีอะไรให้แปล"
 
 msgctxt "#30704"
 msgid "Subtitle already available in your language"

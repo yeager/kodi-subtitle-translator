@@ -216,8 +216,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             source_sub = self.find_source_subtitle(available_subs)
             if not source_sub:
                 log("No suitable source subtitle found")
-                if self.show_notification:
-                    notify(get_string(30703))  # No embedded subtitles found
+                # Show dialog box instead of notification
+                xbmcgui.Dialog().ok(
+                    get_addon_name(),
+                    get_string(30703)  # No embedded subtitles found
+                )
                 return
             
             # Ask user if configured
