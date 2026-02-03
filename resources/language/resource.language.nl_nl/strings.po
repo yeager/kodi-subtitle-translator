@@ -878,3 +878,33 @@ msgstr ""
 msgctxt "#30833"
 msgid "Telugu"
 msgstr ""
+
+# External subtitle support (v0.8.0)
+
+msgctxt "#30840"
+msgid "Select subtitle source"
+msgstr "Selecteer ondertitelbron"
+
+msgctxt "#30841"
+msgid "Extract from video ({0})"
+msgstr "Uit video extraheren ({0})"
+
+msgctxt "#30842"
+msgid "Use external file: {0}"
+msgstr "Gebruik extern bestand: {0}"
+
+msgctxt "#30843"
+msgid "Browse for subtitle file..."
+msgstr "Bladeren naar ondertitelbestand..."
+
+msgctxt "#30844"
+msgid "Select subtitle file"
+msgstr "Selecteer ondertitelbestand"
+
+msgctxt "#30845"
+msgid "Reading subtitle file..."
+msgstr "Ondertitelbestand lezen..."
+
+msgctxt "#30846"
+msgid "Translate external subtitle ({0}) to {1}?"
+msgstr "Externe ondertitels ({0}) vertalen naar {1}?"

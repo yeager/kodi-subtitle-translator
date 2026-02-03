@@ -1,0 +1,31 @@
+1
+00:00:01,000 --> 00:00:04,000
+Hello and welcome to this video.
+
+2
+00:00:05,500 --> 00:00:08,200
+Today we're going to learn about
+subtitle translation.
+
+3
+00:00:10,000 --> 00:00:14,500
+This is a test subtitle file
+with multiple lines and entries.
+
+4
+00:00:15,000 --> 00:00:18,000
+Let's see if the parser handles this correctly!
+
+5
+00:00:20,000 --> 00:00:25,000
+Special characters: äöå ñ é ü
+Numbers: 12345
+
+6
+00:00:26,000 --> 00:00:30,000
+<i>Italic text</i> and <b>bold text</b>
+should be cleaned up.
+
+7
+00:00:32,000 --> 00:00:36,000
+The end. Thanks for watching!

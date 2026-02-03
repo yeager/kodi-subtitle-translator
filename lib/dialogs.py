@@ -82,7 +82,7 @@ def get_current_thumbnail():
     return None
 
 
-def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None):
+def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None, get_string_func=None):
     """
     Show dialog to select subtitle source.
     
@@ -90,6 +90,7 @@ def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None):
         title: Dialog title
         embedded_lang: Language of embedded subtitle (if available)
         external_file: Path to external subtitle file (if found)
+        get_string_func: Function to get localized strings (optional)
     
     Returns:
         'embedded' - Use embedded subtitle
@@ -97,20 +98,33 @@ def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None):
         'browse' - Browse for subtitle file
         None - User cancelled
     """
+    import os
+    
+    # Helper for localized strings
+    def get_str(string_id, fallback):
+        if get_string_func:
+            s = get_string_func(string_id)
+            return s if s else fallback
+        return fallback
+    
     options = []
     option_map = []
     
     if embedded_lang:
-        options.append(f"Extrahera från video ({embedded_lang})")
+        # 30841: "Extract from video ({0})"
+        text = get_str(30841, "Extract from video ({0})").format(embedded_lang)
+        options.append(text)
         option_map.append('embedded')
     
     if external_file:
-        import os
         filename = os.path.basename(external_file)
-        options.append(f"Använd extern fil: {filename}")
+        # 30842: "Use external file: {0}"
+        text = get_str(30842, "Use external file: {0}").format(filename)
+        options.append(text)
         option_map.append('external')
     
-    options.append("Bläddra efter undertextfil...")
+    # 30843: "Browse for subtitle file..."
+    options.append(get_str(30843, "Browse for subtitle file..."))
     option_map.append('browse')
     
     if not options:
@@ -125,21 +139,32 @@ def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None):
     return option_map[selected]
 
 
-def browse_subtitle_file():
+def browse_subtitle_file(get_string_func=None):
     """
     Open file browser for subtitle selection.
+    
+    Args:
+        get_string_func: Function to get localized strings (optional)
     
     Returns:
         Path to selected subtitle file, or None if cancelled
     """
+    # Helper for localized strings
+    def get_str(string_id, fallback):
+        if get_string_func:
+            s = get_string_func(string_id)
+            return s if s else fallback
+        return fallback
+    
     dialog = xbmcgui.Dialog()
     
     # Common subtitle extensions
     subtitle_extensions = '.srt|.ass|.ssa|.sub|.vtt'
     
+    # 30844: "Select subtitle file"
     path = dialog.browse(
         1,  # ShowAndGetFile
-        'Välj undertextfil',
+        get_str(30844, "Select subtitle file"),
         'video',
         subtitle_extensions,
         False,  # useThumbs

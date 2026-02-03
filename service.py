@@ -230,9 +230,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             if source_sub and external_sub_path:
                 # Both sources available - ask user which to use
                 choice = show_subtitle_source_dialog(
-                    get_addon_name(),
+                    get_string(30840),  # "Select subtitle source"
                     embedded_lang=self.get_language_name(embedded_lang),
-                    external_file=external_sub_path
+                    external_file=external_sub_path,
+                    get_string_func=get_string
                 )
                 
                 if choice == 'embedded':
@@ -240,7 +241,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 elif choice == 'external':
                     subtitle_source = external_sub_path
                 elif choice == 'browse':
-                    browsed_path = browse_subtitle_file()
+                    browsed_path = browse_subtitle_file(get_string)
                     if browsed_path:
                         subtitle_source = browsed_path
                     else:
@@ -274,7 +275,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 # Only external available
                 if self.ask_before_translate:
                     filename = os.path.basename(external_sub_path)
-                    msg = f"Översätta extern undertext ({filename}) till {self.get_language_name(self.target_language)}?"
+                    # 30846: "Translate external subtitle ({0}) to {1}?"
+                    msg = get_string(30846).format(filename, self.get_language_name(self.target_language))
                     thumbnail = get_current_thumbnail()
                     media_title = get_current_media_title()
                     
@@ -291,13 +293,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             else:
                 # No sources available - offer to browse
                 choice = show_subtitle_source_dialog(
-                    get_addon_name(),
+                    get_string(30840),  # "Select subtitle source"
                     embedded_lang=None,
-                    external_file=None
+                    external_file=None,
+                    get_string_func=get_string
                 )
                 
                 if choice == 'browse':
-                    browsed_path = browse_subtitle_file()
+                    browsed_path = browse_subtitle_file(get_string)
                     if browsed_path:
                         subtitle_source = browsed_path
                     else:
@@ -670,7 +673,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.start(get_string(30700))
             
             # Read external subtitle
-            progress.set_stage('extract', "Läser undertextfil...")
+            progress.set_stage('extract', get_string(30845))  # "Reading subtitle file..."
             subtitle_content = self.read_external_subtitle(subtitle_path)
             
             if not subtitle_content:
