@@ -24,6 +24,8 @@ DebugLogger = None
 show_translate_confirm = None
 get_current_thumbnail = None
 get_current_media_title = None
+show_subtitle_source_dialog = None
+browse_subtitle_file = None
 
 # Lazy-loaded globals
 _addon = None
@@ -97,7 +99,7 @@ def init_libraries():
     from lib.translators import get_translator as gt
     from lib.subtitle_parser import SubtitleParser as SP
     from lib.progress_dialog import TranslationProgress as TP, ErrorReporter as ER, DebugLogger as DL
-    from lib.dialogs import show_translate_confirm as stc, get_current_thumbnail as gct, get_current_media_title as gcmt
+    from lib.dialogs import show_translate_confirm as stc, get_current_thumbnail as gct, get_current_media_title as gcmt, show_subtitle_source_dialog as sssd, browse_subtitle_file as bsf
     
     SubtitleExtractor = SE
     get_translator = gt
@@ -108,6 +110,8 @@ def init_libraries():
     show_translate_confirm = stc
     get_current_thumbnail = gct
     get_current_media_title = gcmt
+    show_subtitle_source_dialog = sssd
+    browse_subtitle_file = bsf
     
     # Initialize reporter and logger
     _error_reporter = ER(get_addon_data())
@@ -198,11 +202,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             return
         
         try:
-            # Get available subtitles
+            # Get available embedded subtitles
             available_subs = self.get_available_subtitles()
-            log(f"Available subtitles: {available_subs}")
+            log(f"Available embedded subtitles: {available_subs}")
             
-            # Check if target language is available
+            # Check if target language is already available
             target_available = any(
                 sub.get('language', '').lower().startswith(self.target_language.lower())
                 for sub in available_subs
@@ -212,38 +216,107 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 log(f"Subtitle already available in {self.target_language}")
                 return
             
-            # Find source subtitle
+            # Find embedded source subtitle
             source_sub = self.find_source_subtitle(available_subs)
-            if not source_sub:
-                log("No suitable source subtitle found")
-                # Show dialog box instead of notification
-                xbmcgui.Dialog().ok(
-                    get_addon_name(),
-                    get_string(30703)  # No embedded subtitles found
-                )
-                return
+            embedded_lang = source_sub.get('language', 'en') if source_sub else None
             
-            # Ask user if configured
-            if self.ask_before_translate:
-                msg = get_string(30706).format(
-                    self.get_language_name(self.target_language),
-                    self.get_language_name(source_sub.get('language', 'en'))
+            # Look for external subtitle file
+            external_sub_path = self.find_external_subtitle(self.source_language)
+            
+            # Determine which source to use
+            subtitle_source = None  # 'embedded', 'external', or path from browse
+            subtitle_content = None
+            
+            if source_sub and external_sub_path:
+                # Both sources available - ask user which to use
+                choice = show_subtitle_source_dialog(
+                    get_addon_name(),
+                    embedded_lang=self.get_language_name(embedded_lang),
+                    external_file=external_sub_path
                 )
-                # Show confirmation dialog with thumbnail
-                thumbnail = get_current_thumbnail()
-                media_title = get_current_media_title()
                 
-                if not show_translate_confirm(
-                    title=get_addon_name(),
-                    message=msg,
-                    thumbnail=thumbnail,
-                    media_title=media_title
-                ):
-                    log("User declined translation")
+                if choice == 'embedded':
+                    subtitle_source = 'embedded'
+                elif choice == 'external':
+                    subtitle_source = external_sub_path
+                elif choice == 'browse':
+                    browsed_path = browse_subtitle_file()
+                    if browsed_path:
+                        subtitle_source = browsed_path
+                    else:
+                        log("User cancelled file browse")
+                        return
+                else:
+                    log("User cancelled source selection")
+                    return
+                    
+            elif source_sub:
+                # Only embedded available
+                if self.ask_before_translate:
+                    msg = get_string(30706).format(
+                        self.get_language_name(self.target_language),
+                        self.get_language_name(embedded_lang)
+                    )
+                    thumbnail = get_current_thumbnail()
+                    media_title = get_current_media_title()
+                    
+                    if not show_translate_confirm(
+                        title=get_addon_name(),
+                        message=msg,
+                        thumbnail=thumbnail,
+                        media_title=media_title
+                    ):
+                        log("User declined translation")
+                        return
+                subtitle_source = 'embedded'
+                
+            elif external_sub_path:
+                # Only external available
+                if self.ask_before_translate:
+                    filename = os.path.basename(external_sub_path)
+                    msg = f"Översätta extern undertext ({filename}) till {self.get_language_name(self.target_language)}?"
+                    thumbnail = get_current_thumbnail()
+                    media_title = get_current_media_title()
+                    
+                    if not show_translate_confirm(
+                        title=get_addon_name(),
+                        message=msg,
+                        thumbnail=thumbnail,
+                        media_title=media_title
+                    ):
+                        log("User declined translation")
+                        return
+                subtitle_source = external_sub_path
+                
+            else:
+                # No sources available - offer to browse
+                choice = show_subtitle_source_dialog(
+                    get_addon_name(),
+                    embedded_lang=None,
+                    external_file=None
+                )
+                
+                if choice == 'browse':
+                    browsed_path = browse_subtitle_file()
+                    if browsed_path:
+                        subtitle_source = browsed_path
+                    else:
+                        log("User cancelled file browse")
+                        return
+                else:
+                    log("No subtitle sources available")
+                    xbmcgui.Dialog().ok(
+                        get_addon_name(),
+                        get_string(30703)  # No subtitles found
+                    )
                     return
             
-            # Perform translation
-            self.translate_subtitle(source_sub)
+            # Perform translation based on selected source
+            if subtitle_source == 'embedded':
+                self.translate_subtitle(source_sub)
+            else:
+                # External file path
+                self.translate_external_subtitle(subtitle_source)
             
         except Exception as e:
             log(f"Error checking subtitles: {e}", level=xbmc.LOGERROR)
@@ -558,6 +631,257 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 except Exception as e:
                     log(f"Could not resume playback: {e}", level=xbmc.LOGWARNING)
     
+    def translate_external_subtitle(self, subtitle_path):
+        """Translate an external subtitle file with progress tracking."""
+        self.translation_in_progress = True
+        progress = None
+        was_playing = False
+        
+        try:
+            get_debug_logger().info(f"Starting translation of external subtitle: {subtitle_path}", 'translation')
+            
+            # Generate cache key for external file
+            cache_key = self.get_cache_key_external(subtitle_path)
+            cached_path = self.get_cached_subtitle(cache_key)
+            
+            if cached_path and xbmcvfs.exists(cached_path):
+                get_debug_logger().info(f"Cache hit: {cached_path}", 'cache')
+                
+                if self.save_alongside:
+                    self._copy_to_alongside(cached_path)
+                
+                self.load_subtitle(cached_path)
+                if self.show_notification:
+                    notify(get_string(30705))  # Using cached translation
+                return
+            
+            get_debug_logger().debug("Cache miss, starting translation", 'cache')
+            
+            # Pause playback during translation
+            if self.isPlaying():
+                was_playing = True
+                self.pause()
+                log("Paused playback during translation")
+                if self.show_notification:
+                    notify(get_string(30717))
+            
+            # Initialize progress dialog
+            progress = TranslationProgress(show_dialog=self.show_notification)
+            progress.start(get_string(30700))
+            
+            # Read external subtitle
+            progress.set_stage('extract', "Läser undertextfil...")
+            subtitle_content = self.read_external_subtitle(subtitle_path)
+            
+            if not subtitle_content:
+                error_msg = f"Failed to read external subtitle: {subtitle_path}"
+                get_error_reporter().report_error('file', error_msg, context={
+                    'file': subtitle_path
+                })
+                raise Exception(error_msg)
+            
+            get_debug_logger().debug(f"Read {len(subtitle_content)} bytes", 'file')
+            
+            # Parse subtitle
+            progress.set_stage('parse', get_string(30708))
+            parser = SubtitleParser()
+            entries = parser.parse(subtitle_content)
+            
+            if not entries:
+                error_msg = "No subtitle entries found in external file"
+                get_error_reporter().report_error('parse', error_msg, context={
+                    'content_length': len(subtitle_content),
+                    'content_preview': subtitle_content[:500]
+                })
+                raise Exception(error_msg)
+            
+            get_debug_logger().info(f"Parsed {len(entries)} subtitle entries", 'parse')
+            progress.total = len(entries)
+            
+            if progress.is_cancelled():
+                get_debug_logger().info("Translation cancelled by user", 'translation')
+                return
+            
+            # Get translator
+            progress.set_stage('translate', get_string(30709))
+            get_debug_logger().debug(f"Using translation service: {self.translation_service}", 'api')
+            
+            translator = get_translator(
+                self.translation_service,
+                self.get_service_config()
+            )
+            
+            # Translate in batches with progress
+            translated_entries = []
+            batch_size = self.batch_size
+            total_batches = (len(entries) + batch_size - 1) // batch_size
+            
+            successful_batches = 0
+            failed_batches = 0
+            max_consecutive_failures = 3
+            consecutive_failures = 0
+            
+            fallback_services = []
+            if get_setting_bool('enable_fallback'):
+                fallback_str = get_setting('fallback_services')
+                if fallback_str:
+                    fallback_services = [s.strip() for s in fallback_str.split(',') if s.strip()]
+            
+            get_debug_logger().debug(f"Translating in {total_batches} batches of {batch_size}", 'translation')
+            
+            for batch_num, i in enumerate(range(0, len(entries), batch_size)):
+                if progress.is_cancelled():
+                    get_debug_logger().info("Translation cancelled by user", 'translation')
+                    return
+                
+                batch = entries[i:i + batch_size]
+                texts = [e['text'] for e in batch]
+                
+                current_count = i + len(batch)
+                percent = int((current_count / len(entries)) * 100)
+                progress.update(
+                    current_count,
+                    f"{get_string(30710).format(batch_num + 1, total_batches)} ({percent}%)"
+                )
+                
+                translated_texts = None
+                last_error = None
+                
+                try:
+                    get_debug_logger().debug(f"Translating batch {batch_num + 1}: {len(texts)} entries", 'api')
+                    import time as _time
+                    start_time = _time.time()
+                    
+                    translated_texts = translator.translate_batch(
+                        texts,
+                        self.source_language,
+                        self.target_language
+                    )
+                    
+                    elapsed = (_time.time() - start_time) * 1000
+                    get_debug_logger().timing(f"Batch {batch_num + 1} translation", elapsed)
+                    successful_batches += 1
+                    consecutive_failures = 0
+                    
+                except Exception as api_error:
+                    last_error = api_error
+                    get_debug_logger().error(f"Primary translator failed: {api_error}", 'api')
+                    
+                    for fallback_service in fallback_services:
+                        if fallback_service == self.translation_service:
+                            continue
+                        try:
+                            get_debug_logger().info(f"Trying fallback: {fallback_service}", 'api')
+                            progress.update(current_count, f"Fallback: {fallback_service}...")
+                            
+                            fallback_config = {'timeout': get_setting_int('request_timeout')}
+                            if fallback_service == 'lingva':
+                                fallback_config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
+                            elif fallback_service == 'libretranslate':
+                                fallback_config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
+                            
+                            fallback_translator = get_translator(fallback_service, fallback_config)
+                            translated_texts = fallback_translator.translate_batch(
+                                texts,
+                                self.source_language,
+                                self.target_language
+                            )
+                            successful_batches += 1
+                            consecutive_failures = 0
+                            get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
+                            break
+                        except Exception as fallback_error:
+                            get_debug_logger().error(f"Fallback {fallback_service} failed: {fallback_error}", 'api')
+                            continue
+                
+                if translated_texts is None:
+                    failed_batches += 1
+                    consecutive_failures += 1
+                    
+                    get_error_reporter().report_error('api', f"All translators failed for batch {batch_num + 1}", last_error, {
+                        'service': self.translation_service,
+                        'fallbacks_tried': fallback_services,
+                        'batch_size': len(texts)
+                    })
+                    
+                    if consecutive_failures >= max_consecutive_failures:
+                        raise Exception(f"Translation aborted: {consecutive_failures} consecutive failures.")
+                    
+                    if successful_batches > 0:
+                        progress.add_warning(f"Batch {batch_num + 1} failed, using original text")
+                        translated_texts = texts
+                    else:
+                        raise Exception(f"Translation service unavailable: {last_error}")
+                
+                for j, entry in enumerate(batch):
+                    translated_entry = entry.copy()
+                    if j < len(translated_texts):
+                        translated_entry['text'] = translated_texts[j]
+                    translated_entries.append(translated_entry)
+                
+                if i + batch_size < len(entries):
+                    xbmc.sleep(500)
+            
+            success_rate = successful_batches / total_batches if total_batches > 0 else 0
+            if success_rate < 0.5:
+                raise Exception(f"Translation failed: only {successful_batches}/{total_batches} batches translated successfully")
+            
+            # Format output
+            progress.set_stage('format', f"{get_string(30708)} (90%)")
+            get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
+            
+            output_content = parser.generate(
+                translated_entries,
+                self.subtitle_format
+            )
+            
+            # Save subtitle
+            progress.set_stage('save', f"{get_string(30711)} (95%)")
+            output_path = self.save_subtitle(output_content, cache_key)
+            get_debug_logger().info(f"Saved subtitle to: {output_path}", 'save')
+            
+            # Load the translated subtitle
+            self.load_subtitle(output_path)
+            
+            # Complete
+            summary = progress.get_summary()
+            get_debug_logger().info(f"Translation complete: {summary}", 'translation')
+            progress.complete(True, f"Translated {len(translated_entries)} subtitles in {summary['elapsed_time']}")
+            
+        except Exception as e:
+            get_debug_logger().error(f"Translation failed: {e}", 'translation')
+            get_error_reporter().report_error('translation', f"Translation failed: {str(e)}", e, {
+                'file': subtitle_path,
+                'service': self.translation_service,
+                'source_lang': self.source_language,
+                'target_lang': self.target_language
+            })
+            
+            if progress:
+                progress.add_error(str(e))
+                progress.complete(False)
+            else:
+                notify(get_string(30702), icon=xbmcgui.NOTIFICATION_ERROR)
+        
+        finally:
+            self.translation_in_progress = False
+            
+            if was_playing:
+                try:
+                    is_paused = xbmc.getCondVisibility('Player.Paused')
+                    if is_paused:
+                        self.pause()
+                        log("Resumed playback after translation")
+                        if self.show_notification:
+                            notify(get_string(30718))
+                except Exception as e:
+                    log(f"Could not resume playback: {e}", level=xbmc.LOGWARNING)
+    
+    def get_cache_key_external(self, subtitle_path):
+        """Generate a unique cache key for an external subtitle file."""
+        key_data = f"ext|{subtitle_path}|{self.target_language}"
+        return hashlib.md5(key_data.encode()).hexdigest()
+    
     def get_cache_key(self, source_sub):
         """Generate a unique cache key for the subtitle."""
         key_data = f"{self.current_file}|{source_sub.get('index', 0)}|{self.target_language}"
@@ -745,6 +1069,130 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             config['package_path'] = get_setting('argos_package_path')
         
         return config
+    
+    def find_external_subtitle(self, source_lang=None):
+        """
+        Find external subtitle file for current video.
+        
+        Args:
+            source_lang: Preferred source language code (e.g., 'en', 'eng')
+        
+        Returns:
+            Path to external subtitle file, or None if not found
+        """
+        if not self.current_file:
+            return None
+        
+        video_dir = os.path.dirname(self.current_file)
+        video_name = os.path.splitext(os.path.basename(self.current_file))[0]
+        
+        # Common subtitle extensions
+        sub_extensions = ['.srt', '.ass', '.ssa', '.sub', '.vtt']
+        
+        # Language codes to look for
+        lang_codes = []
+        if source_lang:
+            lang_codes.append(source_lang.lower())
+            # Add common variations
+            if source_lang.lower() in ('en', 'eng', 'english'):
+                lang_codes.extend(['en', 'eng', 'english'])
+            elif source_lang.lower() in ('sv', 'swe', 'swedish'):
+                lang_codes.extend(['sv', 'swe', 'swedish'])
+        else:
+            # Default: look for English
+            lang_codes = ['en', 'eng', 'english']
+        
+        # Remove duplicates while preserving order
+        lang_codes = list(dict.fromkeys(lang_codes))
+        
+        found_subs = []
+        
+        try:
+            # List files in directory
+            dirs, files = xbmcvfs.listdir(video_dir)
+            
+            for filename in files:
+                # Check if it's a subtitle file
+                name_lower = filename.lower()
+                if not any(name_lower.endswith(ext) for ext in sub_extensions):
+                    continue
+                
+                # Check if it matches the video name
+                if not name_lower.startswith(video_name.lower()):
+                    continue
+                
+                full_path = self._normalize_path(os.path.join(video_dir, filename))
+                
+                # Check for language code in filename
+                # Patterns: video.en.srt, video.eng.srt, video.english.srt
+                name_without_ext = os.path.splitext(filename)[0]
+                parts = name_without_ext.split('.')
+                
+                # Check if any part matches our language codes
+                for lang in lang_codes:
+                    if lang in [p.lower() for p in parts]:
+                        log(f"Found external subtitle with language '{lang}': {filename}")
+                        return full_path
+                
+                # Also collect subtitles without language code
+                found_subs.append(full_path)
+            
+            # If no language-specific subtitle found, return first match
+            if found_subs:
+                log(f"Found external subtitle (no language tag): {found_subs[0]}")
+                return found_subs[0]
+                
+        except Exception as e:
+            log(f"Error searching for external subtitles: {e}", level=xbmc.LOGWARNING)
+        
+        return None
+    
+    def read_external_subtitle(self, subtitle_path):
+        """
+        Read content from an external subtitle file.
+        
+        Args:
+            subtitle_path: Path to the subtitle file
+        
+        Returns:
+            Subtitle content as string, or None on failure
+        """
+        try:
+            log(f"Reading external subtitle: {subtitle_path}")
+            
+            # Try reading with Kodi's VFS (supports network paths)
+            if xbmcvfs.exists(subtitle_path):
+                with xbmcvfs.File(subtitle_path, 'r') as f:
+                    content = f.read()
+                
+                if content:
+                    # Handle bytes if needed
+                    if isinstance(content, bytes):
+                        # Try UTF-8 first, then fall back to latin-1
+                        try:
+                            content = content.decode('utf-8')
+                        except UnicodeDecodeError:
+                            try:
+                                content = content.decode('utf-8-sig')  # BOM
+                            except UnicodeDecodeError:
+                                content = content.decode('latin-1')
+                    
+                    log(f"Successfully read {len(content)} bytes from external subtitle")
+                    return content
+            
+            # Fallback: try direct file access (local files)
+            if os.path.exists(subtitle_path):
+                with open(subtitle_path, 'r', encoding='utf-8', errors='replace') as f:
+                    content = f.read()
+                log(f"Read {len(content)} bytes using direct file access")
+                return content
+            
+            log(f"External subtitle file not found: {subtitle_path}", level=xbmc.LOGERROR)
+            return None
+            
+        except Exception as e:
+            log(f"Error reading external subtitle: {e}", level=xbmc.LOGERROR)
+            return None
     
     def get_language_name(self, code):
         """Get localized language name from code."""

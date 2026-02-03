@@ -82,6 +82,76 @@ def get_current_thumbnail():
     return None
 
 
+def show_subtitle_source_dialog(title, embedded_lang=None, external_file=None):
+    """
+    Show dialog to select subtitle source.
+    
+    Args:
+        title: Dialog title
+        embedded_lang: Language of embedded subtitle (if available)
+        external_file: Path to external subtitle file (if found)
+    
+    Returns:
+        'embedded' - Use embedded subtitle
+        'external' - Use external subtitle file
+        'browse' - Browse for subtitle file
+        None - User cancelled
+    """
+    options = []
+    option_map = []
+    
+    if embedded_lang:
+        options.append(f"Extrahera från video ({embedded_lang})")
+        option_map.append('embedded')
+    
+    if external_file:
+        import os
+        filename = os.path.basename(external_file)
+        options.append(f"Använd extern fil: {filename}")
+        option_map.append('external')
+    
+    options.append("Bläddra efter undertextfil...")
+    option_map.append('browse')
+    
+    if not options:
+        return None
+    
+    dialog = xbmcgui.Dialog()
+    selected = dialog.select(title, options)
+    
+    if selected < 0:
+        return None
+    
+    return option_map[selected]
+
+
+def browse_subtitle_file():
+    """
+    Open file browser for subtitle selection.
+    
+    Returns:
+        Path to selected subtitle file, or None if cancelled
+    """
+    dialog = xbmcgui.Dialog()
+    
+    # Common subtitle extensions
+    subtitle_extensions = '.srt|.ass|.ssa|.sub|.vtt'
+    
+    path = dialog.browse(
+        1,  # ShowAndGetFile
+        'Välj undertextfil',
+        'video',
+        subtitle_extensions,
+        False,  # useThumbs
+        False,  # treatAsFolder
+        ''  # default path
+    )
+    
+    if path and path != '':
+        return path
+    return None
+
+
 def get_current_media_title():
     """Get title of currently playing media."""
     # Try Player labels

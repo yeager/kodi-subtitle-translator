@@ -3,7 +3,7 @@
 [![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
-[![Version](https://img.shields.io/badge/Version-0.7.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
+[![Version](https://img.shields.io/badge/Version-0.8.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
 
 Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
@@ -11,6 +11,8 @@ Automatically translate embedded subtitles in your media files to your preferred
 
 - **Automatic Detection** – Detects when no subtitle is available in your preferred language
 - **Embedded Subtitle Extraction** – Extracts subtitles from MKV, MP4, and other containers using FFmpeg
+- **External Subtitle Support** – Translate existing `.srt`, `.ass`, `.vtt` files alongside your video
+- **Smart Source Selection** – Choose between embedded or external subtitles when both are available
 - **10 Translation Services** – Free and paid options:
   - 🆓 **Lingva Translate** – Free, no API key required (default)
   - 🆓 **MyMemory** – Free, 1000 words/day
@@ -161,6 +163,53 @@ Technical settings for power users.
 
 ---
 
+## 📄 External Subtitle Files
+
+The addon can translate external subtitle files in addition to embedded subtitles.
+
+### How it works
+
+When you start playing a video, the addon checks for:
+1. **Embedded subtitles** in the video file (MKV, MP4, etc.)
+2. **External subtitle files** next to the video (e.g., `movie.en.srt`, `movie.eng.srt`)
+
+### Source selection
+
+| Scenario | Behavior |
+|----------|----------|
+| Both embedded + external found | Dialog asks which source to use |
+| Only embedded found | Uses embedded (asks if "Ask before translating" is on) |
+| Only external found | Uses external (asks if "Ask before translating" is on) |
+| Neither found | Offers to browse for a subtitle file |
+
+### Supported external formats
+
+| Extension | Format |
+|-----------|--------|
+| `.srt` | SubRip |
+| `.ass` / `.ssa` | Advanced SubStation Alpha |
+| `.vtt` | WebVTT |
+| `.sub` | MicroDVD (parsed as SRT) |
+
+### File naming
+
+The addon looks for external subtitles matching the video filename:
+
+```
+movie.mkv           # Your video
+movie.en.srt        # ✅ Found (English)
+movie.eng.srt       # ✅ Found (English)
+movie.english.srt   # ✅ Found (English)
+movie.srt           # ✅ Found (no language tag)
+other.en.srt        # ❌ Not matched (different name)
+```
+
+### Network paths
+
+External subtitles are supported on network paths (SMB/NFS), just like embedded subtitles.
+
+---
+
 ## 🌐 Translation Services
 
 ### Free Services (No API Key)
@@ -227,7 +276,7 @@ Full interface translation: Swedish, English, German, French, Spanish, Italian, 
 
 ```
 service.subtitletranslator/
-├── addon.xml                 # Addon metadata (v0.7.0)
+├── addon.xml                 # Addon metadata (v0.8.0)
 ├── service.py                # Main service script
 ├── LICENSE                   # GPL-3.0-or-later
 ├── README.md                 # This file
