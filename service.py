@@ -205,6 +205,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Get available embedded subtitles
             available_subs = self.get_available_subtitles()
             log(f"Available embedded subtitles: {available_subs}")
+            log(f"Target language: {self.target_language}, Source language: {self.source_language}")
+            log(f"ask_before_translate: {self.ask_before_translate}")
             
             # Check if target language is already available
             target_available = any(
@@ -213,15 +215,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             )
             
             if target_available:
-                log(f"Subtitle already available in {self.target_language}")
+                log(f"Subtitle already available in {self.target_language}, skipping translation")
+                if self.show_notification:
+                    notify(get_string(30719))  # "Subtitle already available in target language"
                 return
             
             # Find embedded source subtitle
             source_sub = self.find_source_subtitle(available_subs)
             embedded_lang = source_sub.get('language', 'en') if source_sub else None
+            log(f"Found embedded source subtitle: {source_sub is not None}, language: {embedded_lang}")
             
             # Look for external subtitle file
             external_sub_path = self.find_external_subtitle(self.source_language)
+            log(f"Found external subtitle: {external_sub_path}")
             
             # Determine which source to use
             subtitle_source = None  # 'embedded', 'external', or path from browse
@@ -229,12 +235,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             if source_sub and external_sub_path:
                 # Both sources available - ask user which to use
+                log("Both embedded and external subtitles found, showing source selection dialog")
                 choice = show_subtitle_source_dialog(
                     get_string(30840),  # "Select subtitle source"
                     embedded_lang=self.get_language_name(embedded_lang),
                     external_file=external_sub_path,
                     get_string_func=get_string
                 )
+                log(f"User selected: {choice}")
                 
                 if choice == 'embedded':
                     subtitle_source = 'embedded'
@@ -253,7 +261,9 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     
             elif source_sub:
                 # Only embedded available
+                log(f"Only embedded subtitle available (language: {embedded_lang})")
                 if self.ask_before_translate:
+                    log("Showing translation confirmation dialog")
                     msg = get_string(30706).format(
                         self.get_language_name(self.target_language),
                         self.get_language_name(embedded_lang)
@@ -269,11 +279,16 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     ):
                         log("User declined translation")
                         return
+                    log("User confirmed translation")
+                else:
+                    log("Auto-translate enabled, skipping confirmation dialog")
                 subtitle_source = 'embedded'
                 
             elif external_sub_path:
                 # Only external available
+                log(f"Only external subtitle available: {external_sub_path}")
                 if self.ask_before_translate:
+                    log("Showing translation confirmation dialog")
                     filename = os.path.basename(external_sub_path)
                     # 30846: "Translate external subtitle ({0}) to {1}?"
                     msg = get_string(30846).format(filename, self.get_language_name(self.target_language))
@@ -288,10 +303,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     ):
                         log("User declined translation")
                         return
+                    log("User confirmed translation")
+                else:
+                    log("Auto-translate enabled, skipping confirmation dialog")
                 subtitle_source = external_sub_path
                 
             else:
                 # No sources available - offer to browse
+                log("No embedded or external subtitles found, showing browse dialog")
                 choice = show_subtitle_source_dialog(
                     get_string(30840),  # "Select subtitle source"
                     embedded_lang=None,

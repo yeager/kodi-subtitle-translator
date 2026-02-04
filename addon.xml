@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="service.subtitletranslator"
        name="Subtitle Translator"
-       version="0.8.0"
+       version="0.8.1"
        provider-name="yeager">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
@@ -373,6 +373,17 @@ Tercih ettiğiniz dilde altyazı mevcut olmadığında, bu eklenti medya dosyas�
             <fanart>resources/fanart.png</fanart>
         </assets>
         <news>
+v0.8.1
+- Fixed: Show notification when target language subtitle already exists
+- Improved: Added detailed logging for debugging translation flow
+- Improved: Better feedback when no dialogs appear
+
+v0.8.0
+- Added external subtitle file translation support
+- New subtitle source selection dialog
+- Browse for subtitle files manually
+- Support for .srt, .ass, .ssa, .sub, .vtt external files
+
 v0.7.2
 - Fixed SMB/NFS path handling (no more mixed slashes)
 - Clarified DeepL labels (API key required)
