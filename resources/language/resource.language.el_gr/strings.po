@@ -743,6 +743,10 @@ msgctxt "#30718"
 msgid "Resuming playback"
 msgstr "Συνέχιση αναπαραγωγής"
 
+msgctxt "#30719"
+msgid "Subtitle already available in target language"
+msgstr "Υπότιτλος ήδη διαθέσιμος στη γλώσσα-στόχο"
+
 msgctxt "#30800"
 msgid "Swedish"
 msgstr ""

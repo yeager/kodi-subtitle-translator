@@ -743,6 +743,10 @@ msgctxt "#30718"
 msgid "Resuming playback"
 msgstr "Возобновление воспроизведения"
 
+msgctxt "#30719"
+msgid "Subtitle already available in target language"
+msgstr "Субтитры уже доступны на целевом языке"
+
 msgctxt "#30800"
 msgid "Swedish"
 msgstr ""
