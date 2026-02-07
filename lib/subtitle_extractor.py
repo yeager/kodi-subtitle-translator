@@ -5,32 +5,135 @@ Subtitle Extractor - Extract embedded subtitles from video files using FFmpeg.
 
 import subprocess
 import os
+import sys
 import tempfile
 import json
 import xbmc
 import xbmcvfs
 
 
+def is_android():
+    """Detect if running on Android."""
+    # Check for Android-specific paths and properties
+    if hasattr(sys, 'getandroidapilevel'):
+        return True
+    if os.path.exists('/system/build.prop'):
+        return True
+    # Check Kodi's OS info
+    try:
+        os_info = xbmc.getInfoLabel('System.OSVersionInfo').lower()
+        if 'android' in os_info:
+            return True
+    except:
+        pass
+    return False
+
+
+def get_android_ffmpeg_locations():
+    """Get potential FFmpeg binary locations on Android."""
+    locations = []
+    
+    # Kodi's bundled FFmpeg on Android
+    try:
+        kodi_path = xbmcvfs.translatePath('special://xbmc/')
+        locations.extend([
+            os.path.join(kodi_path, 'system', 'ffmpeg'),
+            os.path.join(kodi_path, 'lib', 'ffmpeg'),
+            os.path.join(kodi_path, 'bin', 'ffmpeg'),
+        ])
+    except:
+        pass
+    
+    # Common Android Kodi app data locations
+    android_app_ids = [
+        'org.xbmc.kodi',
+        'tv.kodi.android',
+    ]
+    
+    for app_id in android_app_ids:
+        base_paths = [
+            f'/data/data/{app_id}',
+            f'/data/user/0/{app_id}',
+        ]
+        for base in base_paths:
+            locations.extend([
+                os.path.join(base, 'lib', 'libffmpeg.so'),
+                os.path.join(base, 'files', 'ffmpeg'),
+                os.path.join(base, 'cache', 'ffmpeg'),
+            ])
+    
+    # Kodi's native lib directory (ARM/ARM64 shared libs)
+    try:
+        app_info_path = xbmcvfs.translatePath('special://xbmc/')
+        # Navigate up to find the native lib dir
+        lib_dir = os.path.join(os.path.dirname(os.path.dirname(app_info_path)), 'lib')
+        if os.path.isdir(lib_dir):
+            # Look for ffmpeg shared lib that might be executable
+            for f in os.listdir(lib_dir):
+                if 'ffmpeg' in f.lower():
+                    locations.append(os.path.join(lib_dir, f))
+    except:
+        pass
+    
+    # User-installed ffmpeg (e.g., via Termux)
+    locations.extend([
+        '/data/data/com.termux/files/usr/bin/ffmpeg',
+        '/storage/emulated/0/ffmpeg',
+        '/system/bin/ffmpeg',
+        '/system/xbin/ffmpeg',
+    ])
+    
+    # Kodi's temp/addon paths where user might place ffmpeg
+    try:
+        addon_data = xbmcvfs.translatePath('special://home/')
+        locations.extend([
+            os.path.join(addon_data, 'ffmpeg'),
+            os.path.join(addon_data, 'bin', 'ffmpeg'),
+            os.path.join(addon_data, 'addons', 'tools.ffmpeg', 'bin', 'ffmpeg'),
+            os.path.join(addon_data, 'addons', 'tools.ffmpeg', 'ffmpeg'),
+        ])
+    except:
+        pass
+    
+    return locations
+
+
+def get_kodi_temp_path():
+    """Get Kodi's temp directory (works on all platforms including Android)."""
+    try:
+        temp_path = xbmcvfs.translatePath('special://temp/')
+        if temp_path and os.path.isdir(temp_path):
+            return temp_path
+    except:
+        pass
+    # Fallback to system temp
+    return tempfile.gettempdir()
+
+
 class SubtitleExtractor:
     """Extract subtitles from video files using FFmpeg."""
     
     def __init__(self, ffmpeg_path=None):
+        self._is_android = is_android()
         self.ffmpeg_path = ffmpeg_path or self._find_ffmpeg()
-        self._log(f"Initialized with FFmpeg: {self.ffmpeg_path}")
+        self._log(f"Initialized with FFmpeg: {self.ffmpeg_path} (Android: {self._is_android})")
     
     def _find_ffmpeg(self):
         """Find FFmpeg executable."""
-        # Common locations
-        locations = [
-            '/usr/bin/ffmpeg',
-            '/usr/local/bin/ffmpeg',
-            '/opt/homebrew/bin/ffmpeg',  # macOS Homebrew ARM
-            '/opt/local/bin/ffmpeg',  # MacPorts
-            'C:\\ffmpeg\\bin\\ffmpeg.exe',
-            'C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe',
-        ]
+        # Platform-specific locations
+        if self._is_android:
+            locations = get_android_ffmpeg_locations()
+        else:
+            locations = [
+                '/usr/bin/ffmpeg',
+                '/usr/local/bin/ffmpeg',
+                '/opt/homebrew/bin/ffmpeg',  # macOS Homebrew ARM
+                '/opt/local/bin/ffmpeg',  # MacPorts
+                'C:\\ffmpeg\\bin\\ffmpeg.exe',
+                'C:\\Program Files\\ffmpeg\\bin\\ffmpeg.exe',
+            ]
         
-        # Check Kodi's own FFmpeg (if bundled)
+        # Check Kodi's own FFmpeg (if bundled) — all platforms
         try:
             kodi_path = xbmcvfs.translatePath('special://xbmc/')
             kodi_ffmpeg_locations = [
@@ -42,28 +145,39 @@ class SubtitleExtractor:
         except:
             pass
         
+        # Deduplicate while preserving order
+        seen = set()
+        unique_locations = []
+        for loc in locations:
+            if loc not in seen:
+                seen.add(loc)
+                unique_locations.append(loc)
+        locations = unique_locations
+        
         for path in locations:
             if os.path.isfile(path) and self._test_ffmpeg(path):
                 self._log(f"Found FFmpeg at: {path}")
                 return path
         
         # Try to find in PATH using 'which' or 'where'
-        try:
-            cmd = ['which', 'ffmpeg'] if os.name != 'nt' else ['where', 'ffmpeg']
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
-            if result.returncode == 0:
-                path = result.stdout.strip().split('\n')[0]
-                if path and self._test_ffmpeg(path):
-                    self._log(f"Found FFmpeg in PATH: {path}")
-                    return path
-        except:
-            pass
+        # (skip on Android where 'which' may not exist)
+        if not self._is_android:
+            try:
+                cmd = ['which', 'ffmpeg'] if os.name != 'nt' else ['where', 'ffmpeg']
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+                if result.returncode == 0:
+                    path = result.stdout.strip().split('\n')[0]
+                    if path and self._test_ffmpeg(path):
+                        self._log(f"Found FFmpeg in PATH: {path}")
+                        return path
+            except:
+                pass
         
         # Last resort - hope 'ffmpeg' is in PATH
         if self._test_ffmpeg('ffmpeg'):
             return 'ffmpeg'
         
-        self._log("FFmpeg not found!", xbmc.LOGERROR)
+        self._log("FFmpeg not found!" + (" On Android, install FFmpeg via Termux or place the binary in Kodi's home directory." if self._is_android else ""), xbmc.LOGERROR)
         return None
     
     def _test_ffmpeg(self, path):
@@ -109,15 +223,26 @@ class SubtitleExtractor:
         
         return path, False, None
     
+    def _make_temp_file(self, suffix='.tmp'):
+        """Create a temp file using Kodi's temp directory (Android-safe)."""
+        temp_dir = get_kodi_temp_path()
+        import hashlib
+        import time
+        unique = hashlib.md5(f"{time.time()}{id(self)}".encode()).hexdigest()[:12]
+        temp_path = os.path.join(temp_dir, f"subtrans_{unique}{suffix}")
+        # Touch the file
+        with open(temp_path, 'w') as f:
+            pass
+        return temp_path
+    
     def _copy_to_temp(self, source_path):
         """Copy a file to temp directory for processing."""
         try:
             # Get file extension
             ext = os.path.splitext(source_path)[1] or '.mkv'
             
-            # Create temp file
-            temp_fd, temp_path = tempfile.mkstemp(suffix=ext)
-            os.close(temp_fd)
+            # Create temp file using Kodi's temp dir (Android-safe)
+            temp_path = self._make_temp_file(suffix=ext)
             
             # Copy using Kodi's VFS
             success = xbmcvfs.copy(source_path, temp_path)
@@ -225,9 +350,8 @@ class SubtitleExtractor:
         if not resolved_path:
             return None
         
-        # Create temp file for output
-        temp_fd, output_path = tempfile.mkstemp(suffix=f'.{output_format}')
-        os.close(temp_fd)
+        # Create temp file for output (uses Kodi temp dir — Android-safe)
+        output_path = self._make_temp_file(suffix=f'.{output_format}')
         
         try:
             # Build FFmpeg command
@@ -315,8 +439,7 @@ class SubtitleExtractor:
         
         global_index = streams[stream_index].get('global_index', stream_index)
         
-        temp_fd, output_path = tempfile.mkstemp(suffix=f'.{output_format}')
-        os.close(temp_fd)
+        output_path = self._make_temp_file(suffix=f'.{output_format}')
         
         try:
             # Try with global stream index

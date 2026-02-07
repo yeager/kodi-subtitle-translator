@@ -3,7 +3,7 @@
 [![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
-[![Version](https://img.shields.io/badge/Version-0.8.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
+[![Version](https://img.shields.io/badge/Version-0.9.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
 
 Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
@@ -45,7 +45,36 @@ Automatically translate embedded subtitles in your media files to your preferred
    - **Linux:** `~/.kodi/addons/`
    - **Windows:** `%APPDATA%\Kodi\addons\`
    - **macOS:** `~/Library/Application Support/Kodi/addons/`
+   - **Android:** `/storage/emulated/0/Android/data/org.xbmc.kodi/files/.kodi/addons/`
 3. Restart Kodi
+
+### Android Installation
+
+Kodi on Android works with this addon, but requires some extra setup for FFmpeg (needed to extract embedded subtitles).
+
+#### Option 1: Use External Subtitle Files Only (No FFmpeg Needed)
+If you only want to translate `.srt`, `.ass`, or `.vtt` files that are already next to your video files, **no FFmpeg is needed**. The addon will detect and offer to translate external subtitle files automatically.
+
+#### Option 2: Install FFmpeg via Termux (for embedded subtitles)
+1. Install [Termux](https://f-droid.org/en/packages/com.termux/) from F-Droid
+2. In Termux, run: `pkg install ffmpeg`
+3. In the addon's Expert settings, set **FFmpeg path** to:
+   `/data/data/com.termux/files/usr/bin/ffmpeg`
+
+#### Option 3: Place FFmpeg Binary Manually
+1. Download a static FFmpeg binary for your Android architecture (ARM64/ARM/x86)
+   - [FFmpeg static builds](https://johnvansickle.com/ffmpeg/) (use `arm64` for most modern devices)
+2. Place the `ffmpeg` binary in Kodi's home directory:
+   `/storage/emulated/0/Android/data/org.xbmc.kodi/files/.kodi/ffmpeg`
+3. Make it executable (via Termux or a file manager with root): `chmod +x ffmpeg`
+4. The addon will auto-detect it, or set the path manually in Expert settings
+
+#### Android Notes
+- **Storage permissions:** Kodi needs storage access. Grant it in Android Settings → Apps → Kodi → Permissions
+- **Scoped storage (Android 11+):** On Android 11 and later, file access is more restricted. Videos on external SD cards or USB drives may need to be accessed through Kodi's file manager rather than direct paths
+- **Translation services that don't need FFmpeg:** All online translation services work on Android. Only extracting *embedded* subtitles from video files requires FFmpeg
+- **Performance:** Translation speed depends on your network connection and the selected service. AI services (OpenAI, Anthropic) may be slower on mobile networks
+- **Kodi versions:** Tested with Kodi 19 (Matrix), 20 (Nexus), and 21 (Omega) on Android
 
 ## ⚙️ Settings
 
@@ -264,10 +293,11 @@ Full interface translation: Swedish, English, German, French, Spanish, Italian, 
 ## 🔧 Requirements
 
 - **Kodi 19 (Matrix)** or later
-- **FFmpeg** – For extracting embedded subtitles
+- **FFmpeg** – For extracting embedded subtitles (optional if only using external subtitle files)
   - Linux: Usually pre-installed (`apt install ffmpeg`)
   - Windows: [Download FFmpeg](https://ffmpeg.org/download.html)
   - macOS: `brew install ffmpeg`
+  - Android: See [Android Installation](#android-installation) above
 - **Internet connection** – For translation API access (except Argos)
 
 ---
@@ -276,7 +306,7 @@ Full interface translation: Swedish, English, German, French, Spanish, Italian, 
 
 ```
 service.subtitletranslator/
-├── addon.xml                 # Addon metadata (v0.8.0)
+├── addon.xml                 # Addon metadata (v0.9.0)
 ├── service.py                # Main service script
 ├── LICENSE                   # GPL-3.0-or-later
 ├── README.md                 # This file
