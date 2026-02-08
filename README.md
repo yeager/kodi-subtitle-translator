@@ -3,7 +3,7 @@
 [![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
-[![Version](https://img.shields.io/badge/Version-0.9.0-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
+[![Version](https://img.shields.io/badge/Version-0.9.1-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
 
 Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
@@ -12,6 +12,8 @@ Automatically translate embedded subtitles in your media files to your preferred
 - **Automatic Detection** – Detects when no subtitle is available in your preferred language
 - **Embedded Subtitle Extraction** – Extracts subtitles from MKV, MP4, and other containers using FFmpeg
 - **External Subtitle Support** – Translate existing `.srt`, `.ass`, `.vtt` files alongside your video
+- **Language Detection from Filenames** – Reads language codes from filenames (e.g., `movie.en.srt`, `movie.sv.srt`)
+- **Auto-Load Target Subtitle** – Automatically loads existing subtitle in target language without prompting
 - **Smart Source Selection** – Choose between embedded or external subtitles when both are available
 - **10 Translation Services** – Free and paid options:
   - 🆓 **Lingva Translate** – Free, no API key required (default)
@@ -306,7 +308,7 @@ Full interface translation: Swedish, English, German, French, Spanish, Italian, 
 
 ```
 service.subtitletranslator/
-├── addon.xml                 # Addon metadata (v0.9.0)
+├── addon.xml                 # Addon metadata (v0.9.1)
 ├── service.py                # Main service script
 ├── LICENSE                   # GPL-3.0-or-later
 ├── README.md                 # This file
