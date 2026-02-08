@@ -551,7 +551,16 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     
                 except Exception as api_error:
                     last_error = api_error
-                    get_debug_logger().error(f"Primary translator failed: {api_error}", 'api')
+                    # Rate-limit log spam: only log first 3 primary failures, then every 50th
+                    if not hasattr(self, '_primary_fail_count'):
+                        self._primary_fail_count = 0
+                    self._primary_fail_count += 1
+                    if self._primary_fail_count <= 3:
+                        get_debug_logger().error(f"Primary translator failed: {api_error}", 'api')
+                        if self._primary_fail_count == 3:
+                            get_debug_logger().error("Suppressing further primary translator errors (will log every 50th)", 'api')
+                    elif self._primary_fail_count % 50 == 0:
+                        get_debug_logger().error(f"Primary translator still failing ({self._primary_fail_count} times): {api_error}", 'api')
                     
                     # Try fallback services
                     for fallback_service in fallback_services:
@@ -578,7 +587,23 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                             get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
                             break
                         except Exception as fallback_error:
-                            get_debug_logger().error(f"Fallback {fallback_service} failed: {fallback_error}", 'api')
+                            # Rate-limit fallback error logging
+                            if not hasattr(self, '_fallback_fail_counts'):
+                                self._fallback_fail_counts = {}
+                            key = fallback_service
+                            self._fallback_fail_counts[key] = self._fallback_fail_counts.get(key, 0) + 1
+                            fc = self._fallback_fail_counts[key]
+                            if fc <= 3 or fc % 50 == 0:
+                                get_debug_logger().error(f"Fallback {fallback_service} failed ({fc}x): {fallback_error}", 'api')
+                            
+                            # Exponential backoff on rate limit (429)
+                            err_str = str(fallback_error)
+                            if '429' in err_str or 'Too Many Requests' in err_str:
+                                import time as _time
+                                backoff = min(2 ** min(fc - 1, 5), 32)
+                                if fc <= 3:
+                                    get_debug_logger().info(f"Rate limited by {fallback_service}, backing off {backoff}s", 'api')
+                                _time.sleep(backoff)
                             continue
                 
                 # If all translators failed for this batch
@@ -618,6 +643,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             success_rate = successful_batches / total_batches if total_batches > 0 else 0
             if success_rate < 0.5:
                 raise Exception(f"Translation failed: only {successful_batches}/{total_batches} batches translated successfully")
+            
+            # Verify that text actually changed (detect false "success" where original text was kept)
+            unchanged_count = 0
+            for orig, trans in zip(entries, translated_entries):
+                if orig.get('text', '').strip() == trans.get('text', '').strip():
+                    unchanged_count += 1
+            unchanged_ratio = unchanged_count / len(entries) if entries else 0
+            if unchanged_ratio > 0.8:
+                raise Exception(
+                    f"Translation failed: {unchanged_count}/{len(entries)} entries "
+                    f"({unchanged_ratio:.0%}) were not translated. "
+                    f"Check your translation service settings and API keys."
+                )
             
             # Format output (90%)
             progress.set_stage('format', f"{get_string(30708)} (90%)")  # Parsing/formatting
@@ -832,7 +870,20 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                             get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
                             break
                         except Exception as fallback_error:
-                            get_debug_logger().error(f"Fallback {fallback_service} failed: {fallback_error}", 'api')
+                            if not hasattr(self, '_fallback_fail_counts2'):
+                                self._fallback_fail_counts2 = {}
+                            key = fallback_service
+                            self._fallback_fail_counts2[key] = self._fallback_fail_counts2.get(key, 0) + 1
+                            fc = self._fallback_fail_counts2[key]
+                            if fc <= 3 or fc % 50 == 0:
+                                get_debug_logger().error(f"Fallback {fallback_service} failed ({fc}x): {fallback_error}", 'api')
+                            err_str = str(fallback_error)
+                            if '429' in err_str or 'Too Many Requests' in err_str:
+                                import time as _time
+                                backoff = min(2 ** min(fc - 1, 5), 32)
+                                if fc <= 3:
+                                    get_debug_logger().info(f"Rate limited by {fallback_service}, backing off {backoff}s", 'api')
+                                _time.sleep(backoff)
                             continue
                 
                 if translated_texts is None:
