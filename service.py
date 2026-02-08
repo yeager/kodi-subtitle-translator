@@ -185,7 +185,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
     # Services that require an API key and their setting keys
     _API_KEY_SERVICES = {
         'deepl': 'deepl_api_key',
-        'deepl_free': 'deepl_free_api_key',
+        'deepl_free': 'deepl_api_key',
         'google': 'google_api_key',
         'microsoft': 'microsoft_api_key',
         'openai': 'openai_api_key',
