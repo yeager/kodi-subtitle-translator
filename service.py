@@ -93,6 +93,7 @@ def init_libraries():
     global SubtitleExtractor, get_translator, SubtitleParser
     global TranslationProgress, ErrorReporter, DebugLogger
     global show_translate_confirm, get_current_thumbnail, get_current_media_title
+    global show_subtitle_source_dialog, browse_subtitle_file
     global _error_reporter, _debug_logger
     
     from lib.subtitle_extractor import SubtitleExtractor as SE
@@ -208,16 +209,26 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             log(f"Target language: {self.target_language}, Source language: {self.source_language}")
             log(f"ask_before_translate: {self.ask_before_translate}")
             
-            # Check if target language is already available
-            target_available = any(
+            # Check if target language is already available in embedded subtitles
+            target_in_embedded = any(
                 sub.get('language', '').lower().startswith(self.target_language.lower())
                 for sub in available_subs
             )
             
-            if target_available:
-                log(f"Subtitle already available in {self.target_language}, skipping translation")
+            # Also check if target language exists as external subtitle
+            target_external_path = self.find_external_subtitle_for_language(self.target_language)
+            
+            if target_in_embedded:
+                log(f"Embedded subtitle already available in {self.target_language}, skipping translation")
                 if self.show_notification:
                     notify(get_string(30719))  # "Subtitle already available in target language"
+                return
+            
+            if target_external_path:
+                log(f"External subtitle already available in {self.target_language}: {target_external_path}, loading it")
+                if self.show_notification:
+                    notify(get_string(30719))  # "Subtitle already available in target language"
+                self.load_subtitle(target_external_path)
                 return
             
             # Find embedded source subtitle
@@ -225,9 +236,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             embedded_lang = source_sub.get('language', 'en') if source_sub else None
             log(f"Found embedded source subtitle: {source_sub is not None}, language: {embedded_lang}")
             
-            # Look for external subtitle file
+            # Look for external subtitle file (in source language)
             external_sub_path = self.find_external_subtitle(self.source_language)
             log(f"Found external subtitle: {external_sub_path}")
+            
+            # If external sub found, try to determine its language from filename
+            if external_sub_path:
+                ext_lang = self._parse_language_from_filename(os.path.basename(external_sub_path))
+                if ext_lang:
+                    log(f"External subtitle language from filename: {ext_lang}")
+                else:
+                    log(f"External subtitle has no language tag in filename")
             
             # Determine which source to use
             subtitle_source = None  # 'embedded', 'external', or path from browse
@@ -1092,9 +1111,150 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         return config
     
+    def _get_language_variants(self, lang_code):
+        """Get common variations of a language code for matching."""
+        if not lang_code:
+            return []
+        
+        lang_lower = lang_code.lower()
+        
+        # Map of language codes to their common variants
+        lang_variants = {
+            'en': ['en', 'eng', 'english'],
+            'eng': ['en', 'eng', 'english'],
+            'sv': ['sv', 'swe', 'swedish'],
+            'swe': ['sv', 'swe', 'swedish'],
+            'no': ['no', 'nor', 'nob', 'norwegian'],
+            'nor': ['no', 'nor', 'nob', 'norwegian'],
+            'da': ['da', 'dan', 'danish'],
+            'dan': ['da', 'dan', 'danish'],
+            'fi': ['fi', 'fin', 'finnish'],
+            'fin': ['fi', 'fin', 'finnish'],
+            'de': ['de', 'ger', 'deu', 'german'],
+            'ger': ['de', 'ger', 'deu', 'german'],
+            'deu': ['de', 'ger', 'deu', 'german'],
+            'fr': ['fr', 'fre', 'fra', 'french'],
+            'fre': ['fr', 'fre', 'fra', 'french'],
+            'fra': ['fr', 'fre', 'fra', 'french'],
+            'es': ['es', 'spa', 'spanish'],
+            'spa': ['es', 'spa', 'spanish'],
+            'it': ['it', 'ita', 'italian'],
+            'ita': ['it', 'ita', 'italian'],
+            'pt': ['pt', 'por', 'portuguese'],
+            'por': ['pt', 'por', 'portuguese'],
+            'pl': ['pl', 'pol', 'polish'],
+            'pol': ['pl', 'pol', 'polish'],
+            'nl': ['nl', 'dut', 'nld', 'dutch'],
+            'dut': ['nl', 'dut', 'nld', 'dutch'],
+            'nld': ['nl', 'dut', 'nld', 'dutch'],
+            'ru': ['ru', 'rus', 'russian'],
+            'rus': ['ru', 'rus', 'russian'],
+            'ja': ['ja', 'jpn', 'japanese'],
+            'jpn': ['ja', 'jpn', 'japanese'],
+            'zh': ['zh', 'chi', 'zho', 'chinese'],
+            'chi': ['zh', 'chi', 'zho', 'chinese'],
+            'zho': ['zh', 'chi', 'zho', 'chinese'],
+            'ko': ['ko', 'kor', 'korean'],
+            'kor': ['ko', 'kor', 'korean'],
+            'ar': ['ar', 'ara', 'arabic'],
+            'ara': ['ar', 'ara', 'arabic'],
+            'tr': ['tr', 'tur', 'turkish'],
+            'tur': ['tr', 'tur', 'turkish'],
+        }
+        
+        variants = lang_variants.get(lang_lower, [lang_lower])
+        return list(dict.fromkeys(variants))  # Deduplicate
+    
+    def _parse_language_from_filename(self, filename):
+        """
+        Parse language code from subtitle filename.
+        
+        Examples:
+            'movie.en.srt' → 'en'
+            'movie.eng.srt' → 'eng'
+            'movie.swedish.srt' → 'swedish'
+            'movie.srt' → None
+        
+        Returns:
+            Language code string or None
+        """
+        name_without_ext = os.path.splitext(filename)[0]
+        parts = name_without_ext.split('.')
+        
+        if len(parts) < 2:
+            return None
+        
+        # The language code is typically the last part before the extension
+        candidate = parts[-1].lower()
+        
+        # Check against known language codes/names
+        known_codes = {
+            'en', 'eng', 'english', 'sv', 'swe', 'swedish',
+            'no', 'nor', 'nob', 'norwegian', 'da', 'dan', 'danish',
+            'fi', 'fin', 'finnish', 'de', 'ger', 'deu', 'german',
+            'fr', 'fre', 'fra', 'french', 'es', 'spa', 'spanish',
+            'it', 'ita', 'italian', 'pt', 'por', 'portuguese',
+            'pl', 'pol', 'polish', 'nl', 'dut', 'nld', 'dutch',
+            'ru', 'rus', 'russian', 'uk', 'ukr', 'ukrainian',
+            'ja', 'jpn', 'japanese', 'zh', 'chi', 'zho', 'chinese',
+            'ko', 'kor', 'korean', 'ar', 'ara', 'arabic',
+            'tr', 'tur', 'turkish', 'hi', 'hin', 'hindi',
+            'th', 'tha', 'thai', 'vi', 'vie', 'vietnamese',
+            'id', 'ind', 'indonesian', 'el', 'gre', 'ell', 'greek',
+            'cs', 'cze', 'ces', 'czech', 'ro', 'rum', 'ron', 'romanian',
+            'hu', 'hun', 'hungarian', 'he', 'heb', 'hebrew',
+            'ms', 'may', 'msa', 'malay', 'fil', 'tl', 'tagalog',
+            'ta', 'tam', 'tamil', 'te', 'tel', 'telugu',
+        }
+        
+        if candidate in known_codes:
+            return candidate
+        
+        return None
+    
+    def _list_external_subtitles(self):
+        """
+        List all external subtitle files for the current video.
+        
+        Returns:
+            List of dicts: [{'path': str, 'language': str or None, 'filename': str}, ...]
+        """
+        if not self.current_file:
+            return []
+        
+        video_dir = os.path.dirname(self.current_file)
+        video_name = os.path.splitext(os.path.basename(self.current_file))[0]
+        sub_extensions = ['.srt', '.ass', '.ssa', '.sub', '.vtt']
+        results = []
+        
+        try:
+            dirs, files = xbmcvfs.listdir(video_dir)
+            
+            for filename in files:
+                name_lower = filename.lower()
+                if not any(name_lower.endswith(ext) for ext in sub_extensions):
+                    continue
+                if not name_lower.startswith(video_name.lower()):
+                    continue
+                
+                full_path = self._normalize_path(os.path.join(video_dir, filename))
+                lang = self._parse_language_from_filename(filename)
+                
+                results.append({
+                    'path': full_path,
+                    'language': lang,
+                    'filename': filename
+                })
+                log(f"Found external subtitle: {filename} (language: {lang})")
+            
+        except Exception as e:
+            log(f"Error listing external subtitles: {e}", level=xbmc.LOGWARNING)
+        
+        return results
+    
     def find_external_subtitle(self, source_lang=None):
         """
-        Find external subtitle file for current video.
+        Find external subtitle file for current video in the given language.
         
         Args:
             source_lang: Preferred source language code (e.g., 'en', 'eng')
@@ -1105,67 +1265,49 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         if not self.current_file:
             return None
         
-        video_dir = os.path.dirname(self.current_file)
-        video_name = os.path.splitext(os.path.basename(self.current_file))[0]
+        all_subs = self._list_external_subtitles()
+        if not all_subs:
+            return None
         
-        # Common subtitle extensions
-        sub_extensions = ['.srt', '.ass', '.ssa', '.sub', '.vtt']
+        # Build language variants to match
+        lang_codes = self._get_language_variants(source_lang) if source_lang else ['en', 'eng', 'english']
         
-        # Language codes to look for
-        lang_codes = []
-        if source_lang:
-            lang_codes.append(source_lang.lower())
-            # Add common variations
-            if source_lang.lower() in ('en', 'eng', 'english'):
-                lang_codes.extend(['en', 'eng', 'english'])
-            elif source_lang.lower() in ('sv', 'swe', 'swedish'):
-                lang_codes.extend(['sv', 'swe', 'swedish'])
-        else:
-            # Default: look for English
-            lang_codes = ['en', 'eng', 'english']
+        # First pass: find subtitle with matching language code
+        for sub in all_subs:
+            if sub['language'] and sub['language'].lower() in lang_codes:
+                log(f"Found external subtitle with language '{sub['language']}': {sub['filename']}")
+                return sub['path']
         
-        # Remove duplicates while preserving order
-        lang_codes = list(dict.fromkeys(lang_codes))
+        # Second pass: return first subtitle without a language tag
+        for sub in all_subs:
+            if sub['language'] is None:
+                log(f"Found external subtitle (no language tag): {sub['filename']}")
+                return sub['path']
         
-        found_subs = []
+        # Last resort: return first subtitle
+        if all_subs:
+            log(f"Using first available external subtitle: {all_subs[0]['filename']}")
+            return all_subs[0]['path']
         
-        try:
-            # List files in directory
-            dirs, files = xbmcvfs.listdir(video_dir)
-            
-            for filename in files:
-                # Check if it's a subtitle file
-                name_lower = filename.lower()
-                if not any(name_lower.endswith(ext) for ext in sub_extensions):
-                    continue
-                
-                # Check if it matches the video name
-                if not name_lower.startswith(video_name.lower()):
-                    continue
-                
-                full_path = self._normalize_path(os.path.join(video_dir, filename))
-                
-                # Check for language code in filename
-                # Patterns: video.en.srt, video.eng.srt, video.english.srt
-                name_without_ext = os.path.splitext(filename)[0]
-                parts = name_without_ext.split('.')
-                
-                # Check if any part matches our language codes
-                for lang in lang_codes:
-                    if lang in [p.lower() for p in parts]:
-                        log(f"Found external subtitle with language '{lang}': {filename}")
-                        return full_path
-                
-                # Also collect subtitles without language code
-                found_subs.append(full_path)
-            
-            # If no language-specific subtitle found, return first match
-            if found_subs:
-                log(f"Found external subtitle (no language tag): {found_subs[0]}")
-                return found_subs[0]
-                
-        except Exception as e:
-            log(f"Error searching for external subtitles: {e}", level=xbmc.LOGWARNING)
+        return None
+    
+    def find_external_subtitle_for_language(self, lang_code):
+        """
+        Check if an external subtitle exists for a specific language.
+        
+        Args:
+            lang_code: Language code to check (e.g., 'sv', 'fr')
+        
+        Returns:
+            Path to external subtitle file if found, or None
+        """
+        all_subs = self._list_external_subtitles()
+        lang_variants = self._get_language_variants(lang_code)
+        
+        for sub in all_subs:
+            if sub['language'] and sub['language'].lower() in lang_variants:
+                log(f"Found external subtitle in target language '{sub['language']}': {sub['filename']}")
+                return sub['path']
         
         return None
     

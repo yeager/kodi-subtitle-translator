@@ -4,7 +4,21 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
-## [0.9.0] - 2025-02-07
+## [0.9.1] - 2026-02-08
+
+### Fixed
+- **NoneType crash** — `show_subtitle_source_dialog` and `browse_subtitle_file` were missing from `global` declaration in `init_libraries()`, causing `'NoneType' object is not callable` when both embedded and external subtitles were found
+- **Target language check** — now checks for target language in both embedded AND external subtitles before offering to translate
+
+### Added
+- **Language code parsing from filenames** — reads language from external subtitle filenames (e.g., `.en.srt` → English, `.sv.srt` → Swedish) to identify source language
+- **Auto-load external target subtitle** — if an external subtitle already exists in the target language (e.g., `movie.sv.srt` when target is Swedish), it's loaded automatically without prompting for translation
+- **`find_external_subtitle_for_language()`** — new method to check if an external subtitle exists for a specific language
+- **`_list_external_subtitles()`** — new method to enumerate all external subtitles with parsed language codes
+- **`_parse_language_from_filename()`** — new method to extract language code from subtitle filenames
+- **`_get_language_variants()`** — comprehensive language code variant matching (e.g., `en`/`eng`/`english` all match)
+
+## [0.9.0] - 2026-02-07
 
 ### Added
 - **Android support** — full compatibility with Kodi on Android devices
