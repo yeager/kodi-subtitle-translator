@@ -911,3 +911,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "No API key for {0} — using Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} requires an API key. Switch to Lingva or add a key in settings."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Translated {0} lines ({1}) in {2}"
+msgstr ""

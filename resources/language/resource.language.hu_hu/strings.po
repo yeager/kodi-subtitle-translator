@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "Nincs API-kulcs a(z) {0} szolgáltatáshoz — Lingva használata"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} API-kulcsot igényel. Váltson Lingva-ra vagy adjon meg kulcsot a beállításokban."
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0} sor lefordítva ({1}), idő: {2}"
+msgstr ""

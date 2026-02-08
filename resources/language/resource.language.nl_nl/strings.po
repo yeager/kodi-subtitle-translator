@@ -912,3 +912,16 @@ msgstr "Ondertitelbestand lezen..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Externe ondertitels ({0}) vertalen naar {1}?"
+
+
+msgctxt "#30850"
+msgid "Geen API-sleutel voor {0} — Lingva wordt gebruikt"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} vereist een API-sleutel. Schakel over naar Lingva of voeg een sleutel toe in de instellingen."
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0} regels vertaald ({1}) in {2}"
+msgstr ""

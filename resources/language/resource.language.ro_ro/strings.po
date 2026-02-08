@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "Nicio cheie API pentru {0} — se folosește Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} necesită o cheie API. Treceți la Lingva sau adăugați o cheie în setări."
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0} linii traduse ({1}) în {2}"
+msgstr ""

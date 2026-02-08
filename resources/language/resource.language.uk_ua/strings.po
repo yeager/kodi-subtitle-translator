@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "Немає API-ключа для {0} — використовується Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} потребує API-ключ. Перейдіть на Lingva або додайте ключ у налаштуваннях."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Перекладено {0} рядків ({1}) за {2}"
+msgstr ""

@@ -912,3 +912,16 @@ msgstr "جارٍ قراءة ملف الترجمة..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "ترجمة الترجمة الخارجية ({0}) إلى {1}؟"
+
+
+msgctxt "#30850"
+msgid "لا يوجد مفتاح API لـ {0} — استخدام Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} يتطلب مفتاح API. انتقل إلى Lingva أو أضف مفتاحًا في الإعدادات."
+msgstr ""
+
+msgctxt "#30852"
+msgid "تمت ترجمة {0} سطر ({1}) في {2}"
+msgstr ""

@@ -912,3 +912,16 @@ msgstr "자막 파일 읽는 중..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "외부 자막 ({0})을(를) {1}(으)로 번역하시겠습니까?"
+
+
+msgctxt "#30850"
+msgid "{0}의 API 키가 없습니다 — Lingva 사용"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0}에는 API 키가 필요합니다. Lingva로 전환하거나 설정에서 키를 입력하세요."
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0}줄 번역 완료 ({1}), 소요 시간: {2}"
+msgstr ""

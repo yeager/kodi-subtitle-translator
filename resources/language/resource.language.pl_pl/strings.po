@@ -912,3 +912,16 @@ msgstr "Odczytywanie pliku napisów..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Przetłumaczyć zewnętrzne napisy ({0}) na {1}?"
+
+
+msgctxt "#30850"
+msgid "Brak klucza API dla {0} — używam Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} wymaga klucza API. Przełącz na Lingva lub dodaj klucz w ustawieniach."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Przetłumaczono {0} linii ({1}) w {2}"
+msgstr ""

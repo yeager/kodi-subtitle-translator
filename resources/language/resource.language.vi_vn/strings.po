@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "Không có khóa API cho {0} — sử dụng Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} yêu cầu khóa API. Chuyển sang Lingva hoặc thêm khóa trong cài đặt."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Đã dịch {0} dòng ({1}) trong {2}"
+msgstr ""

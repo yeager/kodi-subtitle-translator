@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "{0} के लिए API कुंजी नहीं है — Lingva का उपयोग किया जा रहा है"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} को API कुंजी की आवश्यकता है। Lingva पर स्विच करें या सेटिंग्स में कुंजी जोड़ें।"
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0} पंक्तियाँ अनुवादित ({1}), समय: {2}"
+msgstr ""

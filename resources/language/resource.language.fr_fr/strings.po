@@ -912,3 +912,16 @@ msgstr "Lecture du fichier de sous-titres..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Traduire les sous-titres externes ({0}) en {1}?"
+
+
+msgctxt "#30850"
+msgid "Pas de clé API pour {0} — utilisation de Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} nécessite une clé API. Passez à Lingva ou ajoutez une clé dans les paramètres."
+msgstr ""
+
+msgctxt "#30852"
+msgid "{0} lignes traduites ({1}) en {2}"
+msgstr ""

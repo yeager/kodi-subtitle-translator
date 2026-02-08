@@ -912,3 +912,16 @@ msgstr "Чтение файла субтитров..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Перевести внешние субтитры ({0}) на {1}?"
+
+
+msgctxt "#30850"
+msgid "Нет API-ключа для {0} — используется Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} требует API-ключ. Переключитесь на Lingva или добавьте ключ в настройках."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Переведено {0} строк ({1}) за {2}"
+msgstr ""

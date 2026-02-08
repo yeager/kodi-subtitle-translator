@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "Žádný API klíč pro {0} — používám Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} vyžaduje API klíč. Přepněte na Lingva nebo zadejte klíč v nastavení."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Přeloženo {0} řádků ({1}) za {2}"
+msgstr ""

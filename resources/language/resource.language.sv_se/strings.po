@@ -911,3 +911,16 @@ msgstr "Läser undertextfil..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Översätta extern undertext ({0}) till {1}?"
+
+
+msgctxt "#30850"
+msgid "Ingen API-nyckel för {0} — använder Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} kräver en API-nyckel. Byt till Lingva eller ange nyckel i inställningarna."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Översatt {0} rader ({1}) på {2}"
+msgstr ""

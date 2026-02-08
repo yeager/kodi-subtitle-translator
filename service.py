@@ -209,7 +209,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         """Validate API key at settings load time and notify user if missing."""
         if self._service_needs_api_key() and not self._get_api_key_for_service():
             service_name = self.translation_service.replace('_', ' ').title()
-            msg = f"{service_name} requires an API key. Switch to Lingva or add a key in settings."
+            msg = get_string(30851).format(service_name)  # "{0} requires an API key..."
             log(msg, level=xbmc.LOGWARNING)
             try:
                 notify(msg, icon=xbmcgui.NOTIFICATION_WARNING)
@@ -224,8 +224,9 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         """
         if self._service_needs_api_key() and not self._get_api_key_for_service():
             original = self.translation_service.replace('_', ' ').title()
-            log(f"No API key for {original}, falling back to Lingva", level=xbmc.LOGWARNING)
-            notify(f"No API key for {original} — using Lingva", icon=xbmcgui.NOTIFICATION_WARNING)
+            msg = get_string(30850).format(original)  # "No API key for {0} — using Lingva"
+            log(msg, level=xbmc.LOGWARNING)
+            notify(msg, icon=xbmcgui.NOTIFICATION_WARNING)
             return 'lingva'
         return self.translation_service
     
@@ -735,7 +736,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
-            completion_msg = f"Translated {len(translated_entries)} lines ({service_label}) in {elapsed_str}"
+            completion_msg = get_string(30852).format(len(translated_entries), service_label, elapsed_str)
             progress.complete(True, completion_msg)
             
         except Exception as e:
@@ -1005,7 +1006,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
-            completion_msg = f"Translated {len(translated_entries)} lines ({service_label}) in {elapsed_str}"
+            completion_msg = get_string(30852).format(len(translated_entries), service_label, elapsed_str)
             progress.complete(True, completion_msg)
             
         except Exception as e:

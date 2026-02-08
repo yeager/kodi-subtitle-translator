@@ -912,3 +912,16 @@ msgstr "Læser undertekstfil..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Oversæt ekstern undertekst ({0}) til {1}?"
+
+
+msgctxt "#30850"
+msgid "Ingen API-nøgle til {0} — bruger Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} kræver en API-nøgle. Skift til Lingva eller tilføj en nøgle i indstillingerne."
+msgstr ""
+
+msgctxt "#30852"
+msgid "Oversatte {0} linjer ({1}) på {2}"
+msgstr ""

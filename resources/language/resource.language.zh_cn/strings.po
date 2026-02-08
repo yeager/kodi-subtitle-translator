@@ -912,3 +912,16 @@ msgstr "正在读取字幕文件..."
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "将外部字幕 ({0}) 翻译为 {1}？"
+
+
+msgctxt "#30850"
+msgid "{0} 没有 API 密钥 — 使用 Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} 需要 API 密钥。请切换到 Lingva 或在设置中添加密钥。"
+msgstr ""
+
+msgctxt "#30852"
+msgid "已翻译 {0} 行（{1}），用时 {2}"
+msgstr ""

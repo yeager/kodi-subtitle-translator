@@ -912,3 +912,16 @@ msgstr ""
 msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr ""
+
+
+msgctxt "#30850"
+msgid "ไม่มีคีย์ API สำหรับ {0} — ใช้ Lingva"
+msgstr ""
+
+msgctxt "#30851"
+msgid "{0} ต้องการคีย์ API เปลี่ยนไปใช้ Lingva หรือเพิ่มคีย์ในการตั้งค่า"
+msgstr ""
+
+msgctxt "#30852"
+msgid "แปล {0} บรรทัด ({1}) ใน {2}"
+msgstr ""
