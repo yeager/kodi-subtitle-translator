@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="service.subtitletranslator"
        name="Subtitle Translator"
-       version="0.9.2"
+       version="0.9.3"
        provider-name="yeager">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
@@ -373,6 +373,9 @@ Tercih ettiğiniz dilde altyazı mevcut olmadığında, bu eklenti medya dosyas�
             <fanart>resources/fanart.png</fanart>
         </assets>
         <news>
+v0.9.3
+- Fix: DeepL Free now correctly reads the API key from settings (was looking for wrong setting key)
+
 v0.9.2
 - Auto-fallback to Lingva when selected service requires API key that is missing
 - API key validation on settings load with user notification

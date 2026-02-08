@@ -4,6 +4,14 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.3] - 2026-02-08
+
+### Fixed
+- **DeepL Free API key reading** — was looking for wrong setting key `deepl_free_api_key` instead of `deepl_api_key`, causing DeepL Free to never find the configured API key
+
+### Thanks
+- Nanomani for the bug report!
+
 ## [0.9.2] - 2026-02-08
 
 ### Added
