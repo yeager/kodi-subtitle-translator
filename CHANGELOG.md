@@ -4,6 +4,17 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.2] - 2026-02-08
+
+### Added
+- **Auto-fallback to Lingva** — if the selected translation service (DeepL, Google, Microsoft, OpenAI, Anthropic) requires an API key that is missing or empty, the addon automatically falls back to Lingva and shows a notification
+- **API key validation on settings load** — warns user immediately when a service requiring an API key has none configured
+- **Better completion notification** — shows which service was used and elapsed time, e.g. "Translated 749 lines (Lingva) in 1m 39s"
+- **`_format_elapsed()`** — human-readable elapsed time formatting
+- **`_get_fallback_config()`** — config builder for fallback services
+- **`_auto_fallback_if_needed()`** — automatic service fallback logic
+- **`_validate_api_key_on_load()`** — settings validation with Kodi notification
+
 ## [0.9.1] - 2026-02-08
 
 ### Fixed

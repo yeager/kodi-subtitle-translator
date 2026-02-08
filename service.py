@@ -176,8 +176,58 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         self.batch_size = get_setting_int('batch_size')
         self.debug = get_setting_bool('debug_logging')
         
+        # Validate API key for services that require one
+        self._validate_api_key_on_load()
+        
         log(f"Settings loaded: target={self.target_language}, "
             f"source={self.source_language}, service={self.translation_service}")
+    
+    # Services that require an API key and their setting keys
+    _API_KEY_SERVICES = {
+        'deepl': 'deepl_api_key',
+        'deepl_free': 'deepl_free_api_key',
+        'google': 'google_api_key',
+        'microsoft': 'microsoft_api_key',
+        'openai': 'openai_api_key',
+        'anthropic': 'anthropic_api_key',
+    }
+    
+    def _service_needs_api_key(self, service=None):
+        """Check if a service requires an API key."""
+        service = service or self.translation_service
+        return service in self._API_KEY_SERVICES
+    
+    def _get_api_key_for_service(self, service=None):
+        """Get the API key for a service, or empty string if none."""
+        service = service or self.translation_service
+        setting_key = self._API_KEY_SERVICES.get(service)
+        if setting_key:
+            return get_setting(setting_key)
+        return ''
+    
+    def _validate_api_key_on_load(self):
+        """Validate API key at settings load time and notify user if missing."""
+        if self._service_needs_api_key() and not self._get_api_key_for_service():
+            service_name = self.translation_service.replace('_', ' ').title()
+            msg = f"{service_name} requires an API key. Switch to Lingva or add a key in settings."
+            log(msg, level=xbmc.LOGWARNING)
+            try:
+                notify(msg, icon=xbmcgui.NOTIFICATION_WARNING)
+            except Exception:
+                pass
+    
+    def _auto_fallback_if_needed(self):
+        """Auto-fallback to Lingva if the selected service needs an API key that's missing.
+        
+        Returns:
+            The actual service name to use (may differ from self.translation_service).
+        """
+        if self._service_needs_api_key() and not self._get_api_key_for_service():
+            original = self.translation_service.replace('_', ' ').title()
+            log(f"No API key for {original}, falling back to Lingva", level=xbmc.LOGWARNING)
+            notify(f"No API key for {original} — using Lingva", icon=xbmcgui.NOTIFICATION_WARNING)
+            return 'lingva'
+        return self.translation_service
     
     def onAVStarted(self):
         """Called when audio/video playback starts."""
@@ -484,13 +534,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 get_debug_logger().info("Translation cancelled by user", 'translation')
                 return
             
+            # Auto-fallback if API key missing
+            actual_service = self._auto_fallback_if_needed()
+            translation_start_time = time.time()
+            
             # Get translator
             progress.set_stage('translate', get_string(30709))  # "Connecting to translation service..."
-            get_debug_logger().debug(f"Using translation service: {self.translation_service}", 'api')
+            get_debug_logger().debug(f"Using translation service: {actual_service}", 'api')
             
             translator = get_translator(
-                self.translation_service,
-                self.get_service_config()
+                actual_service,
+                self.get_service_config() if actual_service == self.translation_service else self._get_fallback_config(actual_service)
             )
             
             # Translate in batches with progress
@@ -674,10 +728,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Load the translated subtitle
             self.load_subtitle(output_path)
             
-            # Complete
+            # Complete with service name and elapsed time
+            elapsed_secs = time.time() - translation_start_time
+            elapsed_str = self._format_elapsed(elapsed_secs)
+            service_label = actual_service.replace('_', ' ').title()
+            
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
-            progress.complete(True, f"Translated {len(translated_entries)} subtitles in {summary['elapsed_time']}")
+            completion_msg = f"Translated {len(translated_entries)} lines ({service_label}) in {elapsed_str}"
+            progress.complete(True, completion_msg)
             
         except Exception as e:
             get_debug_logger().error(f"Translation failed: {e}", 'translation')
@@ -781,13 +840,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 get_debug_logger().info("Translation cancelled by user", 'translation')
                 return
             
+            # Auto-fallback if API key missing
+            actual_service = self._auto_fallback_if_needed()
+            translation_start_time = time.time()
+            
             # Get translator
             progress.set_stage('translate', get_string(30709))
-            get_debug_logger().debug(f"Using translation service: {self.translation_service}", 'api')
+            get_debug_logger().debug(f"Using translation service: {actual_service}", 'api')
             
             translator = get_translator(
-                self.translation_service,
-                self.get_service_config()
+                actual_service,
+                self.get_service_config() if actual_service == self.translation_service else self._get_fallback_config(actual_service)
             )
             
             # Translate in batches with progress
@@ -935,10 +998,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Load the translated subtitle
             self.load_subtitle(output_path)
             
-            # Complete
+            # Complete with service name and elapsed time
+            elapsed_secs = time.time() - translation_start_time
+            elapsed_str = self._format_elapsed(elapsed_secs)
+            service_label = actual_service.replace('_', ' ').title()
+            
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
-            progress.complete(True, f"Translated {len(translated_entries)} subtitles in {summary['elapsed_time']}")
+            completion_msg = f"Translated {len(translated_entries)} lines ({service_label}) in {elapsed_str}"
+            progress.complete(True, completion_msg)
             
         except Exception as e:
             get_debug_logger().error(f"Translation failed: {e}", 'translation')
@@ -968,6 +1036,24 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                             notify(get_string(30718))
                 except Exception as e:
                     log(f"Could not resume playback: {e}", level=xbmc.LOGWARNING)
+    
+    @staticmethod
+    def _format_elapsed(seconds):
+        """Format elapsed seconds as human-readable string (e.g. '1m 39s')."""
+        minutes = int(seconds) // 60
+        secs = int(seconds) % 60
+        if minutes > 0:
+            return f"{minutes}m {secs:02d}s"
+        return f"{secs}s"
+    
+    def _get_fallback_config(self, service):
+        """Get config for a fallback service (e.g. lingva)."""
+        config = {'timeout': get_setting_int('request_timeout')}
+        if service == 'lingva':
+            config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
+        elif service == 'libretranslate':
+            config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
+        return config
     
     def get_cache_key_external(self, subtitle_path):
         """Generate a unique cache key for an external subtitle file."""
