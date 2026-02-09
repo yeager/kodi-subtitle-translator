@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "Przetłumaczono {0} linii ({1}) w {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "Nie znaleziono FFmpeg"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg jest wymagany do wyodrębniania osadzonych napisów z plików wideo.
+
+Instalacja:
+- Windows: Pobierz z ffmpeg.org i dodaj do PATH
+- macOS: Zainstaluj poleceniem 'brew install ffmpeg'
+- Linux: Zainstaluj poleceniem 'sudo apt install ffmpeg'
+- Android: Zainstaluj przez Termux lub umieść plik binarny w katalogu domowym Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Pokaż instrukcje instalacji"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Przeglądaj w poszukiwaniu FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Spróbuj ponownie"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Anuluj"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Wybierz plik wykonywalny FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "Znaleziono FFmpeg: {0}"
+msgstr ""

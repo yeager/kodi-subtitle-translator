@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} पंक्तियाँ अनुवादित ({1}), समय: {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg नहीं मिला"
+msgstr ""
+
+msgctxt "#30861"
+msgid "वीडियो फ़ाइलों से एम्बेडेड उपशीर्षक निकालने के लिए FFmpeg आवश्यक है।
+
+इंस्टॉलेशन:
+- Windows: ffmpeg.org से डाउनलोड करें और PATH में जोड़ें
+- macOS: 'brew install ffmpeg' से इंस्टॉल करें
+- Linux: 'sudo apt install ffmpeg' से इंस्टॉल करें
+- Android: Termux के माध्यम से इंस्टॉल करें या Kodi होम डायरेक्टरी में बाइनरी रखें"
+msgstr ""
+
+msgctxt "#30862"
+msgid "इंस्टॉलेशन निर्देश दिखाएं"
+msgstr ""
+
+msgctxt "#30863"
+msgid "FFmpeg के लिए ब्राउज़ करें..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "पुनः प्रयास करें"
+msgstr ""
+
+msgctxt "#30865"
+msgid "रद्द करें"
+msgstr ""
+
+msgctxt "#30866"
+msgid "FFmpeg एक्जीक्यूटेबल चुनें"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg मिला: {0}"
+msgstr ""

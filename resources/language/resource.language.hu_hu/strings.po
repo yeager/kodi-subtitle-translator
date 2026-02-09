@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} sor lefordítva ({1}), idő: {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg nem található"
+msgstr ""
+
+msgctxt "#30861"
+msgid "Az FFmpeg szükséges a beágyazott feliratok kinyeréséhez videofájlokból.
+
+Telepítés:
+- Windows: Töltse le az ffmpeg.org-ról és adja hozzá a PATH-hoz
+- macOS: Telepítse a 'brew install ffmpeg' paranccsal
+- Linux: Telepítse a 'sudo apt install ffmpeg' paranccsal
+- Android: Telepítse a Termux-on keresztül vagy helyezze a binárist a Kodi home könyvtárába"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Telepítési útmutató megjelenítése"
+msgstr ""
+
+msgctxt "#30863"
+msgid "FFmpeg keresése..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Újrapróbálás"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Mégse"
+msgstr ""
+
+msgctxt "#30866"
+msgid "FFmpeg futtatható fájl kiválasztása"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg megtalálva: {0}"
+msgstr ""

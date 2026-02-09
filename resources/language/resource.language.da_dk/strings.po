@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "Oversatte {0} linjer ({1}) på {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg ikke fundet"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg er påkrævet for at udtrække indlejrede undertekster fra videofiler.
+
+Installation:
+- Windows: Download fra ffmpeg.org og tilføj til PATH
+- macOS: Installer med 'brew install ffmpeg'
+- Linux: Installer med 'sudo apt install ffmpeg'
+- Android: Installer via Termux eller placér binærfilen i Kodis hjemmemappe"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Vis installationsvejledning"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Gennemse efter FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Prøv igen"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Annuller"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Vælg FFmpeg-programfil"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg fundet: {0}"
+msgstr ""

@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} satır çevrildi ({1}), süre: {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg bulunamadı"
+msgstr ""
+
+msgctxt "#30861"
+msgid "Video dosyalarından gömülü altyazıları çıkarmak için FFmpeg gereklidir.
+
+Kurulum:
+- Windows: ffmpeg.org'dan indirin ve PATH'e ekleyin
+- macOS: 'brew install ffmpeg' ile kurun
+- Linux: 'sudo apt install ffmpeg' ile kurun
+- Android: Termux üzerinden kurun veya ikili dosyayı Kodi ana dizinine yerleştirin"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Kurulum talimatlarını göster"
+msgstr ""
+
+msgctxt "#30863"
+msgid "FFmpeg için göz at..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Tekrar dene"
+msgstr ""
+
+msgctxt "#30865"
+msgid "İptal"
+msgstr ""
+
+msgctxt "#30866"
+msgid "FFmpeg çalıştırılabilir dosyasını seçin"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg bulundu: {0}"
+msgstr ""

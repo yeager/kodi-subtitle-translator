@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} baris diterjemahkan ({1}) dalam {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg tidak ditemukan"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg diperlukan untuk mengekstrak subtitle yang tertanam dari file video.
+
+Instalasi:
+- Windows: Unduh dari ffmpeg.org dan tambahkan ke PATH
+- macOS: Instal dengan 'brew install ffmpeg'
+- Linux: Instal dengan 'sudo apt install ffmpeg'
+- Android: Instal melalui Termux atau letakkan biner di direktori utama Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Tampilkan petunjuk instalasi"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Telusuri FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Coba lagi"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Batal"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Pilih file FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg ditemukan: {0}"
+msgstr ""

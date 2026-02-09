@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0}줄 번역 완료 ({1}), 소요 시간: {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg를 찾을 수 없음"
+msgstr ""
+
+msgctxt "#30861"
+msgid "비디오 파일에서 내장 자막을 추출하려면 FFmpeg가 필요합니다.
+
+설치 방법:
+- Windows: ffmpeg.org에서 다운로드하여 PATH에 추가
+- macOS: 'brew install ffmpeg'로 설치
+- Linux: 'sudo apt install ffmpeg'로 설치
+- Android: Termux를 통해 설치하거나 Kodi 홈 디렉토리에 바이너리 배치"
+msgstr ""
+
+msgctxt "#30862"
+msgid "설치 안내 표시"
+msgstr ""
+
+msgctxt "#30863"
+msgid "FFmpeg 찾아보기..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "다시 시도"
+msgstr ""
+
+msgctxt "#30865"
+msgid "취소"
+msgstr ""
+
+msgctxt "#30866"
+msgid "FFmpeg 실행 파일 선택"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg 발견: {0}"
+msgstr ""

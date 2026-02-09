@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} 行を翻訳しました ({1})、所要時間: {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpegが見つかりません"
+msgstr ""
+
+msgctxt "#30861"
+msgid "動画ファイルから埋め込み字幕を抽出するにはFFmpegが必要です。
+
+インストール方法:
+- Windows: ffmpeg.orgからダウンロードしてPATHに追加
+- macOS: 'brew install ffmpeg'でインストール
+- Linux: 'sudo apt install ffmpeg'でインストール
+- Android: Termux経由でインストールするか、Kodiのホームディレクトリにバイナリを配置"
+msgstr ""
+
+msgctxt "#30862"
+msgid "インストール手順を表示"
+msgstr ""
+
+msgctxt "#30863"
+msgid "FFmpegを参照..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "再試行"
+msgstr ""
+
+msgctxt "#30865"
+msgid "キャンセル"
+msgstr ""
+
+msgctxt "#30866"
+msgid "FFmpeg実行ファイルを選択"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpegが見つかりました: {0}"
+msgstr ""

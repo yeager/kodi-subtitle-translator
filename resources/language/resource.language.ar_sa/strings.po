@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "تمت ترجمة {0} سطر ({1}) في {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "لم يتم العثور على FFmpeg"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg مطلوب لاستخراج الترجمات المضمنة من ملفات الفيديو.
+
+التثبيت:
+- Windows: قم بالتنزيل من ffmpeg.org وأضفه إلى PATH
+- macOS: قم بالتثبيت باستخدام 'brew install ffmpeg'
+- Linux: قم بالتثبيت باستخدام 'sudo apt install ffmpeg'
+- Android: قم بالتثبيت عبر Termux أو ضع الملف التنفيذي في دليل Kodi الرئيسي"
+msgstr ""
+
+msgctxt "#30862"
+msgid "عرض تعليمات التثبيت"
+msgstr ""
+
+msgctxt "#30863"
+msgid "استعراض للبحث عن FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "حاول مرة أخرى"
+msgstr ""
+
+msgctxt "#30865"
+msgid "إلغاء"
+msgstr ""
+
+msgctxt "#30866"
+msgid "اختر ملف FFmpeg التنفيذي"
+msgstr ""
+
+msgctxt "#30867"
+msgid "تم العثور على FFmpeg في: {0}"
+msgstr ""

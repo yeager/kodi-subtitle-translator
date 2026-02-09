@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} linii traduse ({1}) în {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg nu a fost găsit"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg este necesar pentru a extrage subtitrările încorporate din fișierele video.
+
+Instalare:
+- Windows: Descărcați de pe ffmpeg.org și adăugați în PATH
+- macOS: Instalați cu 'brew install ffmpeg'
+- Linux: Instalați cu 'sudo apt install ffmpeg'
+- Android: Instalați prin Termux sau plasați binarul în directorul principal Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Afișare instrucțiuni de instalare"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Căutare FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Reîncercare"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Anulare"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Selectați executabilul FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg găsit: {0}"
+msgstr ""

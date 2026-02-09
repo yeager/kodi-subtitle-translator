@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "แปล {0} บรรทัด ({1}) ใน {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "ไม่พบ FFmpeg"
+msgstr ""
+
+msgctxt "#30861"
+msgid "ต้องใช้ FFmpeg เพื่อแยกคำบรรยายที่ฝังอยู่ในไฟล์วิดีโอ
+
+การติดตั้ง:
+- Windows: ดาวน์โหลดจาก ffmpeg.org และเพิ่มใน PATH
+- macOS: ติดตั้งด้วย 'brew install ffmpeg'
+- Linux: ติดตั้งด้วย 'sudo apt install ffmpeg'
+- Android: ติดตั้งผ่าน Termux หรือวางไฟล์ไบนารีในไดเรกทอรีหลักของ Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "แสดงคำแนะนำการติดตั้ง"
+msgstr ""
+
+msgctxt "#30863"
+msgid "เรียกดู FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "ลองอีกครั้ง"
+msgstr ""
+
+msgctxt "#30865"
+msgid "ยกเลิก"
+msgstr ""
+
+msgctxt "#30866"
+msgid "เลือกไฟล์ FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "พบ FFmpeg: {0}"
+msgstr ""

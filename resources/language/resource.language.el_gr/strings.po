@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "Μεταφράστηκαν {0} γραμμές ({1}) σε {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "Δεν βρέθηκε το FFmpeg"
+msgstr ""
+
+msgctxt "#30861"
+msgid "Το FFmpeg απαιτείται για την εξαγωγή ενσωματωμένων υπότιτλων από αρχεία βίντεο.
+
+Εγκατάσταση:
+- Windows: Κατεβάστε από το ffmpeg.org και προσθέστε στο PATH
+- macOS: Εγκαταστήστε με 'brew install ffmpeg'
+- Linux: Εγκαταστήστε με 'sudo apt install ffmpeg'
+- Android: Εγκαταστήστε μέσω Termux ή τοποθετήστε το εκτελέσιμο στον αρχικό κατάλογο του Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Εμφάνιση οδηγιών εγκατάστασης"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Αναζήτηση FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Δοκιμάστε ξανά"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Ακύρωση"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Επιλογή εκτελέσιμου FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "Βρέθηκε FFmpeg: {0}"
+msgstr ""

@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} líneas traducidas ({1}) en {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg no encontrado"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg es necesario para extraer subtítulos incrustados de archivos de vídeo.
+
+Instalación:
+- Windows: Descargar de ffmpeg.org y añadir a PATH
+- macOS: Instalar con 'brew install ffmpeg'
+- Linux: Instalar con 'sudo apt install ffmpeg'
+- Android: Instalar vía Termux o colocar el binario en el directorio principal de Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Mostrar instrucciones de instalación"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Buscar FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Intentar de nuevo"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Cancelar"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Seleccionar ejecutable de FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg encontrado en: {0}"
+msgstr ""

@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "Перекладено {0} рядків ({1}) за {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg не знайдено"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg потрібен для вилучення вбудованих субтитрів з відеофайлів.
+
+Встановлення:
+- Windows: Завантажте з ffmpeg.org та додайте до PATH
+- macOS: Встановіть командою 'brew install ffmpeg'
+- Linux: Встановіть командою 'sudo apt install ffmpeg'
+- Android: Встановіть через Termux або помістіть виконуваний файл у домашній каталог Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Показати інструкції з встановлення"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Знайти FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Спробувати знову"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Скасувати"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Виберіть виконуваний файл FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg знайдено: {0}"
+msgstr ""

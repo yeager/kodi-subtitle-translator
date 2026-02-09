@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} linhas traduzidas ({1}) em {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg não encontrado"
+msgstr ""
+
+msgctxt "#30861"
+msgid "O FFmpeg é necessário para extrair legendas incorporadas de ficheiros de vídeo.
+
+Instalação:
+- Windows: Transferir de ffmpeg.org e adicionar ao PATH
+- macOS: Instalar com 'brew install ffmpeg'
+- Linux: Instalar com 'sudo apt install ffmpeg'
+- Android: Instalar via Termux ou colocar o binário no diretório principal do Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Mostrar instruções de instalação"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Procurar FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Tentar novamente"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Cancelar"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Selecionar executável FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg encontrado: {0}"
+msgstr ""

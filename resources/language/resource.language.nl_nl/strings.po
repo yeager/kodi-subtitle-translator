@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} regels vertaald ({1}) in {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg niet gevonden"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg is vereist om ingesloten ondertitels uit videobestanden te extraheren.
+
+Installatie:
+- Windows: Download van ffmpeg.org en voeg toe aan PATH
+- macOS: Installeer met 'brew install ffmpeg'
+- Linux: Installeer met 'sudo apt install ffmpeg'
+- Android: Installeer via Termux of plaats het bestand in de Kodi-thuismap"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Installatie-instructies tonen"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Bladeren naar FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Opnieuw proberen"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Annuleren"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Selecteer FFmpeg-bestand"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg gevonden: {0}"
+msgstr ""

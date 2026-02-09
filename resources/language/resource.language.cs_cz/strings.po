@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "Přeloženo {0} řádků ({1}) za {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg nenalezen"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg je vyžadován pro extrakci vložených titulků z video souborů.
+
+Instalace:
+- Windows: Stáhněte z ffmpeg.org a přidejte do PATH
+- macOS: Nainstalujte pomocí 'brew install ffmpeg'
+- Linux: Nainstalujte pomocí 'sudo apt install ffmpeg'
+- Android: Nainstalujte přes Termux nebo umístěte binární soubor do domovského adresáře Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Zobrazit pokyny k instalaci"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Procházet a najít FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Zkusit znovu"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Zrušit"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Vyberte spustitelný soubor FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg nalezen: {0}"
+msgstr ""

@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "{0} lignes traduites ({1}) en {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "FFmpeg introuvable"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg est requis pour extraire les sous-titres intégrés des fichiers vidéo.
+
+Installation :
+- Windows : Télécharger depuis ffmpeg.org et ajouter au PATH
+- macOS : Installer avec 'brew install ffmpeg'
+- Linux : Installer avec 'sudo apt install ffmpeg'
+- Android : Installer via Termux ou placer le binaire dans le répertoire personnel de Kodi"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Afficher les instructions d'installation"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Rechercher FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Réessayer"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Annuler"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Sélectionner l'exécutable FFmpeg"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg trouvé : {0}"
+msgstr ""

@@ -925,3 +925,42 @@ msgstr ""
 msgctxt "#30852"
 msgid "已翻译 {0} 行（{1}），用时 {2}"
 msgstr ""
+
+
+msgctxt "#30860"
+msgid "未找到 FFmpeg"
+msgstr ""
+
+msgctxt "#30861"
+msgid "需要 FFmpeg 来从视频文件中提取嵌入字幕。
+
+安装方法:
+- Windows: 从 ffmpeg.org 下载并添加到 PATH
+- macOS: 使用 'brew install ffmpeg' 安装
+- Linux: 使用 'sudo apt install ffmpeg' 安装
+- Android: 通过 Termux 安装或将二进制文件放入 Kodi 主目录"
+msgstr ""
+
+msgctxt "#30862"
+msgid "显示安装说明"
+msgstr ""
+
+msgctxt "#30863"
+msgid "浏览查找 FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "重试"
+msgstr ""
+
+msgctxt "#30865"
+msgid "取消"
+msgstr ""
+
+msgctxt "#30866"
+msgid "选择 FFmpeg 可执行文件"
+msgstr ""
+
+msgctxt "#30867"
+msgid "已找到 FFmpeg: {0}"
+msgstr ""
