@@ -924,3 +924,35 @@ msgstr ""
 msgctxt "#30852"
 msgid "Translated {0} lines ({1}) in {2}"
 msgstr ""
+
+msgctxt "#30860"
+msgid "FFmpeg not found"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg is required to extract embedded subtitles from video files.\n\nInstallation:\n- Windows: Download from ffmpeg.org and add to PATH\n- macOS: Install with 'brew install ffmpeg'\n- Linux: Install with 'sudo apt install ffmpeg'\n- Android: Install via Termux or place binary in Kodi home directory"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Show installation instructions"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Browse for FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Try again"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Select FFmpeg executable"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg found at: {0}"
+msgstr ""

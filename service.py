@@ -216,6 +216,67 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             except Exception:
                 pass
     
+    def _ensure_ffmpeg_available(self, configured_path=None):
+        """Check if FFmpeg is available. If not, show a dialog with options.
+        
+        Returns:
+            FFmpeg path string if found, or None if user cancelled.
+        """
+        from lib.subtitle_extractor import SubtitleExtractor as SE
+        
+        while True:
+            # Try creating extractor with configured path
+            test_extractor = SE(configured_path if configured_path else None)
+            if test_extractor.ffmpeg_path:
+                return test_extractor.ffmpeg_path
+            
+            # FFmpeg not found — show dialog with options
+            dialog = xbmcgui.Dialog()
+            options = [
+                get_string(30862),  # "Show installation instructions"
+                get_string(30863),  # "Browse for FFmpeg..."
+                get_string(30864),  # "Try again"
+                get_string(30865),  # "Cancel"
+            ]
+            
+            choice = dialog.select(get_string(30860), options)  # "FFmpeg not found"
+            
+            if choice == 0:
+                # Show installation instructions
+                dialog.textviewer(get_string(30860), get_string(30861))
+                # Loop back to show options again
+                continue
+            elif choice == 1:
+                # Browse for FFmpeg executable
+                ffmpeg_file = dialog.browseSingle(
+                    1,  # ShowAndGetFile
+                    get_string(30866),  # "Select FFmpeg executable"
+                    ''  # No mask - show all files
+                )
+                if ffmpeg_file:
+                    # Test the selected path
+                    test = SE(ffmpeg_file)
+                    if test.ffmpeg_path:
+                        # Save to settings for next time
+                        try:
+                            from xbmcaddon import Addon
+                            Addon().setSetting('ffmpeg_path', ffmpeg_file)
+                        except:
+                            pass
+                        notify(get_string(30867).format(ffmpeg_file))
+                        return ffmpeg_file
+                    else:
+                        dialog.ok(get_string(30860), 
+                                  f"'{ffmpeg_file}' is not a valid FFmpeg executable.")
+                continue
+            elif choice == 2:
+                # Try again - loop
+                configured_path = None
+                continue
+            else:
+                # Cancel or back (-1)
+                return None
+
     def _auto_fallback_if_needed(self):
         """Auto-fallback to Lingva if the selected service needs an API key that's missing.
         
@@ -498,7 +559,13 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.set_stage('extract', get_string(30707))  # "Extracting subtitles..."
             get_debug_logger().debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
             
-            extractor = SubtitleExtractor(get_setting('ffmpeg_path'))
+            # Check if FFmpeg is available, prompt user if not
+            ffmpeg_path = self._ensure_ffmpeg_available(get_setting('ffmpeg_path'))
+            if ffmpeg_path is None:
+                log("User cancelled FFmpeg setup")
+                return
+            
+            extractor = SubtitleExtractor(ffmpeg_path)
             subtitle_content = extractor.extract(
                 self.current_file,
                 source_sub.get('index', 0)
@@ -1222,7 +1289,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             config['formality'] = get_setting('deepl_formality')
             config['free'] = False
         elif self.translation_service == 'deepl_free':
-            config['api_key'] = get_setting('deepl_free_api_key')
+            config['api_key'] = get_setting('deepl_api_key')
             config['formality'] = get_setting('deepl_formality')
             config['free'] = True
         elif self.translation_service == 'libretranslate':

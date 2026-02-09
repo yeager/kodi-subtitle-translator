@@ -924,3 +924,35 @@ msgstr ""
 msgctxt "#30852"
 msgid "Översatt {0} rader ({1}) på {2}"
 msgstr ""
+
+msgctxt "#30860"
+msgid "FFmpeg hittades inte"
+msgstr ""
+
+msgctxt "#30861"
+msgid "FFmpeg krävs för att extrahera inbäddade undertexter från videofiler.\n\nInstallation:\n- Windows: Hämta från ffmpeg.org och lägg till i PATH\n- macOS: Installera med 'brew install ffmpeg'\n- Linux: Installera med 'sudo apt install ffmpeg'\n- Android: Installera via Termux eller placera binären i Kodis hemkatalog"
+msgstr ""
+
+msgctxt "#30862"
+msgid "Visa installationsinstruktioner"
+msgstr ""
+
+msgctxt "#30863"
+msgid "Bläddra efter FFmpeg..."
+msgstr ""
+
+msgctxt "#30864"
+msgid "Försök igen"
+msgstr ""
+
+msgctxt "#30865"
+msgid "Avbryt"
+msgstr ""
+
+msgctxt "#30866"
+msgid "Välj FFmpeg-körbar fil"
+msgstr ""
+
+msgctxt "#30867"
+msgid "FFmpeg hittades: {0}"
+msgstr ""

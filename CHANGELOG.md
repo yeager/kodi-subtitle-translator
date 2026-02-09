@@ -4,6 +4,19 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.4] - 2026-02-09
+
+### Fixed
+- **DeepL Free API key** — second fix: `get_setting('deepl_free_api_key')` in translation config was still using the wrong key name, now correctly uses `deepl_api_key` for both DeepL Pro and Free (thanks Nanomani!)
+
+### Added
+- **FFmpeg not found dialog** — when FFmpeg is missing, shows a dialog with four options:
+  - Show installation instructions (platform-specific)
+  - Browse for FFmpeg executable (saved to settings)
+  - Try again
+  - Cancel
+- Previously the addon would silently fail when FFmpeg was not available
+
 ## [0.9.3] - 2026-02-08
 
 ### Fixed
