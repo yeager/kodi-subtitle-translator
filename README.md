@@ -31,7 +31,7 @@ Automatically translate embedded subtitles in your media files to your preferred
 - **Auto-Resume Playback** – Pauses during translation, resumes when done
 - **Multiple Output Formats** – SRT, ASS/SSA, WebVTT
 - **Translation Profiles** – Standard, Anime, Kids, Formal, Casual
-- **25 Languages** – Full UI translation support
+- **Localized UI** – English and Swedish included; more languages via Transifex
 
 ## 📦 Installation
 
@@ -378,6 +378,16 @@ Contributions welcome!
 **Daniel Nylander**
 - 🌐 [danielnylander.se](https://danielnylander.se)
 - 💻 [@yeager](https://github.com/yeager)
+
+---
+
+## 🌍 Translating the UI
+
+Translations are managed on **Transifex**. If you'd like to help translate the addon's UI into your language, please contribute here:
+
+👉 [**Translate on Transifex**](https://www.transifex.com/danielnylander/kodi-subtitle-translator/)
+
+Please **do not** submit pull requests with manual translation changes — all translations flow through Transifex.
 
 ---
 

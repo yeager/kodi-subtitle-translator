@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[o:danielnylander:p:kodi-subtitle-translator:r:strings-po]
+file_filter = resources/language/resource.language.<lang>/strings.po
+source_file = resources/language/resource.language.en_gb/strings.po
+source_lang = en_GB
+type = PO
