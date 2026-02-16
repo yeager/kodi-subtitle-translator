@@ -2,18 +2,22 @@
 # Addon Name: Subtitle Translator
 # Addon id: service.subtitletranslator
 # Addon Provider: yeager
+# Translators:
+# Daniel Nylander <po@danielnylander.se>, 2026
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: service.subtitletranslator\n"
 "Report-Msgid-Bugs-To: https://github.com/yeager\n"
 "POT-Creation-Date: 2026-02-01\n"
-"PO-Revision-Date: 2026-02-01\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: Swedish\n"
-"Language: sv_SE\n"
+"PO-Revision-Date: 2026-02-16 06:20+0000\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
+"Language-Team: Swedish (Sweden) (https://app.transifex.com/danielnylander/teams/304821/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv_SE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "#30100"
 msgid "General"
@@ -33,7 +37,7 @@ msgstr "Översätt automatiskt när undertext saknas"
 
 msgctxt "#30104"
 msgid "Show notifications"
-msgstr "Visa notifikationer"
+msgstr "Visa aviseringar"
 
 msgctxt "#30105"
 msgid "Ask before translating"
@@ -45,15 +49,15 @@ msgstr "Visa förloppsindikator"
 
 msgctxt "#30110"
 msgid "Notifications"
-msgstr "Notifikationer"
+msgstr "Aviseringar"
 
 msgctxt "#30111"
 msgid "Play notification sound"
-msgstr "Spela notifikationsljud"
+msgstr "Spela upp aviseringsljud"
 
 msgctxt "#30112"
 msgid "Notification duration (seconds)"
-msgstr "Notifikationslängd (sekunder)"
+msgstr "Aviseringslängd (sekunder)"
 
 msgctxt "#30113"
 msgid "Show translation statistics"
@@ -93,7 +97,7 @@ msgstr "Aktiv profil"
 
 msgctxt "#30260"
 msgid "Anime Settings"
-msgstr "Animeinställningar"
+msgstr "Anime-inställningar"
 
 msgctxt "#30261"
 msgid "Preserve honorifics (-san, -kun, etc.)"
@@ -105,7 +109,7 @@ msgstr "Japanska termer att bevara"
 
 msgctxt "#30270"
 msgid "Kids Content Settings"
-msgstr "Barninnehållsinställningar"
+msgstr "Inställningar för barninnehåll"
 
 msgctxt "#30271"
 msgid "Simplify language"
@@ -117,7 +121,7 @@ msgstr "Censurera svordomar"
 
 msgctxt "#30273"
 msgid "Maximum reading speed (chars/sec)"
-msgstr "Maximal läshastighet (tecken/sek)"
+msgstr "Maximal läshastighet (tecken/s)"
 
 msgctxt "#30280"
 msgid "Custom Profile Settings"
@@ -137,7 +141,7 @@ msgstr "Översättningstjänster"
 
 msgctxt "#30301"
 msgid "Service Selection"
-msgstr "Tjänstval"
+msgstr "Tjänsteval"
 
 msgctxt "#30302"
 msgid "Translation service"
@@ -189,7 +193,7 @@ msgstr "Bevara formatering"
 
 msgctxt "#30320"
 msgid "LibreTranslate Settings"
-msgstr "LibreTranslate-inställningar"
+msgstr "Inställningar för LibreTranslate"
 
 msgctxt "#30321"
 msgid "Server URL"
@@ -201,11 +205,11 @@ msgstr "API-nyckel (valfri)"
 
 msgctxt "#30323"
 msgid "Custom mirror URLs"
-msgstr "Egna spegel-URL:er"
+msgstr "Anpassade spegel-URL:er"
 
 msgctxt "#30330"
 msgid "Google Translate Settings"
-msgstr "Google Translate-inställningar"
+msgstr "Inställningar för Google Translate"
 
 msgctxt "#30331"
 msgid "Google Cloud API key"
@@ -217,7 +221,7 @@ msgstr "Översättningsmodell"
 
 msgctxt "#30340"
 msgid "Microsoft Translator Settings"
-msgstr "Microsoft Translator-inställningar"
+msgstr "Inställningar för Microsoft Translator"
 
 msgctxt "#30341"
 msgid "Azure API key"
@@ -233,11 +237,11 @@ msgstr "Hantering av svordomar"
 
 msgctxt "#30350"
 msgid "Lingva Settings"
-msgstr "Lingva-inställningar"
+msgstr "Inställningar för Lingva"
 
 msgctxt "#30351"
 msgid "Lingva server URL"
-msgstr "Lingva server-URL"
+msgstr "Server-URL för Lingva"
 
 msgctxt "#30352"
 msgid "Alternative server URLs"
@@ -245,19 +249,19 @@ msgstr "Alternativa server-URL:er"
 
 msgctxt "#30360"
 msgid "Argos Translate Settings"
-msgstr "Argos Translate-inställningar"
+msgstr "Inställningar för Argos Translate"
 
 msgctxt "#30361"
 msgid "Language package path"
-msgstr "Språkpaketsökväg"
+msgstr "Sökväg för språkpaket"
 
 msgctxt "#30362"
 msgid "Auto-download language packages"
-msgstr "Ladda ner språkpaket automatiskt"
+msgstr "Hämta ner språkpaket automatiskt"
 
 msgctxt "#30370"
 msgid "OpenAI Settings"
-msgstr "OpenAI-inställningar"
+msgstr "Inställningar för OpenAI"
 
 msgctxt "#30371"
 msgid "OpenAI API key"
@@ -269,11 +273,11 @@ msgstr "Modell"
 
 msgctxt "#30373"
 msgid "Custom model name"
-msgstr "Eget modellnamn"
+msgstr "Anpassat modellnamn"
 
 msgctxt "#30374"
 msgid "Custom API base URL"
-msgstr "Egen API-bas-URL"
+msgstr "Anpassad API-bas-URL"
 
 msgctxt "#30375"
 msgid "Temperature"
@@ -289,7 +293,7 @@ msgstr "Kontextfönster (undertexter)"
 
 msgctxt "#30380"
 msgid "Anthropic Claude Settings"
-msgstr "Anthropic Claude-inställningar"
+msgstr "Inställningar för Anthropic Claude"
 
 msgctxt "#30381"
 msgid "Anthropic API key"
@@ -309,7 +313,7 @@ msgstr "Kontextfönster (undertexter)"
 
 msgctxt "#30390"
 msgid "Advanced Service Settings"
-msgstr "Avancerade tjänstinställningar"
+msgstr "Avancerade tjänsteinställningar"
 
 msgctxt "#30400"
 msgid "Subtitles"
@@ -337,7 +341,7 @@ msgstr "Justera tid för läsbarhet"
 
 msgctxt "#30412"
 msgid "Reading speed (chars/sec)"
-msgstr "Läshastighet (tecken/sek)"
+msgstr "Läshastighet (tecken/s)"
 
 msgctxt "#30413"
 msgid "Minimum display time (ms)"
@@ -389,15 +393,15 @@ msgstr "Bevara musiknotation"
 
 msgctxt "#30440"
 msgid "Caching"
-msgstr "Cache"
+msgstr "Cachning"
 
 msgctxt "#30441"
 msgid "Cache translated subtitles"
-msgstr "Cacha översatta undertexter"
+msgstr "Cachelagra översatta undertexter"
 
 msgctxt "#30442"
 msgid "Cache duration (days)"
-msgstr "Cachetid (dagar)"
+msgstr "Cachningstid (dagar)"
 
 msgctxt "#30443"
 msgid "Cache size limit (MB)"
@@ -481,15 +485,15 @@ msgstr "Ytterligare ord att filtrera"
 
 msgctxt "#30490"
 msgid "Batch Processing"
-msgstr "Batchbearbetning"
+msgstr "Massbearbetning"
 
 msgctxt "#30491"
 msgid "Batch Translation"
-msgstr "Batchöversättning"
+msgstr "Massöversättning"
 
 msgctxt "#30492"
 msgid "Enable batch processing"
-msgstr "Aktivera batchbearbetning"
+msgstr "Aktivera massbearbetning"
 
 msgctxt "#30493"
 msgid "Maximum concurrent translations"
@@ -517,7 +521,7 @@ msgstr "Anslutningsinställningar"
 
 msgctxt "#30502"
 msgid "Request timeout (seconds)"
-msgstr "Timeout för förfrågan (sekunder)"
+msgstr "Tidsgräns för förfrågan (sekunder)"
 
 msgctxt "#30503"
 msgid "Maximum retries"
@@ -665,7 +669,7 @@ msgstr "Maximal översättningskvot"
 
 msgctxt "#30644"
 msgid "Flag untranslated text"
-msgstr "Flagga oöversatt text"
+msgstr "Flagga icke-översatt text"
 
 msgctxt "#30700"
 msgid "Translating subtitles..."
@@ -729,7 +733,7 @@ msgstr "API-fel: {0}"
 
 msgctxt "#30715"
 msgid "Rate limit reached, waiting..."
-msgstr "Hastighetsgräns nådd, väntar..."
+msgstr "Hastighetsgräns uppnådd, väntar..."
 
 msgctxt "#30716"
 msgid "Batch processing complete: {0} videos"
@@ -912,47 +916,62 @@ msgctxt "#30846"
 msgid "Translate external subtitle ({0}) to {1}?"
 msgstr "Översätta extern undertext ({0}) till {1}?"
 
-
 msgctxt "#30850"
-msgid "Ingen API-nyckel för {0} — använder Lingva"
-msgstr ""
+msgid "No API key for {0} — using Lingva"
+msgstr "Ingen API-nyckel för {0} — använder Lingva"
 
 msgctxt "#30851"
-msgid "{0} kräver en API-nyckel. Byt till Lingva eller ange nyckel i inställningarna."
+msgid "{0} requires an API key. Switch to Lingva or add a key in settings."
 msgstr ""
+"{0} kräver en API-nyckel. Byt till Lingva eller lägg till en nyckel i "
+"inställningarna."
 
 msgctxt "#30852"
-msgid "Översatt {0} rader ({1}) på {2}"
-msgstr ""
+msgid "Translated {0} lines ({1}) in {2}"
+msgstr "Översatte {0} rader ({1}) på {2}"
 
 msgctxt "#30860"
-msgid "FFmpeg hittades inte"
-msgstr ""
+msgid "FFmpeg not found"
+msgstr "FFmpeg hittades inte"
 
 msgctxt "#30861"
-msgid "FFmpeg krävs för att extrahera inbäddade undertexter från videofiler.\n\nInstallation:\n- Windows: Hämta från ffmpeg.org och lägg till i PATH\n- macOS: Installera med 'brew install ffmpeg'\n- Linux: Installera med 'sudo apt install ffmpeg'\n- Android: Installera via Termux eller placera binären i Kodis hemkatalog"
+msgid ""
+"FFmpeg is required to extract embedded subtitles from video files.\n"
+"\n"
+"Installation:\n"
+"- Windows: Download from ffmpeg.org and add to PATH\n"
+"- macOS: Install with 'brew install ffmpeg'\n"
+"- Linux: Install with 'sudo apt install ffmpeg'\n"
+"- Android: Install via Termux or place binary in Kodi home directory"
 msgstr ""
+"FFmpeg krävs för att extrahera inbäddade undertexter från videofiler.\n"
+"\n"
+"Installation:\n"
+"- Windows: Hämta ner från ffmpeg.org och lägg till i PATH\n"
+"- macOS: Installera med ’brew install ffmpeg’\n"
+"- Linux: Installera med ’sudo apt install ffmpeg’\n"
+"- Android: Installera via Termux eller placera binärfilen i Kodi-hemkatalogen"
 
 msgctxt "#30862"
-msgid "Visa installationsinstruktioner"
-msgstr ""
+msgid "Show installation instructions"
+msgstr "Visa instruktioner för installation"
 
 msgctxt "#30863"
-msgid "Bläddra efter FFmpeg..."
-msgstr ""
+msgid "Browse for FFmpeg..."
+msgstr "Bläddra efter FFmpeg..."
 
 msgctxt "#30864"
-msgid "Försök igen"
-msgstr ""
+msgid "Try again"
+msgstr "Försök igen"
 
 msgctxt "#30865"
-msgid "Avbryt"
-msgstr ""
+msgid "Cancel"
+msgstr "Avbryt"
 
 msgctxt "#30866"
-msgid "Välj FFmpeg-körbar fil"
-msgstr ""
+msgid "Select FFmpeg executable"
+msgstr "Välj körbar FFmpeg-fil"
 
 msgctxt "#30867"
-msgid "FFmpeg hittades: {0}"
-msgstr ""
+msgid "FFmpeg found at: {0}"
+msgstr "FFmpeg hittades: {0}"
