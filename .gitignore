@@ -1,5 +1,6 @@
-dist/
-__pycache__/
 *.pyc
-test_sample.srt
+*.zip
+__pycache__/
+dist/
 service.subtitletranslator-*.zip
+test_sample.srt

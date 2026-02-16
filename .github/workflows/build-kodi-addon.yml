@@ -1,0 +1,53 @@
+name: Build Kodi Addon
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get addon info
+        id: addon
+        run: |
+          ADDON_ID=$(grep -oP 'id="\K[^"]+' addon.xml | head -1)
+          ADDON_VERSION=$(grep -oP 'version="\K[^"]+' addon.xml | head -1)
+          echo "id=${ADDON_ID}" >> "$GITHUB_OUTPUT"
+          echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Create addon zip
+        run: |
+          ADDON_ID="${{ steps.addon.outputs.id }}"
+          mkdir -p build/${ADDON_ID}
+          cp addon.xml build/${ADDON_ID}/
+          cp service.py build/${ADDON_ID}/
+          cp LICENSE build/${ADDON_ID}/
+          cp -r resources build/${ADDON_ID}/
+          cp -r lib build/${ADDON_ID}/
+          cd build
+          zip -r ../${ADDON_ID}-${{ steps.addon.outputs.version }}.zip ${ADDON_ID}/
+
+      - name: Upload to release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ADDON_ID="${{ steps.addon.outputs.id }}"
+          VERSION="${{ steps.addon.outputs.version }}"
+          gh release upload "${{ github.event.release.tag_name }}" \
+            "${ADDON_ID}-${VERSION}.zip" \
+            --clobber
+
+      - name: Upload artifact
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.addon.outputs.id }}-${{ steps.addon.outputs.version }}
+          path: "*.zip"

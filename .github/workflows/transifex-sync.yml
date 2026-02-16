@@ -1,0 +1,42 @@
+name: Sync Transifex Translations
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'  # Weekly on Monday at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Transifex CLI
+        run: |
+          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+          sudo mv tx /usr/local/bin/
+
+      - name: Push source strings to Transifex
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: tx push --source --force
+
+      - name: Pull translations (minimum 20%)
+        env:
+          TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: tx pull --all --force --minimum-perc=20
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add resources/language/
+          if git diff --cached --quiet; then
+            echo "No translation changes"
+          else
+            git commit -m "i18n: sync translations from Transifex"
+            git push
+          fi

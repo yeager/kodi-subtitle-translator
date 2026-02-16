@@ -4,6 +4,15 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.5] - 2026-02-16
+
+### Added
+- **GitHub Actions CI** — Transifex translation sync workflow (weekly) and Kodi addon build workflow (on release)
+- **Release badge** and Transifex badge in README
+
+### Changed
+- Updated README with direct link to GitHub Releases for downloads
+
 ## [0.9.4] - 2026-02-09
 
 ### Fixed

@@ -3,7 +3,8 @@
 [![Kodi](https://img.shields.io/badge/Kodi-19%2B-blue.svg)](https://kodi.tv/)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://python.org/)
-[![Version](https://img.shields.io/badge/Version-0.9.3-orange.svg)](https://github.com/yeager/kodi-subtitle-translator)
+[![Latest Release](https://img.shields.io/github/v/release/yeager/kodi-subtitle-translator)](https://github.com/yeager/kodi-subtitle-translator/releases/latest)
+[![Transifex](https://img.shields.io/badge/Translate-on%20Transifex-blue)](https://www.transifex.com/danielnylander/kodi-subtitle-translator/)
 
 Automatically translate embedded subtitles in your media files to your preferred language. No more hunting for subtitle files!
 
@@ -36,7 +37,7 @@ Automatically translate embedded subtitles in your media files to your preferred
 ## 📦 Installation
 
 ### From ZIP file
-1. Download the latest release ZIP
+1. Download the latest release ZIP from [GitHub Releases](https://github.com/yeager/kodi-subtitle-translator/releases/latest)
 2. In Kodi: **Settings → Add-ons → Install from zip file**
 3. Select the downloaded ZIP file
 4. The addon will be installed and started automatically
