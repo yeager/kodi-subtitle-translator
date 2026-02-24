@@ -4,6 +4,12 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.9] - 2026-02-24
+
+### Fixed
+- **Language matching** — `sv` now correctly matches `sv_se`/`sv_SE`/`swe` and vice versa; handles all ISO 639-1/639-2 variants (en/eng, de/deu/ger, fr/fra/fre, etc.)
+- Previously, Kodi reporting `sv_se` for embedded subs would fail to match target language `sv`
+
 ## [0.9.8] - 2026-02-24
 
 ### Fixed

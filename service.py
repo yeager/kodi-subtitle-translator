@@ -366,7 +366,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             # Check if target language is already available in embedded subtitles
             target_in_embedded = any(
-                sub.get('language', '').lower().startswith(self.target_language.lower())
+                self._lang_match(sub.get('language', ''), self.target_language)
                 for sub in available_subs
             )
             
@@ -535,6 +535,20 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         return subtitles
     
+    @staticmethod
+    def _lang_match(lang_a, lang_b):
+        """Match language codes flexibly: sv == sv_se == sv_SE, en == eng, etc."""
+        a = lang_a.lower().replace('-', '_').split('_')[0][:3]
+        b = lang_b.lower().replace('-', '_').split('_')[0][:3]
+        # Handle 2-char vs 3-char ISO codes
+        MAP = {'eng': 'en', 'swe': 'sv', 'nor': 'no', 'dan': 'da', 'fin': 'fi',
+               'deu': 'de', 'ger': 'de', 'fra': 'fr', 'fre': 'fr', 'spa': 'es',
+               'ita': 'it', 'por': 'pt', 'pol': 'pl', 'nld': 'nl', 'dut': 'nl',
+               'rus': 'ru', 'ukr': 'uk', 'jpn': 'ja', 'zho': 'zh', 'chi': 'zh'}
+        a = MAP.get(a, a)
+        b = MAP.get(b, b)
+        return a == b
+
     def find_source_subtitle(self, subtitles):
         """Find the best source subtitle for translation."""
         source_lang = self.source_language.lower()
@@ -542,14 +556,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         # First, try to find the specified source language
         if source_lang != 'auto':
             for sub in subtitles:
-                lang = sub.get('language', '').lower()
-                if lang.startswith(source_lang):
+                if self._lang_match(sub.get('language', ''), source_lang):
                     return sub
         
         # Fallback: look for English
         for sub in subtitles:
-            lang = sub.get('language', '').lower()
-            if lang.startswith('en'):
+            if self._lang_match(sub.get('language', ''), 'en'):
                 return sub
         
         # Last resort: take the first subtitle
