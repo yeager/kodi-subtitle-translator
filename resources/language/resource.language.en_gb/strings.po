@@ -930,7 +930,7 @@ msgid "FFmpeg not found"
 msgstr ""
 
 msgctxt "#30861"
-msgid "FFmpeg is required to extract embedded subtitles from video files.\n\nInstallation:\n- Windows: Download from ffmpeg.org and add to PATH\n- macOS: Install with 'brew install ffmpeg'\n- Linux: Install with 'sudo apt install ffmpeg'\n- Android/Shield: Install Termux from F-Droid, then run:\n  pkg install ffmpeg\n  The addon will find it automatically at:\n  /data/data/com.termux/files/usr/bin/ffmpeg"
+msgid "FFmpeg is required to extract embedded subtitles from video files.\n\nInstallation:\n- Windows: Download from ffmpeg.org and add to PATH\n- macOS: Install with 'brew install ffmpeg'\n- Linux: Install with 'sudo apt install ffmpeg'\n- Android/Shield:\n  1. Install Termux from F-Droid (not Google Play)\n  2. In Termux, run: termux-setup-storage\n     (grant storage permission when prompted)\n  3. Then run: pkg install ffmpeg\n  4. Copy ffmpeg to shared storage:\n     cp $(which ffmpeg) ~/storage/shared/ffmpeg\n     cp $(which ffprobe) ~/storage/shared/ffprobe\n  5. The addon will find it at /storage/emulated/0/ffmpeg\n\nNote: termux-setup-storage is required on Android/Shield\nor Termux cannot access shared storage."
 msgstr ""
 
 msgctxt "#30862"
