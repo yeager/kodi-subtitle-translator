@@ -7,7 +7,7 @@
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.22.0"/>
         <!-- FFmpeg är optional - addon hittar system-FFmpeg om tillägget saknas -->
-        <import addon="tools.ffmpeg" version="6.0.0" optional="true"/>
+
     </requires>
     <extension point="xbmc.service" library="service.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
