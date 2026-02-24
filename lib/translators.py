@@ -310,12 +310,15 @@ class LingvaTranslator(BaseTranslator):
         try:
             response = self._request(url, method='GET')
             translation = response.get('translation', '')
-            if translation:
+            if translation and translation != text:
                 return translation
-            self._log(f"Lingva returned empty translation for: {text[:50]}", xbmc.LOGWARNING)
+            elif translation == text:
+                self._log(f"Lingva returned same text (not translated): {text[:80]}", xbmc.LOGWARNING)
+                return text
+            self._log(f"Lingva returned empty translation for: {text[:80]}", xbmc.LOGWARNING)
             return text
         except Exception as e:
-            self._log(f"Lingva error for '{text[:50]}': {e}", xbmc.LOGERROR)
+            self._log(f"Lingva error for '{text[:80]}': {e}", xbmc.LOGERROR)
             return text
 
 

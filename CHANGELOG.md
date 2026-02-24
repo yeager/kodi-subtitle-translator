@@ -4,6 +4,12 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.16] - 2026-02-24
+
+### Added
+- **Translation sample logging** — logs first 3 original→translated entries after translation for debugging
+- **Lingva same-text detection** — logs when Lingva returns the exact same text (not translated)
+
 ## [0.9.15] - 2026-02-24
 
 ### Fixed

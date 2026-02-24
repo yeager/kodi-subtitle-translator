@@ -828,6 +828,11 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     unchanged_count += 1
             unchanged_ratio = unchanged_count / len(entries) if entries else 0
             log(f"Translation check: {unchanged_count}/{len(entries)} unchanged ({unchanged_ratio:.0%})")
+            # Log first 3 entries for debugging
+            for idx in range(min(3, len(entries))):
+                orig_text = entries[idx].get('text', '')[:60]
+                trans_text = translated_entries[idx].get('text', '')[:60] if idx < len(translated_entries) else '?'
+                log(f"  Sample {idx+1}: '{orig_text}' → '{trans_text}'")
             if unchanged_ratio > 0.95:
                 raise Exception(
                     f"Translation failed: {unchanged_count}/{len(entries)} entries "
