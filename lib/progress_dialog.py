@@ -65,7 +65,7 @@ class TranslationProgress:
         self.start_time = time.time()
         if self.show_dialog:
             self.dialog = xbmcgui.DialogProgress()
-            init_msg = _get_addon().getLocalizedString(30870) or "Initializing..."
+            init_msg = get_addon().getLocalizedString(30870) or "Initializing..."
             self.dialog.create(title, init_msg)
         self._log(f"Translation started - {self.total} subtitles to process")
     
@@ -150,7 +150,7 @@ class TranslationProgress:
         elapsed = time.time() - self.start_time if self.start_time else 0
         
         if success:
-            default_msg = _get_addon().getLocalizedString(30871).format(self.current) if _get_addon().getLocalizedString(30871) else f"Translated {self.current} subtitles"
+            default_msg = get_addon().getLocalizedString(30871).format(self.current) if get_addon().getLocalizedString(30871) else f"Translated {self.current} subtitles"
             self.set_stage('complete', message or default_msg)
             self._log(f"Translation completed successfully in {self._format_time(elapsed)}")
         else:
@@ -164,7 +164,7 @@ class TranslationProgress:
         if self.errors:
             xbmcgui.Dialog().notification(
                 get_addon_name(),
-                (_get_addon().getLocalizedString(30872) or "Completed with {0} error(s)").format(len(self.errors)),
+                (get_addon().getLocalizedString(30872) or "Completed with {0} error(s)").format(len(self.errors)),
                 xbmcgui.NOTIFICATION_WARNING,
                 5000
             )
@@ -270,7 +270,7 @@ class ErrorReporter:
             return {
                 'kodi_version': xbmc.getInfoLabel('System.BuildVersion'),
                 'os': xbmc.getInfoLabel('System.OSVersionInfo'),
-                'addon_version': ADDON.getAddonInfo('version'),
+                'addon_version': get_addon().getAddonInfo('version'),
                 'python_version': xbmc.getInfoLabel('System.PythonVersion') or 'Unknown',
                 'free_memory': xbmc.getInfoLabel('System.FreeMemory'),
                 'current_time': datetime.now().isoformat()
@@ -336,7 +336,7 @@ class ErrorReporter:
         
         for setting_id in setting_ids:
             try:
-                value = ADDON.getSetting(setting_id)
+                value = get_addon().getSetting(setting_id)
                 # Don't include API keys
                 if 'api_key' not in setting_id and 'password' not in setting_id:
                     settings[setting_id] = value
