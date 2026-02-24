@@ -4,6 +4,12 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.8] - 2026-02-24
+
+### Fixed
+- **Critical: NameError crash during translation** — `progress_dialog.py` called `_get_addon()` (undefined) instead of `get_addon()`, causing translation to fail immediately after user confirmation
+- **ErrorReporter crash** — referenced undefined `ADDON` global in `_get_system_info()` and `_get_addon_settings()`
+
 ## [0.9.7] - 2026-02-24
 
 ### Added
