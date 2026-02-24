@@ -4,6 +4,13 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.15] - 2026-02-24
+
+### Fixed
+- **Better Lingva error logging** — individual translation failures now logged with the failing text, making network issues on Android easier to diagnose
+- **Unchanged threshold raised to 95%** — some short phrases legitimately don't change during translation; old 80% threshold caused false positives
+- **Clearer error message** — suggests trying a different translation service when all entries are unchanged
+
 ## [0.9.14] - 2026-02-24
 
 ### Fixed

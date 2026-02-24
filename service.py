@@ -827,11 +827,13 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 if orig.get('text', '').strip() == trans.get('text', '').strip():
                     unchanged_count += 1
             unchanged_ratio = unchanged_count / len(entries) if entries else 0
-            if unchanged_ratio > 0.8:
+            log(f"Translation check: {unchanged_count}/{len(entries)} unchanged ({unchanged_ratio:.0%})")
+            if unchanged_ratio > 0.95:
                 raise Exception(
                     f"Translation failed: {unchanged_count}/{len(entries)} entries "
                     f"({unchanged_ratio:.0%}) were not translated. "
-                    f"Check your translation service settings and API keys."
+                    f"The translation service may be unreachable. "
+                    f"Try a different service in settings."
                 )
             
             # Format output (90%)
