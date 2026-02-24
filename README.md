@@ -72,6 +72,8 @@ The addon has four settings levels: Basic, Standard, Advanced, and Expert. Confi
 ## Compatibility
 
 - **Kodi 19 (Matrix)** and newer (Python 3)
+- **Kodi 20 (Nexus)** — supported
+- **Kodi 21 (Omega)** — supported
 - **Kodi 22 (Piers)** nightly — tested and working
 - **Platforms**: Windows, macOS, Linux, Android, Android TV (Nvidia Shield)
 
