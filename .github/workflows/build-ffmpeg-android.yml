@@ -1,0 +1,85 @@
+name: Build FFmpeg for Android
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Android NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r26d
+          
+      - name: Build static FFmpeg for ARM64
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: |
+          set -e
+          
+          # Download FFmpeg source
+          FFMPEG_VERSION=7.1.1
+          wget -q "https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz"
+          tar xf "ffmpeg-${FFMPEG_VERSION}.tar.xz"
+          cd "ffmpeg-${FFMPEG_VERSION}"
+          
+          # Cross-compile toolchain
+          TOOLCHAIN="${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64"
+          API=24
+          
+          ./configure \
+            --prefix=/tmp/ffmpeg-out \
+            --enable-cross-compile \
+            --target-os=android \
+            --arch=aarch64 \
+            --cpu=armv8-a \
+            --cc="${TOOLCHAIN}/bin/aarch64-linux-android${API}-clang" \
+            --cxx="${TOOLCHAIN}/bin/aarch64-linux-android${API}-clang++" \
+            --strip="${TOOLCHAIN}/bin/llvm-strip" \
+            --sysroot="${TOOLCHAIN}/sysroot" \
+            --enable-small \
+            --disable-shared \
+            --enable-static \
+            --disable-doc \
+            --disable-htmlpages \
+            --disable-manpages \
+            --disable-podpages \
+            --disable-txtpages \
+            --disable-debug \
+            --disable-everything \
+            --enable-protocol=file \
+            --enable-demuxer=matroska,mov,avi,mpegts,mpegps,flv,ogg,srt,ass,webvtt \
+            --enable-decoder=subrip,ass,ssa,webvtt,mov_text,dvdsub,pgssub \
+            --enable-muxer=srt,ass,webvtt \
+            --enable-encoder=srt,ass,webvtt \
+            --enable-filter=null \
+            --extra-ldflags="-static"
+          
+          make -j$(nproc)
+          make install
+          
+          # Verify static linking
+          file /tmp/ffmpeg-out/bin/ffmpeg
+          file /tmp/ffmpeg-out/bin/ffprobe
+          
+          # Copy outputs
+          mkdir -p /tmp/release
+          cp /tmp/ffmpeg-out/bin/ffmpeg /tmp/release/ffmpeg-arm64
+          cp /tmp/ffmpeg-out/bin/ffprobe /tmp/release/ffprobe-arm64
+          chmod 755 /tmp/release/*
+          ls -la /tmp/release/
+          
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Upload to the ffmpeg-android-v1 release
+          gh release upload ffmpeg-android-v1 \
+            /tmp/release/ffmpeg-arm64 \
+            /tmp/release/ffprobe-arm64 \
+            --clobber
