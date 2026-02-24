@@ -4,6 +4,20 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.7] - 2026-02-24
+
+### Added
+- **Automatic FFmpeg download on Android** — one-click download in the "FFmpeg not found" dialog, no Termux needed
+- **Static FFmpeg 7.1.1 ARM64** binary built via GitHub Actions for Android devices
+- **Better FFmpeg detection** — more Termux paths, PATH scanning, auto-chmod, detailed debug logging
+
+### Changed
+- **Removed `tools.ffmpeg` dependency** — no more warning on install (addon never existed)
+- **Updated installation instructions** — detailed Termux/Shield steps with `termux-setup-storage`
+- **README rewritten** — proper documentation with features, compatibility (Kodi 19–22), translation services table
+
+### Fixed
+- **Android sandbox permissions** — auto-chmod +x on ffmpeg binary, PermissionError handling
 ## [0.9.6] - 2026-02-24
 
 ### Fixed
