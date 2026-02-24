@@ -1,81 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Pure Python MKV/Matroska subtitle extractor.
-No FFmpeg needed — reads EBML/Matroska container directly.
-Supports SRT (SubRip) and ASS/SSA embedded text subtitles.
+Pure Python MKV/Matroska subtitle extractor — streaming, low-memory.
+No FFmpeg needed. Reads EBML elements sequentially, skipping video/audio.
+Memory usage: ~10-50MB regardless of file size.
 """
 
 import struct
 import io
 import os
+import re
 import xbmc
 import xbmcvfs
 
 
 def _log(msg, level=xbmc.LOGINFO):
     xbmc.log(f"[MkvSubExtractor] {msg}", level)
-
-
-def _read_vint(f):
-    """Read a variable-length integer (VINT) from EBML stream."""
-    b = f.read(1)
-    if not b:
-        return None, 0
-    first = b[0]
-    if first == 0:
-        return None, 0
-    # Determine length from leading bits
-    length = 1
-    mask = 0x80
-    while length <= 8:
-        if first & mask:
-            break
-        mask >>= 1
-        length += 1
-    if length > 8:
-        return None, 0
-    # Read value
-    value = first & (mask - 1)  # Strip length bits
-    for _ in range(length - 1):
-        b2 = f.read(1)
-        if not b2:
-            return None, 0
-        value = (value << 8) | b2[0]
-    return value, length
-
-
-def _read_element_id(f):
-    """Read an EBML element ID."""
-    b = f.read(1)
-    if not b:
-        return None, 0
-    first = b[0]
-    if first == 0:
-        return None, 0
-    length = 1
-    mask = 0x80
-    while length <= 4:
-        if first & mask:
-            break
-        mask >>= 1
-        length += 1
-    if length > 4:
-        return None, 0
-    value = first
-    for _ in range(length - 1):
-        b2 = f.read(1)
-        if not b2:
-            return None, 0
-        value = (value << 8) | b2[0]
-    return value, length
-
-
-def _read_uint(data):
-    """Read unsigned int from bytes."""
-    val = 0
-    for b in data:
-        val = (val << 8) | b
-    return val
 
 
 # Key EBML/Matroska element IDs
@@ -95,310 +34,370 @@ BLOCK_GROUP = 0xA0
 BLOCK = 0xA1
 BLOCK_DURATION = 0x9B
 NAME = 0x536E
-TRACK_UID = 0x73C5
+
+# Container elements (have children, don't skip entirely)
+CONTAINER_IDS = {SEGMENT, TRACKS, TRACK_ENTRY, CLUSTER, BLOCK_GROUP}
 
 
 def _format_srt_time(ms):
-    """Format milliseconds to SRT timestamp."""
     if ms < 0:
         ms = 0
-    hours = ms // 3600000
+    h = ms // 3600000
     ms %= 3600000
-    minutes = ms // 60000
+    m = ms // 60000
     ms %= 60000
-    seconds = ms // 1000
-    millis = ms % 1000
-    return f"{hours:02d}:{minutes:02d}:{seconds:02d},{millis:03d}"
+    s = ms // 1000
+    ml = ms % 1000
+    return f"{h:02d}:{m:02d}:{s:02d},{ml:03d}"
+
+
+class StreamingReader:
+    """Buffered reader over xbmcvfs.File with position tracking."""
+    
+    def __init__(self, vfs_file):
+        self.vfs = vfs_file
+        self.file_size = vfs_file.size()
+        self.pos = 0
+        self.buf = b''
+        self.buf_pos = 0  # position in file where buf starts
+        self.CHUNK = 256 * 1024  # 256KB read chunks
+    
+    def read(self, n):
+        """Read exactly n bytes."""
+        if n <= 0:
+            return b''
+        
+        # Check if we have enough in buffer
+        buf_offset = self.pos - self.buf_pos
+        if 0 <= buf_offset and buf_offset + n <= len(self.buf):
+            data = self.buf[buf_offset:buf_offset + n]
+            self.pos += n
+            return data
+        
+        # Need to read from file
+        result = b''
+        
+        # Use any remaining buffer data first
+        if 0 <= buf_offset < len(self.buf):
+            result = self.buf[buf_offset:]
+            self.pos += len(result)
+            n -= len(result)
+        
+        # Read more from file
+        while n > 0:
+            read_size = max(self.CHUNK, n)
+            self.buf_pos = self.pos
+            self.buf = self.vfs.readBytes(read_size)
+            if not self.buf:
+                break
+            take = min(n, len(self.buf))
+            result += self.buf[:take]
+            self.pos += take
+            n -= take
+        
+        return result
+    
+    def skip(self, n):
+        """Skip n bytes efficiently without reading into memory."""
+        if n <= 0:
+            return
+        # For large skips, use seek-like behavior
+        # xbmcvfs.File.seek() may work
+        try:
+            self.vfs.seek(self.pos + n, 0)
+            self.pos += n
+            self.buf = b''
+            self.buf_pos = self.pos
+        except:
+            # Fallback: read and discard in chunks
+            remaining = n
+            while remaining > 0:
+                chunk = min(remaining, 1024 * 1024)
+                data = self.vfs.readBytes(chunk)
+                if not data:
+                    break
+                self.pos += len(data)
+                remaining -= len(data)
+    
+    def tell(self):
+        return self.pos
+    
+    def at_end(self):
+        return self.pos >= self.file_size
+
+
+def _read_vint(reader):
+    """Read EBML variable-length integer."""
+    b = reader.read(1)
+    if not b:
+        return None, 0
+    first = b[0]
+    if first == 0:
+        return None, 0
+    length = 1
+    mask = 0x80
+    while length <= 8:
+        if first & mask:
+            break
+        mask >>= 1
+        length += 1
+    if length > 8:
+        return None, 0
+    value = first & (mask - 1)
+    if length > 1:
+        rest = reader.read(length - 1)
+        if len(rest) < length - 1:
+            return None, 0
+        for b2 in rest:
+            value = (value << 8) | b2
+    return value, length
+
+
+def _read_element_id(reader):
+    """Read EBML element ID."""
+    b = reader.read(1)
+    if not b:
+        return None, 0
+    first = b[0]
+    if first == 0:
+        return None, 0
+    length = 1
+    mask = 0x80
+    while length <= 4:
+        if first & mask:
+            break
+        mask >>= 1
+        length += 1
+    if length > 4:
+        return None, 0
+    value = first
+    if length > 1:
+        rest = reader.read(length - 1)
+        if len(rest) < length - 1:
+            return None, 0
+        for b2 in rest:
+            value = (value << 8) | b2
+    return value, length
+
+
+def _read_uint(data):
+    val = 0
+    for b in data:
+        val = (val << 8) | b
+    return val
 
 
 class MkvSubtitleExtractor:
-    """Extract text subtitles from MKV files using pure Python."""
+    """Extract text subtitles from MKV files — streaming, low memory."""
     
     def __init__(self):
-        self.tracks = []
         self.subtitle_tracks = []
     
-    def extract_from_file(self, file_path, track_index=0):
-        """Extract subtitle from a local file.
-        
-        Args:
-            file_path: Path to MKV file (local only, not smb://)
-            track_index: Which subtitle track (0 = first)
-        
-        Returns:
-            SRT content as string, or None
-        """
-        try:
-            with open(file_path, 'rb') as f:
-                return self._extract(f, track_index)
-        except Exception as e:
-            _log(f"Error extracting from {file_path}: {e}", xbmc.LOGERROR)
-            return None
-    
     def extract_from_vfs(self, vfs_path, track_index=0):
-        """Extract subtitle from a Kodi VFS path (smb://, nfs://, etc).
+        """Extract subtitle from Kodi VFS path (smb://, nfs://, etc).
         
-        Streams the file — does NOT copy the entire file to temp.
-        Only reads headers + subtitle blocks, skipping video/audio data.
-        
-        Args:
-            vfs_path: Kodi VFS path (e.g. smb://server/share/movie.mkv)
-            track_index: Which subtitle track (0 = first)
-        
-        Returns:
-            SRT content as string, or None
+        Streams through the file — never loads entire file into RAM.
+        Only reads headers + subtitle blocks, skipping video/audio.
         """
         try:
             f = xbmcvfs.File(vfs_path, 'r')
             try:
-                return self._extract_streaming(f, track_index)
+                reader = StreamingReader(f)
+                _log(f"File size: {reader.file_size / (1024*1024):.1f} MB")
+                return self._extract_streaming(reader, track_index)
             finally:
                 f.close()
         except Exception as e:
-            _log(f"Error extracting from {vfs_path}: {e}", xbmc.LOGERROR)
+            _log(f"Error: {e}", xbmc.LOGERROR)
+            import traceback
+            _log(traceback.format_exc(), xbmc.LOGERROR)
             return None
     
-    def _extract_streaming(self, vfs_file, track_index):
-        """Extract from xbmcvfs.File using streaming reads."""
-        # Read file into a BytesIO for seeking (we need random access for EBML)
-        # But only read what we need: first ~50MB for headers, then seek through clusters
-        
-        # First pass: read headers to find tracks (usually in first 10MB)
-        _log("Reading MKV headers...")
-        header_data = vfs_file.readBytes(10 * 1024 * 1024)  # 10MB
-        if not header_data:
-            _log("Failed to read file header", xbmc.LOGERROR)
+    def extract_from_file(self, file_path, track_index=0):
+        """Extract from local file."""
+        try:
+            f = xbmcvfs.File(file_path, 'r')
+            try:
+                reader = StreamingReader(f)
+                return self._extract_streaming(reader, track_index)
+            finally:
+                f.close()
+        except Exception as e:
+            _log(f"Error: {e}", xbmc.LOGERROR)
             return None
+    
+    def _extract_streaming(self, reader, track_index):
+        """Stream through MKV, extract subtitle entries."""
         
-        buf = io.BytesIO(header_data)
-        
-        # Parse EBML header
-        eid, _ = _read_element_id(buf)
+        # 1. Read EBML header
+        eid, _ = _read_element_id(reader)
         if eid != EBML_HEADER:
-            _log(f"Not a valid MKV file (header ID: {hex(eid) if eid else 'None'})", xbmc.LOGERROR)
+            _log(f"Not MKV (header={hex(eid) if eid else None})", xbmc.LOGERROR)
             return None
+        size, _ = _read_vint(reader)
+        reader.skip(size)  # Skip EBML header content
         
-        size, _ = _read_vint(buf)
-        buf.seek(size, 1)  # Skip EBML header content
-        
-        # Find Segment
-        eid, _ = _read_element_id(buf)
+        # 2. Read Segment
+        eid, _ = _read_element_id(reader)
         if eid != SEGMENT:
-            _log(f"Expected Segment, got {hex(eid) if eid else 'None'}", xbmc.LOGERROR)
+            _log(f"No Segment found", xbmc.LOGERROR)
             return None
+        _read_vint(reader)  # Segment size (often unknown/0xFFFFFFFFFFFFFF)
         
-        seg_size, _ = _read_vint(buf)
-        segment_start = buf.tell()
-        
-        # Parse tracks from header
-        self.tracks = []
+        # 3. Scan for Tracks, then parse Clusters
         self.subtitle_tracks = []
         subtitle_track_num = None
         codec_id = None
-        codec_private = None
+        subtitle_entries = []
+        cluster_timecode = 0
+        tracks_found = False
         
-        # Scan for Tracks element
-        while buf.tell() < len(header_data) - 4:
-            pos = buf.tell()
-            eid, eid_len = _read_element_id(buf)
+        while not reader.at_end():
+            eid, eid_len = _read_element_id(reader)
             if eid is None:
                 break
-            size, size_len = _read_vint(buf)
+            size, size_len = _read_vint(reader)
             if size is None:
                 break
+            
+            elem_data_pos = reader.tell()
             
             if eid == TRACKS:
                 # Parse track entries
-                tracks_end = buf.tell() + size
-                while buf.tell() < tracks_end:
-                    teid, _ = _read_element_id(buf)
-                    tsize, _ = _read_vint(buf)
-                    if teid is None or tsize is None:
-                        break
-                    if teid == TRACK_ENTRY:
-                        track = self._parse_track_entry(buf, buf.tell() + tsize)
-                        if track:
-                            self.tracks.append(track)
-                            if track['type'] == 17:  # Subtitle
-                                self.subtitle_tracks.append(track)
-                    else:
-                        buf.seek(tsize, 1)
-                break
-            elif eid == CLUSTER:
-                # We've reached cluster data without finding tracks in header
-                break
-            else:
-                if size > len(header_data):
-                    break
-                buf.seek(size, 1)
-        
-        if not self.subtitle_tracks:
-            _log("No subtitle tracks found in MKV", xbmc.LOGERROR)
-            return None
-        
-        _log(f"Found {len(self.subtitle_tracks)} subtitle track(s): "
-             + ", ".join(f"#{t['number']} {t.get('language','?')} ({t.get('codec','')})" 
-                        for t in self.subtitle_tracks))
-        
-        if track_index >= len(self.subtitle_tracks):
-            _log(f"Track index {track_index} out of range", xbmc.LOGERROR)
-            return None
-        
-        target_track = self.subtitle_tracks[track_index]
-        subtitle_track_num = target_track['number']
-        codec_id = target_track.get('codec', '')
-        codec_private = target_track.get('codec_private', b'')
-        
-        _log(f"Extracting track #{subtitle_track_num} ({target_track.get('language','?')}, {codec_id})")
-        
-        # Now we need to read through ALL clusters to find subtitle blocks
-        # Read the ENTIRE file (subtitle blocks can be anywhere)
-        _log("Reading full file for subtitle extraction...")
-        file_size = vfs_file.size()
-        
-        # We already have first 10MB, read the rest
-        remaining = vfs_file.readBytes(file_size)
-        if remaining:
-            full_data = header_data + remaining
-        else:
-            full_data = header_data
-        
-        _log(f"Total data: {len(full_data) / (1024*1024):.1f} MB")
-        
-        # Parse clusters for subtitle blocks
-        buf = io.BytesIO(full_data)
-        # Seek to segment start
-        buf.seek(segment_start)
-        
-        subtitle_entries = []
-        cluster_timecode = 0
-        
-        while buf.tell() < len(full_data) - 4:
-            eid, eid_len = _read_element_id(buf)
-            if eid is None:
-                break
-            size, size_len = _read_vint(buf)
-            if size is None:
-                break
-            
-            elem_start = buf.tell()
-            
-            if eid == CLUSTER:
-                # Parse cluster contents
-                cluster_end = elem_start + size
+                self._parse_tracks(reader, elem_data_pos + size)
+                tracks_found = True
+                
+                if not self.subtitle_tracks:
+                    _log("No subtitle tracks found", xbmc.LOGERROR)
+                    return None
+                
+                _log(f"Found {len(self.subtitle_tracks)} subtitle track(s): " +
+                     ", ".join(f"#{t['number']} {t.get('language','?')} ({t.get('codec','')})"
+                               for t in self.subtitle_tracks))
+                
+                if track_index >= len(self.subtitle_tracks):
+                    _log(f"Track index {track_index} out of range", xbmc.LOGERROR)
+                    return None
+                
+                target = self.subtitle_tracks[track_index]
+                subtitle_track_num = target['number']
+                codec_id = target.get('codec', '')
+                _log(f"Target: track #{subtitle_track_num} ({codec_id})")
+                
+            elif eid == CLUSTER and tracks_found and subtitle_track_num is not None:
+                # Parse cluster for subtitle blocks
+                cluster_end = elem_data_pos + size
                 cluster_timecode = 0
                 
-                while buf.tell() < cluster_end - 2:
-                    ceid, _ = _read_element_id(buf)
-                    csize, _ = _read_vint(buf)
+                while reader.tell() < cluster_end:
+                    ceid, _ = _read_element_id(reader)
+                    csize, _ = _read_vint(reader)
                     if ceid is None or csize is None:
                         break
                     
                     if ceid == TIMECODE:
-                        tc_data = buf.read(csize)
+                        tc_data = reader.read(csize)
                         cluster_timecode = _read_uint(tc_data)
+                        
                     elif ceid == SIMPLE_BLOCK:
-                        block_data = buf.read(csize)
-                        entry = self._parse_block(block_data, cluster_timecode, 
-                                                  subtitle_track_num, None)
+                        # Peek at track number to decide if we should read or skip
+                        block_start = reader.tell()
+                        entry = self._try_parse_subtitle_block(reader, csize, 
+                                    cluster_timecode, subtitle_track_num, None)
+                        # Ensure we're at the right position after
+                        reader.skip(max(0, (block_start + csize) - reader.tell()))
                         if entry:
                             subtitle_entries.append(entry)
+                            
                     elif ceid == BLOCK_GROUP:
-                        bg_end = buf.tell() + csize
+                        bg_end = reader.tell() + csize
                         block_data = None
+                        block_size = 0
                         duration = None
-                        while buf.tell() < bg_end:
-                            bgeid, _ = _read_element_id(buf)
-                            bgsize, _ = _read_vint(buf)
+                        while reader.tell() < bg_end:
+                            bgeid, _ = _read_element_id(reader)
+                            bgsize, _ = _read_vint(reader)
                             if bgeid is None or bgsize is None:
                                 break
                             if bgeid == BLOCK:
-                                block_data = buf.read(bgsize)
+                                bstart = reader.tell()
+                                entry = self._try_parse_subtitle_block(
+                                    reader, bgsize, cluster_timecode,
+                                    subtitle_track_num, None)
+                                reader.skip(max(0, (bstart + bgsize) - reader.tell()))
+                                if entry:
+                                    block_data = entry
                             elif bgeid == BLOCK_DURATION:
-                                dur_data = buf.read(bgsize)
-                                duration = _read_uint(dur_data)
+                                dur = reader.read(bgsize)
+                                duration = _read_uint(dur)
                             else:
-                                buf.seek(bgsize, 1)
+                                reader.skip(bgsize)
                         if block_data:
-                            entry = self._parse_block(block_data, cluster_timecode,
-                                                      subtitle_track_num, duration)
-                            if entry:
-                                subtitle_entries.append(entry)
+                            if duration is not None:
+                                block_data['end'] = block_data['start'] + duration
+                            subtitle_entries.append(block_data)
                     else:
-                        buf.seek(csize, 1)
-            elif eid in (TRACKS, 0x1549A966, 0x1C53BB6B, 0x1254C367):
-                # Known non-cluster elements: Tracks, SegmentInfo, Cues, Tags
-                buf.seek(size, 1)
+                        # Skip video/audio blocks
+                        reader.skip(csize)
             else:
-                buf.seek(size, 1)
+                # Skip non-relevant elements (video data, cues, tags, etc.)
+                reader.skip(size)
         
         if not subtitle_entries:
-            _log("No subtitle entries found in clusters", xbmc.LOGERROR)
+            _log("No subtitle entries found", xbmc.LOGERROR)
             return None
         
-        # Sort by timestamp
         subtitle_entries.sort(key=lambda e: e['start'])
         _log(f"Extracted {len(subtitle_entries)} subtitle entries")
         
         # Format as SRT
-        if 'ASS' in codec_id or 'SSA' in codec_id:
-            return self._format_ass_to_srt(subtitle_entries, codec_private)
-        else:
-            return self._format_srt(subtitle_entries)
+        if codec_id and ('ASS' in codec_id or 'SSA' in codec_id):
+            return self._format_ass_to_srt(subtitle_entries)
+        return self._format_srt(subtitle_entries)
     
-    def _parse_track_entry(self, buf, end_pos):
-        """Parse a TrackEntry element."""
-        track = {}
-        while buf.tell() < end_pos:
-            eid, _ = _read_element_id(buf)
-            size, _ = _read_vint(buf)
-            if eid is None or size is None:
+    def _try_parse_subtitle_block(self, reader, block_size, cluster_tc, target_track, duration):
+        """Read block header; if it's our subtitle track, parse it. Otherwise skip."""
+        if block_size < 4:
+            return None
+        
+        # Read track number (VINT) — just first byte to check quickly
+        b = reader.read(1)
+        if not b:
+            return None
+        first = b[0]
+        
+        # Decode VINT for track number
+        length = 1
+        mask = 0x80
+        while length <= 4:
+            if first & mask:
                 break
-            
-            if eid == TRACK_NUMBER:
-                track['number'] = _read_uint(buf.read(size))
-            elif eid == TRACK_TYPE:
-                track['type'] = _read_uint(buf.read(size))
-            elif eid == CODEC_ID:
-                track['codec'] = buf.read(size).decode('ascii', errors='replace')
-            elif eid == LANGUAGE:
-                track['language'] = buf.read(size).decode('ascii', errors='replace')
-            elif eid == CODEC_PRIVATE:
-                track['codec_private'] = buf.read(size)
-            elif eid == NAME:
-                track['name'] = buf.read(size).decode('utf-8', errors='replace')
-            else:
-                buf.seek(size, 1)
+            mask >>= 1
+            length += 1
         
-        return track if 'number' in track else None
-    
-    def _parse_block(self, data, cluster_timecode, target_track_num, duration):
-        """Parse a Block/SimpleBlock and extract subtitle text."""
-        if len(data) < 4:
-            return None
+        track_num = first & (mask - 1)
+        if length > 1:
+            rest = reader.read(length - 1)
+            for b2 in rest:
+                track_num = (track_num << 8) | b2
         
-        buf = io.BytesIO(data)
-        # Read track number (VINT)
-        track_num, vint_len = _read_vint(buf)
-        if track_num != target_track_num:
-            return None
+        if track_num != target_track:
+            return None  # Not our track — caller will skip remaining bytes
         
-        # Read timecode (int16, relative to cluster)
-        tc_bytes = buf.read(2)
+        # This IS our subtitle track — read the rest
+        tc_bytes = reader.read(2)
         if len(tc_bytes) < 2:
             return None
         relative_tc = struct.unpack('>h', tc_bytes)[0]
         
-        # Flags byte
-        flags = buf.read(1)
-        if not flags:
+        flags = reader.read(1)  # flags byte
+        
+        # Remaining = subtitle text
+        text_size = block_size - length - 3  # vint + 2 tc + 1 flags
+        if text_size <= 0:
             return None
         
-        # Rest is the subtitle data
-        text_data = buf.read()
-        if not text_data:
-            return None
-        
+        text_data = reader.read(text_size)
         try:
             text = text_data.decode('utf-8', errors='replace').strip()
         except:
@@ -407,46 +406,71 @@ class MkvSubtitleExtractor:
         if not text:
             return None
         
-        start_ms = cluster_timecode + relative_tc
-        # Default duration: 3 seconds if not specified
+        start_ms = cluster_tc + relative_tc
         end_ms = start_ms + (duration if duration else 3000)
         
-        return {
-            'start': start_ms,
-            'end': end_ms,
-            'text': text
-        }
+        return {'start': start_ms, 'end': end_ms, 'text': text}
+    
+    def _parse_tracks(self, reader, end_pos):
+        """Parse Tracks element to find subtitle tracks."""
+        while reader.tell() < end_pos:
+            eid, _ = _read_element_id(reader)
+            size, _ = _read_vint(reader)
+            if eid is None or size is None:
+                break
+            if eid == TRACK_ENTRY:
+                track = self._parse_track_entry(reader, reader.tell() + size)
+                if track and track.get('type') == 17:  # Subtitle
+                    self.subtitle_tracks.append(track)
+            else:
+                reader.skip(size)
+    
+    def _parse_track_entry(self, reader, end_pos):
+        """Parse a single TrackEntry."""
+        track = {}
+        while reader.tell() < end_pos:
+            eid, _ = _read_element_id(reader)
+            size, _ = _read_vint(reader)
+            if eid is None or size is None:
+                break
+            if eid == TRACK_NUMBER:
+                track['number'] = _read_uint(reader.read(size))
+            elif eid == TRACK_TYPE:
+                track['type'] = _read_uint(reader.read(size))
+            elif eid == CODEC_ID:
+                track['codec'] = reader.read(size).decode('ascii', errors='replace')
+            elif eid == LANGUAGE:
+                track['language'] = reader.read(size).decode('ascii', errors='replace')
+            elif eid == NAME:
+                track['name'] = reader.read(size).decode('utf-8', errors='replace')
+            elif eid == CODEC_PRIVATE:
+                # Only keep for subtitle tracks (small), skip for video (can be huge)
+                if size < 100000:
+                    track['codec_private'] = reader.read(size)
+                else:
+                    reader.skip(size)
+            else:
+                reader.skip(size)
+        return track if 'number' in track else None
     
     def _format_srt(self, entries):
-        """Format subtitle entries as SRT."""
         lines = []
-        for i, entry in enumerate(entries, 1):
+        for i, e in enumerate(entries, 1):
             lines.append(str(i))
-            lines.append(f"{_format_srt_time(entry['start'])} --> {_format_srt_time(entry['end'])}")
-            lines.append(entry['text'])
+            lines.append(f"{_format_srt_time(e['start'])} --> {_format_srt_time(e['end'])}")
+            lines.append(e['text'])
             lines.append('')
         return '\n'.join(lines)
     
-    def _format_ass_to_srt(self, entries, codec_private):
-        """Convert ASS/SSA subtitle entries to SRT format."""
-        # ASS block format: ReadOrder, Layer, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-        srt_entries = []
-        for entry in entries:
-            text = entry['text']
-            # ASS format: fields separated by commas, text is after 8th comma
+    def _format_ass_to_srt(self, entries):
+        srt = []
+        for e in entries:
+            text = e['text']
             parts = text.split(',', 8)
             if len(parts) >= 9:
                 text = parts[8]
-            # Strip ASS formatting tags
-            import re
             text = re.sub(r'\{[^}]*\}', '', text)
-            text = text.replace('\\N', '\n').replace('\\n', '\n')
-            text = text.strip()
+            text = text.replace('\\N', '\n').replace('\\n', '\n').strip()
             if text:
-                srt_entries.append({
-                    'start': entry['start'],
-                    'end': entry['end'],
-                    'text': text
-                })
-        
-        return self._format_srt(srt_entries)
+                srt.append({'start': e['start'], 'end': e['end'], 'text': text})
+        return self._format_srt(srt)

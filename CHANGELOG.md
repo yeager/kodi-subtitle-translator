@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.13] - 2026-02-24
+
+### Fixed
+- **OOM crash on Shield** — v0.9.12's Python extractor loaded the entire 2GB+ file into RAM, crashing Kodi. Rewritten with streaming reader that uses ~10-50MB regardless of file size. Reads EBML elements sequentially, skips video/audio blocks without loading them.
+
 ## [0.9.12] - 2026-02-24
 
 ### Added
