@@ -598,6 +598,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             get_debug_logger().debug("Cache miss, starting translation", 'cache')
             
+            # Check if FFmpeg is available BEFORE pausing playback or showing progress
+            ffmpeg_path = self._ensure_ffmpeg_available(get_setting('ffmpeg_path'))
+            if ffmpeg_path is None:
+                log("User cancelled FFmpeg setup")
+                return
+            
             # Pause playback during translation
             if self.isPlaying():
                 was_playing = True
@@ -613,12 +619,6 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Extract subtitle from video
             progress.set_stage('extract', get_string(30707))  # "Extracting subtitles..."
             get_debug_logger().debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
-            
-            # Check if FFmpeg is available, prompt user if not
-            ffmpeg_path = self._ensure_ffmpeg_available(get_setting('ffmpeg_path'))
-            if ffmpeg_path is None:
-                log("User cancelled FFmpeg setup")
-                return
             
             extractor = SubtitleExtractor(ffmpeg_path)
             subtitle_content = extractor.extract(

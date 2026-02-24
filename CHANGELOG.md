@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.10] - 2026-02-24
+
+### Fixed
+- **Nothing happens after FFmpeg download** — FFmpeg check dialog conflicted with the translation progress dialog (Kodi can't show two dialogs simultaneously). Moved FFmpeg availability check to run *before* pausing playback and creating the progress dialog.
+
 ## [0.9.9] - 2026-02-24
 
 ### Fixed
