@@ -9,6 +9,7 @@ import sys
 import tempfile
 import json
 import xbmc
+import xbmcaddon
 import xbmcvfs
 
 
@@ -78,10 +79,20 @@ def get_android_ffmpeg_locations():
     # User-installed ffmpeg (e.g., via Termux)
     locations.extend([
         '/data/data/com.termux/files/usr/bin/ffmpeg',
+        '/data/data/com.termux.nightly/files/usr/bin/ffmpeg',
+        '/data/user/0/com.termux/files/usr/bin/ffmpeg',
+        '/data/user/0/com.termux.nightly/files/usr/bin/ffmpeg',
         '/storage/emulated/0/ffmpeg',
         '/system/bin/ffmpeg',
         '/system/xbin/ffmpeg',
     ])
+    
+    # Also search PATH directories (Termux may add to PATH)
+    path_dirs = os.environ.get('PATH', '').split(':')
+    for d in path_dirs:
+        ffmpeg_in_path = os.path.join(d, 'ffmpeg')
+        if ffmpeg_in_path not in locations:
+            locations.append(ffmpeg_in_path)
     
     # Kodi's temp/addon paths where user might place ffmpeg
     try:
@@ -155,29 +166,37 @@ class SubtitleExtractor:
         locations = unique_locations
         
         for path in locations:
-            if os.path.isfile(path) and self._test_ffmpeg(path):
+            exists = os.path.isfile(path)
+            self._log(f"Checking FFmpeg path: {path} (exists={exists})", xbmc.LOGDEBUG)
+            if exists and self._test_ffmpeg(path):
                 self._log(f"Found FFmpeg at: {path}")
                 return path
         
         # Try to find in PATH using 'which' or 'where'
-        # (skip on Android where 'which' may not exist)
-        if not self._is_android:
-            try:
-                cmd = ['which', 'ffmpeg'] if os.name != 'nt' else ['where', 'ffmpeg']
-                result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
-                if result.returncode == 0:
-                    path = result.stdout.strip().split('\n')[0]
-                    if path and self._test_ffmpeg(path):
-                        self._log(f"Found FFmpeg in PATH: {path}")
-                        return path
-            except:
-                pass
+        try:
+            cmd = ['which', 'ffmpeg'] if os.name != 'nt' else ['where', 'ffmpeg']
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                path = result.stdout.strip().split('\n')[0]
+                if path and self._test_ffmpeg(path):
+                    self._log(f"Found FFmpeg in PATH: {path}")
+                    return path
+        except Exception as e:
+            self._log(f"'which ffmpeg' failed: {e}", xbmc.LOGDEBUG)
         
         # Last resort - hope 'ffmpeg' is in PATH
         if self._test_ffmpeg('ffmpeg'):
             return 'ffmpeg'
         
-        self._log("FFmpeg not found!" + (" On Android, install FFmpeg via Termux or place the binary in Kodi's home directory." if self._is_android else ""), xbmc.LOGERROR)
+        if self._is_android:
+            try:
+                addon = xbmcaddon.Addon()
+                android_hint = addon.getLocalizedString(30868)
+            except Exception:
+                android_hint = "On Android, install FFmpeg via Termux or place the binary in Kodi's home directory."
+            self._log(f"FFmpeg not found! {android_hint}", xbmc.LOGERROR)
+        else:
+            self._log("FFmpeg not found!", xbmc.LOGERROR)
         return None
     
     def _test_ffmpeg(self, path):

@@ -267,7 +267,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                         return ffmpeg_file
                     else:
                         dialog.ok(get_string(30860), 
-                                  f"'{ffmpeg_file}' is not a valid FFmpeg executable.")
+                                  get_string(30869).format(ffmpeg_file))
                 continue
             elif choice == 2:
                 # Try again - loop

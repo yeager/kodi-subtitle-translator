@@ -65,7 +65,8 @@ class TranslationProgress:
         self.start_time = time.time()
         if self.show_dialog:
             self.dialog = xbmcgui.DialogProgress()
-            self.dialog.create(title, "Initializing...")
+            init_msg = _get_addon().getLocalizedString(30870) or "Initializing..."
+            self.dialog.create(title, init_msg)
         self._log(f"Translation started - {self.total} subtitles to process")
     
     def set_stage(self, stage, message=None):
@@ -149,7 +150,8 @@ class TranslationProgress:
         elapsed = time.time() - self.start_time if self.start_time else 0
         
         if success:
-            self.set_stage('complete', message or f"Translated {self.current} subtitles")
+            default_msg = _get_addon().getLocalizedString(30871).format(self.current) if _get_addon().getLocalizedString(30871) else f"Translated {self.current} subtitles"
+            self.set_stage('complete', message or default_msg)
             self._log(f"Translation completed successfully in {self._format_time(elapsed)}")
         else:
             self._log(f"Translation failed after {self._format_time(elapsed)}", xbmc.LOGERROR)
@@ -162,14 +164,14 @@ class TranslationProgress:
         if self.errors:
             xbmcgui.Dialog().notification(
                 get_addon_name(),
-                f"Completed with {len(self.errors)} error(s)",
+                (_get_addon().getLocalizedString(30872) or "Completed with {0} error(s)").format(len(self.errors)),
                 xbmcgui.NOTIFICATION_WARNING,
                 5000
             )
         elif success:
             xbmcgui.Dialog().notification(
                 get_addon_name(),
-                message or f"Translated {self.current} subtitles",
+                message or default_msg,
                 xbmcgui.NOTIFICATION_INFO,
                 3000
             )
