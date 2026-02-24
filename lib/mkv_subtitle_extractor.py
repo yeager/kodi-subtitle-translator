@@ -101,23 +101,51 @@ class StreamingReader:
         """Skip n bytes efficiently without reading into memory."""
         if n <= 0:
             return
-        # For large skips, use seek-like behavior
-        # xbmcvfs.File.seek() may work
+        
+        # Check if skip lands within current buffer
+        buf_offset = self.pos - self.buf_pos
+        if 0 <= buf_offset and buf_offset + n <= len(self.buf):
+            self.pos += n
+            return
+        
+        # Skip past buffer — need to consume from file
+        # First consume remaining buffer
+        buf_remaining = 0
+        if 0 <= buf_offset < len(self.buf):
+            buf_remaining = len(self.buf) - buf_offset
+        
+        file_skip = n - buf_remaining
+        
+        # Try seek first
         try:
+            # We need to seek the underlying file to (current file read pos + file_skip)
+            # But we don't know the file's internal position reliably, so seek absolute
             self.vfs.seek(self.pos + n, 0)
             self.pos += n
             self.buf = b''
             self.buf_pos = self.pos
+            return
         except:
-            # Fallback: read and discard in chunks
-            remaining = n
-            while remaining > 0:
-                chunk = min(remaining, 1024 * 1024)
-                data = self.vfs.readBytes(chunk)
-                if not data:
-                    break
-                self.pos += len(data)
-                remaining -= len(data)
+            pass
+        
+        # Fallback: read and discard in chunks
+        # First, the underlying file is at buf_pos + len(buf)
+        # We need to skip: file_skip - (len(buf) - buf_offset - buf_remaining) ... 
+        # Actually simpler: just read and discard from vfs
+        # The vfs read position is at buf_pos + len(self.buf) (end of what we last read)
+        already_buffered = len(self.buf) - buf_offset if buf_offset >= 0 else 0
+        to_read = n - already_buffered
+        
+        while to_read > 0:
+            chunk = min(to_read, 1024 * 1024)
+            data = self.vfs.readBytes(chunk)
+            if not data:
+                break
+            to_read -= len(data)
+        
+        self.pos += n
+        self.buf = b''
+        self.buf_pos = self.pos
     
     def tell(self):
         return self.pos

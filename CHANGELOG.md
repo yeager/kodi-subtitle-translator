@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.14] - 2026-02-24
+
+### Fixed
+- **Only first subtitle extracted** — `StreamingReader.skip()` didn't invalidate its internal buffer after large skips (when seek fails on Android/SMB), causing subsequent reads to return stale data. Now correctly handles buffer state for both seek and read-and-discard fallback paths.
+
 ## [0.9.13] - 2026-02-24
 
 ### Fixed
