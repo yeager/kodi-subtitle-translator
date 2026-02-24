@@ -9,13 +9,14 @@ Automatically translate embedded and external subtitles in Kodi to your preferre
 ## Features
 
 - **Automatic subtitle translation** — translates subtitles on playback start
+- **Pure Python MKV extractor** — extracts embedded subtitles directly from MKV files without FFmpeg, streaming over SMB/NFS (no temp copy needed)
 - **10 translation services** — Lingva (default, free), DeepL, Google Translate, Microsoft, OpenAI, Anthropic, LibreTranslate, Argos (offline), MyMemory, Yandex
 - **Auto-fallback** — if selected service needs API key that's missing, falls back to Lingva
-- **Embedded & external subtitles** — extracts embedded subs with FFmpeg, also handles .srt/.ass/.ssa/.sub/.vtt files
+- **Embedded & external subtitles** — built-in MKV parser for embedded subs, also handles .srt/.ass/.ssa/.sub/.vtt files
 - **Translation profiles** — Anime, Kids, Documentary, etc.
 - **25 UI languages** — fully translated via Transifex
 - **Translation cache** — avoids re-translating same content
-- **Android/Shield support** — automatic FFmpeg download, Termux detection
+- **Android/Shield support** — works out of the box, no FFmpeg needed for MKV files
 
 ## Installation
 
@@ -30,40 +31,39 @@ Automatically translate embedded and external subtitles in Kodi to your preferre
 
 Download the latest zip from [Releases](https://github.com/yeager/kodi-subtitle-translator/releases) and install from zip in Kodi.
 
-## FFmpeg (required for embedded subtitles)
+## FFmpeg (optional)
 
-FFmpeg is needed to extract subtitles embedded in video files (MKV, MP4, etc.). External subtitle files (.srt, etc.) work without FFmpeg.
+**FFmpeg is optional.** The addon has a built-in pure Python MKV subtitle extractor that works without FFmpeg, including over SMB/NFS network paths. This is the primary extraction method on all platforms.
+
+FFmpeg is used as a **fallback** for non-MKV containers (MP4, AVI, etc.) or if the built-in extractor fails. External subtitle files (.srt, etc.) never need FFmpeg.
 
 | Platform | Installation |
 |----------|-------------|
 | **Windows** | Download from [ffmpeg.org](https://ffmpeg.org/download.html) and add to PATH |
 | **macOS** | `brew install ffmpeg` |
 | **Linux** | `sudo apt install ffmpeg` or `sudo dnf install ffmpeg` |
-| **Android/Shield** | The addon offers **automatic download** when FFmpeg is not found. One click — no manual steps needed. |
+| **Android/Shield** | The addon offers **automatic download** if FFmpeg fallback is needed. One click — no manual steps. |
 
-### Android/Shield manual alternative
+### Android/Shield notes
 
-If auto-download doesn't work:
-
-1. Install [Termux](https://f-droid.org/packages/com.termux/) from F-Droid
-2. Run: `termux-setup-storage` (grant permission)
-3. Run: `pkg install ffmpeg`
-4. Run: `cp $(which ffmpeg) ~/storage/shared/ffmpeg`
+The built-in Python extractor is the primary method on Android, avoiding FFmpeg permission issues with Android's scoped storage. FFmpeg auto-download is available as fallback if needed.
 
 ## Translation Services
 
-| Service | API Key Required | Free Tier |
-|---------|:---:|:---:|
-| Lingva | ❌ | ✅ Unlimited |
-| DeepL | ✅ | 500k chars/month |
-| Google Translate | ✅ | Limited |
-| Microsoft Translator | ✅ | 2M chars/month |
-| OpenAI (GPT) | ✅ | Pay-per-use |
-| Anthropic (Claude) | ✅ | Pay-per-use |
-| LibreTranslate | ✅ | Self-hosted |
-| Argos Translate | ❌ | ✅ Offline |
-| MyMemory | ❌ | 5k chars/day |
-| Yandex | ✅ | Limited |
+| Service | API Key | Free Tier | Speed |
+|---------|:---:|:---:|:---:|
+| **Lingva** (default) | ❌ | ✅ Unlimited | ~50 lines/min |
+| **DeepL** | ✅ | 500k chars/month | ⚡ Fast (batch) |
+| Google Translate | ✅ | Limited | ⚡ Fast |
+| Microsoft Translator | ✅ | 2M chars/month | ⚡ Fast |
+| OpenAI (GPT) | ✅ | Pay-per-use | ⚡ Fast (batch) |
+| Anthropic (Claude) | ✅ | Pay-per-use | ⚡ Fast (batch) |
+| LibreTranslate | ✅ | Self-hosted | Medium |
+| Argos Translate | ❌ | ✅ Offline | Medium |
+| MyMemory | ❌ | 5k chars/day | Medium |
+| Yandex | ✅ | Limited | ⚡ Fast |
+
+> **Tip:** Lingva is free but rate-limited (~50 requests/min). For faster translations, use DeepL Free (500k chars/month) or set up your own LibreTranslate instance.
 
 ## Settings
 
@@ -72,10 +72,9 @@ The addon has four settings levels: Basic, Standard, Advanced, and Expert. Confi
 ## Compatibility
 
 - **Kodi 19 (Matrix)** and newer (Python 3)
-- **Kodi 20 (Nexus)** — supported
-- **Kodi 21 (Omega)** — supported
-- **Kodi 22 (Piers)** nightly — tested and working
+- **Kodi 20 (Nexus)**, **21 (Omega)**, **22 (Piers)** — tested and working
 - **Platforms**: Windows, macOS, Linux, Android, Android TV (Nvidia Shield)
+- **Network**: SMB, NFS, local files — all supported via built-in MKV parser
 
 ## Translations
 
