@@ -83,6 +83,9 @@ def get_android_ffmpeg_locations():
         '/data/user/0/com.termux/files/usr/bin/ffmpeg',
         '/data/user/0/com.termux.nightly/files/usr/bin/ffmpeg',
         '/storage/emulated/0/ffmpeg',
+        '/storage/emulated/0/Download/ffmpeg',
+        '/sdcard/ffmpeg',
+        '/sdcard/Download/ffmpeg',
         '/system/bin/ffmpeg',
         '/system/xbin/ffmpeg',
     ])
@@ -202,12 +205,28 @@ class SubtitleExtractor:
     def _test_ffmpeg(self, path):
         """Test if FFmpeg is available at the given path."""
         try:
+            # On Android, check execute permission first
+            if self._is_android and os.path.isfile(path):
+                if not os.access(path, os.X_OK):
+                    self._log(f"FFmpeg at {path} exists but not executable, trying chmod", xbmc.LOGINFO)
+                    try:
+                        os.chmod(path, 0o755)
+                    except OSError as ce:
+                        self._log(f"chmod failed for {path}: {ce}", xbmc.LOGWARNING)
             result = subprocess.run(
                 [path, '-version'],
                 capture_output=True,
                 timeout=10
             )
-            return result.returncode == 0
+            if result.returncode == 0:
+                self._log(f"FFmpeg test OK: {path} ({result.stdout[:80] if result.stdout else 'no output'})", xbmc.LOGDEBUG)
+                return True
+            else:
+                self._log(f"FFmpeg test failed for {path}: returncode={result.returncode}, stderr={result.stderr[:200] if result.stderr else 'none'}", xbmc.LOGDEBUG)
+                return False
+        except PermissionError as e:
+            self._log(f"FFmpeg permission denied for {path}: {e}", xbmc.LOGWARNING)
+            return False
         except Exception as e:
             self._log(f"FFmpeg test failed for {path}: {e}", xbmc.LOGDEBUG)
             return False
