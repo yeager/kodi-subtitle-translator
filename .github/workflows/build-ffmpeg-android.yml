@@ -74,12 +74,18 @@ jobs:
           chmod 755 /tmp/release/*
           ls -la /tmp/release/
           
-      - name: Upload to release
+      - name: Create release and upload
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Upload to the ffmpeg-android-v1 release
-          gh release upload ffmpeg-android-v1 \
+          gh release create ffmpeg-android-v1 \
+            --repo ${{ github.repository }} \
+            --title "FFmpeg for Android ARM64" \
+            --notes "Static FFmpeg/FFprobe for Android ARM64. Auto-downloaded by the addon." \
+            --prerelease \
             /tmp/release/ffmpeg-arm64 \
             /tmp/release/ffprobe-arm64 \
-            --clobber
+            || gh release upload ffmpeg-android-v1 \
+              /tmp/release/ffmpeg-arm64 \
+              /tmp/release/ffprobe-arm64 \
+              --clobber
