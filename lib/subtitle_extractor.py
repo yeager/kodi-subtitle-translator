@@ -462,13 +462,50 @@ class SubtitleExtractor:
         Returns:
             Subtitle content as string, or None on failure
         """
-        if not self.ffmpeg_path:
-            self._log("FFmpeg not available", xbmc.LOGERROR)
-            return None
-        
         self._log(f"Extracting subtitle stream {stream_index} from {video_path}")
         
-        # Resolve path
+        # For network paths (smb://, nfs://), try pure Python extractor first
+        # This avoids copying multi-GB files to temp just to extract a small subtitle
+        network_prefixes = ('smb://', 'nfs://', 'ftp://', 'sftp://')
+        if video_path.lower().startswith(network_prefixes):
+            self._log("Network path — trying pure Python MKV extractor (no temp copy needed)")
+            try:
+                from lib.mkv_subtitle_extractor import MkvSubtitleExtractor
+                mkv_ext = MkvSubtitleExtractor()
+                content = mkv_ext.extract_from_vfs(video_path, stream_index)
+                if content and len(content.strip()) > 10:
+                    self._log(f"Python MKV extractor succeeded: {len(content)} bytes")
+                    return content
+                else:
+                    self._log("Python MKV extractor returned no content, falling back to FFmpeg")
+            except Exception as e:
+                self._log(f"Python MKV extractor failed: {e}, falling back to FFmpeg", xbmc.LOGWARNING)
+        
+        # Also try Python extractor for local files on Android (avoids exec permission issues)
+        if self._is_android and not video_path.lower().startswith(('http://', 'https://')):
+            self._log("Android — trying pure Python MKV extractor to avoid exec permission issues")
+            try:
+                from lib.mkv_subtitle_extractor import MkvSubtitleExtractor
+                mkv_ext = MkvSubtitleExtractor()
+                if video_path.lower().startswith(network_prefixes):
+                    content = mkv_ext.extract_from_vfs(video_path, stream_index)
+                elif os.path.isfile(video_path):
+                    content = mkv_ext.extract_from_file(video_path, stream_index)
+                else:
+                    content = None
+                if content and len(content.strip()) > 10:
+                    self._log(f"Python MKV extractor succeeded: {len(content)} bytes")
+                    return content
+                else:
+                    self._log("Python MKV extractor returned no content, trying FFmpeg")
+            except Exception as e:
+                self._log(f"Python MKV extractor failed: {e}, trying FFmpeg", xbmc.LOGWARNING)
+        
+        if not self.ffmpeg_path:
+            self._log("FFmpeg not available and Python extractor failed", xbmc.LOGERROR)
+            return None
+        
+        # Resolve path (may copy network file to temp for FFmpeg)
         resolved_path, is_temp_input, temp_input = self._resolve_path(video_path)
         if not resolved_path:
             return None

@@ -4,6 +4,15 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.12] - 2026-02-24
+
+### Added
+- **Pure Python MKV subtitle extractor** — extracts text subtitles (SRT, ASS/SSA) directly from Matroska containers without FFmpeg. Streams via `xbmcvfs.File` — no need to copy multi-GB video files to temp.
+
+### Fixed
+- **Android `Permission denied` when running FFmpeg** — Android's scoped storage blocks execute permission on addon_data. Now uses the Python extractor as primary method on Android, with FFmpeg as fallback.
+- **7-minute wait for SMB file copy eliminated** — the Python extractor reads MKV headers + subtitle blocks via streaming, skipping video/audio data entirely.
+
 ## [0.9.11] - 2026-02-24
 
 ### Fixed
