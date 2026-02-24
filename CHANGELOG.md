@@ -4,6 +4,16 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.6] - 2026-02-24
+
+### Fixed
+- **Android/Termux FFmpeg detection** — added Termux nightly paths, `/data/user/0/` variants, PATH scanning, and `which ffmpeg` now runs on Android too
+- **Debug logging** for all FFmpeg search paths (helps troubleshooting on Shield/Android)
+
+### Changed  
+- **Installation instructions** (string 30861) — now includes detailed Termux/Shield steps (`pkg install ffmpeg`)
+- **5 new translatable strings** (30868–30872) — all user-visible messages now use `get_string()` for Transifex translation
+
 ## [0.9.5] - 2026-02-16
 
 ### Added
