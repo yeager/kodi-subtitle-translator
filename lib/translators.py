@@ -297,29 +297,64 @@ class LingvaTranslator(BaseTranslator):
     def __init__(self, config):
         super().__init__(config)
         self.base_url = config.get('url', 'https://lingva.ml').rstrip('/')
+        self._consecutive_429 = 0
     
     def translate(self, text, source_lang, target_lang):
-        """Translate text using Lingva."""
-        # Lingva doesn't support 'auto' - default to English
+        """Translate a single text using Lingva."""
         source = source_lang if source_lang and source_lang != 'auto' else 'en'
-        
-        # URL encode the text
         encoded_text = urllib.parse.quote(text)
         url = f'{self.base_url}/api/v1/{source}/{target_lang}/{encoded_text}'
         
         try:
             response = self._request(url, method='GET')
             translation = response.get('translation', '')
-            if translation and translation != text:
+            if translation:
+                self._consecutive_429 = 0
                 return translation
-            elif translation == text:
-                self._log(f"Lingva returned same text (not translated): {text[:80]}", xbmc.LOGWARNING)
-                return text
-            self._log(f"Lingva returned empty translation for: {text[:80]}", xbmc.LOGWARNING)
+            self._log(f"Lingva returned empty for: {text[:80]}", xbmc.LOGWARNING)
             return text
         except Exception as e:
-            self._log(f"Lingva error for '{text[:80]}': {e}", xbmc.LOGERROR)
-            return text
+            err_str = str(e)
+            if '429' in err_str:
+                self._consecutive_429 += 1
+            self._log(f"Lingva error for '{text[:50]}': {e}", xbmc.LOGERROR)
+            raise  # Re-raise so batch handler can do backoff
+    
+    def translate_batch(self, texts, source_lang, target_lang):
+        """Translate texts one-by-one with rate-limit handling."""
+        import time
+        
+        results = []
+        for i, text in enumerate(texts):
+            # Backoff if rate-limited
+            if self._consecutive_429 > 0:
+                backoff = min(2 ** min(self._consecutive_429, 5), 30)
+                self._log(f"Rate limit backoff: {backoff}s (429 x{self._consecutive_429})")
+                time.sleep(backoff)
+            
+            try:
+                result = self.translate(text, source_lang, target_lang)
+                results.append(result)
+            except Exception as e:
+                if '429' in str(e):
+                    # Wait and retry once
+                    backoff = min(2 ** min(self._consecutive_429, 5), 30)
+                    self._log(f"429 on entry {i+1}/{len(texts)}, waiting {backoff}s and retrying")
+                    time.sleep(backoff)
+                    try:
+                        result = self.translate(text, source_lang, target_lang)
+                        results.append(result)
+                    except:
+                        results.append(text)  # Give up on this entry
+                else:
+                    results.append(text)
+            
+            # Small delay between requests to avoid rate limiting
+            # ~200ms = max ~5 req/sec = 300 req/min (Lingva allows ~50/min)
+            if i < len(texts) - 1:
+                time.sleep(1.2)  # ~50 req/min to stay under Lingva limit
+        
+        return results
 
 
 class OpenAITranslator(BaseTranslator):

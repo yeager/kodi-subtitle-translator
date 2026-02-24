@@ -4,6 +4,12 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.17] - 2026-02-24
+
+### Fixed
+- **Lingva rate limiting (HTTP 429)** — added 1.2s delay between requests (~50 req/min) to stay under Lingva's rate limit. Previously sent hundreds of requests with no delay, causing all to fail with 429.
+- **Exponential backoff on 429** — automatically waits longer after consecutive rate limit errors, with retry logic per entry.
+
 ## [0.9.16] - 2026-02-24
 
 ### Added
