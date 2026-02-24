@@ -4,6 +4,12 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.11] - 2026-02-24
+
+### Fixed
+- **SMB subtitle extraction fails on Android** — `_make_temp_file()` crashed with `No such file or directory` because it tried to `open()` a file in Kodi's temp dir before ensuring the directory exists
+- **Rewrote `_copy_to_temp()`** — uses `xbmcvfs.File.readBytes()` streaming instead of `xbmcvfs.copy()` which silently failed on Android; now copies in 1MB chunks with progress logging
+
 ## [0.9.10] - 2026-02-24
 
 ### Fixed

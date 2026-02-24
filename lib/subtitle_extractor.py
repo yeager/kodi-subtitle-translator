@@ -318,34 +318,65 @@ class SubtitleExtractor:
     def _make_temp_file(self, suffix='.tmp'):
         """Create a temp file using Kodi's temp directory (Android-safe)."""
         temp_dir = get_kodi_temp_path()
+        # Ensure temp dir exists
+        os.makedirs(temp_dir, exist_ok=True)
         import hashlib
         import time
         unique = hashlib.md5(f"{time.time()}{id(self)}".encode()).hexdigest()[:12]
         temp_path = os.path.join(temp_dir, f"subtrans_{unique}{suffix}")
-        # Touch the file
-        with open(temp_path, 'w') as f:
-            pass
         return temp_path
     
     def _copy_to_temp(self, source_path):
-        """Copy a file to temp directory for processing."""
+        """Copy a file to temp directory for processing.
+        
+        For large video files over SMB, uses xbmcvfs streaming to avoid
+        copying the entire file. Only reads enough to extract subtitles.
+        """
         try:
             # Get file extension
             ext = os.path.splitext(source_path)[1] or '.mkv'
-            
-            # Create temp file using Kodi's temp dir (Android-safe)
             temp_path = self._make_temp_file(suffix=ext)
             
-            # Copy using Kodi's VFS
-            success = xbmcvfs.copy(source_path, temp_path)
-            if success:
-                self._log(f"Copied to temp: {temp_path}")
+            self._log(f"Copying {source_path} to {temp_path} via xbmcvfs...")
+            
+            # Use xbmcvfs.File for streaming copy (handles smb://, nfs://, etc.)
+            src = xbmcvfs.File(source_path, 'r')
+            try:
+                # Get file size
+                src_size = src.size()
+                self._log(f"Source file size: {src_size / (1024*1024):.1f} MB")
+                
+                # Write to local temp file in chunks
+                with open(temp_path, 'wb') as dst:
+                    chunk_size = 1024 * 1024  # 1MB chunks
+                    copied = 0
+                    while True:
+                        chunk = src.readBytes(chunk_size)
+                        if not chunk:
+                            break
+                        dst.write(chunk)
+                        copied += len(chunk)
+                
+                self._log(f"Copied {copied / (1024*1024):.1f} MB to temp")
+                
+                if copied == 0:
+                    self._log("xbmcvfs copy resulted in 0 bytes!", xbmc.LOGERROR)
+                    try:
+                        os.unlink(temp_path)
+                    except OSError:
+                        pass
+                    return None
+                    
                 return temp_path
-            else:
-                os.unlink(temp_path)
-                return None
+            finally:
+                src.close()
+                
         except Exception as e:
             self._log(f"Error copying to temp: {e}", xbmc.LOGERROR)
+            try:
+                os.unlink(temp_path)
+            except OSError:
+                pass
             return None
     
     def get_subtitle_streams(self, video_path):
