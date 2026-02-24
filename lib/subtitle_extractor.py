@@ -97,19 +97,73 @@ def get_android_ffmpeg_locations():
         if ffmpeg_in_path not in locations:
             locations.append(ffmpeg_in_path)
     
+    # Addon's own data directory (auto-downloaded ffmpeg lives here)
+    try:
+        addon = xbmcaddon.Addon()
+        addon_data = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
+        locations.insert(0, os.path.join(addon_data, 'bin', 'ffmpeg'))
+    except:
+        pass
+    
     # Kodi's temp/addon paths where user might place ffmpeg
     try:
-        addon_data = xbmcvfs.translatePath('special://home/')
+        kodi_home = xbmcvfs.translatePath('special://home/')
         locations.extend([
-            os.path.join(addon_data, 'ffmpeg'),
-            os.path.join(addon_data, 'bin', 'ffmpeg'),
-            os.path.join(addon_data, 'addons', 'tools.ffmpeg', 'bin', 'ffmpeg'),
-            os.path.join(addon_data, 'addons', 'tools.ffmpeg', 'ffmpeg'),
+            os.path.join(kodi_home, 'ffmpeg'),
+            os.path.join(kodi_home, 'bin', 'ffmpeg'),
+            os.path.join(kodi_home, 'addons', 'tools.ffmpeg', 'bin', 'ffmpeg'),
+            os.path.join(kodi_home, 'addons', 'tools.ffmpeg', 'ffmpeg'),
         ])
     except:
         pass
     
     return locations
+
+
+def download_ffmpeg_android(progress_callback=None):
+    """Download static FFmpeg binaries for Android ARM64.
+    
+    Saves to addon data directory (always writable on Android).
+    Returns path to ffmpeg binary, or None on failure.
+    """
+    import urllib.request
+    
+    BASE_URL = "https://github.com/yeager/kodi-subtitle-translator/releases/download/ffmpeg-android-v1"
+    
+    try:
+        addon = xbmcaddon.Addon()
+        addon_data = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
+    except:
+        return None
+    
+    bin_dir = os.path.join(addon_data, 'bin')
+    os.makedirs(bin_dir, exist_ok=True)
+    
+    for binary in ['ffmpeg', 'ffprobe']:
+        dest = os.path.join(bin_dir, binary)
+        
+        if os.path.isfile(dest) and os.access(dest, os.X_OK):
+            continue  # Already downloaded
+        
+        url = f"{BASE_URL}/{binary}-arm64"
+        try:
+            if progress_callback:
+                progress_callback(binary)
+            xbmc.log(f"[SubtitleExtractor] Downloading {binary} from {url}", xbmc.LOGINFO)
+            urllib.request.urlretrieve(url, dest)
+            os.chmod(dest, 0o755)
+            xbmc.log(f"[SubtitleExtractor] Downloaded {binary} to {dest}", xbmc.LOGINFO)
+        except Exception as e:
+            xbmc.log(f"[SubtitleExtractor] Failed to download {binary}: {e}", xbmc.LOGERROR)
+            # Clean up partial download
+            try:
+                os.unlink(dest)
+            except OSError:
+                pass
+            return None
+    
+    ffmpeg_path = os.path.join(bin_dir, 'ffmpeg')
+    return ffmpeg_path if os.path.isfile(ffmpeg_path) else None
 
 
 def get_kodi_temp_path():

@@ -976,3 +976,19 @@ msgstr ""
 msgctxt "#30872"
 msgid "Completed with {0} error(s)"
 msgstr ""
+
+msgctxt "#30873"
+msgid "Download FFmpeg automatically"
+msgstr ""
+
+msgctxt "#30874"
+msgid "Downloading FFmpeg for Android..."
+msgstr ""
+
+msgctxt "#30875"
+msgid "FFmpeg downloaded successfully!"
+msgstr ""
+
+msgctxt "#30876"
+msgid "Download failed. Please install FFmpeg manually."
+msgstr ""

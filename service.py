@@ -222,7 +222,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         Returns:
             FFmpeg path string if found, or None if user cancelled.
         """
-        from lib.subtitle_extractor import SubtitleExtractor as SE
+        from lib.subtitle_extractor import SubtitleExtractor as SE, is_android, download_ffmpeg_android
         
         while True:
             # Try creating extractor with configured path
@@ -232,21 +232,64 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             # FFmpeg not found — show dialog with options
             dialog = xbmcgui.Dialog()
-            options = [
-                get_string(30862),  # "Show installation instructions"
-                get_string(30863),  # "Browse for FFmpeg..."
-                get_string(30864),  # "Try again"
-                get_string(30865),  # "Cancel"
-            ]
+            options = []
+            option_actions = []
+            
+            # On Android, offer automatic download as first option
+            if is_android():
+                options.append(get_string(30873))  # "Download FFmpeg automatically"
+                option_actions.append('download')
+            
+            options.append(get_string(30862))  # "Show installation instructions"
+            option_actions.append('instructions')
+            options.append(get_string(30863))  # "Browse for FFmpeg..."
+            option_actions.append('browse')
+            options.append(get_string(30864))  # "Try again"
+            option_actions.append('retry')
+            options.append(get_string(30865))  # "Cancel"
+            option_actions.append('cancel')
             
             choice = dialog.select(get_string(30860), options)  # "FFmpeg not found"
             
-            if choice == 0:
+            if choice < 0:
+                return None
+            
+            action = option_actions[choice]
+            
+            if action == 'download':
+                # Auto-download FFmpeg for Android
+                pDialog = xbmcgui.DialogProgress()
+                pDialog.create(get_string(30874))  # "Downloading FFmpeg for Android..."
+                
+                def progress_cb(binary_name):
+                    pDialog.update(50 if binary_name == 'ffprobe' else 10,
+                                   f"{get_string(30874)} {binary_name}...")
+                
+                ffmpeg_path = download_ffmpeg_android(progress_callback=progress_cb)
+                pDialog.close()
+                
+                if ffmpeg_path:
+                    # Test it
+                    test = SE(ffmpeg_path)
+                    if test.ffmpeg_path:
+                        try:
+                            from xbmcaddon import Addon
+                            Addon().setSetting('ffmpeg_path', ffmpeg_path)
+                        except:
+                            pass
+                        notify(get_string(30875))  # "FFmpeg downloaded successfully!"
+                        return ffmpeg_path
+                
+                # Download failed
+                dialog.ok(get_string(30860), get_string(30876))  # "Download failed..."
+                continue
+            
+            elif action == 'instructions':
                 # Show installation instructions
                 dialog.textviewer(get_string(30860), get_string(30861))
-                # Loop back to show options again
                 continue
-            elif choice == 1:
+            
+            elif action == 'browse':
                 # Browse for FFmpeg executable
                 ffmpeg_file = dialog.browseSingle(
                     1,  # ShowAndGetFile
@@ -269,7 +312,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                         dialog.ok(get_string(30860), 
                                   get_string(30869).format(ffmpeg_file))
                 continue
-            elif choice == 2:
+            elif action == 'retry':
                 # Try again - loop
                 configured_path = None
                 continue
