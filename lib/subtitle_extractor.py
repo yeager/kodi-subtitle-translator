@@ -139,7 +139,7 @@ def download_ffmpeg_android(progress_callback=None):
     bin_dir = os.path.join(addon_data, 'bin')
     os.makedirs(bin_dir, exist_ok=True)
     
-    for binary in ['ffmpeg', 'ffprobe']:
+    for binary in ['ffmpeg']:
         dest = os.path.join(bin_dir, binary)
         
         if os.path.isfile(dest) and os.access(dest, os.X_OK):
