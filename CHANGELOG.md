@@ -4,6 +4,13 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.18] - 2026-02-25
+
+### Improved
+- **Progress dialog** — init message now shows "Förbereder undertextextraktion..." instead of generic "Initialiserar..."
+- **Translation service displayed** — progress dialog now shows which service is being used (e.g. "🔗 Libre Translate")
+- **Transifex synced** — sv_SE 244/244 (100%)
+
 ## [0.9.17] - 2026-02-24
 
 ### Fixed
