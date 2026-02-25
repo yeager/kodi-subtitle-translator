@@ -966,7 +966,7 @@ msgid "'{0}' is not a valid FFmpeg executable."
 msgstr ""
 
 msgctxt "#30870"
-msgid "Initializing..."
+msgid "Preparing subtitle extraction..."
 msgstr ""
 
 msgctxt "#30871"

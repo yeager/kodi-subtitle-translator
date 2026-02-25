@@ -995,8 +995,8 @@ msgid "'{0}' is not a valid FFmpeg executable."
 msgstr "’{0}’ är inte en giltig körbar FFmpeg-fil."
 
 msgctxt "#30870"
-msgid "Initializing..."
-msgstr "Initialiserar..."
+msgid "Preparing subtitle extraction..."
+msgstr "Förbereder undertextextraktion..."
 
 msgctxt "#30871"
 msgid "Translated {0} subtitles"
