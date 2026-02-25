@@ -373,6 +373,16 @@ Tercih ettiğiniz dilde altyazı mevcut olmadığında, bu eklenti medya dosyas�
             <fanart>resources/fanart.png</fanart>
         </assets>
         <news>
+v0.9.18
+- Progress dialog now shows translation service name (e.g. LibreTranslate, DeepL)
+- Init message changed from "Initialiserar..." to "Förbereder undertextextraktion..."
+- Transifex synced: sv_SE 244/244 (100%)
+
+v0.9.17
+- Streaming MKV subtitle parser — no FFmpeg required for MKV files
+- Lingva rate limiting fix (1.2s delay between requests)
+- Exponential backoff on HTTP 429
+
 v0.9.5
 - Added GitHub Actions CI for Transifex sync and release builds
 - Updated README with release badges and download links
