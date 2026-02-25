@@ -662,7 +662,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             translation_start_time = time.time()
             
             # Get translator
-            progress.set_stage('translate', get_string(30709))  # "Connecting to translation service..."
+            # Show which service is being used
+            service_display = actual_service.replace('_', ' ').title()
+            progress.set_stage('translate', f"{get_string(30709)}\n🔗 {service_display}")  # "Connecting to translation service..."
+            progress.set_service(service_display)
             get_debug_logger().debug(f"Using translation service: {actual_service}", 'api')
             
             translator = get_translator(

@@ -63,11 +63,17 @@ class TranslationProgress:
     def start(self, title="Translating Subtitles"):
         """Start the progress dialog."""
         self.start_time = time.time()
+        self.service_name = None  # Set later via set_service()
         if self.show_dialog:
             self.dialog = xbmcgui.DialogProgress()
             init_msg = get_addon().getLocalizedString(30870) or "Initializing..."
             self.dialog.create(title, init_msg)
         self._log(f"Translation started - {self.total} subtitles to process")
+
+    def set_service(self, service_name):
+        """Set the translation service name for display in progress."""
+        self.service_name = service_name
+        self._log(f"Using translation service: {service_name}")
     
     def set_stage(self, stage, message=None):
         """Set the current processing stage."""
@@ -104,9 +110,10 @@ class TranslationProgress:
         else:
             eta_str = "..."
         
-        # Format message with clear percentage
+        # Format message with clear percentage and service name
         status_message = message or f"[{percent}%] {current}/{self.total}"
-        full_message = f"{status_message}\n⏱ {eta_str}"
+        service_line = f"\n🔗 {self.service_name}" if self.service_name else ""
+        full_message = f"{status_message}\n⏱ {eta_str}{service_line}"
         
         if self.dialog and not self.cancelled:
             self.dialog.update(total_progress, full_message)
