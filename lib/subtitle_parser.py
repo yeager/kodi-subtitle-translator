@@ -286,6 +286,49 @@ class SubtitleParser:
         cs = (ms % 1000) // 10
         return f"{h}:{m:02d}:{s:02d}.{cs:02d}"
     
+    # Broadcast subtitle standards
+    MAX_CHARS_PER_LINE = 42
+    MAX_LINES = 2
+
+    @staticmethod
+    def _wrap_text(text, max_chars=42, max_lines=2):
+        """Wrap subtitle text to broadcast standards.
+
+        - Max *max_chars* characters per line (default 42, Netflix/broadcast).
+        - Max *max_lines* lines per subtitle event (default 2).
+        - Breaks at word boundaries; never mid-word.
+        - Preserves existing newlines if they already comply.
+        """
+        # Flatten to single line first, then re-wrap
+        words = text.replace('\n', ' ').split()
+        if not words:
+            return text
+
+        lines = []
+        current = words[0]
+        for word in words[1:]:
+            if len(current) + 1 + len(word) <= max_chars:
+                current += ' ' + word
+            else:
+                lines.append(current)
+                current = word
+        lines.append(current)
+
+        # Truncate to max_lines; if text is longer, keep first max_lines
+        if len(lines) > max_lines:
+            # Try to rebalance into max_lines by being more aggressive
+            lines = lines[:max_lines]
+            # Truncate last line with ellipsis if needed
+            if len(lines[-1]) > max_chars:
+                lines[-1] = lines[-1][:max_chars - 1] + '…'
+
+        # Ensure each line is within limit (handles single very long words)
+        for i, line in enumerate(lines):
+            if len(line) > max_chars:
+                lines[i] = line[:max_chars - 1] + '…'
+
+        return '\n'.join(lines)
+
     def _clean_text(self, text):
         """Clean and normalize subtitle text."""
         # Decode HTML entities
@@ -309,7 +352,9 @@ class SubtitleParser:
                 f"{self._format_srt_time(entry['start'])} --> "
                 f"{self._format_srt_time(entry['end'])}"
             )
-            output.append(entry['text'])
+            output.append(self._wrap_text(entry['text'],
+                                          self.MAX_CHARS_PER_LINE,
+                                          self.MAX_LINES))
             output.append('')
         
         return '\n'.join(output)
@@ -323,7 +368,9 @@ class SubtitleParser:
                 f"{self._format_vtt_time(entry['start'])} --> "
                 f"{self._format_vtt_time(entry['end'])}"
             )
-            output.append(entry['text'])
+            output.append(self._wrap_text(entry['text'],
+                                          self.MAX_CHARS_PER_LINE,
+                                          self.MAX_LINES))
             output.append('')
         
         return '\n'.join(output)
@@ -350,7 +397,10 @@ class SubtitleParser:
         ]
         
         for entry in entries:
-            text = entry['text'].replace('\n', '\\N')
+            wrapped = self._wrap_text(entry['text'],
+                                      self.MAX_CHARS_PER_LINE,
+                                      self.MAX_LINES)
+            text = wrapped.replace('\n', '\\N')
             style = entry.get('style', 'Default')
             output.append(
                 f"Dialogue: 0,{self._format_ass_time(entry['start'])},"

@@ -4,6 +4,16 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.21] - 2026-02-26
+
+### Added
+- Enforce broadcast subtitle standards on all translated text
+  - Max 42 characters per line (Netflix/broadcast standard)
+  - Max 2 lines per subtitle event
+  - Intelligent word-boundary line wrapping
+  - Long words truncated with ellipsis
+- Applies to all output formats (SRT, ASS/SSA, WebVTT)
+
 ## [0.9.20] - 2026-02-26
 
 ### Changed
