@@ -851,12 +851,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Determine service label early for disclaimer
             service_label = actual_service.replace('_', ' ').title()
             
-            # Add disclaimer as first subtitle entry
-            disclaimer = self._make_disclaimer(service_label)
+            # Add disclaimer as first subtitle entries
+            disclaimer_entries = self._make_disclaimer(service_label)
             # Shift existing indices
+            num_disclaimer = len(disclaimer_entries)
             for entry in translated_entries:
-                entry['index'] = entry.get('index', 0) + 1
-            translated_entries.insert(0, disclaimer)
+                entry['index'] = entry.get('index', 0) + num_disclaimer
+            for i, d in enumerate(disclaimer_entries):
+                d['index'] = i + 1
+            translated_entries = disclaimer_entries + translated_entries
             
             output_content = parser.generate(
                 translated_entries,
@@ -1130,11 +1133,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Determine service label early for disclaimer
             service_label = actual_service.replace('_', ' ').title()
             
-            # Add disclaimer as first subtitle entry
-            disclaimer = self._make_disclaimer(service_label)
+            # Add disclaimer as first subtitle entries
+            disclaimer_entries = self._make_disclaimer(service_label)
+            num_disclaimer = len(disclaimer_entries)
             for entry in translated_entries:
-                entry['index'] = entry.get('index', 0) + 1
-            translated_entries.insert(0, disclaimer)
+                entry['index'] = entry.get('index', 0) + num_disclaimer
+            for i, d in enumerate(disclaimer_entries):
+                d['index'] = i + 1
+            translated_entries = disclaimer_entries + translated_entries
             
             output_content = parser.generate(
                 translated_entries,
@@ -1279,20 +1285,34 @@ class SubtitleTranslatorPlayer(xbmc.Player):
     
     @staticmethod
     def _make_disclaimer(service_label):
-        """Create a disclaimer subtitle entry shown during the first 7 seconds."""
+        """Create disclaimer subtitle entries shown during the first 7 seconds.
+
+        Follows broadcast subtitle standards:
+        - Max 42 characters per line
+        - Max 2 lines per subtitle event
+        - Minimum 5/6 second duration per event
+        Returns a list of entries (may be 1-2 events).
+        """
         addon = get_addon()
         version = addon.getAddonInfo('version')
-        url = "https://github.com/yeager/kodi-subtitle-translator"
-        text = (
-            f"Translated by Kodi Subtitle Translator v{version}\n"
-            f"Service: {service_label} — {url}"
-        )
-        return {
-            'index': 0,
-            'start': 0,
-            'end': 7000,
-            'text': text,
-        }
+        # Line 1: max 42 chars — "Subtitle Translator v0.9.19" = 27 chars
+        # Line 2: max 42 chars — "Service: Openai" fits easily
+        line1 = f"Subtitle Translator v{version}"
+        line2 = f"Service: {service_label}"
+        return [
+            {
+                'index': 0,
+                'start': 0,
+                'end': 4000,
+                'text': f"{line1}\n{line2}",
+            },
+            {
+                'index': 0,
+                'start': 4000,
+                'end': 7000,
+                'text': "github.com/yeager/\nkodi-subtitle-translator",
+            },
+        ]
 
     def save_subtitle(self, content, cache_key):
         """Save translated subtitle to cache and optionally alongside video."""

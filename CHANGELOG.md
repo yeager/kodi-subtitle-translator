@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.20] - 2026-02-26
+
+### Changed
+- Disclaimer follows broadcast subtitle standards (max 42 chars/line, max 2 lines, split into 2 events: 0-4s info + 4-7s URL)
+
 ## [0.9.19] - 2026-02-26
 
 ### Added
