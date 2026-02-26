@@ -848,6 +848,16 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.set_stage('format', f"{get_string(30708)} (90%)")  # Parsing/formatting
             get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
+            # Determine service label early for disclaimer
+            service_label = actual_service.replace('_', ' ').title()
+            
+            # Add disclaimer as first subtitle entry
+            disclaimer = self._make_disclaimer(service_label)
+            # Shift existing indices
+            for entry in translated_entries:
+                entry['index'] = entry.get('index', 0) + 1
+            translated_entries.insert(0, disclaimer)
+            
             output_content = parser.generate(
                 translated_entries,
                 self.subtitle_format
@@ -864,7 +874,6 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Complete with service name and elapsed time
             elapsed_secs = time.time() - translation_start_time
             elapsed_str = self._format_elapsed(elapsed_secs)
-            service_label = actual_service.replace('_', ' ').title()
             
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
@@ -1118,6 +1127,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.set_stage('format', f"{get_string(30708)} (90%)")
             get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
+            # Determine service label early for disclaimer
+            service_label = actual_service.replace('_', ' ').title()
+            
+            # Add disclaimer as first subtitle entry
+            disclaimer = self._make_disclaimer(service_label)
+            for entry in translated_entries:
+                entry['index'] = entry.get('index', 0) + 1
+            translated_entries.insert(0, disclaimer)
+            
             output_content = parser.generate(
                 translated_entries,
                 self.subtitle_format
@@ -1134,7 +1152,6 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Complete with service name and elapsed time
             elapsed_secs = time.time() - translation_start_time
             elapsed_str = self._format_elapsed(elapsed_secs)
-            service_label = actual_service.replace('_', ' ').title()
             
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
@@ -1260,6 +1277,23 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             log(f"Could not copy subtitle alongside video: {e}", level=xbmc.LOGWARNING)
             return None
     
+    @staticmethod
+    def _make_disclaimer(service_label):
+        """Create a disclaimer subtitle entry shown during the first 7 seconds."""
+        addon = get_addon()
+        version = addon.getAddonInfo('version')
+        url = "https://github.com/yeager/kodi-subtitle-translator"
+        text = (
+            f"Translated by Kodi Subtitle Translator v{version}\n"
+            f"Service: {service_label} — {url}"
+        )
+        return {
+            'index': 0,
+            'start': 0,
+            'end': 7000,
+            'text': text,
+        }
+
     def save_subtitle(self, content, cache_key):
         """Save translated subtitle to cache and optionally alongside video."""
         # Save to cache

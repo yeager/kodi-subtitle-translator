@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.19] - 2026-02-26
+
+### Added
+- Disclaimer subtitle shown during first 7 seconds with addon version, translation service used, and project URL
+
 ## [0.9.18] - 2026-02-25
 
 ### Improved
