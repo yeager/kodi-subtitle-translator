@@ -4,6 +4,11 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.22] - 2026-02-26
+
+### Fixed
+- Addon zip filename now uses correct version from addon.xml (was incorrectly picking XML declaration version "1.0")
+
 ## [0.9.21] - 2026-02-26
 
 ### Added

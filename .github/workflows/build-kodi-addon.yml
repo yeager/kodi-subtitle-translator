@@ -17,8 +17,8 @@ jobs:
       - name: Get addon info
         id: addon
         run: |
-          ADDON_ID=$(grep -oP 'id="\K[^"]+' addon.xml | head -1)
-          ADDON_VERSION=$(grep -oP 'version="\K[^"]+' addon.xml | head -1)
+          ADDON_ID=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().get('id'))")
+          ADDON_VERSION=$(python3 -c "import xml.etree.ElementTree as ET; print(ET.parse('addon.xml').getroot().get('version'))")
           echo "id=${ADDON_ID}" >> "$GITHUB_OUTPUT"
           echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
 
