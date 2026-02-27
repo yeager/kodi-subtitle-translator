@@ -184,7 +184,25 @@ class SubtitleExtractor:
     def __init__(self, ffmpeg_path=None):
         self._is_android = is_android()
         self.ffmpeg_path = ffmpeg_path or self._find_ffmpeg()
+        self._mkv_parser = None
         self._log(f"Initialized with FFmpeg: {self.ffmpeg_path} (Android: {self._is_android})")
+    
+    def _is_mkv_file(self, path):
+        """Check if file is an MKV/WebM container."""
+        ext = os.path.splitext(path.split('?')[0])[1].lower()
+        return ext in ('.mkv', '.webm')
+    
+    def _get_mkv_parser(self):
+        """Lazy-load MKV streaming parser."""
+        if self._mkv_parser is None:
+            try:
+                from lib.mkv_streaming import MKVStreamingParser
+                self._mkv_parser = MKVStreamingParser()
+                self._log("MKV streaming parser loaded")
+            except Exception as e:
+                self._log(f"MKV streaming parser unavailable: {e}", xbmc.LOGWARNING)
+                self._mkv_parser = False  # Mark as failed
+        return self._mkv_parser if self._mkv_parser else None
     
     def _find_ffmpeg(self):
         """Find FFmpeg executable."""
@@ -381,6 +399,19 @@ class SubtitleExtractor:
     
     def get_subtitle_streams(self, video_path):
         """Get list of subtitle streams in the video file."""
+        # Try MKV streaming parser first for MKV/WebM files
+        if self._is_mkv_file(video_path):
+            parser = self._get_mkv_parser()
+            if parser:
+                try:
+                    streams = parser.get_subtitle_streams(video_path)
+                    if streams is not None:
+                        self._log(f"MKV streaming parser found {len(streams)} subtitle streams")
+                        return streams
+                    self._log("MKV streaming parser returned no streams, trying FFmpeg")
+                except Exception as e:
+                    self._log(f"MKV streaming parser failed: {e}, trying FFmpeg", xbmc.LOGWARNING)
+        
         if not self.ffmpeg_path:
             self._log("FFmpeg not available", xbmc.LOGERROR)
             return []
@@ -464,22 +495,34 @@ class SubtitleExtractor:
         """
         self._log(f"Extracting subtitle stream {stream_index} from {video_path}")
         
-        # For network paths (smb://, nfs://), try pure Python extractor first
-        # This avoids copying multi-GB files to temp just to extract a small subtitle
+        # Try MKV streaming parser first for MKV/WebM files (Cues-based seeking)
+        if self._is_mkv_file(video_path):
+            parser = self._get_mkv_parser()
+            if parser:
+                try:
+                    content = parser.extract_subtitle(video_path, stream_index, output_format)
+                    if content and len(content.strip()) > 10:
+                        self._log(f"MKV streaming parser extracted {len(content)} bytes")
+                        return content
+                    self._log("MKV streaming parser returned no content, trying fallbacks")
+                except Exception as e:
+                    self._log(f"MKV streaming parser failed: {e}, trying fallbacks", xbmc.LOGWARNING)
+        
+        # For network paths, try legacy pure Python extractor as second attempt
         network_prefixes = ('smb://', 'nfs://', 'ftp://', 'sftp://')
         if video_path.lower().startswith(network_prefixes):
-            self._log("Network path — trying pure Python MKV extractor (no temp copy needed)")
+            self._log("Network path — trying legacy MKV extractor")
             try:
                 from lib.mkv_subtitle_extractor import MkvSubtitleExtractor
                 mkv_ext = MkvSubtitleExtractor()
                 content = mkv_ext.extract_from_vfs(video_path, stream_index)
                 if content and len(content.strip()) > 10:
-                    self._log(f"Python MKV extractor succeeded: {len(content)} bytes")
+                    self._log(f"Legacy MKV extractor succeeded: {len(content)} bytes")
                     return content
                 else:
-                    self._log("Python MKV extractor returned no content, falling back to FFmpeg")
+                    self._log("Legacy MKV extractor returned no content, falling back to FFmpeg")
             except Exception as e:
-                self._log(f"Python MKV extractor failed: {e}, falling back to FFmpeg", xbmc.LOGWARNING)
+                self._log(f"Legacy MKV extractor failed: {e}, falling back to FFmpeg", xbmc.LOGWARNING)
         
         # Also try Python extractor for local files on Android (avoids exec permission issues)
         if self._is_android and not video_path.lower().startswith(('http://', 'https://')):

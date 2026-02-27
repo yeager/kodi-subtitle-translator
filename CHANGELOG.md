@@ -4,6 +4,20 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.0] - 2026-02-27
+
+### Added
+- **Native MKV streaming parser** (`lib/mkv_streaming.py`) — extract subtitles from MKV/WebM files without downloading the entire video
+  - EBML/Matroska parser with Cues-based seeking for direct cluster access
+  - Buffered I/O with 64KB read-ahead for efficient network access via `xbmcvfs.File`
+  - Identifies subtitle tracks by CodecID (`S_TEXT/UTF8`, `S_TEXT/ASS`, `S_TEXT/SSA`, `S_TEXT/WEBVTT`)
+  - Falls back to linear cluster scan when no Cues are available
+  - Automatic fallback to FFmpeg if MKV parsing fails
+
+### Changed
+- `SubtitleExtractor` now tries MKV streaming parser first for `.mkv`/`.webm` files
+- Performance: subtitle extraction from network files (SMB/NFS) completes in seconds instead of minutes
+
 ## [0.9.22] - 2026-02-26
 
 ### Fixed
