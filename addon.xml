@@ -1,20 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="service.subtitletranslator"
-       name="Subtitle Translator"
-       version="0.10.0"
-       provider-name="yeager">
+<?xml version='1.0' encoding='UTF-8'?>
+<addon id="service.subtitletranslator" name="Subtitle Translator" version="0.10.1" provider-name="yeager">
     <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="script.module.requests" version="2.22.0"/>
-        <!-- FFmpeg är optional - addon hittar system-FFmpeg om tillägget saknas -->
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.22.0" />
+        
 
     </requires>
-    <extension point="xbmc.service" library="service.py" start="startup"/>
+    <extension point="xbmc.service" library="service.py" start="startup" />
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>GPL-3.0-or-later</license>
         
-        <!-- Summary (short description) - 25 languages -->
+        
         <summary lang="en_GB">Automatically translate embedded subtitles</summary>
         <summary lang="sv_SE">Översätt inbäddade undertexter automatiskt</summary>
         <summary lang="de_DE">Eingebettete Untertitel automatisch übersetzen</summary>
@@ -41,7 +38,7 @@
         <summary lang="zh_CN">自动翻译内嵌字幕</summary>
         <summary lang="zh_TW">自動翻譯內嵌字幕</summary>
         
-        <!-- Description (full) - 25 languages -->
+        
         <description lang="en_GB">
 When no subtitle is available in your preferred language, this addon extracts embedded subtitles from the media file and translates them using DeepL, LibreTranslate, Google Translate, or other translation services.
 
@@ -373,6 +370,11 @@ Tercih ettiğiniz dilde altyazı mevcut olmadığında, bu eklenti medya dosyas�
             <fanart>resources/fanart.png</fanart>
         </assets>
         <news>
+v0.10.1
+- Changed default translation service from Lingva to MyMemory (Lingva returns 403/429)
+- Changed ask_before_translate default to false for better UX
+- Updated fallback services to libretranslate,lingva
+
 v0.10.0
 - Native MKV streaming parser for network subtitle extraction (SMB/NFS)
 - Extracts subtitles without downloading entire video file

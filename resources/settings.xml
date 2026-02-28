@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <settings version="2">
     <section id="main">
         <category id="main" label="30100">
 
-            <!-- ========== BASIC (Level 0) ========== -->
+            
             <group id="basic" label="30101">
                 <setting id="enabled" type="boolean" label="30102">
                     <level>0</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="target_language" type="string" label="30202">
@@ -47,12 +47,12 @@
                             <option label="עברית">he</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
                 
                 <setting id="translation_service" type="string" label="30302">
                     <level>0</level>
-                    <default>lingva</default>
+                    <default>mymemory</default>
                     <constraints>
                         <options>
                             <option label="Lingva Translate (free)">lingva</option>
@@ -67,16 +67,16 @@
                             <option label="Anthropic Claude">anthropic</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
             </group>
 
-            <!-- ========== API KEYS (Level 0, conditional) ========== -->
+            
             <group id="apikeys" label="30303">
                 <setting id="deepl_api_key" type="string" label="30311">
                     <level>0</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
                     </dependencies>
@@ -85,7 +85,7 @@
                 <setting id="google_api_key" type="string" label="30331">
                     <level>0</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">google</dependency>
                     </dependencies>
@@ -94,7 +94,7 @@
                 <setting id="microsoft_api_key" type="string" label="30341">
                     <level>0</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
                     </dependencies>
@@ -103,7 +103,7 @@
                 <setting id="openai_api_key" type="string" label="30371">
                     <level>0</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
@@ -112,37 +112,37 @@
                 <setting id="anthropic_api_key" type="string" label="30381">
                     <level>0</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
                     </dependencies>
                 </setting>
             </group>
 
-            <!-- ========== STANDARD (Level 1) ========== -->
+            
             <group id="standard" label="30110">
                 <setting id="ask_before_translate" type="boolean" label="30105">
                     <level>1</level>
-                    <default>true</default>
-                    <control type="toggle"/>
+                    <default>false</default>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="save_alongside_video" type="boolean" label="30444">
                     <level>1</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="show_notification" type="boolean" label="30104">
                     <level>1</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="show_progress_dialog" type="boolean" label="30106">
                     <level>1</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="subtitle_format" type="string" label="30402">
@@ -155,7 +155,7 @@
                             <option label="WebVTT">vtt</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
                 
                 <setting id="translation_profile" type="string" label="30252">
@@ -170,11 +170,11 @@
                             <option label="Casual">casual</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
             </group>
 
-            <!-- ========== SERVICE OPTIONS (Level 1, conditional) ========== -->
+            
             <group id="service_options" label="30300">
                 <setting id="openai_model" type="string" label="30372">
                     <level>1</level>
@@ -186,7 +186,7 @@
                             <option label="GPT-4 Turbo">gpt-4-turbo</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
@@ -202,7 +202,7 @@
                             <option label="Claude 3 Opus (best)">claude-3-opus-20240229</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
                     </dependencies>
@@ -218,7 +218,7 @@
                             <option label="Informal">less</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
                     </dependencies>
@@ -235,14 +235,14 @@
                             <option label="Southeast Asia">southeastasia</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">microsoft</dependency>
                     </dependencies>
                 </setting>
             </group>
 
-            <!-- ========== ADVANCED (Level 2) ========== -->
+            
             <group id="advanced" label="30600">
                 <setting id="source_language" type="string" label="30203">
                     <level>2</level>
@@ -260,19 +260,19 @@
                             <option label="Russian">ru</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
                 
                 <setting id="auto_translate" type="boolean" label="30103">
                     <level>2</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="cache_translations" type="boolean" label="30441">
                     <level>2</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="cache_days" type="integer" label="30442">
@@ -282,19 +282,19 @@
                         <minimum>1</minimum>
                         <maximum>365</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="enable_fallback" type="boolean" label="30306">
                     <level>2</level>
                     <default>true</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="fallback_services" type="string" label="30307">
                     <level>2</level>
-                    <default>mymemory,libretranslate</default>
-                    <control type="edit" format="string"/>
+                    <default>libretranslate,lingva</default>
+                    <control type="edit" format="string" />
                 </setting>
                 
                 <setting id="batch_size" type="integer" label="30611">
@@ -304,7 +304,7 @@
                         <minimum>5</minimum>
                         <maximum>100</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="request_timeout" type="integer" label="30502">
@@ -314,16 +314,16 @@
                         <minimum>10</minimum>
                         <maximum>120</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
             </group>
 
-            <!-- ========== ADVANCED: Service URLs (Level 2) ========== -->
+            
             <group id="service_urls" label="30320">
                 <setting id="lingva_url" type="string" label="30351">
                     <level>2</level>
                     <default>https://lingva.ml</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">lingva</dependency>
                     </dependencies>
@@ -332,7 +332,7 @@
                 <setting id="libretranslate_url" type="string" label="30321">
                     <level>2</level>
                     <default>https://translate.argosopentech.com</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
                     </dependencies>
@@ -341,31 +341,31 @@
                 <setting id="libretranslate_api_key" type="string" label="30322">
                     <level>2</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">libretranslate</dependency>
                     </dependencies>
                 </setting>
             </group>
 
-            <!-- ========== EXPERT (Level 3) ========== -->
+            
             <group id="expert" label="30620">
                 <setting id="debug_logging" type="boolean" label="30621">
                     <level>3</level>
                     <default>false</default>
-                    <control type="toggle"/>
+                    <control type="toggle" />
                 </setting>
                 
                 <setting id="debug_categories" type="string" label="30622">
                     <level>3</level>
                     <default>all</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                 </setting>
                 
                 <setting id="ffmpeg_path" type="string" label="30602">
                     <level>3</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                 </setting>
                 
                 <setting id="ffmpeg_threads" type="integer" label="30603">
@@ -375,7 +375,7 @@
                         <minimum>0</minimum>
                         <maximum>16</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="max_retries" type="integer" label="30503">
@@ -385,7 +385,7 @@
                         <minimum>1</minimum>
                         <maximum>10</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="retry_delay" type="integer" label="30504">
@@ -395,7 +395,7 @@
                         <minimum>1</minimum>
                         <maximum>30</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="rate_limit" type="integer" label="30505">
@@ -405,7 +405,7 @@
                         <minimum>1</minimum>
                         <maximum>60</maximum>
                     </constraints>
-                    <control type="slider" format="integer"/>
+                    <control type="slider" format="integer" />
                 </setting>
                 
                 <setting id="subtitle_encoding" type="string" label="30403">
@@ -419,7 +419,7 @@
                             <option label="Windows-1252">windows-1252</option>
                         </options>
                     </constraints>
-                    <control type="list" format="string"/>
+                    <control type="list" format="string" />
                 </setting>
                 
                 <setting id="openai_temperature" type="number" label="30375">
@@ -430,7 +430,7 @@
                         <maximum>2</maximum>
                         <step>0.1</step>
                     </constraints>
-                    <control type="slider" format="number"/>
+                    <control type="slider" format="number" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>
@@ -439,7 +439,7 @@
                 <setting id="openai_base_url" type="string" label="30374">
                     <level>3</level>
                     <default>-</default>
-                    <control type="edit" format="string"/>
+                    <control type="edit" format="string" />
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">openai</dependency>
                     </dependencies>

@@ -4,6 +4,13 @@ All notable changes to Subtitle Translator for Kodi will be documented in this f
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.1] - 2026-02-28
+
+### Changed
+- Default translation service changed from Lingva to MyMemory (Lingva returns 403/429 errors)
+- Default for `ask_before_translate` changed to `false` for better UX
+- Fallback services updated to `libretranslate,lingva` (Lingva kept as fallback only)
+
 ## [0.10.0] - 2026-02-27
 
 ### Added
