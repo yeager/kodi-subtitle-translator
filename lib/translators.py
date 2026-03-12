@@ -40,6 +40,9 @@ def get_translator(service_name, config):
 class BaseTranslator:
     """Base class for translation services."""
     
+    # Max parallel workers for non-batch APIs (override in subclass)
+    MAX_WORKERS = 1
+    
     def __init__(self, config):
         self.config = config
         self.timeout = config.get('timeout', 30)
@@ -51,9 +54,31 @@ class BaseTranslator:
     def translate_batch(self, texts, source_lang, target_lang):
         """
         Translate multiple texts.
-        Default implementation translates one by one.
+        Default: parallel execution with ThreadPoolExecutor for non-batch APIs.
+        Subclasses with native batch APIs should override this directly.
         """
-        return [self.translate(text, source_lang, target_lang) for text in texts]
+        if self.MAX_WORKERS <= 1 or len(texts) <= 1:
+            return [self.translate(text, source_lang, target_lang) for text in texts]
+        
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
+        workers = min(self.MAX_WORKERS, len(texts))
+        results = [None] * len(texts)
+        
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            future_to_idx = {
+                pool.submit(self.translate, text, source_lang, target_lang): i
+                for i, text in enumerate(texts)
+            }
+            for future in as_completed(future_to_idx):
+                idx = future_to_idx[future]
+                try:
+                    results[idx] = future.result()
+                except Exception as e:
+                    self._log(f"Parallel translate error [{idx}]: {e}", xbmc.LOGERROR)
+                    results[idx] = texts[idx]  # fallback to original
+        
+        return results
     
     def _request(self, url, data=None, headers=None, method='POST'):
         """Make HTTP request."""
@@ -147,6 +172,8 @@ class DeepLTranslator(BaseTranslator):
 class LibreTranslateTranslator(BaseTranslator):
     """LibreTranslate API (self-hosted or public instances)."""
     
+    MAX_WORKERS = 4  # Parallel requests
+    
     def __init__(self, config):
         super().__init__(config)
         self.base_url = config.get('url', 'https://libretranslate.com').rstrip('/')
@@ -174,6 +201,8 @@ class LibreTranslateTranslator(BaseTranslator):
 
 class MyMemoryTranslator(BaseTranslator):
     """MyMemory Translation API (free, rate-limited)."""
+    
+    MAX_WORKERS = 2  # Gentle parallelism (free tier)
     
     def __init__(self, config):
         super().__init__(config)
@@ -294,6 +323,8 @@ class MicrosoftTranslator(BaseTranslator):
 class LingvaTranslator(BaseTranslator):
     """Lingva Translate (free, open-source Google Translate frontend)."""
     
+    MAX_WORKERS = 3  # Parallel but gentle (free service)
+    
     def __init__(self, config):
         super().__init__(config)
         self.base_url = config.get('url', 'https://lingva.ml').rstrip('/')
@@ -321,38 +352,55 @@ class LingvaTranslator(BaseTranslator):
             raise  # Re-raise so batch handler can do backoff
     
     def translate_batch(self, texts, source_lang, target_lang):
-        """Translate texts one-by-one with rate-limit handling."""
+        """Translate texts with parallel workers + rate-limit handling."""
+        from concurrent.futures import ThreadPoolExecutor, as_completed
         import time
+        import threading
         
-        results = []
-        for i, text in enumerate(texts):
-            # Backoff if rate-limited
-            if self._consecutive_429 > 0:
-                backoff = min(2 ** min(self._consecutive_429, 5), 30)
-                self._log(f"Rate limit backoff: {backoff}s (429 x{self._consecutive_429})")
-                time.sleep(backoff)
+        if len(texts) <= 1:
+            return [self.translate(text, source_lang, target_lang) for text in texts]
+        
+        results = [None] * len(texts)
+        lock = threading.Lock()
+        rate_limited = threading.Event()
+        
+        def translate_one(idx, text):
+            """Translate with backoff on 429."""
+            # Wait if rate-limited
+            while rate_limited.is_set():
+                time.sleep(0.5)
             
             try:
                 result = self.translate(text, source_lang, target_lang)
-                results.append(result)
+                return result
             except Exception as e:
                 if '429' in str(e):
-                    # Wait and retry once
-                    backoff = min(2 ** min(self._consecutive_429, 5), 30)
-                    self._log(f"429 on entry {i+1}/{len(texts)}, waiting {backoff}s and retrying")
+                    with lock:
+                        self._consecutive_429 += 1
+                        backoff = min(2 ** min(self._consecutive_429, 5), 30)
+                    rate_limited.set()
+                    self._log(f"Rate limit hit, backing off {backoff}s")
                     time.sleep(backoff)
+                    rate_limited.clear()
+                    # Retry once
                     try:
-                        result = self.translate(text, source_lang, target_lang)
-                        results.append(result)
+                        return self.translate(text, source_lang, target_lang)
                     except:
-                        results.append(text)  # Give up on this entry
-                else:
-                    results.append(text)
-            
-            # Small delay between requests to avoid rate limiting
-            # ~200ms = max ~5 req/sec = 300 req/min (Lingva allows ~50/min)
-            if i < len(texts) - 1:
-                time.sleep(1.2)  # ~50 req/min to stay under Lingva limit
+                        return text
+                return text
+        
+        workers = min(self.MAX_WORKERS, len(texts))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            future_to_idx = {
+                pool.submit(translate_one, i, text): i
+                for i, text in enumerate(texts)
+            }
+            for future in as_completed(future_to_idx):
+                idx = future_to_idx[future]
+                try:
+                    results[idx] = future.result()
+                except Exception:
+                    results[idx] = texts[idx]
         
         return results
 
@@ -500,6 +548,8 @@ Rules:
 
 class ArgosTranslator(BaseTranslator):
     """Argos Translate (offline, local translation using neural models)."""
+    
+    MAX_WORKERS = 2  # Local model, limited by CPU
     
     def __init__(self, config):
         super().__init__(config)
