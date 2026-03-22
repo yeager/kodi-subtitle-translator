@@ -1,3 +1,25 @@
+## v0.11.0 (2026-03-22)
+
+### New: Context-Aware Translation
+- Automatically extracts media metadata (title, plot, genre, season/episode, year, tagline) from Kodi player
+- Sends context to DeepL, OpenAI, and Anthropic for significantly better translations
+- Ambiguous words resolved using plot context (e.g. "cell" in a prison drama vs. a biology documentary)
+- Character names preserved (not translated)
+
+### DeepL Pro Improvements
+- `model_type: quality_optimized` — best translation quality
+- `formality: prefer_less` — natural, less formal language (now supports Swedish)
+- `preserve_formatting` — keeps whitespace and line breaks intact
+- `split_sentences: nonewlines` — preserves subtitle line structure
+- `context` parameter — media info sent for better word choice
+- `glossary_id` support for custom terminology
+- Auto-detect PRO vs Free endpoint from API key
+
+### AI Engine Improvements
+- OpenAI: media-aware system prompt with full plot/genre context
+- Anthropic: updated default model to claude-sonnet-4, media-aware prompts
+- Both: explicit instruction to not translate character names
+
 # Changelog
 
 All notable changes to Subtitle Translator for Kodi will be documented in this file.

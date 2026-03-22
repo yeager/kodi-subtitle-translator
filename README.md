@@ -4,11 +4,12 @@
 [![Transifex](https://img.shields.io/badge/translations-Transifex-blue)](https://app.transifex.com/danielnylander/kodi-subtitle-translator/)
 [![License](https://img.shields.io/badge/license-GPL--3.0-green)](LICENSE)
 
-Automatically translate embedded and external subtitles in Kodi to your preferred language. Supports 10 translation services with automatic fallback.
+Automatically translate embedded and external subtitles in Kodi to your preferred language. Supports 10 translation services with automatic fallback and context-aware translation using media metadata.
 
 ## Features
 
 - **Automatic subtitle translation** — translates subtitles on playback start
+- **Context-aware translation** — uses film title, plot, genre, season/episode for better translations
 - **Pure Python MKV extractor** — extracts embedded subtitles directly from MKV files without FFmpeg, streaming over SMB/NFS (no temp copy needed)
 - **10 translation services** — Lingva (default, free), DeepL, Google Translate, Microsoft, OpenAI, Anthropic, LibreTranslate, Argos (offline), MyMemory, Yandex
 - **Auto-fallback** — if selected service needs API key that's missing, falls back to Lingva
@@ -17,6 +18,43 @@ Automatically translate embedded and external subtitles in Kodi to your preferre
 - **25 UI languages** — fully translated via Transifex
 - **Translation cache** — avoids re-translating same content
 - **Android/Shield support** — works out of the box, no FFmpeg needed for MKV files
+
+## Context-Aware Translation (NEW in v0.11.0)
+
+The addon automatically extracts metadata from the currently playing media and sends it to the translation engine for better, more accurate translations:
+
+| Metadata | Used for |
+|----------|----------|
+| **Title / Original title** | Identify the work, keep proper nouns consistent |
+| **Plot / Synopsis** | Resolve ambiguous words (e.g. "cell" = prison cell vs. biological cell) |
+| **Genre** | Adjust tone (comedy = colloquial, drama = formal, sci-fi = technical) |
+| **Season / Episode** | TV show continuity, recurring character names |
+| **Year** | Period-appropriate language |
+| **Tagline** | Quick thematic context |
+
+### How it works per engine
+
+- **DeepL Pro** — sends context via the `context` parameter (influences word choice without appearing in output)
+- **OpenAI / Anthropic** — injects media info into the system prompt for fully context-aware translation
+- **Other engines** — gracefully ignored (no context support)
+
+### Example
+
+Without context, "He's serving time in the yard" could be mistranslated. With the plot context "A prison drama about...", the translator correctly interprets "yard" as "gården" (prison yard) instead of "trädgården" (garden).
+
+## DeepL Pro Features
+
+When using DeepL with a Pro API key, the addon uses all available quality features:
+
+| Feature | Effect |
+|---------|--------|
+| `model_type: quality_optimized` | Best possible translation quality |
+| `formality: prefer_less` | Natural, less formal language (supported for Swedish, German, French, etc.) |
+| `preserve_formatting` | Keeps whitespace, line breaks, and formatting intact |
+| `split_sentences: nonewlines` | Preserves subtitle line structure |
+| `context` | Media info for better word choice |
+| `glossary_id` | Custom terminology lists |
+| Auto endpoint detection | Detects PRO vs Free from API key (`:fx` suffix = Free) |
 
 ## Installation
 
@@ -44,26 +82,22 @@ FFmpeg is used as a **fallback** for non-MKV containers (MP4, AVI, etc.) or if t
 | **Linux** | `sudo apt install ffmpeg` or `sudo dnf install ffmpeg` |
 | **Android/Shield** | The addon offers **automatic download** if FFmpeg fallback is needed. One click — no manual steps. |
 
-### Android/Shield notes
-
-The built-in Python extractor is the primary method on Android, avoiding FFmpeg permission issues with Android's scoped storage. FFmpeg auto-download is available as fallback if needed.
-
 ## Translation Services
 
-| Service | API Key | Free Tier | Speed |
-|---------|:---:|:---:|:---:|
-| **Lingva** (default) | ❌ | ✅ Unlimited | ~50 lines/min |
-| **DeepL** | ✅ | 500k chars/month | ⚡ Fast (batch) |
-| Google Translate | ✅ | Limited | ⚡ Fast |
-| Microsoft Translator | ✅ | 2M chars/month | ⚡ Fast |
-| OpenAI (GPT) | ✅ | Pay-per-use | ⚡ Fast (batch) |
-| Anthropic (Claude) | ✅ | Pay-per-use | ⚡ Fast (batch) |
-| LibreTranslate | ✅ | Self-hosted | Medium |
-| Argos Translate | ❌ | ✅ Offline | Medium |
-| MyMemory | ❌ | 5k chars/day | Medium |
-| Yandex | ✅ | Limited | ⚡ Fast |
+| Service | API Key | Free Tier | Context | Speed |
+|---------|:---:|:---:|:---:|:---:|
+| **Lingva** (default) | ❌ | ✅ Unlimited | ❌ | ~50 lines/min |
+| **DeepL** | ✅ | 500k chars/month | ✅ Full | ⚡ Fast (batch) |
+| **OpenAI** (GPT) | ✅ | Pay-per-use | ✅ Full | ⚡ Fast (batch) |
+| **Anthropic** (Claude) | ✅ | Pay-per-use | ✅ Full | ⚡ Fast (batch) |
+| Google Translate | ✅ | Limited | ❌ | ⚡ Fast |
+| Microsoft Translator | ✅ | 2M chars/month | ❌ | ⚡ Fast |
+| LibreTranslate | ✅ | Self-hosted | ❌ | Medium |
+| Argos Translate | ❌ | ✅ Offline | ❌ | Medium |
+| MyMemory | ❌ | 5k chars/day | ❌ | Medium |
+| Yandex | ✅ | Limited | ❌ | ⚡ Fast |
 
-> **Tip:** Lingva is free but rate-limited (~50 requests/min). For faster translations, use DeepL Free (500k chars/month) or set up your own LibreTranslate instance.
+> **Tip:** For best quality, use DeepL Pro or OpenAI/Anthropic — they leverage media context for significantly better translations. Lingva is free but has no context support.
 
 ## Settings
 
