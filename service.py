@@ -673,6 +673,18 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 self.get_service_config() if actual_service == self.translation_service else self._get_fallback_config(actual_service)
             )
             
+            # Set media context for context-aware translation (film title, plot, genre etc.)
+            try:
+                from lib.dialogs import get_media_context
+                media_ctx = get_media_context()
+                if media_ctx:
+                    translator.set_media_context(media_ctx)
+                    ctx_display = media_ctx.get('display', '')
+                    if ctx_display:
+                        get_debug_logger().debug(f"Media context: {ctx_display}", 'api')
+            except Exception:
+                pass
+            
             # Translate in batches with progress
             translated_entries = []
             batch_size = self.batch_size

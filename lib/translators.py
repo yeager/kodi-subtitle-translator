@@ -43,6 +43,37 @@ class BaseTranslator:
     def __init__(self, config):
         self.config = config
         self.timeout = config.get('timeout', 30)
+        self.media_context = config.get('media_context', {})
+    
+    def set_media_context(self, context):
+        """Set media context (title, plot, genre, season/episode etc)."""
+        self.media_context = context or {}
+    
+    def _build_context_string(self):
+        """Build a context string from media metadata for translation engines."""
+        ctx = self.media_context
+        if not ctx:
+            return ''
+        
+        parts = []
+        if ctx.get('type') == 'tvshow' and ctx.get('tvshow'):
+            parts.append(f"TV series: {ctx['tvshow']}")
+            if ctx.get('season', -1) > 0:
+                parts.append(f"Season {ctx['season']}, Episode {ctx['episode']}")
+        elif ctx.get('title'):
+            parts.append(f"Film: {ctx['title']}")
+            if ctx.get('year'):
+                parts.append(f"({ctx['year']})")
+        
+        if ctx.get('genre'):
+            parts.append(f"Genre: {ctx['genre']}")
+        
+        if ctx.get('plot_outline'):
+            parts.append(ctx['plot_outline'][:150])
+        elif ctx.get('plot'):
+            parts.append(ctx['plot'][:150])
+        
+        return ' | '.join(parts)
     
     def translate(self, text, source_lang, target_lang):
         """Translate a single text string."""
@@ -81,15 +112,19 @@ class BaseTranslator:
 
 
 class DeepLTranslator(BaseTranslator):
-    """DeepL Translation API."""
+    """DeepL Translation API with full Pro features."""
+    
+    # Languages that support formality
+    FORMALITY_LANGS = {'DE', 'FR', 'IT', 'ES', 'NL', 'PL', 'PT-PT', 'PT-BR', 'RU', 'SV', 'DA', 'JA'}
     
     def __init__(self, config):
         super().__init__(config)
         self.api_key = config.get('api_key', '')
-        self.formality = config.get('formality', 'default')
-        self.is_free = config.get('free', False)
+        self.formality = config.get('formality', 'prefer_less')
+        self.glossary_id = config.get('glossary_id', '')
         
-        if self.is_free:
+        # Auto-detect free vs pro from key
+        if config.get('free') or self.api_key.endswith(':fx'):
             self.base_url = 'https://api-free.deepl.com/v2'
         else:
             self.base_url = 'https://api.deepl.com/v2'
@@ -103,24 +138,36 @@ class DeepLTranslator(BaseTranslator):
         return result[0] if result else text
     
     def translate_batch(self, texts, source_lang, target_lang):
-        """Translate multiple texts in one request."""
+        """Translate multiple texts with full DeepL Pro features."""
         if not self.api_key:
             raise ValueError("DeepL API key required")
         
-        # Map language codes
         target = self._map_language(target_lang)
         source = self._map_language(source_lang) if source_lang != 'auto' else None
         
         data = {
             'text': texts,
-            'target_lang': target
+            'target_lang': target,
+            'model_type': 'quality_optimized',
+            'split_sentences': 'nonewlines',
+            'preserve_formatting': True,
         }
         
         if source:
             data['source_lang'] = source
         
-        if self.formality != 'default' and target in ['DE', 'FR', 'IT', 'ES', 'NL', 'PL', 'PT-PT', 'PT-BR', 'RU']:
+        # Formality for supported languages
+        if self.formality != 'default' and target in self.FORMALITY_LANGS:
             data['formality'] = self.formality
+        
+        # Glossary
+        if self.glossary_id:
+            data['glossary_id'] = self.glossary_id
+        
+        # Media context — DeepL supports 'context' parameter for better translations
+        context_str = self._build_context_string()
+        if context_str:
+            data['context'] = context_str
         
         headers = {
             'Authorization': f'DeepL-Auth-Key {self.api_key}'
@@ -375,23 +422,27 @@ class OpenAITranslator(BaseTranslator):
         return result[0] if result else text
     
     def translate_batch(self, texts, source_lang, target_lang):
-        """Translate multiple texts using OpenAI."""
+        """Translate multiple texts using OpenAI with media context."""
         if not self.api_key:
             raise ValueError("OpenAI API key required")
         
         target_name = self._get_language_name(target_lang)
         source_name = self._get_language_name(source_lang) if source_lang != 'auto' else 'the source language'
         
-        # Combine texts for efficient translation
         combined = '\n---SUBTITLE_BREAK---\n'.join(texts)
         
+        # Build media-aware system prompt
+        media_info = self._build_media_prompt()
+        
         system_prompt = f"""You are a professional subtitle translator. Translate the following subtitles from {source_name} to {target_name}.
-
+{media_info}
 Rules:
 - Preserve the exact number of subtitle entries (separated by ---SUBTITLE_BREAK---)
 - Keep translations natural and colloquial, suitable for subtitles
 - Maintain the same tone and style as the original
 - Keep translations concise (subtitles have limited space)
+- Use context from the plot/genre to resolve ambiguous words correctly
+- Character names should NOT be translated
 - Do not add explanations or notes
 - Only output the translations, nothing else"""
         
@@ -416,6 +467,33 @@ Rules:
             self._log(f"OpenAI error: {e}", xbmc.LOGERROR)
             return texts
     
+    def _build_media_prompt(self):
+        """Build context section for the system prompt from media metadata."""
+        ctx = self.media_context
+        if not ctx:
+            return ''
+        
+        parts = ['\nContext about this media:']
+        if ctx.get('type') == 'tvshow' and ctx.get('tvshow'):
+            parts.append(f'- TV series: "{ctx["tvshow"]}"')
+            if ctx.get('season', -1) > 0:
+                parts.append(f'- Season {ctx["season"]}, Episode {ctx["episode"]}')
+        elif ctx.get('title'):
+            parts.append(f'- Title: "{ctx["title"]}"')
+            if ctx.get('year'):
+                parts.append(f'- Year: {ctx["year"]}')
+        
+        if ctx.get('genre'):
+            parts.append(f'- Genre: {ctx["genre"]}')
+        if ctx.get('tagline'):
+            parts.append(f'- Tagline: {ctx["tagline"]}')
+        if ctx.get('plot_outline'):
+            parts.append(f'- Plot: {ctx["plot_outline"][:300]}')
+        elif ctx.get('plot'):
+            parts.append(f'- Plot: {ctx["plot"][:300]}')
+        
+        return '\n'.join(parts) + '\n' if len(parts) > 1 else ''
+    
     def _get_language_name(self, code):
         """Get full language name from code."""
         names = {
@@ -434,7 +512,7 @@ class AnthropicTranslator(BaseTranslator):
     def __init__(self, config):
         super().__init__(config)
         self.api_key = config.get('api_key', '')
-        self.model = config.get('model', 'claude-3-haiku-20240307')
+        self.model = config.get('model', 'claude-sonnet-4-20250514')
         self.base_url = 'https://api.anthropic.com/v1'
     
     def translate(self, text, source_lang, target_lang):
@@ -446,7 +524,7 @@ class AnthropicTranslator(BaseTranslator):
         return result[0] if result else text
     
     def translate_batch(self, texts, source_lang, target_lang):
-        """Translate multiple texts using Claude."""
+        """Translate multiple texts using Claude with media context."""
         if not self.api_key:
             raise ValueError("Anthropic API key required")
         
@@ -455,13 +533,18 @@ class AnthropicTranslator(BaseTranslator):
         
         combined = '\n---SUBTITLE_BREAK---\n'.join(texts)
         
+        # Build media-aware system prompt
+        media_info = self._build_media_prompt()
+        
         system_prompt = f"""You are a professional subtitle translator. Translate subtitles from {source_name} to {target_name}.
-
+{media_info}
 Rules:
 - Preserve the exact number of subtitle entries (separated by ---SUBTITLE_BREAK---)
 - Keep translations natural and colloquial
 - Maintain tone and style
 - Keep translations concise for subtitle format
+- Use context from the plot/genre to resolve ambiguous words
+- Character names should NOT be translated
 - Output only translations, no explanations"""
         
         data = {
@@ -485,6 +568,33 @@ Rules:
         except Exception as e:
             self._log(f"Anthropic error: {e}", xbmc.LOGERROR)
             return texts
+    
+    def _build_media_prompt(self):
+        """Build context section from media metadata."""
+        ctx = self.media_context
+        if not ctx:
+            return ''
+        
+        parts = ['\nContext about this media:']
+        if ctx.get('type') == 'tvshow' and ctx.get('tvshow'):
+            parts.append(f'- TV series: "{ctx["tvshow"]}"')
+            if ctx.get('season', -1) > 0:
+                parts.append(f'- Season {ctx["season"]}, Episode {ctx["episode"]}')
+        elif ctx.get('title'):
+            parts.append(f'- Title: "{ctx["title"]}"')
+            if ctx.get('year'):
+                parts.append(f'- Year: {ctx["year"]}')
+        
+        if ctx.get('genre'):
+            parts.append(f'- Genre: {ctx["genre"]}')
+        if ctx.get('tagline'):
+            parts.append(f'- Tagline: {ctx["tagline"]}')
+        if ctx.get('plot_outline'):
+            parts.append(f'- Plot: {ctx["plot_outline"][:300]}')
+        elif ctx.get('plot'):
+            parts.append(f'- Plot: {ctx["plot"][:300]}')
+        
+        return '\n'.join(parts) + '\n' if len(parts) > 1 else ''
     
     def _get_language_name(self, code):
         """Get full language name from code."""

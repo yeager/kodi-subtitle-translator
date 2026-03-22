@@ -177,6 +177,54 @@ def browse_subtitle_file(get_string_func=None):
     return None
 
 
+def get_media_context():
+    """Get rich context about currently playing media for translation."""
+    context = {}
+    try:
+        player = xbmc.Player()
+        if player.isPlayingVideo():
+            info = player.getVideoInfoTag()
+            context['title'] = info.getTitle() or ''
+            context['original_title'] = info.getOriginalTitle() or ''
+            context['plot'] = info.getPlot() or ''
+            context['plot_outline'] = info.getPlotOutline() or ''
+            context['genre'] = info.getGenre() or ''
+            context['year'] = info.getYear() or 0
+            context['season'] = info.getSeason() or -1
+            context['episode'] = info.getEpisode() or -1
+            context['tvshow'] = info.getTVShowTitle() or ''
+            context['media_type'] = info.getMediaType() or ''
+            context['tagline'] = info.getTagLine() or ''
+            
+            # Determine if TV show or movie
+            if context['tvshow']:
+                context['type'] = 'tvshow'
+                context['display'] = f"{context['tvshow']} S{context['season']:02d}E{context['episode']:02d}" if context['season'] > 0 else context['tvshow']
+            elif context['title']:
+                context['type'] = 'movie'
+                context['display'] = f"{context['title']} ({context['year']})" if context['year'] else context['title']
+            else:
+                context['type'] = 'unknown'
+                context['display'] = ''
+    except:
+        pass
+    
+    # Fallback from info labels
+    if not context.get('title'):
+        context['title'] = xbmc.getInfoLabel('VideoPlayer.Title') or xbmc.getInfoLabel('Player.Title') or ''
+    if not context.get('genre'):
+        context['genre'] = xbmc.getInfoLabel('VideoPlayer.Genre') or ''
+    if not context.get('year'):
+        try:
+            context['year'] = int(xbmc.getInfoLabel('VideoPlayer.Year') or 0)
+        except:
+            context['year'] = 0
+    if not context.get('plot'):
+        context['plot'] = xbmc.getInfoLabel('VideoPlayer.Plot') or ''
+    
+    return context
+
+
 def get_current_media_title():
     """Get title of currently playing media."""
     # Try Player labels
