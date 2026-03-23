@@ -1,0 +1,1039 @@
+# Kodi Media Center language file
+# Addon Name: Subtitle Translator
+# Addon id: service.subtitletranslator
+# Addon Provider: yeager
+# Translators:
+# Daniel Nylander <po@danielnylander.se>, 2026
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: service.subtitletranslator\n"
+"Report-Msgid-Bugs-To: https://github.com/yeager\n"
+"POT-Creation-Date: 2026-02-01\n"
+"PO-Revision-Date: 2026-02-16 06:20+0000\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>, 2026\n"
+"Language-Team: Swedish (Sweden) (https://app.transifex.com/danielnylander/teams/304821/sv_SE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv_SE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Allmänt"
+
+msgctxt "#30101"
+msgid "Basic Settings"
+msgstr "Grundinställningar"
+
+msgctxt "#30102"
+msgid "Enable addon"
+msgstr "Aktivera tillägg"
+
+msgctxt "#30103"
+msgid "Auto-translate when subtitle is missing"
+msgstr "Översätt automatiskt när undertext saknas"
+
+msgctxt "#30104"
+msgid "Show notifications"
+msgstr "Visa aviseringar"
+
+msgctxt "#30105"
+msgid "Ask before translating"
+msgstr "Fråga före översättning"
+
+msgctxt "#30106"
+msgid "Show progress dialog"
+msgstr "Visa förloppsindikator"
+
+msgctxt "#30110"
+msgid "Notifications"
+msgstr "Aviseringar"
+
+msgctxt "#30111"
+msgid "Play notification sound"
+msgstr "Spela upp aviseringsljud"
+
+msgctxt "#30112"
+msgid "Notification duration (seconds)"
+msgstr "Aviseringslängd (sekunder)"
+
+msgctxt "#30113"
+msgid "Show translation statistics"
+msgstr "Visa översättningsstatistik"
+
+msgctxt "#30200"
+msgid "Languages"
+msgstr "Språk"
+
+msgctxt "#30201"
+msgid "Language Preferences"
+msgstr "Språkinställningar"
+
+msgctxt "#30202"
+msgid "Target language"
+msgstr "Målspråk"
+
+msgctxt "#30203"
+msgid "Source language"
+msgstr "Källspråk"
+
+msgctxt "#30204"
+msgid "Fallback languages (comma-separated)"
+msgstr "Reservspråk (kommaseparerade)"
+
+msgctxt "#30250"
+msgid "Profiles"
+msgstr "Profiler"
+
+msgctxt "#30251"
+msgid "Translation Profile"
+msgstr "Översättningsprofil"
+
+msgctxt "#30252"
+msgid "Active profile"
+msgstr "Aktiv profil"
+
+msgctxt "#30260"
+msgid "Anime Settings"
+msgstr "Anime-inställningar"
+
+msgctxt "#30261"
+msgid "Preserve honorifics (-san, -kun, etc.)"
+msgstr "Bevara hederstitlar (-san, -kun, etc.)"
+
+msgctxt "#30262"
+msgid "Japanese terms to preserve"
+msgstr "Japanska termer att bevara"
+
+msgctxt "#30270"
+msgid "Kids Content Settings"
+msgstr "Inställningar för barninnehåll"
+
+msgctxt "#30271"
+msgid "Simplify language"
+msgstr "Förenkla språk"
+
+msgctxt "#30272"
+msgid "Censor profanity"
+msgstr "Censurera svordomar"
+
+msgctxt "#30273"
+msgid "Maximum reading speed (chars/sec)"
+msgstr "Maximal läshastighet (tecken/s)"
+
+msgctxt "#30280"
+msgid "Custom Profile Settings"
+msgstr "Anpassade profilinställningar"
+
+msgctxt "#30281"
+msgid "Formality level"
+msgstr "Formalitetsnivå"
+
+msgctxt "#30282"
+msgid "Tone"
+msgstr "Ton"
+
+msgctxt "#30300"
+msgid "Translation Services"
+msgstr "Översättningstjänster"
+
+msgctxt "#30301"
+msgid "Service Selection"
+msgstr "Tjänsteval"
+
+msgctxt "#30302"
+msgid "Translation service"
+msgstr "Översättningstjänst"
+
+msgctxt "#30303"
+msgid "API Keys"
+msgstr "API-nycklar"
+
+msgctxt "#30305"
+msgid "Fallback Services"
+msgstr "Reservtjänster"
+
+msgctxt "#30306"
+msgid "Enable fallback to other services"
+msgstr "Aktivera reservtjänster"
+
+msgctxt "#30307"
+msgid "Fallback services (comma-separated)"
+msgstr "Reservtjänster (kommaseparerade)"
+
+msgctxt "#30308"
+msgid "Cooldown before retry (seconds)"
+msgstr "Väntetid före nytt försök (sekunder)"
+
+msgctxt "#30310"
+msgid "DeepL Settings"
+msgstr "DeepL-inställningar"
+
+msgctxt "#30311"
+msgid "DeepL API key"
+msgstr "DeepL API-nyckel"
+
+msgctxt "#30312"
+msgid "DeepL Free API key"
+msgstr "DeepL Free API-nyckel"
+
+msgctxt "#30313"
+msgid "Formality"
+msgstr "Formalitet"
+
+msgctxt "#30314"
+msgid "Split sentences"
+msgstr "Dela meningar"
+
+msgctxt "#30315"
+msgid "Preserve formatting"
+msgstr "Bevara formatering"
+
+msgctxt "#30320"
+msgid "LibreTranslate Settings"
+msgstr "Inställningar för LibreTranslate"
+
+msgctxt "#30321"
+msgid "Server URL"
+msgstr "Server-URL"
+
+msgctxt "#30322"
+msgid "API key (optional)"
+msgstr "API-nyckel (valfri)"
+
+msgctxt "#30323"
+msgid "Custom mirror URLs"
+msgstr "Anpassade spegel-URL:er"
+
+msgctxt "#30330"
+msgid "Google Translate Settings"
+msgstr "Inställningar för Google Translate"
+
+msgctxt "#30331"
+msgid "Google Cloud API key"
+msgstr "Google Cloud API-nyckel"
+
+msgctxt "#30332"
+msgid "Translation model"
+msgstr "Översättningsmodell"
+
+msgctxt "#30340"
+msgid "Microsoft Translator Settings"
+msgstr "Inställningar för Microsoft Translator"
+
+msgctxt "#30341"
+msgid "Azure API key"
+msgstr "Azure API-nyckel"
+
+msgctxt "#30342"
+msgid "Azure region"
+msgstr "Azure-region"
+
+msgctxt "#30343"
+msgid "Profanity handling"
+msgstr "Hantering av svordomar"
+
+msgctxt "#30350"
+msgid "Lingva Settings"
+msgstr "Inställningar för Lingva"
+
+msgctxt "#30351"
+msgid "Lingva server URL"
+msgstr "Server-URL för Lingva"
+
+msgctxt "#30352"
+msgid "Alternative server URLs"
+msgstr "Alternativa server-URL:er"
+
+msgctxt "#30360"
+msgid "Argos Translate Settings"
+msgstr "Inställningar för Argos Translate"
+
+msgctxt "#30361"
+msgid "Language package path"
+msgstr "Sökväg för språkpaket"
+
+msgctxt "#30362"
+msgid "Auto-download language packages"
+msgstr "Hämta ner språkpaket automatiskt"
+
+msgctxt "#30370"
+msgid "OpenAI Settings"
+msgstr "Inställningar för OpenAI"
+
+msgctxt "#30371"
+msgid "OpenAI API key"
+msgstr "OpenAI API-nyckel"
+
+msgctxt "#30372"
+msgid "Model"
+msgstr "Modell"
+
+msgctxt "#30373"
+msgid "Custom model name"
+msgstr "Anpassat modellnamn"
+
+msgctxt "#30374"
+msgid "Custom API base URL"
+msgstr "Anpassad API-bas-URL"
+
+msgctxt "#30375"
+msgid "Temperature"
+msgstr "Temperatur"
+
+msgctxt "#30376"
+msgid "Max tokens"
+msgstr "Max tokens"
+
+msgctxt "#30377"
+msgid "Context window (subtitles)"
+msgstr "Kontextfönster (undertexter)"
+
+msgctxt "#30380"
+msgid "Anthropic Claude Settings"
+msgstr "Inställningar för Anthropic Claude"
+
+msgctxt "#30381"
+msgid "Anthropic API key"
+msgstr "Anthropic API-nyckel"
+
+msgctxt "#30382"
+msgid "Claude model"
+msgstr "Claude-modell"
+
+msgctxt "#30383"
+msgid "Max tokens"
+msgstr "Max tokens"
+
+msgctxt "#30384"
+msgid "Context window (subtitles)"
+msgstr "Kontextfönster (undertexter)"
+
+msgctxt "#30390"
+msgid "Advanced Service Settings"
+msgstr "Avancerade tjänsteinställningar"
+
+msgctxt "#30400"
+msgid "Subtitles"
+msgstr "Undertexter"
+
+msgctxt "#30401"
+msgid "Output Format"
+msgstr "Utdataformat"
+
+msgctxt "#30402"
+msgid "Subtitle format"
+msgstr "Undertextformat"
+
+msgctxt "#30403"
+msgid "Character encoding"
+msgstr "Teckenkodning"
+
+msgctxt "#30410"
+msgid "Timing Adjustments"
+msgstr "Tidsjusteringar"
+
+msgctxt "#30411"
+msgid "Adjust timing for readability"
+msgstr "Justera tid för läsbarhet"
+
+msgctxt "#30412"
+msgid "Reading speed (chars/sec)"
+msgstr "Läshastighet (tecken/s)"
+
+msgctxt "#30413"
+msgid "Minimum display time (ms)"
+msgstr "Minsta visningstid (ms)"
+
+msgctxt "#30414"
+msgid "Maximum display time (ms)"
+msgstr "Maximal visningstid (ms)"
+
+msgctxt "#30415"
+msgid "Gap between subtitles (ms)"
+msgstr "Mellanrum mellan undertexter (ms)"
+
+msgctxt "#30420"
+msgid "Line Breaking"
+msgstr "Radbrytning"
+
+msgctxt "#30421"
+msgid "Auto line break"
+msgstr "Automatisk radbrytning"
+
+msgctxt "#30422"
+msgid "Maximum line length (chars)"
+msgstr "Maximal radlängd (tecken)"
+
+msgctxt "#30423"
+msgid "Maximum lines per subtitle"
+msgstr "Maximalt antal rader per undertext"
+
+msgctxt "#30430"
+msgid "SDH / Accessibility"
+msgstr "SDH / Tillgänglighet"
+
+msgctxt "#30431"
+msgid "Enable SDH processing"
+msgstr "Aktivera SDH-bearbetning"
+
+msgctxt "#30432"
+msgid "Preserve speaker labels"
+msgstr "Bevara talaretiketter"
+
+msgctxt "#30433"
+msgid "Translate sound descriptions"
+msgstr "Översätt ljudbeskrivningar"
+
+msgctxt "#30434"
+msgid "Preserve music notation"
+msgstr "Bevara musiknotation"
+
+msgctxt "#30440"
+msgid "Caching"
+msgstr "Cachning"
+
+msgctxt "#30441"
+msgid "Cache translated subtitles"
+msgstr "Cachelagra översatta undertexter"
+
+msgctxt "#30442"
+msgid "Cache duration (days)"
+msgstr "Cachningstid (dagar)"
+
+msgctxt "#30443"
+msgid "Cache size limit (MB)"
+msgstr "Cachestorleksgräns (MB)"
+
+msgctxt "#30444"
+msgid "Save subtitle alongside video"
+msgstr "Spara undertext bredvid video"
+
+msgctxt "#30450"
+msgid "Formatting Preservation"
+msgstr "Formateringsbevarande"
+
+msgctxt "#30451"
+msgid "Preserve original timing"
+msgstr "Bevara ursprunglig tid"
+
+msgctxt "#30452"
+msgid "Preserve text formatting"
+msgstr "Bevara textformatering"
+
+msgctxt "#30453"
+msgid "Preserve colors"
+msgstr "Bevara färger"
+
+msgctxt "#30454"
+msgid "Preserve positions"
+msgstr "Bevara positioner"
+
+msgctxt "#30460"
+msgid "Glossary"
+msgstr "Ordlista"
+
+msgctxt "#30461"
+msgid "Custom Terminology"
+msgstr "Anpassad terminologi"
+
+msgctxt "#30462"
+msgid "Enable glossary"
+msgstr "Aktivera ordlista"
+
+msgctxt "#30463"
+msgid "Case-sensitive matching"
+msgstr "Skiftlägeskänslig matchning"
+
+msgctxt "#30464"
+msgid "Glossary file path"
+msgstr "Sökväg till ordlista"
+
+msgctxt "#30470"
+msgid "Name Preservation"
+msgstr "Namnbevarande"
+
+msgctxt "#30471"
+msgid "Preserve character names"
+msgstr "Bevara karaktärsnamn"
+
+msgctxt "#30472"
+msgid "Names to preserve (comma-separated)"
+msgstr "Namn att bevara (kommaseparerade)"
+
+msgctxt "#30480"
+msgid "Content Filtering"
+msgstr "Innehållsfiltrering"
+
+msgctxt "#30481"
+msgid "Profanity Filter"
+msgstr "Svordomsfilter"
+
+msgctxt "#30482"
+msgid "Enable profanity filter"
+msgstr "Aktivera svordomsfilter"
+
+msgctxt "#30483"
+msgid "Replacement text"
+msgstr "Ersättningstext"
+
+msgctxt "#30484"
+msgid "Additional words to filter"
+msgstr "Ytterligare ord att filtrera"
+
+msgctxt "#30490"
+msgid "Batch Processing"
+msgstr "Massbearbetning"
+
+msgctxt "#30491"
+msgid "Batch Translation"
+msgstr "Massöversättning"
+
+msgctxt "#30492"
+msgid "Enable batch processing"
+msgstr "Aktivera massbearbetning"
+
+msgctxt "#30493"
+msgid "Maximum concurrent translations"
+msgstr "Maximalt antal samtidiga översättningar"
+
+msgctxt "#30494"
+msgid "Folders to process"
+msgstr "Mappar att bearbeta"
+
+msgctxt "#30495"
+msgid "Enable scheduled processing"
+msgstr "Aktivera schemalagd bearbetning"
+
+msgctxt "#30496"
+msgid "Schedule time (HH:MM)"
+msgstr "Schemalagd tid (TT:MM)"
+
+msgctxt "#30500"
+msgid "Network"
+msgstr "Nätverk"
+
+msgctxt "#30501"
+msgid "Connection Settings"
+msgstr "Anslutningsinställningar"
+
+msgctxt "#30502"
+msgid "Request timeout (seconds)"
+msgstr "Tidsgräns för förfrågan (sekunder)"
+
+msgctxt "#30503"
+msgid "Maximum retries"
+msgstr "Maximalt antal återförsök"
+
+msgctxt "#30504"
+msgid "Retry delay (seconds)"
+msgstr "Fördröjning vid återförsök (sekunder)"
+
+msgctxt "#30505"
+msgid "Rate limit (requests per minute)"
+msgstr "Hastighetsbegränsning (förfrågningar/minut)"
+
+msgctxt "#30510"
+msgid "Proxy Settings"
+msgstr "Proxyinställningar"
+
+msgctxt "#30511"
+msgid "Enable proxy"
+msgstr "Aktivera proxy"
+
+msgctxt "#30512"
+msgid "Proxy type"
+msgstr "Proxytyp"
+
+msgctxt "#30513"
+msgid "Proxy host"
+msgstr "Proxyvärd"
+
+msgctxt "#30514"
+msgid "Proxy port"
+msgstr "Proxyport"
+
+msgctxt "#30515"
+msgid "Proxy username"
+msgstr "Proxyanvändarnamn"
+
+msgctxt "#30516"
+msgid "Proxy password"
+msgstr "Proxylösenord"
+
+msgctxt "#30520"
+msgid "Rate Limiting"
+msgstr "Hastighetsbegränsning"
+
+msgctxt "#30521"
+msgid "Enable rate limiting"
+msgstr "Aktivera hastighetsbegränsning"
+
+msgctxt "#30522"
+msgid "Requests per minute"
+msgstr "Förfrågningar per minut"
+
+msgctxt "#30600"
+msgid "Advanced"
+msgstr "Avancerat"
+
+msgctxt "#30601"
+msgid "FFmpeg Settings"
+msgstr "FFmpeg-inställningar"
+
+msgctxt "#30602"
+msgid "FFmpeg path (leave empty for auto)"
+msgstr "FFmpeg-sökväg (lämna tom för auto)"
+
+msgctxt "#30603"
+msgid "FFmpeg threads (0 = auto)"
+msgstr "FFmpeg-trådar (0 = auto)"
+
+msgctxt "#30604"
+msgid "Enable hardware acceleration"
+msgstr "Aktivera hårdvaruacceleration"
+
+msgctxt "#30610"
+msgid "Processing"
+msgstr "Bearbetning"
+
+msgctxt "#30611"
+msgid "Batch size (subtitles per request)"
+msgstr "Batchstorlek (undertexter per förfrågan)"
+
+msgctxt "#30612"
+msgid "Parallel API requests"
+msgstr "Parallella API-förfrågningar"
+
+msgctxt "#30613"
+msgid "Memory limit (MB)"
+msgstr "Minnesgräns (MB)"
+
+msgctxt "#30620"
+msgid "Debugging"
+msgstr "Felsökning"
+
+msgctxt "#30621"
+msgid "Enable debug logging"
+msgstr "Aktivera felsökningslogg"
+
+msgctxt "#30622"
+msgid "Debug categories (all or comma-separated)"
+msgstr "Felsökningskategorier (alla eller kommaseparerade)"
+
+msgctxt "#30623"
+msgid "Log API requests"
+msgstr "Logga API-förfrågningar"
+
+msgctxt "#30624"
+msgid "Log timing information"
+msgstr "Logga tidsinformation"
+
+msgctxt "#30625"
+msgid "Save debug log to file"
+msgstr "Spara felsökningslogg till fil"
+
+msgctxt "#30630"
+msgid "Maintenance"
+msgstr "Underhåll"
+
+msgctxt "#30631"
+msgid "Auto cleanup old cache"
+msgstr "Rensa gammal cache automatiskt"
+
+msgctxt "#30632"
+msgid "Cleanup on startup"
+msgstr "Rensa vid start"
+
+msgctxt "#30633"
+msgid "Export statistics"
+msgstr "Exportera statistik"
+
+msgctxt "#30640"
+msgid "Quality Control"
+msgstr "Kvalitetskontroll"
+
+msgctxt "#30641"
+msgid "Enable quality checks"
+msgstr "Aktivera kvalitetskontroller"
+
+msgctxt "#30642"
+msgid "Minimum translation ratio"
+msgstr "Minsta översättningskvot"
+
+msgctxt "#30643"
+msgid "Maximum translation ratio"
+msgstr "Maximal översättningskvot"
+
+msgctxt "#30644"
+msgid "Flag untranslated text"
+msgstr "Flagga icke-översatt text"
+
+msgctxt "#30700"
+msgid "Translating subtitles..."
+msgstr "Översätter undertexter..."
+
+msgctxt "#30701"
+msgid "Translation complete!"
+msgstr "Översättning klar!"
+
+msgctxt "#30702"
+msgid "Translation failed"
+msgstr "Översättning misslyckades"
+
+msgctxt "#30703"
+msgid "No embedded subtitles found. Nothing to translate."
+msgstr "Inga inbäddade undertexter hittades. Inget att översätta."
+
+msgctxt "#30704"
+msgid "Subtitle already available in your language"
+msgstr "Undertext finns redan på ditt språk"
+
+msgctxt "#30705"
+msgid "Using cached translation"
+msgstr "Använder cachad översättning"
+
+msgctxt "#30706"
+msgid "Translate subtitles to {0} from {1}?"
+msgstr "Översätt undertexter till {0} från {1}?"
+
+msgctxt "#30707"
+msgid "Extracting subtitles..."
+msgstr "Extraherar undertexter..."
+
+msgctxt "#30708"
+msgid "Parsing subtitle file..."
+msgstr "Tolkar undertextfil..."
+
+msgctxt "#30709"
+msgid "Connecting to translation service..."
+msgstr "Ansluter till översättningstjänst..."
+
+msgctxt "#30710"
+msgid "Translating batch {0}/{1}..."
+msgstr "Översätter batch {0}/{1}..."
+
+msgctxt "#30711"
+msgid "Saving translated subtitles..."
+msgstr "Sparar översatta undertexter..."
+
+msgctxt "#30712"
+msgid "Translation cancelled"
+msgstr "Översättning avbruten"
+
+msgctxt "#30713"
+msgid "Fallback to {0}"
+msgstr "Reservtjänst {0}"
+
+msgctxt "#30714"
+msgid "API error: {0}"
+msgstr "API-fel: {0}"
+
+msgctxt "#30715"
+msgid "Rate limit reached, waiting..."
+msgstr "Hastighetsgräns uppnådd, väntar..."
+
+msgctxt "#30716"
+msgid "Batch processing complete: {0} videos"
+msgstr "Batchbearbetning klar: {0} videor"
+
+msgctxt "#30717"
+msgid "Pausing playback during translation..."
+msgstr "Pausar uppspelning under översättning..."
+
+msgctxt "#30718"
+msgid "Resuming playback"
+msgstr "Återupptar uppspelning"
+
+msgctxt "#30719"
+msgid "Subtitle already available in target language"
+msgstr "Undertext finns redan på målspråket"
+
+msgctxt "#30800"
+msgid "Swedish"
+msgstr "svenska"
+
+msgctxt "#30801"
+msgid "English"
+msgstr "engelska"
+
+msgctxt "#30802"
+msgid "Norwegian"
+msgstr "norska"
+
+msgctxt "#30803"
+msgid "Danish"
+msgstr "danska"
+
+msgctxt "#30804"
+msgid "Finnish"
+msgstr "finska"
+
+msgctxt "#30805"
+msgid "German"
+msgstr "tyska"
+
+msgctxt "#30806"
+msgid "French"
+msgstr "franska"
+
+msgctxt "#30807"
+msgid "Spanish"
+msgstr "spanska"
+
+msgctxt "#30808"
+msgid "Italian"
+msgstr "italienska"
+
+msgctxt "#30809"
+msgid "Portuguese"
+msgstr "portugisiska"
+
+msgctxt "#30810"
+msgid "Polish"
+msgstr "polska"
+
+msgctxt "#30811"
+msgid "Dutch"
+msgstr "nederländska"
+
+msgctxt "#30812"
+msgid "Russian"
+msgstr "ryska"
+
+msgctxt "#30813"
+msgid "Ukrainian"
+msgstr "ukrainska"
+
+msgctxt "#30814"
+msgid "Japanese"
+msgstr "japanska"
+
+msgctxt "#30815"
+msgid "Chinese (Simplified)"
+msgstr "kinesiska (förenklad)"
+
+msgctxt "#30816"
+msgid "Chinese (Traditional)"
+msgstr "kinesiska (traditionell)"
+
+msgctxt "#30817"
+msgid "Korean"
+msgstr "koreanska"
+
+msgctxt "#30818"
+msgid "Arabic"
+msgstr "arabiska"
+
+msgctxt "#30819"
+msgid "Turkish"
+msgstr "turkiska"
+
+msgctxt "#30820"
+msgid "Hindi"
+msgstr "hindi"
+
+msgctxt "#30821"
+msgid "Thai"
+msgstr "thailändska"
+
+msgctxt "#30822"
+msgid "Vietnamese"
+msgstr "vietnamesiska"
+
+msgctxt "#30823"
+msgid "Indonesian"
+msgstr "indonesiska"
+
+msgctxt "#30824"
+msgid "Greek"
+msgstr "grekiska"
+
+msgctxt "#30825"
+msgid "Czech"
+msgstr "tjeckiska"
+
+msgctxt "#30826"
+msgid "Romanian"
+msgstr "rumänska"
+
+msgctxt "#30827"
+msgid "Hungarian"
+msgstr "ungerska"
+
+msgctxt "#30828"
+msgid "Hebrew"
+msgstr "hebreiska"
+
+msgctxt "#30829"
+msgid "Auto-detect"
+msgstr "Identifiera automatiskt"
+
+msgctxt "#30830"
+msgid "Malay"
+msgstr "malajiska"
+
+msgctxt "#30831"
+msgid "Filipino"
+msgstr "filippinska"
+
+msgctxt "#30832"
+msgid "Tamil"
+msgstr "tamil"
+
+msgctxt "#30833"
+msgid "Telugu"
+msgstr "telugu"
+
+# External subtitle support (v0.8.0)
+msgctxt "#30840"
+msgid "Select subtitle source"
+msgstr "Välj undertextkälla"
+
+msgctxt "#30841"
+msgid "Extract from video ({0})"
+msgstr "Extrahera från video ({0})"
+
+msgctxt "#30842"
+msgid "Use external file: {0}"
+msgstr "Använd extern fil: {0}"
+
+msgctxt "#30843"
+msgid "Browse for subtitle file..."
+msgstr "Bläddra efter undertextfil..."
+
+msgctxt "#30844"
+msgid "Select subtitle file"
+msgstr "Välj undertextfil"
+
+msgctxt "#30845"
+msgid "Reading subtitle file..."
+msgstr "Läser undertextfil..."
+
+msgctxt "#30846"
+msgid "Translate external subtitle ({0}) to {1}?"
+msgstr "Översätta extern undertext ({0}) till {1}?"
+
+msgctxt "#30850"
+msgid "No API key for {0} — using Lingva"
+msgstr "Ingen API-nyckel för {0} — använder Lingva"
+
+msgctxt "#30851"
+msgid "{0} requires an API key. Switch to Lingva or add a key in settings."
+msgstr ""
+"{0} kräver en API-nyckel. Byt till Lingva eller lägg till en nyckel i "
+"inställningarna."
+
+msgctxt "#30852"
+msgid "Translated {0} lines ({1}) in {2}"
+msgstr "Översatte {0} rader ({1}) på {2}"
+
+msgctxt "#30860"
+msgid "FFmpeg not found"
+msgstr "FFmpeg hittades inte"
+
+msgctxt "#30861"
+msgid ""
+"FFmpeg is required to extract embedded subtitles from video files.\n"
+"\n"
+"Installation:\n"
+"- Windows: Download from ffmpeg.org and add to PATH\n"
+"- macOS: Install with 'brew install ffmpeg'\n"
+"- Linux: Install with 'sudo apt install ffmpeg'\n"
+"- Android/Shield:\n"
+"  1. Install Termux from F-Droid (not Google Play)\n"
+"  2. In Termux, run: termux-setup-storage\n"
+"     (grant storage permission when prompted)\n"
+"  3. Then run: pkg install ffmpeg\n"
+"  4. Copy ffmpeg to shared storage:\n"
+"     cp $(which ffmpeg) ~/storage/shared/ffmpeg\n"
+"     cp $(which ffprobe) ~/storage/shared/ffprobe\n"
+"  5. The addon will find it at /storage/emulated/0/ffmpeg\n"
+"\n"
+"Note: termux-setup-storage is required on Android/Shield\n"
+"or Termux cannot access shared storage."
+msgstr ""
+"FFmpeg krävs för att extrahera inbäddade undertexter från videofiler.\n"
+"\n"
+"Installation:\n"
+"- Windows: Ladda ner från ffmpeg.org och lägg till i PATH\n"
+"- macOS: Installera med ’brew install ffmpeg’\n"
+"- Linux: Installera med ’sudo apt install ffmpeg’\n"
+"- Android/Shield:\n"
+"1. Installera Termux från F-Droid (inte Google Play)\n"
+"2. I Termux, kör: termux-setup-storage\n"
+"(bevilja lagringsbehörighet när du blir ombedd)\n"
+"3. Kör sedan: pkg install ffmpeg\n"
+"4. Kopiera ffmpeg till delat lagringsutrymme:\n"
+"cp $(which ffmpeg) ~/storage/shared/ffmpeg\n"
+"cp $(which ffprobe) ~/storage/shared/ffprobe\n"
+"5. Tillägget hittar det i /storage/emulated/0/ffmpeg\n"
+"\n"
+"Obs! termux-setup-storage krävs på Android/Shield\n"
+"annars kan Termux inte komma åt det delade lagringsutrymmet."
+
+msgctxt "#30862"
+msgid "Show installation instructions"
+msgstr "Visa instruktioner för installation"
+
+msgctxt "#30863"
+msgid "Browse for FFmpeg..."
+msgstr "Bläddra efter FFmpeg..."
+
+msgctxt "#30864"
+msgid "Try again"
+msgstr "Försök igen"
+
+msgctxt "#30865"
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgctxt "#30866"
+msgid "Select FFmpeg executable"
+msgstr "Välj körbar FFmpeg-fil"
+
+msgctxt "#30867"
+msgid "FFmpeg found at: {0}"
+msgstr "FFmpeg hittades: {0}"
+
+msgctxt "#30868"
+msgid ""
+"On Android, install FFmpeg via Termux (from F-Droid) and run: pkg install "
+"ffmpeg"
+msgstr ""
+"På Android installerar du FFmpeg via Termux (från F-Droid) och kör: pkg "
+"install ffmpeg"
+
+msgctxt "#30869"
+msgid "'{0}' is not a valid FFmpeg executable."
+msgstr "’{0}’ är inte en giltig körbar FFmpeg-fil."
+
+msgctxt "#30870"
+msgid "Preparing subtitle extraction..."
+msgstr "Förbereder undertextextraktion..."
+
+msgctxt "#30871"
+msgid "Translated {0} subtitles"
+msgstr "Översatte {0} undertexter"
+
+msgctxt "#30872"
+msgid "Completed with {0} error(s)"
+msgstr "Slutfört med {0} fel"
+
+msgctxt "#30873"
+msgid "Download FFmpeg automatically"
+msgstr "Hämta FFmpeg automatiskt"
+
+msgctxt "#30874"
+msgid "Downloading FFmpeg for Android..."
+msgstr "Hämtar FFmpeg för Android..."
+
+msgctxt "#30875"
+msgid "FFmpeg downloaded successfully!"
+msgstr "FFmpeg hämtades ner!"
+
+msgctxt "#30876"
+msgid "Download failed. Please install FFmpeg manually."
+msgstr "Hämtning misslyckades. Installera FFmpeg manuellt."
