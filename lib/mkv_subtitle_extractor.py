@@ -428,6 +428,8 @@ class MkvSubtitleExtractor:
         text_data = reader.read(text_size)
         try:
             text = text_data.decode('utf-8', errors='replace').strip()
+            # Strip null characters that can appear in MKV subtitle data
+            text = text.replace('\x00', '')
         except:
             return None
         

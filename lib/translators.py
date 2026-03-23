@@ -137,16 +137,53 @@ class DeepLTranslator(BaseTranslator):
         result = self.translate_batch([text], source_lang, target_lang)
         return result[0] if result else text
     
+    # DeepL API limit: ~128KB per request. Stay well under.
+    MAX_REQUEST_BYTES = 100_000
+
     def translate_batch(self, texts, source_lang, target_lang):
-        """Translate multiple texts with full DeepL Pro features."""
+        """Translate multiple texts with full DeepL Pro features.
+        Automatically chunks large requests to avoid 413 errors."""
         if not self.api_key:
             raise ValueError("DeepL API key required")
         
+        # Check total size — if too large, split into chunks
+        total_size = sum(len(t.encode('utf-8')) for t in texts)
+        if total_size > self.MAX_REQUEST_BYTES:
+            return self._translate_batch_chunked(texts, source_lang, target_lang)
+        
+        return self._translate_batch_single(texts, source_lang, target_lang)
+
+    def _translate_batch_chunked(self, texts, source_lang, target_lang):
+        """Split large batches into smaller chunks that fit within API limits."""
+        results = []
+        chunk = []
+        chunk_size = 0
+        
+        for text in texts:
+            text_size = len(text.encode('utf-8'))
+            if chunk_size + text_size > self.MAX_REQUEST_BYTES and chunk:
+                # Translate current chunk
+                results.extend(self._translate_batch_single(chunk, source_lang, target_lang))
+                chunk = []
+                chunk_size = 0
+            chunk.append(text)
+            chunk_size += text_size
+        
+        if chunk:
+            results.extend(self._translate_batch_single(chunk, source_lang, target_lang))
+        
+        return results
+
+    def _translate_batch_single(self, texts, source_lang, target_lang):
+        """Translate a single batch of texts via DeepL API."""
         target = self._map_language(target_lang)
         source = self._map_language(source_lang) if source_lang != 'auto' else None
         
+        # Strip null characters from texts (MKV subtitles can contain them)
+        clean_texts = [t.replace('\x00', '') for t in texts]
+        
         data = {
-            'text': texts,
+            'text': clean_texts,
             'target_lang': target,
             'model_type': 'quality_optimized',
             'split_sentences': 'nonewlines',

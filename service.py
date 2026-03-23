@@ -1768,7 +1768,9 @@ def get_string(string_id):
 
 def log(message, level=xbmc.LOGINFO):
     """Log message to Kodi log."""
-    xbmc.log(f"[{get_addon_id()}] {message}", level)
+    # Strip null characters that cause ValueError in xbmc.log (C API)
+    safe_msg = str(message).replace('\x00', '')
+    xbmc.log(f"[{get_addon_id()}] {safe_msg}", level)
 
 def notify(message, icon=xbmcgui.NOTIFICATION_INFO, time=5000):
     """Show notification."""
