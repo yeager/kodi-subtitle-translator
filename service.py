@@ -553,20 +553,36 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         """Find the best source subtitle for translation."""
         source_lang = self.source_language.lower()
         
+        # Filter out bitmap subtitle formats (PGS, VobSub, DVB) — can't translate those
+        BITMAP_CODECS = {'hdmv_pgs_subtitle', 'dvd_subtitle', 'dvb_subtitle', 'xsub'}
+        text_subs = [s for s in subtitles if s.get('codec', '').lower() not in BITMAP_CODECS]
+        bitmap_subs = [s for s in subtitles if s.get('codec', '').lower() in BITMAP_CODECS]
+        
+        if not text_subs and bitmap_subs:
+            log(f"Only bitmap subtitles found ({len(bitmap_subs)} tracks, codecs: "
+                f"{', '.join(s.get('codec','?') for s in bitmap_subs)}). "
+                f"Bitmap subtitles cannot be translated — they contain images, not text.",
+                xbmc.LOGWARNING)
+            return None
+        
+        if bitmap_subs:
+            log(f"Skipping {len(bitmap_subs)} bitmap subtitle track(s), "
+                f"using {len(text_subs)} text-based track(s)")
+        
         # First, try to find the specified source language
         if source_lang != 'auto':
-            for sub in subtitles:
+            for sub in text_subs:
                 if self._lang_match(sub.get('language', ''), source_lang):
                     return sub
         
         # Fallback: look for English
-        for sub in subtitles:
+        for sub in text_subs:
             if self._lang_match(sub.get('language', ''), 'en'):
                 return sub
         
-        # Last resort: take the first subtitle
-        if subtitles:
-            return subtitles[0]
+        # Last resort: take the first text subtitle
+        if text_subs:
+            return text_subs[0]
         
         return None
     
@@ -619,6 +635,21 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Extract subtitle from video
             progress.set_stage('extract', get_string(30707))  # "Extracting subtitles..."
             get_debug_logger().debug(f"Extracting subtitle index {source_sub.get('index', 0)}", 'ffmpeg')
+            
+            # Check if subtitle is a bitmap format (PGS/VobSub) — can't translate those
+            BITMAP_CODECS = {'hdmv_pgs_subtitle', 'dvd_subtitle', 'dvb_subtitle', 'xsub'}
+            sub_codec = source_sub.get('codec', 'unknown').lower()
+            if sub_codec in BITMAP_CODECS:
+                error_msg = (
+                    f"Cannot translate bitmap subtitles (codec: {sub_codec}). "
+                    f"This subtitle track contains images, not text. "
+                    f"Only text-based subtitles (SRT, ASS, SSA, VTT) can be translated."
+                )
+                log(error_msg, xbmc.LOGWARNING)
+                if self.show_notification:
+                    notify(get_string(30720) if get_string(30720) != '' else 
+                           "Bitmap subtitles cannot be translated")
+                raise Exception(error_msg)
             
             extractor = SubtitleExtractor(ffmpeg_path)
             subtitle_content = extractor.extract(

@@ -1,3 +1,14 @@
+## v0.11.2 — Bitmap subtitle detection
+
+**Bug fix: Reject bitmap subtitles (PGS/VobSub/DVB)**
+
+- Detect bitmap subtitle codecs (`hdmv_pgs_subtitle`, `dvd_subtitle`, `dvb_subtitle`, `xsub`) before extraction
+- Skip bitmap tracks in `find_source_subtitle()` — prefer text-based tracks (SRT/ASS/SSA/VTT)
+- Show clear error message when only bitmap subtitles are available
+- Prevents sending binary PGS data to DeepL (which produced garbled output)
+
+Reported by Daniel via Grand Designs UK S27E06 subtitle with PGS tracks.
+
 ## v0.11.0 (2026-03-22)
 
 ### New: Context-Aware Translation
