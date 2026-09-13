@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,31 +24,24 @@ jobs:
           echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Create addon zip
-        run: |
-          ADDON_ID="${{ steps.addon.outputs.id }}"
-          mkdir -p build/${ADDON_ID}
-          cp addon.xml build/${ADDON_ID}/
-          cp service.py build/${ADDON_ID}/
-          cp LICENSE build/${ADDON_ID}/
-          cp -r resources build/${ADDON_ID}/
-          cp -r lib build/${ADDON_ID}/
-          cd build
-          zip -r ../${ADDON_ID}-${{ steps.addon.outputs.version }}.zip ${ADDON_ID}/
+        run: python3 scripts/build_addon.py --output dist
 
       - name: Upload to release
         if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
           ADDON_ID="${{ steps.addon.outputs.id }}"
           VERSION="${{ steps.addon.outputs.version }}"
-          gh release upload "${{ github.event.release.tag_name }}" \
-            "${ADDON_ID}-${VERSION}.zip" \
-            --clobber
+          test "$RELEASE_TAG" = "v${VERSION}"
+          gh release upload "$RELEASE_TAG" \
+            "dist/${ADDON_ID}-${VERSION}.zip" \
+            "dist/${ADDON_ID}-${VERSION}.zip.md5"
 
       - name: Upload artifact
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.addon.outputs.id }}-${{ steps.addon.outputs.version }}
-          path: "*.zip"
+          path: "dist/*"

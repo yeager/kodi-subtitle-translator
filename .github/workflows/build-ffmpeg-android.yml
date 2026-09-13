@@ -2,6 +2,14 @@ name: Build FFmpeg for Android
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: New release tag (published binaries are immutable)
+        required: true
+        default: ffmpeg-android-v2
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -25,6 +33,7 @@ jobs:
           # Download FFmpeg source
           FFMPEG_VERSION=7.1.1
           wget -q "https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz"
+          echo "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1  ffmpeg-${FFMPEG_VERSION}.tar.xz" | sha256sum --check
           tar xf "ffmpeg-${FFMPEG_VERSION}.tar.xz"
           cd "ffmpeg-${FFMPEG_VERSION}"
           
@@ -77,15 +86,13 @@ jobs:
       - name: Create release and upload
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          gh release create ffmpeg-android-v1 \
-            --repo ${{ github.repository }} \
+          gh release create "$RELEASE_TAG" \
+            --repo "$REPOSITORY" \
             --title "FFmpeg for Android ARM64" \
-            --notes "Static FFmpeg/FFprobe for Android ARM64. Auto-downloaded by the addon." \
+            --notes "Static FFmpeg/FFprobe for Android ARM64. Update the addon downloader's pinned tag and SHA-256 values after reviewing these assets." \
             --prerelease \
             /tmp/release/ffmpeg-arm64 \
-            /tmp/release/ffprobe-arm64 \
-            || gh release upload ffmpeg-android-v1 \
-              /tmp/release/ffmpeg-arm64 \
-              /tmp/release/ffprobe-arm64 \
-              --clobber
+            /tmp/release/ffprobe-arm64

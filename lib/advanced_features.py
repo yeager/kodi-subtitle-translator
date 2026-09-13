@@ -4,6 +4,8 @@ Advanced Features for Subtitle Translator
 """
 
 import json
+import copy
+from urllib.parse import quote
 import os
 import re
 import hashlib
@@ -74,7 +76,7 @@ class GlossaryManager:
                 text = text.replace(term['original'], term['translation'])
             else:
                 pattern = re.compile(re.escape(term['original']), re.IGNORECASE)
-                text = pattern.sub(term['translation'], text)
+                text = pattern.sub(lambda match: term['translation'], text)
         
         return text
     
@@ -135,6 +137,9 @@ class TranslationProfiles:
             'max_line_length': 42,
             'reading_speed': 21
         },
+        'casual': {
+            'name': 'Casual', 'formality': 'less', 'max_line_length': 42
+        },
         'formal': {
             'name': 'Formal/Business',
             'formality': 'more',
@@ -148,7 +153,7 @@ class TranslationProfiles:
     
     def __init__(self, addon_data_path):
         self.profiles_path = os.path.join(addon_data_path, 'profiles.json')
-        self.profiles = self.DEFAULT_PROFILES.copy()
+        self.profiles = copy.deepcopy(self.DEFAULT_PROFILES)
         self.load()
     
     def load(self):
@@ -164,13 +169,13 @@ class TranslationProfiles:
     def save(self):
         """Save profiles to file."""
         # Only save non-default profiles
-        custom = {k: v for k, v in self.profiles.items() if k not in self.DEFAULT_PROFILES}
+        custom = {k: v for k, v in self.profiles.items() if k not in self.DEFAULT_PROFILES or v != self.DEFAULT_PROFILES[k]}
         with xbmcvfs.File(self.profiles_path, 'w') as f:
             f.write(json.dumps(custom, indent=2))
     
     def get_profile(self, name):
         """Get a profile by name."""
-        return self.profiles.get(name, self.profiles['default'])
+        return copy.deepcopy(self.profiles.get(name, self.profiles['default']))
     
     def create_profile(self, name, settings):
         """Create a new profile."""
@@ -196,7 +201,7 @@ class SubtitleTimingAdjuster:
     def calculate_optimal_duration(self, text):
         """Calculate optimal display duration based on text length."""
         char_count = len(text.replace('\n', ''))
-        optimal = (char_count / self.reading_speed) * 1000
+        optimal = int((char_count / self.reading_speed) * 1000)
         return max(self.min_duration, min(optimal, self.max_duration))
     
     def adjust_timing(self, entries):
@@ -660,8 +665,8 @@ class MultiLanguageGenerator:
         results = {}
         
         for target_lang in target_languages:
-            translator = self.translator_factory(service_config)
             try:
+                translator = self.translator_factory(service_config)
                 translated = []
                 for entry in entries:
                     trans_text = translator.translate(entry['text'], source_lang, target_lang)
@@ -719,8 +724,7 @@ class SubtitleLineBreaker:
         
         # Respect max_lines limit
         if len(lines) > self.max_lines:
-            lines = lines[:self.max_lines]
-            lines[-1] += '...'
+            lines = lines[:self.max_lines - 1] + [' '.join(lines[self.max_lines - 1:])]
         
         return '\n'.join(lines)
     
@@ -779,7 +783,7 @@ class RateLimiter:
         
         # Reset if period has passed
         period = limits.get('period', 86400)
-        if now - usage['period_start'] > period:
+        if period is not None and now - usage['period_start'] > period:
             usage['requests'] = 0
             usage['chars'] = 0
             usage['period_start'] = now
@@ -814,6 +818,8 @@ class RateLimiter:
             return 0
         
         period = limits.get('period', 86400)
+        if period is None:
+            return 0
         elapsed = time.time() - usage['period_start']
         
         if elapsed >= period:
@@ -864,7 +870,7 @@ class ProxyManager:
         
         auth = ''
         if self.config['username']:
-            auth = f"{self.config['username']}:{self.config['password']}@"
+            auth = quote(self.config['username'], safe='') + ':' + quote(self.config['password'], safe='') + '@'
         
         return f"{self.config['type']}://{auth}{self.config['host']}:{self.config['port']}"
     
@@ -894,6 +900,9 @@ class ExportManager:
     
     def export(self, entries, video_name, target_lang, format='srt'):
         """Export subtitles to file."""
+        video_name = os.path.basename(video_name.replace('\\', '/'))
+        if not video_name or video_name in ('.', '..') or not re.fullmatch(r'[A-Za-z0-9_-]+', target_lang):
+            raise ValueError('Invalid export filename or language')
         filename = f"{video_name}.{target_lang}.{format}"
         filepath = os.path.join(self.export_path, filename)
         

@@ -1,6 +1,15 @@
-*.pyc
+*.py[cod]
 *.zip
 __pycache__/
 dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+*.log
 service.subtitletranslator-*.zip
 test_sample.srt

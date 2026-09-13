@@ -9,6 +9,7 @@ import sys
 import tempfile
 import json
 import xbmc
+from lib.safe_logging import log as safe_log
 import xbmcaddon
 import xbmcvfs
 
@@ -126,44 +127,58 @@ def download_ffmpeg_android(progress_callback=None):
     Saves to addon data directory (always writable on Android).
     Returns path to ffmpeg binary, or None on failure.
     """
+    import hashlib
+    import platform
     import urllib.request
-    
-    BASE_URL = "https://github.com/yeager/kodi-subtitle-translator/releases/download/ffmpeg-android-v1"
-    
-    try:
-        addon = xbmcaddon.Addon()
-        addon_data = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
-    except:
+
+    # Pinned to the reviewed GitHub release assets, not a mutable download name.
+    checksums = {
+        'ffmpeg': '15a61e50c2d128c28f88a4830b1fddc36d49f3d5d56b3f0ab3096689ecca478a',
+        'ffprobe': '2290de602f695faa3af814c6634324e1e7ab46d1b82ff2d9e37dc99d77ceb21f',
+    }
+    base_url = 'https://github.com/yeager/kodi-subtitle-translator/releases/download/ffmpeg-android-v1'
+    if platform.machine().lower() not in ('aarch64', 'arm64'):
+        safe_log('[SubtitleExtractor] Automatic FFmpeg download requires ARM64', xbmc.LOGERROR)
         return None
-    
-    bin_dir = os.path.join(addon_data, 'bin')
-    os.makedirs(bin_dir, exist_ok=True)
-    
-    for binary in ['ffmpeg']:
-        dest = os.path.join(bin_dir, binary)
-        
-        if os.path.isfile(dest) and os.access(dest, os.X_OK):
-            continue  # Already downloaded
-        
-        url = f"{BASE_URL}/{binary}-arm64"
-        try:
+    try:
+        addon_data = xbmcvfs.translatePath(xbmcaddon.Addon().getAddonInfo('profile'))
+        bin_dir = os.path.join(addon_data, 'bin')
+        os.makedirs(bin_dir, exist_ok=True)
+        for binary, expected in checksums.items():
+            dest = os.path.join(bin_dir, binary)
+            if os.path.isfile(dest):
+                with open(dest, 'rb') as existing:
+                    if hashlib.sha256(existing.read()).hexdigest() == expected:
+                        os.chmod(dest, 0o755)
+                        continue
             if progress_callback:
                 progress_callback(binary)
-            xbmc.log(f"[SubtitleExtractor] Downloading {binary} from {url}", xbmc.LOGINFO)
-            urllib.request.urlretrieve(url, dest)
-            os.chmod(dest, 0o755)
-            xbmc.log(f"[SubtitleExtractor] Downloaded {binary} to {dest}", xbmc.LOGINFO)
-        except Exception as e:
-            xbmc.log(f"[SubtitleExtractor] Failed to download {binary}: {e}", xbmc.LOGERROR)
-            # Clean up partial download
+            fd, temporary = tempfile.mkstemp(prefix=binary + '-', dir=bin_dir)
             try:
-                os.unlink(dest)
-            except OSError:
-                pass
-            return None
-    
-    ffmpeg_path = os.path.join(bin_dir, 'ffmpeg')
-    return ffmpeg_path if os.path.isfile(ffmpeg_path) else None
+                digest = hashlib.sha256()
+                total = 0
+                with os.fdopen(fd, 'wb') as output:
+                    with urllib.request.urlopen(base_url + '/' + binary + '-arm64', timeout=30) as response:
+                        while True:
+                            chunk = response.read(65536)
+                            if not chunk:
+                                break
+                            total += len(chunk)
+                            if total > 20 * 1024 * 1024:
+                                raise ValueError('FFmpeg download exceeds size limit')
+                            digest.update(chunk)
+                            output.write(chunk)
+                if digest.hexdigest() != expected:
+                    raise ValueError('FFmpeg checksum verification failed')
+                os.chmod(temporary, 0o755)
+                os.replace(temporary, dest)
+            finally:
+                if os.path.exists(temporary):
+                    os.unlink(temporary)
+        return os.path.join(bin_dir, 'ffmpeg')
+    except Exception as error:
+        safe_log('[SubtitleExtractor] FFmpeg download failed: ' + str(error), xbmc.LOGERROR)
+        return None
 
 
 def get_kodi_temp_path():
@@ -181,7 +196,8 @@ def get_kodi_temp_path():
 class SubtitleExtractor:
     """Extract subtitles from video files using FFmpeg."""
     
-    def __init__(self, ffmpeg_path=None):
+    def __init__(self, ffmpeg_path=None, threads=0):
+        self.threads = max(0, int(threads))
         self._is_android = is_android()
         self.ffmpeg_path = ffmpeg_path or self._find_ffmpeg()
         self._mkv_parser = None
@@ -338,18 +354,17 @@ class SubtitleExtractor:
         temp_dir = get_kodi_temp_path()
         # Ensure temp dir exists
         os.makedirs(temp_dir, exist_ok=True)
-        import hashlib
-        import time
-        unique = hashlib.md5(f"{time.time()}{id(self)}".encode()).hexdigest()[:12]
-        temp_path = os.path.join(temp_dir, f"subtrans_{unique}{suffix}")
+        fd, temp_path = tempfile.mkstemp(prefix='subtrans_', suffix=suffix, dir=temp_dir)
+        os.close(fd)
         return temp_path
     
     def _copy_to_temp(self, source_path):
         """Copy a file to temp directory for processing.
         
-        For large video files over SMB, uses xbmcvfs streaming to avoid
-        copying the entire file. Only reads enough to extract subtitles.
+        FFmpeg fallback requires a complete local copy. Native MKV extraction
+        bypasses this method and skips video/audio payloads.
         """
+        temp_path = None
         try:
             # Get file extension
             ext = os.path.splitext(source_path)[1] or '.mkv'
@@ -392,7 +407,8 @@ class SubtitleExtractor:
         except Exception as e:
             self._log(f"Error copying to temp: {e}", xbmc.LOGERROR)
             try:
-                os.unlink(temp_path)
+                if temp_path:
+                    os.unlink(temp_path)
             except OSError:
                 pass
             return None
@@ -425,7 +441,8 @@ class SubtitleExtractor:
         
         try:
             # Use ffprobe to get stream info
-            ffprobe = self.ffmpeg_path.replace('ffmpeg', 'ffprobe')
+            ffprobe = os.path.join(os.path.dirname(self.ffmpeg_path),
+                                   os.path.basename(self.ffmpeg_path).replace('ffmpeg', 'ffprobe', 1))
             if not os.path.exists(ffprobe) and not self._test_ffmpeg(ffprobe):
                 # ffprobe might be separate
                 ffprobe = 'ffprobe'
@@ -500,7 +517,7 @@ class SubtitleExtractor:
             parser = self._get_mkv_parser()
             if parser:
                 try:
-                    content = parser.extract_subtitle(video_path, stream_index, output_format)
+                    content = parser.extract_subtitles(video_path, stream_index, output_format)
                     if content and len(content.strip()) > 10:
                         self._log(f"MKV streaming parser extracted {len(content)} bytes")
                         return content
@@ -564,6 +581,7 @@ class SubtitleExtractor:
                 '-y',  # Overwrite output
                 '-hide_banner',
                 '-loglevel', 'warning',
+                '-threads', str(getattr(self, 'threads', 0)),
                 '-i', resolved_path,
                 '-map', f'0:s:{stream_index}',  # Select Nth subtitle stream
                 '-c:s', self._get_codec(output_format),
@@ -651,6 +669,7 @@ class SubtitleExtractor:
                 '-y',
                 '-hide_banner',
                 '-loglevel', 'warning',
+                '-threads', str(getattr(self, 'threads', 0)),
                 '-i', video_path,
                 '-map', f'0:{global_index}',  # Use global index
                 '-c:s', self._get_codec(output_format),
@@ -701,4 +720,4 @@ class SubtitleExtractor:
     
     def _log(self, message, level=xbmc.LOGINFO):
         """Log message."""
-        xbmc.log(f"[SubtitleExtractor] {message}", level)
+        safe_log(f"[SubtitleExtractor] {message}", level)

@@ -25,6 +25,7 @@ class SubtitleParser:
         """
         if not content:
             return []
+        content = content.lstrip('\ufeff').replace('\r\n', '\n').replace('\r', '\n').replace('\x00', '')
         
         # Auto-detect format if not specified
         if not format_hint:
@@ -314,18 +315,10 @@ class SubtitleParser:
                 current = word
         lines.append(current)
 
-        # Truncate to max_lines; if text is longer, keep first max_lines
+        # Keep every word. Prefer two lines, allowing the last line to overflow
+        # rather than silently deleting dialogue from an existing timed cue.
         if len(lines) > max_lines:
-            # Try to rebalance into max_lines by being more aggressive
-            lines = lines[:max_lines]
-            # Truncate last line with ellipsis if needed
-            if len(lines[-1]) > max_chars:
-                lines[-1] = lines[-1][:max_chars - 1] + '…'
-
-        # Ensure each line is within limit (handles single very long words)
-        for i, line in enumerate(lines):
-            if len(line) > max_chars:
-                lines[i] = line[:max_chars - 1] + '…'
+            lines = lines[:max_lines - 1] + [' '.join(lines[max_lines - 1:])]
 
         return '\n'.join(lines)
 

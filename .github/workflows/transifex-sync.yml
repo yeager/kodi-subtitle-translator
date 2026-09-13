@@ -16,8 +16,10 @@ jobs:
 
       - name: Install Transifex CLI
         run: |
-          curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
-          sudo mv tx /usr/local/bin/
+          curl --fail --location --silent --show-error https://github.com/transifex/cli/releases/download/v1.6.17/tx-linux-amd64.tar.gz -o /tmp/tx-linux-amd64.tar.gz
+          echo "002dec5b9e71248a7e6a0808118e9da940205828d5a33ce88e04bb57a967164d  /tmp/tx-linux-amd64.tar.gz" | sha256sum --check
+          tar -xzf /tmp/tx-linux-amd64.tar.gz -C /tmp tx
+          sudo install -m 755 /tmp/tx /usr/local/bin/tx
 
       - name: Push source strings to Transifex
         env:

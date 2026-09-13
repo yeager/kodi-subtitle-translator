@@ -992,3 +992,11 @@ msgstr ""
 msgctxt "#30876"
 msgid "Download failed. Please install FFmpeg manually."
 msgstr ""
+
+msgctxt "#30720"
+msgid "Bitmap subtitles cannot be translated"
+msgstr ""
+
+msgctxt "#30877"
+msgid "DeepL glossary ID"
+msgstr ""
