@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
 Test external subtitle handling outside of Kodi.
-Usage: python3 test_external_subs.py /path/to/subtitle.srt
+Usage: python3 scripts/check_external_subs.py /path/to/subtitle.srt
 """
 
 import sys
 import os
 
 # Add lib to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lib.subtitle_parser import SubtitleParser
 
@@ -35,7 +35,7 @@ def test_generate_srt(entries):
 
 def read_subtitle_file(path):
     """Read subtitle file with encoding detection."""
-    encodings = ['utf-8', 'utf-8-sig', 'latin-1', 'cp1252']
+    encodings = ['utf-8-sig', 'cp1252', 'latin-1']
     
     for enc in encodings:
         try:
@@ -53,7 +53,7 @@ def read_subtitle_file(path):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 test_external_subs.py /path/to/subtitle.srt")
+        print("Usage: python3 scripts/check_external_subs.py /path/to/subtitle.srt")
         print()
         print("Will test:")
         print("  - Reading external subtitle file")

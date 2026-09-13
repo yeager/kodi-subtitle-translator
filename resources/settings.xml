@@ -194,15 +194,8 @@
                 
                 <setting id="anthropic_model" type="string" label="30382">
                     <level>1</level>
-                    <default>claude-3-haiku-20240307</default>
-                    <constraints>
-                        <options>
-                            <option label="Claude 3 Haiku (fast)">claude-3-haiku-20240307</option>
-                            <option label="Claude 3.5 Sonnet">claude-3-5-sonnet-20241022</option>
-                            <option label="Claude 3 Opus (best)">claude-3-opus-20240229</option>
-                        </options>
-                    </constraints>
-                    <control type="list" format="string"/>
+                    <default>claude-haiku-4-5-20251001</default>
+                    <control type="edit" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="translation_service" operator="is">anthropic</dependency>
                     </dependencies>
@@ -224,6 +217,15 @@
                     </dependencies>
                 </setting>
                 
+                <setting id="deepl_glossary_id" type="string" label="30877">
+                    <level>2</level>
+                    <default>-</default>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="translation_service" operator="contains">deepl</dependency>
+                    </dependencies>
+                </setting>
+
                 <setting id="microsoft_region" type="string" label="30342">
                     <level>1</level>
                     <default>westeurope</default>

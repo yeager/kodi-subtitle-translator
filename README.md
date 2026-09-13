@@ -4,18 +4,18 @@
 [![Transifex](https://img.shields.io/badge/translations-Transifex-blue)](https://app.transifex.com/danielnylander/kodi-subtitle-translator/)
 [![License](https://img.shields.io/badge/license-GPL--3.0-green)](LICENSE)
 
-Automatically translate embedded and external subtitles in Kodi to your preferred language. Supports 10 translation services with automatic fallback and context-aware translation using media metadata.
+Automatically translate embedded and external subtitles in Kodi to your preferred language. Supports 9 translation services with automatic fallback and context-aware translation using media metadata.
 
 ## Features
 
 - **Automatic subtitle translation** — translates subtitles on playback start
 - **Context-aware translation** — uses film title, plot, genre, season/episode for better translations
 - **Pure Python MKV extractor** — extracts embedded subtitles directly from MKV files without FFmpeg, streaming over SMB/NFS (no temp copy needed)
-- **10 translation services** — Lingva (default, free), DeepL, Google Translate, Microsoft, OpenAI, Anthropic, LibreTranslate, Argos (offline), MyMemory, Yandex
+- **9 translation services** — Lingva (default, free), DeepL, Google Translate, Microsoft, OpenAI, Anthropic, LibreTranslate, Argos (offline), MyMemory (with separate DeepL Pro and Free options)
 - **Auto-fallback** — if selected service needs API key that's missing, falls back to Lingva
 - **Embedded & external subtitles** — built-in MKV parser for embedded subs, also handles .srt/.ass/.ssa/.sub/.vtt files
-- **Translation profiles** — Anime, Kids, Documentary, etc.
-- **25 UI languages** — fully translated via Transifex
+- **Translation profiles** — tone and honorific guidance for AI services, DeepL formality, subtitle line length, and optional profanity filtering
+- **English and Swedish UI** — managed via Transifex
 - **Translation cache** — avoids re-translating same content
 - **Android/Shield support** — works out of the box, no FFmpeg needed for MKV files
 
@@ -49,7 +49,7 @@ When using DeepL with a Pro API key, the addon uses all available quality featur
 | Feature | Effect |
 |---------|--------|
 | `model_type: quality_optimized` | Best possible translation quality |
-| `formality: prefer_less` | Natural, less formal language (supported for Swedish, German, French, etc.) |
+| `formality: prefer_less` | Natural, less formal language where supported; otherwise uses default formality |
 | `preserve_formatting` | Keeps whitespace, line breaks, and formatting intact |
 | `split_sentences: nonewlines` | Preserves subtitle line structure |
 | `context` | Media info for better word choice |
@@ -60,7 +60,7 @@ When using DeepL with a Pro API key, the addon uses all available quality featur
 
 ### From Yeager Repository (recommended — auto-updates)
 
-1. Download [repository.yeager-1.0.1.zip](https://yeager.github.io/kodi-repo/repository.yeager-1.0.1.zip)
+1. Download [repository.yeager-1.0.2.zip](https://yeager.github.io/kodi-repo/repository.yeager-1.0.2.zip)
 2. In Kodi: **Add-ons → Install from zip file** → select the downloaded zip
 3. Go to **Add-ons → Install from repository → Yeager Repository → Services**
 4. Install **Subtitle Translator**
@@ -112,7 +112,7 @@ The addon has four settings levels: Basic, Standard, Advanced, and Expert. Confi
 
 ## Translations
 
-UI translations managed via [Transifex](https://app.transifex.com/danielnylander/kodi-subtitle-translator/). Currently available in 25 languages including Swedish, German, French, Spanish, and more.
+UI translations managed via [Transifex](https://app.transifex.com/danielnylander/kodi-subtitle-translator/). The checked-in runtime catalogs are English and Swedish. Addon summary/description metadata is translated into 25 languages; that is separate from UI translation coverage.
 
 ## License
 
@@ -121,3 +121,26 @@ GPL-3.0-or-later
 ## Author
 
 Daniel Nylander — [danielnylander.se](https://danielnylander.se)
+
+
+## Development checks
+
+```sh
+python3 -B -m unittest discover -s tests -v
+python3 scripts/build_addon.py
+```
+
+The tests run offline using Kodi API doubles. When FFmpeg is available, they
+also generate a real MKV fixture and verify native extraction without an FFmpeg
+fallback. The package builder includes runtime files only and writes the ZIP
+and its `.zip.md5` sidecar to `dist/`. Source artwork, test fixtures and developer
+tools stay in Git but are not shipped. See `REVIEW.md` for review coverage and
+known limitations. A changed addon must receive a new version before release;
+do not replace a published ZIP with different contents under the same version.
+
+
+The bundled retired Claude choices are migrated within the same model family
+using Anthropic's documented replacements. Custom model IDs remain configurable.
+Translation profiles affect AI prompt guidance and DeepL formality where supported;
+post-processing applies line length and profanity filtering across providers.
+Input character encoding is configurable; generated subtitle output is UTF-8.

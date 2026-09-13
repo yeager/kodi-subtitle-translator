@@ -6,6 +6,7 @@ in the user's preferred language.
 """
 
 import xbmc
+from lib.safe_logging import log as safe_log
 import xbmcaddon
 import xbmcgui
 import xbmcvfs
@@ -13,6 +14,7 @@ import json
 import os
 import hashlib
 import time
+import tempfile
 
 # Lazy imports to avoid crashes at startup
 SubtitleExtractor = None
@@ -158,6 +160,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         super().__init__()
         self.reload_settings()
         self.current_file = None
+        self._temporary_subtitles = []
         self.translation_in_progress = False
     
     def reload_settings(self):
@@ -165,6 +168,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         self.enabled = get_setting_bool('enabled')
         self.auto_translate = get_setting_bool('auto_translate')
         self.show_notification = get_setting_bool('show_notification')
+        self.show_progress_dialog = get_setting_bool('show_progress_dialog')
         self.ask_before_translate = get_setting_bool('ask_before_translate')
         self.target_language = get_setting('target_language')
         self.source_language = get_setting('source_language')
@@ -173,8 +177,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         self.cache_days = get_setting_int('cache_days')
         self.save_alongside = get_setting_bool('save_alongside_video')
         self.subtitle_format = get_setting('subtitle_format')
-        self.batch_size = get_setting_int('batch_size')
+        self.batch_size = max(1, get_setting_int('batch_size'))
         self.debug = get_setting_bool('debug_logging')
+        logger = get_debug_logger()
+        if self.debug:
+            categories = get_setting('debug_categories')
+            logger.enable([] if categories == 'all' else [c.strip() for c in categories.split(',') if c.strip()])
+        else:
+            logger.disable()
         
         # Validate API key for services that require one
         self._validate_api_key_on_load()
@@ -336,10 +346,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
     
     def onAVStarted(self):
         """Called when audio/video playback starts."""
-        if not self.enabled:
+        if not self.enabled or not self.auto_translate or self.translation_in_progress:
             return
         
         try:
+            if not self.isPlayingVideo():
+                return
             self.current_file = self.getPlayingFile()
             log(f"Playback started: {self.current_file}")
             
@@ -521,9 +533,6 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         """Get list of available subtitles for current video."""
         subtitles = []
         
-        # Get subtitle streams from video info
-        info = self.getVideoInfoTag()
-        
         # Use JSON-RPC to get detailed player info
         result = execute_jsonrpc('Player.GetProperties', {
             'playerid': 1,
@@ -533,6 +542,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         if result and 'subtitles' in result:
             subtitles = result['subtitles']
         
+        # Kodi may omit codec metadata. Native MKV headers let us exclude
+        # bitmap tracks before presenting a translation source to the user.
+        if self.current_file and self.current_file.split('?', 1)[0].lower().endswith(('.mkv', '.webm')):
+            from lib.mkv_streaming import MKVStreamingParser
+            native = MKVStreamingParser().get_subtitle_streams(self.current_file)
+            if native:
+                metadata = {stream['index']: stream for stream in native}
+                subtitles = [dict(sub, **metadata.get(sub.get('index'), {})) for sub in subtitles] if subtitles else native
+
         return subtitles
     
     @staticmethod
@@ -586,6 +604,45 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         return None
     
+    def _get_profile(self):
+        from lib.advanced_features import TranslationProfiles
+        return TranslationProfiles(get_addon_data()).get_profile(get_setting('translation_profile') or 'default')
+
+    def _prepare_translator(self, service_name):
+        translator = get_translator(service_name, self.get_service_config(service_name))
+        from lib.dialogs import get_media_context
+        translator.set_media_context(get_media_context())
+        return translator
+
+    def _apply_profile(self, entries, parser):
+        profile = self._get_profile()
+        parser.MAX_CHARS_PER_LINE = profile.get('max_line_length', 42)
+        if profile.get('censor_profanity'):
+            from lib.advanced_features import ProfanityFilter
+            filter_ = ProfanityFilter(get_addon_data())
+            entries = [dict(entry, text=filter_.filter_text(entry['text'], self.target_language)) for entry in entries]
+        return entries
+
+    def _extract_subtitle_content(self, source_sub):
+        """Try native extraction before asking the user to install FFmpeg."""
+        extractor = SubtitleExtractor(get_setting('ffmpeg_path') or None, threads=get_setting_int('ffmpeg_threads'))
+        content = extractor.extract(self.current_file, source_sub.get('index', 0))
+        if content or extractor.ffmpeg_path:
+            return content
+        ffmpeg_path = self._ensure_ffmpeg_available(get_setting('ffmpeg_path'))
+        if not ffmpeg_path:
+            return None
+        return SubtitleExtractor(ffmpeg_path, threads=get_setting_int('ffmpeg_threads')).extract(self.current_file, source_sub.get('index', 0))
+
+    @staticmethod
+    def _translate_batch(translator, texts, source_lang, target_lang):
+        """Reject malformed results before pairing translations with timestamps."""
+        result = translator.translate_batch(texts, source_lang, target_lang)
+        if (not isinstance(result, list) or len(result) != len(texts)
+                or any(not isinstance(text, str) or not text.strip() for text in result)):
+            raise ValueError('Translation response must contain one non-empty string per subtitle')
+        return result
+
     def translate_subtitle(self, source_sub):
         """Translate the subtitle with progress tracking."""
         self.translation_in_progress = True
@@ -614,14 +671,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             get_debug_logger().debug("Cache miss, starting translation", 'cache')
             
-            # Check if FFmpeg is available BEFORE pausing playback or showing progress
-            ffmpeg_path = self._ensure_ffmpeg_available(get_setting('ffmpeg_path'))
-            if ffmpeg_path is None:
-                log("User cancelled FFmpeg setup")
-                return
-            
             # Pause playback during translation
-            if self.isPlaying():
+            if self.isPlaying() and not xbmc.getCondVisibility('Player.Paused'):
                 was_playing = True
                 self.pause()
                 log("Paused playback during translation")
@@ -629,7 +680,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     notify(get_string(30717))  # "Pausing playback during translation..."
             
             # Initialize progress dialog
-            progress = TranslationProgress(show_dialog=self.show_notification)
+            progress = TranslationProgress(show_dialog=self.show_progress_dialog, show_notification=self.show_notification)
             progress.start(get_string(30700))  # "Translating subtitles..."
             
             # Extract subtitle from video
@@ -651,12 +702,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                            "Bitmap subtitles cannot be translated")
                 raise Exception(error_msg)
             
-            extractor = SubtitleExtractor(ffmpeg_path)
-            subtitle_content = extractor.extract(
-                self.current_file,
-                source_sub.get('index', 0)
-            )
-            
+            subtitle_content = self._extract_subtitle_content(source_sub)
+
             if not subtitle_content:
                 error_msg = "Failed to extract subtitle - FFmpeg returned empty content"
                 get_error_reporter().report_error('ffmpeg', error_msg, context={
@@ -699,22 +746,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.set_service(service_display)
             get_debug_logger().debug(f"Using translation service: {actual_service}", 'api')
             
-            translator = get_translator(
-                actual_service,
-                self.get_service_config() if actual_service == self.translation_service else self._get_fallback_config(actual_service)
-            )
-            
-            # Set media context for context-aware translation (film title, plot, genre etc.)
-            try:
-                from lib.dialogs import get_media_context
-                media_ctx = get_media_context()
-                if media_ctx:
-                    translator.set_media_context(media_ctx)
-                    ctx_display = media_ctx.get('display', '')
-                    if ctx_display:
-                        get_debug_logger().debug(f"Media context: {ctx_display}", 'api')
-            except Exception:
-                pass
+            translator = self._prepare_translator(actual_service)
             
             # Translate in batches with progress
             translated_entries = []
@@ -722,6 +754,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             total_batches = (len(entries) + batch_size - 1) // batch_size
             
             # Track success/failure
+            used_services = set()
             successful_batches = 0
             failed_batches = 0
             max_consecutive_failures = 3  # Abort after 3 consecutive failures
@@ -761,14 +794,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     import time as _time
                     start_time = _time.time()
                     
-                    translated_texts = translator.translate_batch(
-                        texts,
+                    translated_texts = self._translate_batch(
+                        translator, texts,
                         self.source_language,
                         self.target_language
                     )
                     
                     elapsed = (_time.time() - start_time) * 1000
                     get_debug_logger().timing(f"Batch {batch_num + 1} translation", elapsed)
+                    used_services.add(actual_service)
                     successful_batches += 1
                     consecutive_failures = 0
                     
@@ -793,18 +827,13 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                             get_debug_logger().info(f"Trying fallback: {fallback_service}", 'api')
                             progress.update(current_count, f"Fallback: {fallback_service}...")
                             
-                            fallback_config = {'timeout': get_setting_int('request_timeout')}
-                            if fallback_service == 'lingva':
-                                fallback_config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
-                            elif fallback_service == 'libretranslate':
-                                fallback_config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
-                            
-                            fallback_translator = get_translator(fallback_service, fallback_config)
-                            translated_texts = fallback_translator.translate_batch(
-                                texts,
+                            fallback_translator = self._prepare_translator(fallback_service)
+                            translated_texts = self._translate_batch(
+                                fallback_translator, texts,
                                 self.source_language,
                                 self.target_language
                             )
+                            used_services.add(fallback_service)
                             successful_batches += 1
                             consecutive_failures = 0
                             get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
@@ -867,33 +896,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             if success_rate < 0.5:
                 raise Exception(f"Translation failed: only {successful_batches}/{total_batches} batches translated successfully")
             
-            # Verify that text actually changed (detect false "success" where original text was kept)
-            unchanged_count = 0
-            for orig, trans in zip(entries, translated_entries):
-                if orig.get('text', '').strip() == trans.get('text', '').strip():
-                    unchanged_count += 1
-            unchanged_ratio = unchanged_count / len(entries) if entries else 0
-            log(f"Translation check: {unchanged_count}/{len(entries)} unchanged ({unchanged_ratio:.0%})")
-            # Log first 3 entries for debugging
-            for idx in range(min(3, len(entries))):
-                orig_text = entries[idx].get('text', '')[:60]
-                trans_text = translated_entries[idx].get('text', '')[:60] if idx < len(translated_entries) else '?'
-                log(f"  Sample {idx+1}: '{orig_text}' → '{trans_text}'")
-            if unchanged_ratio > 0.95:
-                raise Exception(
-                    f"Translation failed: {unchanged_count}/{len(entries)} entries "
-                    f"({unchanged_ratio:.0%}) were not translated. "
-                    f"The translation service may be unreachable. "
-                    f"Try a different service in settings."
-                )
-            
             # Format output (90%)
             progress.set_stage('format', f"{get_string(30708)} (90%)")  # Parsing/formatting
             get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
             # Determine service label early for disclaimer
-            service_label = actual_service.replace('_', ' ').title()
+            service_label = ', '.join(name.replace('_', ' ').title() for name in sorted(used_services))
             
+            translated_entries = self._apply_profile(translated_entries, parser)
+
             # Add disclaimer as first subtitle entries
             disclaimer_entries = self._make_disclaimer(service_label)
             # Shift existing indices
@@ -924,6 +935,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
             completion_msg = get_string(30852).format(len(translated_entries), service_label, elapsed_str)
+            from lib.advanced_features import SubtitleStatistics
+            SubtitleStatistics(get_addon_data()).record_translation(
+                ','.join(sorted(used_services)), self.target_language, len(entries),
+                sum(len(entry['text']) for entry in entries))
             progress.complete(True, completion_msg)
             
         except Exception as e:
@@ -942,14 +957,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 notify(get_string(30702), icon=xbmcgui.NOTIFICATION_ERROR)
         
         finally:
+            if progress and progress.dialog:
+                progress.dialog.close()
+                progress.dialog = None
             self.translation_in_progress = False
+            if not self.isPlaying():
+                self._cleanup_temporary_subtitles()
             
             # Resume playback if we paused it
             if was_playing:
                 try:
                     # Check if player is paused using condition visibility
                     is_paused = xbmc.getCondVisibility('Player.Paused')
-                    if is_paused:
+                    if is_paused and self.isPlaying() and self.getPlayingFile() == self.current_file:
                         self.pause()  # Toggle pause to resume
                         log("Resumed playback after translation")
                         if self.show_notification:
@@ -984,7 +1004,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             get_debug_logger().debug("Cache miss, starting translation", 'cache')
             
             # Pause playback during translation
-            if self.isPlaying():
+            if self.isPlaying() and not xbmc.getCondVisibility('Player.Paused'):
                 was_playing = True
                 self.pause()
                 log("Paused playback during translation")
@@ -992,7 +1012,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     notify(get_string(30717))
             
             # Initialize progress dialog
-            progress = TranslationProgress(show_dialog=self.show_notification)
+            progress = TranslationProgress(show_dialog=self.show_progress_dialog, show_notification=self.show_notification)
             progress.start(get_string(30700))
             
             # Read external subtitle
@@ -1036,16 +1056,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             progress.set_stage('translate', get_string(30709))
             get_debug_logger().debug(f"Using translation service: {actual_service}", 'api')
             
-            translator = get_translator(
-                actual_service,
-                self.get_service_config() if actual_service == self.translation_service else self._get_fallback_config(actual_service)
-            )
+            translator = self._prepare_translator(actual_service)
             
             # Translate in batches with progress
             translated_entries = []
             batch_size = self.batch_size
             total_batches = (len(entries) + batch_size - 1) // batch_size
             
+            used_services = set()
             successful_batches = 0
             failed_batches = 0
             max_consecutive_failures = 3
@@ -1082,14 +1100,15 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                     import time as _time
                     start_time = _time.time()
                     
-                    translated_texts = translator.translate_batch(
-                        texts,
+                    translated_texts = self._translate_batch(
+                        translator, texts,
                         self.source_language,
                         self.target_language
                     )
                     
                     elapsed = (_time.time() - start_time) * 1000
                     get_debug_logger().timing(f"Batch {batch_num + 1} translation", elapsed)
+                    used_services.add(actual_service)
                     successful_batches += 1
                     consecutive_failures = 0
                     
@@ -1104,18 +1123,13 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                             get_debug_logger().info(f"Trying fallback: {fallback_service}", 'api')
                             progress.update(current_count, f"Fallback: {fallback_service}...")
                             
-                            fallback_config = {'timeout': get_setting_int('request_timeout')}
-                            if fallback_service == 'lingva':
-                                fallback_config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
-                            elif fallback_service == 'libretranslate':
-                                fallback_config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
-                            
-                            fallback_translator = get_translator(fallback_service, fallback_config)
-                            translated_texts = fallback_translator.translate_batch(
-                                texts,
+                            fallback_translator = self._prepare_translator(fallback_service)
+                            translated_texts = self._translate_batch(
+                                fallback_translator, texts,
                                 self.source_language,
                                 self.target_language
                             )
+                            used_services.add(fallback_service)
                             successful_batches += 1
                             consecutive_failures = 0
                             get_debug_logger().info(f"Fallback {fallback_service} succeeded", 'api')
@@ -1174,8 +1188,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             get_debug_logger().debug(f"Generating {self.subtitle_format} output", 'format')
             
             # Determine service label early for disclaimer
-            service_label = actual_service.replace('_', ' ').title()
+            service_label = ', '.join(name.replace('_', ' ').title() for name in sorted(used_services))
             
+            translated_entries = self._apply_profile(translated_entries, parser)
+
             # Add disclaimer as first subtitle entries
             disclaimer_entries = self._make_disclaimer(service_label)
             num_disclaimer = len(disclaimer_entries)
@@ -1205,6 +1221,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             summary = progress.get_summary()
             get_debug_logger().info(f"Translation complete: {summary}", 'translation')
             completion_msg = get_string(30852).format(len(translated_entries), service_label, elapsed_str)
+            from lib.advanced_features import SubtitleStatistics
+            SubtitleStatistics(get_addon_data()).record_translation(
+                ','.join(sorted(used_services)), self.target_language, len(entries),
+                sum(len(entry['text']) for entry in entries))
             progress.complete(True, completion_msg)
             
         except Exception as e:
@@ -1223,12 +1243,17 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 notify(get_string(30702), icon=xbmcgui.NOTIFICATION_ERROR)
         
         finally:
+            if progress and progress.dialog:
+                progress.dialog.close()
+                progress.dialog = None
             self.translation_in_progress = False
+            if not self.isPlaying():
+                self._cleanup_temporary_subtitles()
             
             if was_playing:
                 try:
                     is_paused = xbmc.getCondVisibility('Player.Paused')
-                    if is_paused:
+                    if is_paused and self.isPlaying() and self.getPlayingFile() == self.current_file:
                         self.pause()
                         log("Resumed playback after translation")
                         if self.show_notification:
@@ -1246,24 +1271,42 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         return f"{secs}s"
     
     def _get_fallback_config(self, service):
-        """Get config for a fallback service (e.g. lingva)."""
-        config = {'timeout': get_setting_int('request_timeout')}
-        if service == 'lingva':
-            config['url'] = get_setting('lingva_url') or 'https://lingva.ml'
-        elif service == 'libretranslate':
-            config['url'] = get_setting('libretranslate_url') or 'https://translate.argosopentech.com'
-        return config
-    
+        """Use each fallback service's own configured URL and credentials."""
+        return self.get_service_config(service)
+
+    def _cache_identity(self, path, stream):
+        try:
+            stat = xbmcvfs.Stat(path)
+            fingerprint = (stat.st_size(), stat.st_mtime())
+        except Exception:
+            fingerprint = None
+        identity = {
+            'schema': 2, 'file': path, 'stream': stream, 'fingerprint': fingerprint,
+            'source_language': self.source_language, 'target_language': self.target_language,
+            'service': self.translation_service, 'config': self.get_service_config(),
+            'format': self.subtitle_format,
+        }
+        return hashlib.sha256(json.dumps(identity, sort_keys=True).encode('utf-8')).hexdigest()
+
     def get_cache_key_external(self, subtitle_path):
-        """Generate a unique cache key for an external subtitle file."""
-        key_data = f"ext|{subtitle_path}|{self.target_language}"
-        return hashlib.md5(key_data.encode()).hexdigest()
-    
+        """Invalidate cached translations when the input or translation settings change."""
+        return self._cache_identity(subtitle_path, 'external')
+
     def get_cache_key(self, source_sub):
-        """Generate a unique cache key for the subtitle."""
-        key_data = f"{self.current_file}|{source_sub.get('index', 0)}|{self.target_language}"
-        return hashlib.md5(key_data.encode()).hexdigest()
-    
+        return self._cache_identity(self.current_file, source_sub.get('index', 0))
+
+    def _cleanup_temporary_subtitles(self):
+        for path in getattr(self, '_temporary_subtitles', []):
+            if os.path.exists(path):
+                os.unlink(path)
+        self._temporary_subtitles = []
+
+    def onPlayBackStopped(self):
+        self._cleanup_temporary_subtitles()
+
+    def onPlayBackEnded(self):
+        self._cleanup_temporary_subtitles()
+
     def get_cached_subtitle(self, cache_key):
         """Get path to cached subtitle if it exists and is valid."""
         if not self.cache_translations:
@@ -1285,6 +1328,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             
             if time.time() - cache_time > max_age:
                 log(f"Cache expired for {cache_key}")
+                xbmcvfs.delete(cache_file)
+                xbmcvfs.delete(meta_file)
                 return None
             
             return cache_file
@@ -1359,43 +1404,32 @@ class SubtitleTranslatorPlayer(xbmc.Player):
 
     def save_subtitle(self, content, cache_key):
         """Save translated subtitle to cache and optionally alongside video."""
-        # Save to cache
-        cache_file = os.path.join(get_cache_path(), f"{cache_key}.{self.subtitle_format}")
-        meta_file = os.path.join(get_cache_path(), f"{cache_key}.json")
-        
-        with xbmcvfs.File(cache_file, 'w') as f:
-            f.write(content)
-        
-        with xbmcvfs.File(meta_file, 'w') as f:
-            f.write(json.dumps({
-                'timestamp': time.time(),
-                'source_file': self.current_file,
-                'target_language': self.target_language
-            }))
-        
+        if self.cache_translations:
+            cache_file = os.path.join(get_cache_path(), f"{cache_key}.{self.subtitle_format}")
+            meta_file = os.path.join(get_cache_path(), f"{cache_key}.json")
+            with xbmcvfs.File(cache_file, 'w') as f:
+                f.write(content)
+            with xbmcvfs.File(meta_file, 'w') as f:
+                f.write(json.dumps({'timestamp': time.time()}))
+        else:
+            fd, cache_file = tempfile.mkstemp(prefix='subtitle-', suffix='.' + self.subtitle_format, dir=get_addon_data())
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                f.write(content)
+            self._temporary_subtitles.append(cache_file)
+
         output_path = cache_file
         
         # Optionally save alongside video
         if self.save_alongside:
-            video_dir = os.path.dirname(self.current_file)
-            video_name = os.path.splitext(os.path.basename(self.current_file))[0]
-            alongside_path = self._normalize_path(os.path.join(
-                video_dir,
-                f"{video_name}.{self.target_language}.{self.subtitle_format}"
-            ))
-            
-            try:
-                with xbmcvfs.File(alongside_path, 'w') as f:
-                    f.write(content)
-                output_path = alongside_path
-                log(f"Saved subtitle alongside video: {alongside_path}")
-            except Exception as e:
-                log(f"Could not save alongside video: {e}", level=xbmc.LOGWARNING)
-        
+            self._copy_to_alongside(cache_file)
+
         return output_path
     
     def load_subtitle(self, path):
         """Load a subtitle file into the player and enable it."""
+        if not self.isPlaying() or self.getPlayingFile() != self.current_file:
+            log('Playback changed; keeping translated subtitles for the original video')
+            return
         self.setSubtitles(path)
         
         # Enable subtitle visibility and select the new subtitle
@@ -1408,16 +1442,16 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 'properties': ['subtitles', 'currentsubtitle', 'subtitleenabled']
             })
             
-            if result and 'result' in result:
-                subtitles = result['result'].get('subtitles', [])
+            if result and 'subtitles' in result:
+                subtitles = result.get('subtitles', [])
                 
                 # Find our subtitle (usually the last one added, or match by name)
-                new_sub_index = len(subtitles) - 1 if subtitles else 0
+                new_sub_index = subtitles[-1]['index'] if subtitles else 0
                 
                 # Look for exact path match
                 for i, sub in enumerate(subtitles):
                     if sub.get('name', '').endswith(os.path.basename(path)):
-                        new_sub_index = i
+                        new_sub_index = sub['index']
                         break
                 
                 # Enable subtitles and select the new one
@@ -1440,41 +1474,47 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         self.showSubtitles(True)
         log(f"Loaded and activated subtitle: {path}")
     
-    def get_service_config(self):
+    def get_service_config(self, service=None):
         """Get configuration for the selected translation service."""
+        service = service or self.translation_service
         config = {
-            'timeout': get_setting_int('request_timeout')
+            'timeout': get_setting_int('request_timeout'),
+            'max_retries': get_setting_int('max_retries'),
+            'retry_delay': get_setting_int('retry_delay'),
+            'rate_limit': get_setting_int('rate_limit'),
+            'profile': self._get_profile(),
         }
         
-        if self.translation_service == 'deepl':
+        if service == 'deepl':
             config['api_key'] = get_setting('deepl_api_key')
             config['formality'] = get_setting('deepl_formality')
+            config['glossary_id'] = get_setting('deepl_glossary_id')
             config['free'] = False
-        elif self.translation_service == 'deepl_free':
+        elif service == 'deepl_free':
             config['api_key'] = get_setting('deepl_api_key')
             config['formality'] = get_setting('deepl_formality')
+            config['glossary_id'] = get_setting('deepl_glossary_id')
             config['free'] = True
-        elif self.translation_service == 'libretranslate':
+        elif service == 'libretranslate':
             config['url'] = get_setting('libretranslate_url')
             config['api_key'] = get_setting('libretranslate_api_key')
-        elif self.translation_service == 'google':
+        elif service == 'google':
             config['api_key'] = get_setting('google_api_key')
-        elif self.translation_service == 'microsoft':
+        elif service == 'microsoft':
             config['api_key'] = get_setting('microsoft_api_key')
             config['region'] = get_setting('microsoft_region')
-        elif self.translation_service == 'lingva':
+        elif service == 'lingva':
             config['url'] = get_setting('lingva_url')
-        elif self.translation_service == 'openai':
+        elif service == 'openai':
             config['api_key'] = get_setting('openai_api_key')
             config['model'] = get_setting('openai_model')
+            config['temperature'] = float(get_setting('openai_temperature') or '0.3')
             base_url = get_setting('openai_base_url')
             if base_url:
                 config['base_url'] = base_url
-        elif self.translation_service == 'anthropic':
+        elif service == 'anthropic':
             config['api_key'] = get_setting('anthropic_api_key')
             config['model'] = get_setting('anthropic_model')
-        elif self.translation_service == 'argos':
-            config['package_path'] = get_setting('argos_package_path')
         
         return config
     
@@ -1552,6 +1592,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             return None
         
         # The language code is typically the last part before the extension
+        while len(parts) > 1 and parts[-1].lower() in {'forced', 'sdh', 'cc', 'default'}:
+            parts.pop()
         candidate = parts[-1].lower()
         
         # Check against known language codes/names
@@ -1601,7 +1643,8 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 name_lower = filename.lower()
                 if not any(name_lower.endswith(ext) for ext in sub_extensions):
                     continue
-                if not name_lower.startswith(video_name.lower()):
+                if not (name_lower == video_name.lower() + os.path.splitext(filename)[1].lower()
+                        or name_lower.startswith(video_name.lower() + '.')):
                     continue
                 
                 full_path = self._normalize_path(os.path.join(video_dir, filename))
@@ -1678,6 +1721,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         return None
     
+    @staticmethod
+    def _decode_subtitle(content):
+        if content.startswith((b'\xff\xfe', b'\xfe\xff')):
+            return content.decode('utf-16')
+        if content.startswith(b'\xef\xbb\xbf'):
+            return content.decode('utf-8-sig')
+        for encoding in (get_setting('subtitle_encoding') or 'utf-8', 'utf-8-sig', 'cp1252', 'latin-1'):
+            try:
+                return content.decode(encoding)
+            except (UnicodeDecodeError, LookupError):
+                continue
+        return content.decode('utf-8', errors='replace')
+
     def read_external_subtitle(self, subtitle_path):
         """
         Read content from an external subtitle file.
@@ -1694,30 +1750,14 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             # Try reading with Kodi's VFS (supports network paths)
             if xbmcvfs.exists(subtitle_path):
                 with xbmcvfs.File(subtitle_path, 'r') as f:
-                    content = f.read()
-                
+                    content = bytes(f.readBytes())
                 if content:
-                    # Handle bytes if needed
-                    if isinstance(content, bytes):
-                        # Try UTF-8 first, then fall back to latin-1
-                        try:
-                            content = content.decode('utf-8')
-                        except UnicodeDecodeError:
-                            try:
-                                content = content.decode('utf-8-sig')  # BOM
-                            except UnicodeDecodeError:
-                                content = content.decode('latin-1')
-                    
-                    log(f"Successfully read {len(content)} bytes from external subtitle")
-                    return content
-            
-            # Fallback: try direct file access (local files)
+                    return self._decode_subtitle(content)
+
             if os.path.exists(subtitle_path):
-                with open(subtitle_path, 'r', encoding='utf-8', errors='replace') as f:
-                    content = f.read()
-                log(f"Read {len(content)} bytes using direct file access")
-                return content
-            
+                with open(subtitle_path, 'rb') as f:
+                    return self._decode_subtitle(f.read())
+
             log(f"External subtitle file not found: {subtitle_path}", level=xbmc.LOGERROR)
             return None
             
@@ -1745,7 +1785,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             'uk': 30813, 'ukr': 30813,
             'ja': 30814, 'jpn': 30814,
             'zh': 30815, 'chi': 30815, 'zho': 30815,
-            'zh-TW': 30816,
+            'zh-tw': 30816,
             'ko': 30817, 'kor': 30817,
             'ar': 30818, 'ara': 30818,
             'tr': 30819, 'tur': 30819,
@@ -1801,7 +1841,7 @@ def log(message, level=xbmc.LOGINFO):
     """Log message to Kodi log."""
     # Strip null characters that cause ValueError in xbmc.log (C API)
     safe_msg = str(message).replace('\x00', '')
-    xbmc.log(f"[{get_addon_id()}] {safe_msg}", level)
+    safe_log(f"[{get_addon_id()}] {safe_msg}", level)
 
 def notify(message, icon=xbmcgui.NOTIFICATION_INFO, time=5000):
     """Show notification."""
@@ -1832,11 +1872,12 @@ def main():
             if monitor.waitForAbort(1):
                 break
         
+        monitor.player._cleanup_temporary_subtitles()
         log("Subtitle Translator service stopped")
     except Exception as e:
-        xbmc.log(f"[SubtitleTranslator] Fatal error: {e}", xbmc.LOGERROR)
+        safe_log(f"[SubtitleTranslator] Fatal error: {e}", xbmc.LOGERROR)
         import traceback
-        xbmc.log(f"[SubtitleTranslator] {traceback.format_exc()}", xbmc.LOGERROR)
+        safe_log(f"[SubtitleTranslator] {traceback.format_exc()}", xbmc.LOGERROR)
 
 
 if __name__ == '__main__':

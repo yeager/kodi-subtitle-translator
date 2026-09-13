@@ -10,11 +10,12 @@ import io
 import os
 import re
 import xbmc
+from lib.safe_logging import log as safe_log
 import xbmcvfs
 
 
 def _log(msg, level=xbmc.LOGINFO):
-    xbmc.log(f"[MkvSubExtractor] {msg}", level)
+    safe_log(f"[MkvSubExtractor] {msg}", level)
 
 
 # Key EBML/Matroska element IDs
@@ -34,6 +35,8 @@ BLOCK_GROUP = 0xA0
 BLOCK = 0xA1
 BLOCK_DURATION = 0x9B
 NAME = 0x536E
+INFO = 0x1549A966
+TIMECODE_SCALE = 0x2AD7B1
 
 # Container elements (have children, don't skip entirely)
 CONTAINER_IDS = {SEGMENT, TRACKS, TRACK_ENTRY, CLUSTER, BLOCK_GROUP}
@@ -64,6 +67,8 @@ class StreamingReader:
     
     def read(self, n):
         """Read exactly n bytes."""
+        if n > 8 * 1024 * 1024:
+            raise ValueError('MKV element exceeds the 8 MiB read limit')
         if n <= 0:
             return b''
         
@@ -120,7 +125,9 @@ class StreamingReader:
         try:
             # We need to seek the underlying file to (current file read pos + file_skip)
             # But we don't know the file's internal position reliably, so seek absolute
-            self.vfs.seek(self.pos + n, 0)
+            position = self.vfs.seek(self.pos + n, 0)
+            if position != self.pos + n:
+                raise OSError('MKV seek failed')
             self.pos += n
             self.buf = b''
             self.buf_pos = self.pos
@@ -220,6 +227,7 @@ class MkvSubtitleExtractor:
     
     def __init__(self):
         self.subtitle_tracks = []
+        self.timecode_scale = 1000000
     
     def extract_from_vfs(self, vfs_path, track_index=0):
         """Extract subtitle from Kodi VFS path (smb://, nfs://, etc).
@@ -274,6 +282,7 @@ class MkvSubtitleExtractor:
         
         # 3. Scan for Tracks, then parse Clusters
         self.subtitle_tracks = []
+        self.timecode_scale = 1000000
         subtitle_track_num = None
         codec_id = None
         subtitle_entries = []
@@ -290,7 +299,18 @@ class MkvSubtitleExtractor:
             
             elem_data_pos = reader.tell()
             
-            if eid == TRACKS:
+            if eid == INFO:
+                info_end = reader.tell() + size
+                while reader.tell() < info_end:
+                    child, _ = _read_element_id(reader)
+                    child_size, _ = _read_vint(reader)
+                    if child is None or child_size is None:
+                        break
+                    if child == TIMECODE_SCALE:
+                        self.timecode_scale = _read_uint(reader.read(child_size))
+                    else:
+                        reader.skip(child_size)
+            elif eid == TRACKS:
                 # Parse track entries
                 self._parse_tracks(reader, elem_data_pos + size)
                 tracks_found = True
@@ -303,13 +323,15 @@ class MkvSubtitleExtractor:
                      ", ".join(f"#{t['number']} {t.get('language','?')} ({t.get('codec','')})"
                                for t in self.subtitle_tracks))
                 
-                if track_index >= len(self.subtitle_tracks):
+                if track_index < 0 or track_index >= len(self.subtitle_tracks):
                     _log(f"Track index {track_index} out of range", xbmc.LOGERROR)
                     return None
                 
                 target = self.subtitle_tracks[track_index]
                 subtitle_track_num = target['number']
                 codec_id = target.get('codec', '')
+                if codec_id not in {'S_TEXT/UTF8', 'S_TEXT/ASS', 'S_TEXT/SSA', 'S_TEXT/WEBVTT'}:
+                    return None
                 _log(f"Target: track #{subtitle_track_num} ({codec_id})")
                 
             elif eid == CLUSTER and tracks_found and subtitle_track_num is not None:
@@ -362,7 +384,7 @@ class MkvSubtitleExtractor:
                                 reader.skip(bgsize)
                         if block_data:
                             if duration is not None:
-                                block_data['end'] = block_data['start'] + duration
+                                block_data['end'] = block_data['start'] + duration * self.timecode_scale // 1000000
                             subtitle_entries.append(block_data)
                     else:
                         # Skip video/audio blocks
@@ -403,6 +425,8 @@ class MkvSubtitleExtractor:
             mask >>= 1
             length += 1
         
+        if length > 4 or block_size < length + 3:
+            return None
         track_num = first & (mask - 1)
         if length > 1:
             rest = reader.read(length - 1)
@@ -418,7 +442,9 @@ class MkvSubtitleExtractor:
             return None
         relative_tc = struct.unpack('>h', tc_bytes)[0]
         
-        flags = reader.read(1)  # flags byte
+        flags = reader.read(1)
+        if not flags or flags[0] & 0x06:
+            return None  # Laced blocks require decoding; never treat headers as text.
         
         # Remaining = subtitle text
         text_size = block_size - length - 3  # vint + 2 tc + 1 flags
@@ -436,7 +462,7 @@ class MkvSubtitleExtractor:
         if not text:
             return None
         
-        start_ms = cluster_tc + relative_tc
+        start_ms = (cluster_tc + relative_tc) * self.timecode_scale // 1000000
         end_ms = start_ms + (duration if duration else 3000)
         
         return {'start': start_ms, 'end': end_ms, 'text': text}

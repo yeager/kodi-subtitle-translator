@@ -1,3 +1,21 @@
+## v0.11.3 — Repository and runtime review
+
+- Exclude Python caches from Git and release packages; include package checksums.
+- Fix the native MKV method call, optional FFmpeg setup, subtitle stream numbering,
+  non-default time scales, and incomplete video cue handling.
+- Preserve long dialogue and parse BOM/CRLF subtitle files correctly.
+- JSON-encode Microsoft requests, propagate provider failures, validate response
+  alignment, and size DeepL chunks using the serialized request.
+- Apply profiles, media context and credentials to primary and fallback services.
+- Wire progress visibility, debug categories, retries, request rate, encoding,
+  FFmpeg threads and OpenAI temperature to their existing settings.
+- Invalidate stale cache entries and remove temporary output when caching is off.
+- Preserve existing sidecars and avoid attaching subtitles to a different video.
+- Verify Android FFmpeg/ffprobe downloads and redact credentials in diagnostics.
+- Replace retired bundled Claude model choices with an editable active default.
+- Consolidate the Swedish catalog without losing the newer strings.
+- Add offline regressions, a real MKV extraction test and package checks in CI.
+
 ## v0.11.2 — Bitmap subtitle detection
 
 **Bug fix: Reject bitmap subtitles (PGS/VobSub/DVB)**

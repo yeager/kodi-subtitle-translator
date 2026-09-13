@@ -1,0 +1,32 @@
+name: Check addon
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -B -m unittest discover -s tests -v
+      - run: python scripts/build_addon.py
+      - name: Reject tracked Python caches
+        run: |
+          python - <<'PY'
+          import subprocess
+          files = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+          bad = [p for p in files if '__pycache__' in p.split('/') or p.endswith(('.pyc', '.pyo'))]
+          if bad:
+              raise SystemExit('Tracked cache files: ' + ', '.join(bad))
+          PY
+      - name: Scan Git history and package contents with Gitleaks
+        run: |
+          curl --fail --location --silent --show-error https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz -o /tmp/gitleaks.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  /tmp/gitleaks.tar.gz" | sha256sum --check
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks git . --log-opts='--all' --redact --ignore-gitleaks-allow
+          /tmp/gitleaks dir . --max-archive-depth 2 --redact --ignore-gitleaks-allow

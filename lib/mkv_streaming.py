@@ -8,6 +8,7 @@ Only reads metadata and subtitle data, skipping video/audio entirely.
 
 import struct
 import xbmc
+from lib.safe_logging import log as safe_log
 import xbmcvfs
 
 # EBML Element IDs
@@ -75,19 +76,20 @@ class BufferedReader:
             self._buffer_pos = offset - self._buffer_start
             self._file_pos = offset
             return True
+        position = self._file.seek(offset, 0)
+        if position != offset:
+            raise OSError('Could not seek MKV input')
         self._buffer = b''
         self._buffer_pos = 0
         self._buffer_start = offset
         self._file_pos = offset
         self._eof = False
-        try:
-            self._file.seek(offset, 0)
-            return True
-        except Exception:
-            return False
+        return True
 
     def read(self, size):
         """Read exactly size bytes (or fewer at EOF)."""
+        if size < 0 or size > 8 * 1024 * 1024:
+            raise ValueError('MKV element exceeds the 8 MiB read limit')
         result = b''
         remaining = size
         while remaining > 0:
@@ -211,6 +213,7 @@ class MKVSubtitleTrack:
 
     def __init__(self):
         self.number = 0
+        self.global_index = 0
         self.uid = 0
         self.codec_id = ''
         self.codec_private = b''
@@ -241,9 +244,9 @@ class SubtitleBlock:
     @property
     def text(self):
         try:
-            return self.data.decode('utf-8')
+            return self.data.decode('utf-8').replace('\x00', '')
         except UnicodeDecodeError:
-            return self.data.decode('utf-8', errors='replace')
+            return self.data.decode('utf-8', errors='replace').replace('\x00', '')
 
 
 class MKVStreamingParser:
@@ -258,6 +261,7 @@ class MKVStreamingParser:
         self._timecode_scale = 1000000  # Default: 1ms in nanoseconds
         self._segment_start = 0
         self._tracks = []
+        self._track_count = 0
         self._cues = []
         self._subtitle_blocks = []
 
@@ -266,6 +270,7 @@ class MKVStreamingParser:
         self._timecode_scale = 1000000
         self._segment_start = 0
         self._tracks = []
+        self._track_count = 0
         self._cues = []
         self._subtitle_blocks = []
 
@@ -321,12 +326,14 @@ class MKVStreamingParser:
 
             self._log(f"Found {len(self._tracks)} subtitle track(s)")
 
-            if stream_index >= len(self._tracks):
+            if stream_index < 0 or stream_index >= len(self._tracks):
                 self._log(f"Stream index {stream_index} out of range "
                           f"(have {len(self._tracks)} tracks)", xbmc.LOGWARNING)
                 return None
 
             target_track = self._tracks[stream_index]
+            if not target_track.format:
+                return None  # Preserve stream numbering, but never decode bitmap tracks as text.
             self._log(f"Extracting track {target_track.number}: "
                       f"{target_track.codec_id} ({target_track.language})")
 
@@ -411,7 +418,9 @@ class MKVStreamingParser:
 
             streams = []
             for i, track in enumerate(self._tracks):
-                codec_name = 'unknown'
+                codec_name = {'S_HDMV/PGS': 'hdmv_pgs_subtitle',
+                              'S_VOBSUB': 'dvd_subtitle',
+                              'S_DVBSUB': 'dvb_subtitle'}.get(track.codec_id, 'unknown')
                 fmt = track.format
                 if fmt == 'srt':
                     codec_name = 'subrip'
@@ -421,7 +430,7 @@ class MKVStreamingParser:
                     codec_name = 'webvtt'
                 streams.append({
                     'index': i,
-                    'global_index': track.number,
+                    'global_index': track.global_index,
                     'codec': codec_name,
                     'language': track.language,
                     'title': track.name,
@@ -474,6 +483,7 @@ class MKVStreamingParser:
 
         found_tracks = False
         found_seekhead = False
+        found_info = False
 
         while reader.tell() < max_scan:
             elem_start = reader.tell()
@@ -490,6 +500,7 @@ class MKVStreamingParser:
                 found_seekhead = True
             elif elem_id == INFO:
                 self._parse_info(reader, elem_size)
+                found_info = True
             elif elem_id == TRACKS:
                 self._parse_tracks(reader, elem_size)
                 found_tracks = True
@@ -500,7 +511,7 @@ class MKVStreamingParser:
             # Skip to next element
             reader.seek(data_start + elem_size)
 
-            if found_tracks and found_seekhead:
+            if found_tracks and found_seekhead and found_info:
                 break
 
     def _parse_seekhead(self, reader, size, seek_positions):
@@ -571,6 +582,9 @@ class MKVStreamingParser:
             if elem_id == TRACK_ENTRY:
                 track = self._parse_track_entry(reader, elem_size)
                 if track:
+                    track.global_index = self._track_count
+                self._track_count += 1
+                if track:
                     self._tracks.append(track)
             reader.seek(data_start + elem_size)
 
@@ -582,6 +596,7 @@ class MKVStreamingParser:
         codec_id = ''
         codec_private = b''
         language = 'und'
+        language_bcp47 = None
         name = ''
         is_default = False
         is_forced = False
@@ -607,8 +622,8 @@ class MKVStreamingParser:
             elif elem_id == LANGUAGE:
                 language = reader.read(elem_size).decode('ascii', errors='replace').rstrip('\x00')
             elif elem_id == LANGUAGE_BCP47:
-                # BCP47 overrides the legacy Language element
-                language = reader.read(elem_size).decode('ascii', errors='replace').rstrip('\x00')
+                # BCP47 overrides legacy Language regardless of element order.
+                language_bcp47 = reader.read(elem_size).decode('ascii', errors='replace').rstrip('\x00')
             elif elem_id == TRACK_NAME:
                 name = reader.read(elem_size).decode('utf-8', errors='replace')
             elif elem_id == FLAG_DEFAULT:
@@ -623,14 +638,13 @@ class MKVStreamingParser:
         if track_type != TRACK_TYPE_SUBTITLE:
             return None
         if codec_id not in CODEC_MAP:
-            self._log(f"Skipping unsupported subtitle codec: {codec_id}", xbmc.LOGDEBUG)
-            return None
+            self._log(f"Unsupported subtitle codec: {codec_id}", xbmc.LOGDEBUG)
 
         track = MKVSubtitleTrack()
         track.number = track_number
         track.codec_id = codec_id
         track.codec_private = codec_private
-        track.language = language
+        track.language = language_bcp47 or language
         track.name = name
         track.default = is_default
         track.forced = is_forced
@@ -714,9 +728,9 @@ class MKVStreamingParser:
                 self._log(f"Seeking to {len(cluster_offsets)} clusters "
                           f"(subtitle cue entries)")
             else:
-                cluster_offsets = sorted(all_clusters)
-                self._log(f"No subtitle cues, scanning all "
-                          f"{len(cluster_offsets)} clusters")
+                # Video keyframe cues need not reference every subtitle cluster.
+                self._scan_clusters_linear(reader, seg_start, seg_size, track_num)
+                return
 
             for offset in cluster_offsets:
                 abs_offset = seg_start + offset
@@ -867,7 +881,12 @@ class MKVStreamingParser:
         """Reassemble subtitle blocks into the desired output format."""
         if track.format in ('ass', 'ssa') and output_format in ('ass', 'ssa'):
             return self._reassemble_ass(track)
-        return self._reassemble_srt(track)
+        content = self._reassemble_srt(track)
+        if output_format == 'vtt':
+            from lib.subtitle_parser import SubtitleParser
+            parser = SubtitleParser()
+            return parser.generate(parser.parse(content, 'srt'), 'vtt')
+        return content
 
     def _reassemble_srt(self, track):
         """Reassemble subtitle blocks into SRT format."""
@@ -1012,4 +1031,4 @@ class MKVStreamingParser:
 
     def _log(self, message, level=xbmc.LOGINFO):
         """Log message."""
-        xbmc.log(f"[MKVStreaming] {message}", level)
+        safe_log(f"[MKVStreaming] {message}", level)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test FFmpeg subtitle extraction outside of Kodi.
-Usage: python3 test_ffmpeg.py /path/to/video.mkv
+Usage: python3 scripts/check_ffmpeg.py /path/to/video.mkv
 """
 
 import subprocess
@@ -36,7 +36,7 @@ def find_ffmpeg():
 
 def get_subtitle_streams(video_path, ffmpeg_path):
     """Get subtitle streams from video."""
-    ffprobe = ffmpeg_path.replace('ffmpeg', 'ffprobe')
+    ffprobe = os.path.join(os.path.dirname(ffmpeg_path), os.path.basename(ffmpeg_path).replace('ffmpeg', 'ffprobe', 1))
     
     cmd = [
         ffprobe, '-v', 'quiet',
@@ -87,23 +87,21 @@ def extract_subtitle(video_path, stream_index, ffmpeg_path):
     
     print(f"Running: {' '.join(cmd)}")
     
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-    
-    if result.returncode != 0:
-        print(f"FFmpeg error: {result.stderr}")
-        os.unlink(output_path)
-        return None
-    
-    with open(output_path, 'r', encoding='utf-8', errors='replace') as f:
-        content = f.read()
-    
-    os.unlink(output_path)
-    return content
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        if result.returncode != 0:
+            print(f"FFmpeg error: {result.stderr}")
+            return None
+        with open(output_path, 'r', encoding='utf-8', errors='replace') as f:
+            return f.read()
+    finally:
+        if os.path.exists(output_path):
+            os.unlink(output_path)
 
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python3 test_ffmpeg.py /path/to/video.mkv")
+        print("Usage: python3 scripts/check_ffmpeg.py /path/to/video.mkv")
         sys.exit(1)
     
     video_path = sys.argv[1]
