@@ -662,7 +662,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 
                 # Also save alongside video if enabled
                 if self.save_alongside:
-                    self._copy_to_alongside(cached_path)
+                    cached_path = self._copy_to_alongside(cached_path) or cached_path
                 
                 self.load_subtitle(cached_path)
                 if self.show_notification:
@@ -994,7 +994,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 get_debug_logger().info(f"Cache hit: {cached_path}", 'cache')
                 
                 if self.save_alongside:
-                    self._copy_to_alongside(cached_path)
+                    cached_path = self._copy_to_alongside(cached_path) or cached_path
                 
                 self.load_subtitle(cached_path)
                 if self.show_notification:
@@ -1418,10 +1418,12 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             self._temporary_subtitles.append(cache_file)
 
         output_path = cache_file
-        
-        # Optionally save alongside video
+
+        # Prefer the user-requested sidecar both for playback and for the
+        # returned path.  This makes a successful "Save subtitle" operation
+        # observable in Kodi's video directory instead of only in the cache.
         if self.save_alongside:
-            self._copy_to_alongside(cache_file)
+            output_path = self._copy_to_alongside(cache_file) or cache_file
 
         return output_path
     
@@ -1432,29 +1434,26 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             return
         self.setSubtitles(path)
         
-        # Enable subtitle visibility and select the new subtitle
-        xbmc.sleep(500)  # Give Kodi time to load the subtitle
-        
+        # Kodi adds an external subtitle asynchronously. Poll briefly for the
+        # actual list entry before selecting it instead of relying on a fixed
+        # half-second delay.
         try:
-            # Get available subtitles to find the index of the one we just added
-            result = execute_jsonrpc('Player.GetProperties', {
-                'playerid': 1,
-                'properties': ['subtitles', 'currentsubtitle', 'subtitleenabled']
-            })
-            
-            if result and 'subtitles' in result:
-                subtitles = result.get('subtitles', [])
-                
-                # Find our subtitle (usually the last one added, or match by name)
-                new_sub_index = subtitles[-1]['index'] if subtitles else 0
-                
-                # Look for exact path match
-                for i, sub in enumerate(subtitles):
+            new_sub_index = None
+            for _attempt in range(10):
+                result = execute_jsonrpc('Player.GetProperties', {
+                    'playerid': 1,
+                    'properties': ['subtitles', 'currentsubtitle', 'subtitleenabled']
+                })
+                subtitles = result.get('subtitles', []) if result else []
+                for sub in subtitles:
                     if sub.get('name', '').endswith(os.path.basename(path)):
                         new_sub_index = sub['index']
                         break
-                
-                # Enable subtitles and select the new one
+                if new_sub_index is not None:
+                    break
+                xbmc.sleep(100)
+
+            if new_sub_index is not None:
                 execute_jsonrpc('Player.SetSubtitle', {
                     'playerid': 1,
                     'subtitle': new_sub_index,
@@ -1462,10 +1461,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
                 })
                 log(f"Selected subtitle index {new_sub_index} and enabled display")
             else:
-                # Fallback: just enable subtitles via built-in
-                xbmc.executebuiltin('ActivateWindow(SubtitleSearch)')
-                xbmc.sleep(100)
-                xbmc.executebuiltin('Action(Close)')
+                log(f"Kodi did not list the translated subtitle: {path}", level=xbmc.LOGWARNING)
                 
         except Exception as e:
             log(f"Could not auto-select subtitle: {e}", level=xbmc.LOGWARNING)

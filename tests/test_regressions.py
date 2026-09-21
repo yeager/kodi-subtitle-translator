@@ -168,6 +168,14 @@ class ServiceTests(unittest.TestCase):
         self.player.load_subtitle('/cache/old.srt')
         self.player.setSubtitles.assert_not_called()
 
+    def test_sidecar_path_is_used_for_playback_when_saving_alongside(self):
+        self.player.cache_translations = False
+        self.player._temporary_subtitles = []
+        self.player._copy_to_alongside = Mock(return_value='/videos/movie.sv.srt')
+        with tempfile.TemporaryDirectory() as directory, patch.object(service, 'get_addon_data', return_value=directory):
+            self.assertEqual(self.player.save_subtitle('Hej', 'unused'), '/videos/movie.sv.srt')
+        self.player._copy_to_alongside.assert_called_once()
+
 
 class ExtractionTests(unittest.TestCase):
     def test_ffprobe_path_only_replaces_the_binary_name(self):
