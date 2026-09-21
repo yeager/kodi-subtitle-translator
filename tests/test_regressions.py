@@ -170,6 +170,18 @@ class ServiceTests(unittest.TestCase):
 
 
 class ExtractionTests(unittest.TestCase):
+    def test_ffprobe_path_only_replaces_the_binary_name(self):
+        extractor = object.__new__(SubtitleExtractor)
+        extractor.ffmpeg_path = '/opt/ffmpeg-tools/bin/ffmpeg'
+        extractor._is_mkv_file = Mock(return_value=False)
+        extractor._resolve_path = Mock(return_value=('/videos/movie.mp4', False, None))
+        extractor._test_ffmpeg = Mock(return_value=True)
+        extractor._log = Mock()
+        completed = Mock(returncode=0, stdout='{"streams": []}', stderr='')
+        with patch('lib.subtitle_extractor.subprocess.run', return_value=completed) as run:
+            self.assertEqual(extractor.get_subtitle_streams('/videos/movie.mp4'), [])
+        self.assertEqual(run.call_args.args[0][0], '/opt/ffmpeg-tools/bin/ffprobe')
+
     def test_native_parser_method_is_callable_through_extractor(self):
         extractor = object.__new__(SubtitleExtractor)
         extractor._is_android = False
