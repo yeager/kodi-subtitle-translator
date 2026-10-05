@@ -45,9 +45,30 @@
                             <option label="Română">ro</option>
                             <option label="Magyar">hu</option>
                             <option label="עברית">he</option>
+                            <option label="30205">custom</option>
                         </options>
                     </constraints>
                     <control type="list" format="string"/>
+                </setting>
+
+                <setting id="custom_target_language_code" type="string" label="30206">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="target_language" operator="is">custom</dependency>
+                    </dependencies>
+                </setting>
+
+                <setting id="custom_target_language_name" type="string" label="30207">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="target_language" operator="is">custom</dependency>
+                    </dependencies>
                 </setting>
                 
                 <setting id="translation_service" type="string" label="30302">
@@ -260,9 +281,30 @@
                             <option label="French">fr</option>
                             <option label="Spanish">es</option>
                             <option label="Russian">ru</option>
+                            <option label="30205">custom</option>
                         </options>
                     </constraints>
                     <control type="list" format="string"/>
+                </setting>
+
+                <setting id="custom_source_language_code" type="string" label="30208">
+                    <level>2</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="source_language" operator="is">custom</dependency>
+                    </dependencies>
+                </setting>
+
+                <setting id="custom_source_language_name" type="string" label="30209">
+                    <level>2</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="source_language" operator="is">custom</dependency>
+                    </dependencies>
                 </setting>
                 
                 <setting id="auto_translate" type="boolean" label="30103">

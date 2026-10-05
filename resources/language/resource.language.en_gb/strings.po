@@ -79,6 +79,30 @@ msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
 msgstr ""
 
+msgctxt "#30205"
+msgid "Other language"
+msgstr ""
+
+msgctxt "#30206"
+msgid "Target language code"
+msgstr ""
+
+msgctxt "#30207"
+msgid "Target language name (for AI translation)"
+msgstr ""
+
+msgctxt "#30208"
+msgid "Source language code"
+msgstr ""
+
+msgctxt "#30209"
+msgid "Source language name (for AI translation)"
+msgstr ""
+
+msgctxt "#30210"
+msgid "Check the custom language code or name in settings"
+msgstr ""
+
 msgctxt "#30250"
 msgid "Profiles"
 msgstr ""

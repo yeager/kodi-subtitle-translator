@@ -103,6 +103,8 @@ FFmpeg is used as a **fallback** for non-MKV containers (MP4, AVI, etc.) or if t
 
 The addon has four settings levels: Basic, Standard, Advanced, and Expert. Configure via **Add-ons → My add-ons → Services → Subtitle Translator → Configure**.
 
+For a language missing from the lists, choose **Other language** for the target or source language. Enter its language code (for example, `bg`) in the field that appears. The code is used for subtitle filenames and passed to translation providers; the provider must support it. You may also enter the language name (for example, `Bulgarian`) for OpenAI or Anthropic prompts. The name is optional; AI providers use the code when it is blank.
+
 ## Compatibility
 
 - **Kodi 19 (Matrix)** and newer (Python 3)
