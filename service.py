@@ -12,6 +12,7 @@ import xbmcgui
 import xbmcvfs
 import json
 import os
+import re
 import hashlib
 import time
 import tempfile
@@ -170,8 +171,19 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         self.show_notification = get_setting_bool('show_notification')
         self.show_progress_dialog = get_setting_bool('show_progress_dialog')
         self.ask_before_translate = get_setting_bool('ask_before_translate')
-        self.target_language = get_setting('target_language')
-        self.source_language = get_setting('source_language')
+        self.language_names = {}
+        try:
+            self.target_language, target_name = self._resolve_language('target')
+            self.source_language, source_name = self._resolve_language('source')
+            if source_name:
+                self.language_names[self.source_language] = source_name
+            if target_name:
+                self.language_names[self.target_language] = target_name
+        except ValueError:
+            self.enabled = False
+            self.target_language = ''
+            self.source_language = ''
+            notify(get_string(30210), icon=xbmcgui.NOTIFICATION_ERROR)
         self.translation_service = get_setting('translation_service')
         self.cache_translations = get_setting_bool('cache_translations')
         self.cache_days = get_setting_int('cache_days')
@@ -191,6 +203,20 @@ class SubtitleTranslatorPlayer(xbmc.Player):
         
         log(f"Settings loaded: target={self.target_language}, "
             f"source={self.source_language}, service={self.translation_service}")
+
+    @staticmethod
+    def _resolve_language(kind):
+        """Resolve a custom selection to a safe language code and optional AI name."""
+        code = get_setting(f'{kind}_language')
+        if code != 'custom':
+            return code, ''
+        code = get_setting(f'custom_{kind}_language_code').strip()
+        name = get_setting(f'custom_{kind}_language_name').strip()
+        if not re.fullmatch(r'[A-Za-z]{2,8}(?:[-_][A-Za-z0-9]{2,8})*', code):
+            raise ValueError('Invalid custom language code')
+        if len(name) > 80 or any(ord(char) < 32 for char in name):
+            raise ValueError('Invalid custom language name')
+        return code, name
     
     # Services that require an API key and their setting keys
     _API_KEY_SERVICES = {
@@ -1479,6 +1505,7 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             'retry_delay': get_setting_int('retry_delay'),
             'rate_limit': get_setting_int('rate_limit'),
             'profile': self._get_profile(),
+            'language_names': getattr(self, 'language_names', {}),
         }
         
         if service == 'deepl':
@@ -1611,6 +1638,10 @@ class SubtitleTranslatorPlayer(xbmc.Player):
             'ms', 'may', 'msa', 'malay', 'fil', 'tl', 'tagalog',
             'ta', 'tam', 'tamil', 'te', 'tel', 'telugu',
         }
+        known_codes.update(
+            code.lower() for code in (getattr(self, 'source_language', ''),
+                                      getattr(self, 'target_language', '')) if code
+        )
         
         if candidate in known_codes:
             return candidate
@@ -1763,6 +1794,9 @@ class SubtitleTranslatorPlayer(xbmc.Player):
     
     def get_language_name(self, code):
         """Get localized language name from code."""
+        custom_name = getattr(self, 'language_names', {}).get(code)
+        if custom_name:
+            return custom_name
         # Map language codes to string IDs (30800+)
         code_to_string_id = {
             'sv': 30800, 'swe': 30800,

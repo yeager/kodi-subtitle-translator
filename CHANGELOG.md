@@ -1,3 +1,8 @@
+## Unreleased
+
+- Allow custom source and target language codes, with optional names for AI translation prompts.
+- Validate custom codes before using them in provider requests and subtitle filenames.
+
 ## v0.11.3 — Repository and runtime review
 
 - Exclude Python caches from Git and release packages; include package checksums.

@@ -83,6 +83,30 @@ msgctxt "#30204"
 msgid "Fallback languages (comma-separated)"
 msgstr "Reservspråk (kommaseparerade)"
 
+msgctxt "#30205"
+msgid "Other language"
+msgstr "Annat språk"
+
+msgctxt "#30206"
+msgid "Target language code"
+msgstr "Språkkod för målspråk"
+
+msgctxt "#30207"
+msgid "Target language name (for AI translation)"
+msgstr "Namn på målspråk (för AI-översättning)"
+
+msgctxt "#30208"
+msgid "Source language code"
+msgstr "Språkkod för källspråk"
+
+msgctxt "#30209"
+msgid "Source language name (for AI translation)"
+msgstr "Namn på källspråk (för AI-översättning)"
+
+msgctxt "#30210"
+msgid "Check the custom language code or name in settings"
+msgstr "Kontrollera språkkoden eller språknamnet i inställningarna"
+
 msgctxt "#30250"
 msgid "Profiles"
 msgstr "Profiler"

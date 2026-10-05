@@ -561,6 +561,9 @@ Rules:
     
     def _get_language_name(self, code):
         """Get full language name from code."""
+        custom_name = self.config.get('language_names', {}).get(code)
+        if custom_name:
+            return custom_name
         names = {
             'sv': 'Swedish', 'en': 'English', 'de': 'German', 'fr': 'French',
             'es': 'Spanish', 'it': 'Italian', 'no': 'Norwegian', 'da': 'Danish',
@@ -674,6 +677,9 @@ Rules:
     
     def _get_language_name(self, code):
         """Get full language name from code."""
+        custom_name = self.config.get('language_names', {}).get(code)
+        if custom_name:
+            return custom_name
         names = {
             'sv': 'Swedish', 'en': 'English', 'de': 'German', 'fr': 'French',
             'es': 'Spanish', 'it': 'Italian', 'no': 'Norwegian', 'da': 'Danish',

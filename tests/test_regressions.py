@@ -117,6 +117,26 @@ class TranslationTests(unittest.TestCase):
         translator.translate('and/or', 'en', 'sv')
         self.assertTrue(translator._request.call_args.args[0].endswith('/and%2For'))
 
+    def test_custom_language_name_reaches_ai_prompts(self):
+        config = {'api_key': 'fixture', 'language_names': {'bg': 'Bulgarian'}}
+        for cls, reply in (
+            (translators.OpenAITranslator, {'choices': [{'finish_reason': 'stop', 'message': {'content': 'Здравей'}}]}),
+            (translators.AnthropicTranslator, {'stop_reason': 'end_turn', 'content': [{'text': 'Здравей'}]}),
+        ):
+            with self.subTest(provider=cls.__name__):
+                translator = cls(config)
+                translator._request = Mock(return_value=reply)
+                self.assertEqual(translator.translate_batch(['Hello'], 'en', 'bg'), ['Здравей'])
+                payload = translator._request.call_args.args[1]
+                prompt = payload['messages'][0]['content'] if cls is translators.OpenAITranslator else payload['system']
+                self.assertIn('Bulgarian', prompt)
+
+    def test_custom_language_code_reaches_code_based_provider(self):
+        translator = translators.LibreTranslateTranslator({})
+        translator._request = Mock(return_value={'translatedText': 'Здравей'})
+        self.assertEqual(translator.translate('Hello', 'en', 'bg'), 'Здравей')
+        self.assertEqual(translator._request.call_args.args[1]['target'], 'bg')
+
 
 class ServiceTests(unittest.TestCase):
     def setUp(self):
@@ -126,6 +146,27 @@ class ServiceTests(unittest.TestCase):
         self.player.target_language = 'sv'
         self.player.subtitle_format = 'srt'
         self.player.save_alongside = True
+
+    def test_custom_language_settings_are_resolved_and_path_safe(self):
+        settings = {
+            'target_language': 'custom',
+            'custom_target_language_code': 'bg',
+            'custom_target_language_name': 'Bulgarian',
+        }
+        with patch.object(service, 'get_setting', side_effect=lambda key: settings.get(key, '')):
+            self.assertEqual(self.player._resolve_language('target'), ('bg', 'Bulgarian'))
+            settings['custom_target_language_code'] = '../bg'
+            with self.assertRaises(ValueError):
+                self.player._resolve_language('target')
+            settings['custom_target_language_code'] = ''
+            with self.assertRaises(ValueError):
+                self.player._resolve_language('target')
+            settings['target_language'] = 'sv'
+            self.assertEqual(self.player._resolve_language('target'), ('sv', ''))
+
+    def test_custom_language_sidecar_is_recognized(self):
+        self.player.target_language = 'bg'
+        self.assertEqual(self.player._parse_language_from_filename('movie.bg.srt'), 'bg')
 
     def test_native_extraction_does_not_require_ffmpeg(self):
         extractor = Mock(ffmpeg_path=None)
